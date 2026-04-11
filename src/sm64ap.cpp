@@ -2,10 +2,10 @@
 #include "Archipelago.h"
 
 extern "C" {
-    #include "game/print.h"
-    #include "gfx_dimensions.h"
-    #include "level_table.h"
-    #include "game/level_update.h"
+#include "game/print.h"
+#include "gfx_dimensions.h"
+#include "level_table.h"
+#include "game/level_update.h"
 }
 
 #include <string>
@@ -34,7 +34,7 @@ bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
 int sm64_completion_type = 0;
 std::bitset<SM64AP_NUM_ABILITIES> sm64_have_abilities;
-int* sm64_clockaction = nullptr;
+int *sm64_clockaction = nullptr;
 int sm64_cost_firstbowserdoor = 8;
 int sm64_cost_basementdoor = 30;
 int sm64_cost_secondfloordoor = 50;
@@ -45,10 +45,10 @@ int msg_frame_duration = 90; // 3 Secounds at 30F/s
 int cur_msg_frame_duration = msg_frame_duration;
 std::queue<int64_t> delayed_queue;
 
-std::map<int,int> map_entrances;
+std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
 
-std::map<int,int> map_boxid_locid;
+std::map<int, int> map_boxid_locid;
 
 int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
@@ -80,22 +80,25 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         case SM64AP_ITEMID_1UP:
             gMarioState->numLives++;
             break;
-        case SM64AP_ID_CANNONUNLOCK(0) ... SM64AP_ID_CANNONUNLOCK(15-1):
-            sm64_have_cannon[idx-(SM64AP_ID_CANNONUNLOCK(0))] = true;
+        case SM64AP_ID_CANNONUNLOCK(0)... SM64AP_ID_CANNONUNLOCK(15 - 1):
+            sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
             break;
-        case SM64AP_ID_PAINTINGUNLOCK(0) ... SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS-1):
-            // We don't have a painting unlock for BoB, so (0) will never appear; index 1 corresponds to WF, and so on
-            sm64_have_painting[idx-(SM64AP_ID_PAINTINGUNLOCK(0))] = true;
+        case SM64AP_ID_PAINTINGUNLOCK(0)... SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1):
+            // We don't have a painting unlock for BoB, so (0) will never appear; index 1 corresponds to
+            // WF, and so on
+            sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
             break;
         case SM64AP_ID_ABILITY(0):
-            sm64_have_abilities[idx-SM64AP_ABILITY_OFFSET+1] = sm64_have_abilities[idx-SM64AP_ABILITY_OFFSET];
-            sm64_have_abilities[idx-SM64AP_ABILITY_OFFSET] = true;
+            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET + 1] =
+                sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET];
+            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
             break;
-        case SM64AP_ID_ABILITY(1) ... SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES-1):
-            sm64_have_abilities[idx-SM64AP_ABILITY_OFFSET] = true;
+        case SM64AP_ID_ABILITY(1)... SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1):
+            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
             break;
         case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_GUST_TRAP:
-            if(!notify) break;
+            if (!notify)
+                break;
             delayed_queue.push(idx);
             break;
     }
@@ -119,7 +122,7 @@ u32 SM64AP_CourseStarFlags(s32 courseIdx) {
     return starflags;
 }
 
-void setCourseNodeAndArea(int coursenum, s16* oldnode, bool isDeathWarp, int warpOp) {
+void setCourseNodeAndArea(int coursenum, s16 *oldnode, bool isDeathWarp, int warpOp) {
     switch (coursenum) {
         case LEVEL_BOB:
             *oldnode = (isDeathWarp || warpOp != WARP_OP_STAR_EXIT) ? 0x64 : 0x32;
@@ -168,7 +171,7 @@ void setCourseNodeAndArea(int coursenum, s16* oldnode, bool isDeathWarp, int war
             return;
         case LEVEL_PSS:
         case LEVEL_TOTWC:
-            *oldnode = isDeathWarp ? 0x21 : (warpOp == WARP_OP_STAR_EXIT ? 0x26: 0x20);
+            *oldnode = isDeathWarp ? 0x21 : (warpOp == WARP_OP_STAR_EXIT ? 0x26 : 0x20);
             return;
         case LEVEL_SA:
             *oldnode = (isDeathWarp || warpOp != WARP_OP_STAR_EXIT) ? 0x28 : 0x27;
@@ -191,14 +194,20 @@ void setCourseNodeAndArea(int coursenum, s16* oldnode, bool isDeathWarp, int war
     }
 }
 
-void SM64AP_RedirectWarp(s16* curLevel, s16* destLevel, s8* curArea, s16* destArea, s16* destWarpNode, bool isDeathWarp, int warpOp) {
-    // When warping, always lock the clock and reset var to avoid segfault if old clock val is not in new area
+void SM64AP_RedirectWarp(s16 *curLevel, s16 *destLevel, s8 *curArea, s16 *destArea, s16 *destWarpNode,
+                         bool isDeathWarp, int warpOp) {
+    // When warping, always lock the clock and reset var to avoid segfault if old clock val is not in
+    // new area
     SM64AP_SetClockToTTCState();
-    if (*destLevel == LEVEL_BOWSER_3 || *curLevel == LEVEL_BOWSER_3 ||
-        *destLevel == LEVEL_BITS || *curLevel == LEVEL_BITS) return; // Dont play around with this one
-    if (*destWarpNode >= WARP_NODE_CREDITS_MIN) return; // Credit Warps
-    if ((*curLevel == LEVEL_CASTLE || *curLevel == LEVEL_CASTLE_COURTYARD || *curLevel == LEVEL_CASTLE_GROUNDS || *curLevel == LEVEL_HMC) && 
-         *destLevel != LEVEL_CASTLE && *destLevel != LEVEL_CASTLE_COURTYARD && *destLevel != LEVEL_CASTLE_GROUNDS) {
+    if (*destLevel == LEVEL_BOWSER_3 || *curLevel == LEVEL_BOWSER_3 || *destLevel == LEVEL_BITS
+        || *curLevel == LEVEL_BITS)
+        return; // Dont play around with this one
+    if (*destWarpNode >= WARP_NODE_CREDITS_MIN)
+        return; // Credit Warps
+    if ((*curLevel == LEVEL_CASTLE || *curLevel == LEVEL_CASTLE_COURTYARD
+         || *curLevel == LEVEL_CASTLE_GROUNDS || *curLevel == LEVEL_HMC)
+        && *destLevel != LEVEL_CASTLE && *destLevel != LEVEL_CASTLE_COURTYARD
+        && *destLevel != LEVEL_CASTLE_GROUNDS) {
         int destination;
         switch (*destLevel) {
             case LEVEL_LLL:
@@ -208,7 +217,8 @@ void SM64AP_RedirectWarp(s16* curLevel, s16* destLevel, s8* curArea, s16* destAr
                 destination = map_entrances[*destLevel * 10 + 1];
                 break;
             default:
-                if (*curLevel == LEVEL_HMC) return; // Safety Check: If in HMC only relevant warp is to COTMC
+                if (*curLevel == LEVEL_HMC)
+                    return; // Safety Check: If in HMC only relevant warp is to COTMC
                 destination = map_entrances[*destLevel * 10 + *destArea];
                 break;
         }
@@ -216,14 +226,17 @@ void SM64AP_RedirectWarp(s16* curLevel, s16* destLevel, s8* curArea, s16* destAr
             sm64_exit_return_to = *curLevel * 10 + *curArea;
             sm64_exit_orig_entrancelvl = *destLevel;
         }
-        *destLevel = destination/10; // Cuts off Area Info
-        *destArea = destination % 10; // Cuts off Level Info
+        *destLevel = destination / 10; // Cuts off Area Info
+        *destArea = destination % 10;  // Cuts off Level Info
         *destWarpNode = 0x0A;
         return;
     }
 
-    if ((*destLevel == LEVEL_CASTLE || *destLevel == LEVEL_CASTLE_COURTYARD || *destLevel == LEVEL_CASTLE_GROUNDS) && course_dest_supported.find(*curLevel) != course_dest_supported.end()) {
-        if (*destLevel == LEVEL_CASTLE && (*destWarpNode == 0x1F || *destWarpNode == 0x00)) return; //Exit Course or Inter-Castle warp
+    if ((*destLevel == LEVEL_CASTLE || *destLevel == LEVEL_CASTLE_COURTYARD
+         || *destLevel == LEVEL_CASTLE_GROUNDS)
+        && course_dest_supported.find(*curLevel) != course_dest_supported.end()) {
+        if (*destLevel == LEVEL_CASTLE && (*destWarpNode == 0x1F || *destWarpNode == 0x00))
+            return; // Exit Course or Inter-Castle warp
         *destLevel = sm64_exit_return_to / 10;
         *destArea = sm64_exit_return_to % 10;
         setCourseNodeAndArea(sm64_exit_orig_entrancelvl, destWarpNode, isDeathWarp, warpOp);
@@ -234,19 +247,20 @@ void SM64AP_RedirectWarp(s16* curLevel, s16* destLevel, s8* curArea, s16* destAr
 int SM64AP_EntranceToTTC() {
     int level = 0;
     for (auto itr : map_entrances) {
-        if (itr.second/10 == LEVEL_TTC) {
+        if (itr.second / 10 == LEVEL_TTC) {
             return itr.first;
         }
     }
     return -1; // Error Cond
 }
 
-void SM64AP_SetClockToTTCAction(int* action) {
+void SM64AP_SetClockToTTCAction(int *action) {
     sm64_clockaction = action;
 }
 
 void SM64AP_SetClockToTTCState() {
-    if (sm64_clockaction) *sm64_clockaction = 5;
+    if (sm64_clockaction)
+        *sm64_clockaction = 5;
     sm64_clockaction = nullptr;
 }
 
@@ -278,17 +292,18 @@ void SM64AP_SetCompletionType(int type) {
     sm64_completion_type = type;
 }
 
-void SM64AP_SetCourseMap(std::map<int,int> map) {
+void SM64AP_SetCourseMap(std::map<int, int> map) {
     map_entrances = map;
 }
 
 void SM64AP_SetMoveRandoVec(int vec) {
     for (int i = 1; i < SM64AP_NUM_ABILITIES; i++) { // Start at 1, DJ bit is unnecessary
-        sm64_have_abilities[i] = !std::bitset<SM64AP_NUM_ABILITIES>(vec).test(i) || sm64_have_abilities[i];
+        sm64_have_abilities[i] =
+            !std::bitset<SM64AP_NUM_ABILITIES>(vec).test(i) || sm64_have_abilities[i];
     }
 }
 void SM64AP_SetPaintingRando(int enabled) {
-    if(!enabled) {
+    if (!enabled) {
         // Not enabled, so unlock all paintings
         for (int i = 0; i < NUM_PAINTING_LOCKS; i++)
             sm64_have_painting[i] = true;
@@ -317,7 +332,7 @@ void SM64AP_ResetItems() {
     moat_request.key = AP_GetPrivateServerDataPrefix() + "MoatDrained";
     moat_request.type = AP_DataType::Int;
     int def_val = 0;
-    moat_request.operations = {{ "default", &def_val }};
+    moat_request.operations = { { "default", &def_val } };
     moat_request.default_value = &def_val;
     moat_request.want_reply = true;
     AP_SetServerData(&moat_request);
@@ -327,10 +342,12 @@ void SM64AP_SetReplyHandler(AP_SetReply reply) {
     if (reply.key == AP_GetPrivateServerDataPrefix() + "FinishedBowser") {
         switch (sm64_completion_type) {
             case 0: // Only BitS
-                if ((*(int*)(reply.value) & 0b100) > 0) AP_StoryComplete();
+                if ((*(int *) (reply.value) & 0b100) > 0)
+                    AP_StoryComplete();
                 break;
             case 1: // All Bowser Stages
-                if (*(int*)(reply.value) == 0b111) AP_StoryComplete();
+                if (*(int *) (reply.value) == 0b111)
+                    AP_StoryComplete();
                 break;
         }
     } else if (reply.key == AP_GetPrivateServerDataPrefix() + "MoatDrained") {
@@ -358,50 +375,52 @@ void SM64AP_GenericInit() {
     AP_RegisterSlotDataIntCallback("PaintingRando", &SM64AP_SetPaintingRando);
     AP_RegisterSlotDataMapIntIntCallback("AreaRando", &SM64AP_SetCourseMap);
 
-    course_dest_supported = {
-        LEVEL_BOB, LEVEL_WF, LEVEL_JRB, LEVEL_CCM, LEVEL_BBH, LEVEL_HMC, LEVEL_LLL, LEVEL_SSL, LEVEL_DDD, LEVEL_SL,
-        LEVEL_WDW, LEVEL_TTM, LEVEL_THI, LEVEL_TTC, LEVEL_RR, LEVEL_PSS, LEVEL_SA, LEVEL_BITDW, LEVEL_TOTWC, LEVEL_COTMC,
-        LEVEL_VCUTM, LEVEL_BITFS, LEVEL_WMOTR, LEVEL_BOWSER_1, LEVEL_BOWSER_2, LEVEL_BOWSER_3
-    };
-    
-    map_boxid_locid[LEVEL_CCM*10 + 1] = 3626215;
-    map_boxid_locid[LEVEL_CCM*10 + 2] = 3626216;
-    map_boxid_locid[LEVEL_CCM*10 + 3] = 3626217;
-    map_boxid_locid[LEVEL_BBH*10 + 1] = 3626218;
-    map_boxid_locid[LEVEL_HMC*10 + 1] = 3626219;
-    map_boxid_locid[LEVEL_HMC*10 + 2] = 3626220;
-    map_boxid_locid[LEVEL_SSL*10 + 1] = 3626221;
-    map_boxid_locid[LEVEL_SSL*10 + 2] = 3626222;
-    map_boxid_locid[LEVEL_SSL*10 + 3] = 3626223;
-    map_boxid_locid[LEVEL_SL*10 + 1] = 3626224;
-    map_boxid_locid[LEVEL_SL*10 + 2] = 3626225;
-    map_boxid_locid[LEVEL_WDW*10 + 2] = 3626226; // Uses first bit as flag for something, makes mario invisible :/
-    map_boxid_locid[LEVEL_TTM*10 + 1] = 3626227;
-    map_boxid_locid[LEVEL_THI*10 + 1] = 3626228;
-    map_boxid_locid[LEVEL_THI*10 + 2] = 3626229;
-    map_boxid_locid[LEVEL_THI*10 + 3] = 3626230;
-    map_boxid_locid[LEVEL_TTC*10 + 1] = 3626231;
-    map_boxid_locid[LEVEL_TTC*10 + 2] = 3626232;
-    map_boxid_locid[LEVEL_RR*10 + 1] = 3626233;
-    map_boxid_locid[LEVEL_RR*10 + 2] = 3626234;
-    map_boxid_locid[LEVEL_RR*10 + 3] = 3626235;
-    map_boxid_locid[LEVEL_BITDW*10 + 1] = 3626236;
-    map_boxid_locid[LEVEL_BITDW*10 + 2] = 3626237;
-    map_boxid_locid[LEVEL_BITFS*10 + 1] = 3626238;
-    map_boxid_locid[LEVEL_BITFS*10 + 2] = 3626239;
-    map_boxid_locid[LEVEL_BITS*10 + 1] = 3626240;
-    map_boxid_locid[LEVEL_COTMC*10 + 1] = 3626241;
-    map_boxid_locid[LEVEL_VCUTM*10 + 1] = 3626242;
-    map_boxid_locid[LEVEL_WMOTR*10 + 1] = 3626243;
+    course_dest_supported = { LEVEL_BOB,     LEVEL_WF,    LEVEL_JRB,   LEVEL_CCM,      LEVEL_BBH,
+                              LEVEL_HMC,     LEVEL_LLL,   LEVEL_SSL,   LEVEL_DDD,      LEVEL_SL,
+                              LEVEL_WDW,     LEVEL_TTM,   LEVEL_THI,   LEVEL_TTC,      LEVEL_RR,
+                              LEVEL_PSS,     LEVEL_SA,    LEVEL_BITDW, LEVEL_TOTWC,    LEVEL_COTMC,
+                              LEVEL_VCUTM,   LEVEL_BITFS, LEVEL_WMOTR, LEVEL_BOWSER_1, LEVEL_BOWSER_2,
+                              LEVEL_BOWSER_3 };
+
+    map_boxid_locid[LEVEL_CCM * 10 + 1] = 3626215;
+    map_boxid_locid[LEVEL_CCM * 10 + 2] = 3626216;
+    map_boxid_locid[LEVEL_CCM * 10 + 3] = 3626217;
+    map_boxid_locid[LEVEL_BBH * 10 + 1] = 3626218;
+    map_boxid_locid[LEVEL_HMC * 10 + 1] = 3626219;
+    map_boxid_locid[LEVEL_HMC * 10 + 2] = 3626220;
+    map_boxid_locid[LEVEL_SSL * 10 + 1] = 3626221;
+    map_boxid_locid[LEVEL_SSL * 10 + 2] = 3626222;
+    map_boxid_locid[LEVEL_SSL * 10 + 3] = 3626223;
+    map_boxid_locid[LEVEL_SL * 10 + 1] = 3626224;
+    map_boxid_locid[LEVEL_SL * 10 + 2] = 3626225;
+    map_boxid_locid[LEVEL_WDW * 10 + 2] =
+        3626226; // Uses first bit as flag for something, makes mario invisible :/
+    map_boxid_locid[LEVEL_TTM * 10 + 1] = 3626227;
+    map_boxid_locid[LEVEL_THI * 10 + 1] = 3626228;
+    map_boxid_locid[LEVEL_THI * 10 + 2] = 3626229;
+    map_boxid_locid[LEVEL_THI * 10 + 3] = 3626230;
+    map_boxid_locid[LEVEL_TTC * 10 + 1] = 3626231;
+    map_boxid_locid[LEVEL_TTC * 10 + 2] = 3626232;
+    map_boxid_locid[LEVEL_RR * 10 + 1] = 3626233;
+    map_boxid_locid[LEVEL_RR * 10 + 2] = 3626234;
+    map_boxid_locid[LEVEL_RR * 10 + 3] = 3626235;
+    map_boxid_locid[LEVEL_BITDW * 10 + 1] = 3626236;
+    map_boxid_locid[LEVEL_BITDW * 10 + 2] = 3626237;
+    map_boxid_locid[LEVEL_BITFS * 10 + 1] = 3626238;
+    map_boxid_locid[LEVEL_BITFS * 10 + 2] = 3626239;
+    map_boxid_locid[LEVEL_BITS * 10 + 1] = 3626240;
+    map_boxid_locid[LEVEL_COTMC * 10 + 1] = 3626241;
+    map_boxid_locid[LEVEL_VCUTM * 10 + 1] = 3626242;
+    map_boxid_locid[LEVEL_WMOTR * 10 + 1] = 3626243;
 }
 
-void SM64AP_InitMW(const char* ip, const char* player_name, const char* passwd) {
-    AP_Init(ip, "Super Mario 64", player_name, passwd);
+void SM64AP_InitMW(const char *ip, const char *player_name, const char *passwd) {
+    AP_Init(ip, "Mario 64 Incidious", player_name, passwd);
     SM64AP_GenericInit();
     AP_Start();
 }
 
-void SM64AP_InitSP(const char * filename) {
+void SM64AP_InitSP(const char *filename) {
     AP_Init(filename);
     SM64AP_GenericInit();
     AP_Start();
@@ -417,7 +436,8 @@ void SM64AP_SendItem(int idx) {
 
 // If an item exists on the stack, return it, otherwise 0
 int64_t SM64AP_PopDelayedStack() {
-    if(delayed_queue.empty()) return 0;
+    if (delayed_queue.empty())
+        return 0;
     int64_t item = delayed_queue.front();
     delayed_queue.pop();
     return item;
@@ -431,10 +451,9 @@ void SM64AP_FinishBowser(int i) {
     req.type = AP_DataType::Int;
     req.want_reply = true;
     int flag = 0b001 << i;
-    req.operations = std::vector<AP_DataStorageOperation>{{{"or", &flag}}};
+    req.operations = std::vector<AP_DataStorageOperation>{ { { "or", &flag } } };
     AP_SetServerData(&req);
 }
-
 
 void SM64AP_SetMoatDrained() {
     AP_SetServerDataRequest req;
@@ -493,7 +512,7 @@ bool SM64AP_HaveCap(int flag) {
             return sm64_have_vanishcap;
             break;
         default:
-            //Probably coin/1up or something
+            // Probably coin/1up or something
             return true;
     }
 }
@@ -513,20 +532,22 @@ bool SM64AP_PressedSwitch(int flag) {
 }
 
 bool SM64AP_HaveCannon(int courseIdx) {
-    if (courseIdx < 15) return sm64_have_cannon[courseIdx];
+    if (courseIdx < 15)
+        return sm64_have_cannon[courseIdx];
     return true;
 }
 
 bool SM64AP_HavePainting(int courseIdx) {
-    switch(courseIdx) {
+    switch (courseIdx) {
         case 1:  // BOB painting is always unlocked
         case 5:  // BBH doesn't have a painting
-        case 6:  // HMC has a painting but you get stuck in an infinite loop of falling in and getting pushed out, so let's not do that :)
+        case 6:  // HMC has a painting but you get stuck in an infinite loop of falling in and getting
+                 // pushed out, so let's not do that :)
         case 15: // RR doesn't have a painting
             return true;
         default:
             // courses are 1-indexed, the items are 0-indexed
-            return sm64_have_painting[courseIdx-1];
+            return sm64_have_painting[courseIdx - 1];
     }
 }
 
@@ -595,35 +616,45 @@ bool SM64AP_CanLedgeGrab() {
     return sm64_have_abilities[SM64AP_ID_LEDGEGRAB - SM64AP_ABILITY_OFFSET];
 }
 
-
 void SM64AP_PrintNext() {
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2, "Connecting");
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
+                   "Connecting");
     }
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::ConnectionRefused) {
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2, "CONNECTION REFUSED");
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20, "CHECK ARGS");
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2,
+                   "CONNECTION REFUSED");
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20,
+                   "CHECK ARGS");
     }
     if (!sm64_have_abilities.all() && !SM64AP_SUPPORT_MOVE_RANDO) {
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2, "INCOMPATIBLE WITH");
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20, "MOUE RANDO");
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2,
+                   "INCOMPATIBLE WITH");
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20,
+                   "MOUE RANDO");
     }
-    if (!AP_IsMessagePending()) return;
-    AP_Message* msg = AP_GetLatestMessage();
+    if (!AP_IsMessagePending())
+        return;
+    AP_Message *msg = AP_GetLatestMessage();
     if (msg->type == AP_MessageType::ItemSend) {
-        AP_ItemSendMessage* o_msg = static_cast<AP_ItemSendMessage*>(msg);
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-0)*20, (o_msg->item + std::string(" was sent")).c_str());
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-1)*20, (std::string("to ") + o_msg->recvPlayer).c_str());
+        AP_ItemSendMessage *o_msg = static_cast<AP_ItemSendMessage *>(msg);
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 0) * 20,
+                   (o_msg->item + std::string(" was sent")).c_str());
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 1) * 20,
+                   (std::string("to ") + o_msg->recvPlayer).c_str());
     } else if (msg->type == AP_MessageType::ItemRecv) {
-        AP_ItemRecvMessage* o_msg = static_cast<AP_ItemRecvMessage*>(msg);
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-0)*20, (std::string("Got ") + o_msg->item).c_str());
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-1)*20, (std::string("From ") + o_msg->sendPlayer).c_str());
+        AP_ItemRecvMessage *o_msg = static_cast<AP_ItemRecvMessage *>(msg);
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 0) * 20,
+                   (std::string("Got ") + o_msg->item).c_str());
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 1) * 20,
+                   (std::string("From ") + o_msg->sendPlayer).c_str());
     } else if (msg->type == AP_MessageType::Countdown) {
         cur_msg_frame_duration = std::min(cur_msg_frame_duration, 30);
-        AP_CountdownMessage* o_msg = static_cast<AP_CountdownMessage*>(msg);
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0) + SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, std::to_string(o_msg->timer).c_str());
+        AP_CountdownMessage *o_msg = static_cast<AP_CountdownMessage *>(msg);
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0) + SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                   std::to_string(o_msg->timer).c_str());
     } else {
-        //print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-0)*20, msg->text.c_str());
+        // print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-0)*20, msg->text.c_str());
     }
     if (cur_msg_frame_duration > 0) {
         cur_msg_frame_duration--;
