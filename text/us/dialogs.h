@@ -243,11 +243,11 @@ door. So Fuck off!"))
 
 DEFINE_DIALOG(DIALOG_027, 1, 4, 95, 200, _("\
 It takes the power of\n\
-[%] Stars to open this\n\
-door. So Fuck off!"))
+the laws of physics. Get\n\
+[%] Stars and come back, idiot!"))
 
 DEFINE_DIALOG(DIALOG_028, 1, 4, 95, 200, _("\
-It takes the power of\n\
+You can't just break\n\
 [%] Stars to open this\n\
 door. So Fuck off!"))
 
@@ -998,18 +998,15 @@ Oh, look what I found!\n\
 Here, Mario, catch!"))
 
 DEFINE_DIALOG(DIALOG_084, 1, 3, 30, 200, _("\
-Yeeoww! Unhand me,\n\
-brute! I'm late, so late,\n\
-I must make haste!\n\
-This shiny thing? Mine!\n\
-It's mine. Finders,\n\
-keepers, losers...\n\
-Late, late, late...\n\
-Ouch! Take it then! A\n\
-gift from Bowser, it was.\n\
-Now let me be! I have a\n\
-date! I cannot be late\n\
-for tea!"))
+Please! No more! Stop!\n\
+I quit. I'm tired of being\n\
+shoved into doors! Why?\n\
+Don't you realize how\n\
+cruel it is?\n\
+...\n\
+...\n\
+Fine. Take my star.\n\
+Just leave me be..."))
 
 DEFINE_DIALOG(DIALOG_085, 1, 5, 30, 200, _("\
 You don't stand a ghost\n\
@@ -1155,14 +1152,14 @@ though! Eeeee! Kee keee!"))
 
 DEFINE_DIALOG(DIALOG_102, 1, 5, 30, 200, _("\
 Pssst! The Boos are super\n\
-shy. If you look them\n\
-in the eyes, they fade\n\
-away, but if you turn\n\
-your back, they reappear.\n\
-It's no use trying to hit\n\
-them when they're fading\n\
-away. Instead, sneak up\n\
-behind them and punch."))
+Tsundere. It's not\n\
+like they want you\n\
+to look at them!\n\
+Turn your back to them,\n\
+let them get a nice peek!\n\
+Once Satisfied sneak around\n\
+them and give them a\n\
+glomping!"))
 
 DEFINE_DIALOG(DIALOG_103, 1, 4, 95, 200, _("\
 Upon four towers\n\
@@ -1196,12 +1193,12 @@ Ready for blastoff! Come\n\
 on, hop into the cannon!"))
 
 DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, _("\
-Ghosts...\n\
-...don't...\n\
-...DIE!\n\
-Heh, heh, heh!\n\
-Can you get out of here...\n\
-...alive?"))
+Bruh...\n\
+Are you...\n\
+FUCKING STUPID?!\n\
+Trying to kill a ghost?\n\
+Get you head...\n\
+out ya damn ass!"))
 
 DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, _("\
 Boooooo-m! Here comes\n\
