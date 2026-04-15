@@ -1,17 +1,17 @@
 // Parameters: dialog enum ID, (unused), lines per box, left offset, width
 
 #ifdef VERSION_EU
-#define COMRADES "friends"
+#define COMRADES "Pink Bitches"
 #define PLASTERED "splattered"
 #define SCAM_ME "cheat!\n"
-#define SCRAM "get lost"
+#define SCRAM "Fuck Off!"
 #define YOU_CANT_SWIM_IN_IT "Its too heavy to swim\nwith."
-#define GIVE_UP "give up"
+#define GIVE_UP "Fuck off!"
 #else
 #define COMRADES "comrades"
 #define PLASTERED "plastered"
 #define SCAM_ME "scam\nME. "
-#define SCRAM "scram--"
+#define SCRAM "Fuck off"
 #define YOU_CANT_SWIM_IN_IT "You can't swim in it."
 #define GIVE_UP "give"
 #endif
@@ -204,10 +204,10 @@ Shhh! Please walk\n\
 quietly in the hallway!"))
 
 DEFINE_DIALOG(DIALOG_020, 1, 6, 95, 150, _("\
-Dear Mario:\n\
+Dear Simp:\n\
 Please come to the\n\
-castle. I've baked\n\
-a cake for you.\n\
+castle. Bowser says\n\
+your fat.\n\
 Yours truly--\n\
 Princess Toadstool"))
 
@@ -220,82 +220,57 @@ Gwa ha ha!"))
 
 DEFINE_DIALOG(DIALOG_022, 1, 2, 95, 200, _("\
 You need a key to open\n\
-this door."))
+this door Dumbass."))
 
 DEFINE_DIALOG(DIALOG_023, 1, 3, 95, 200, _("\
 This key doesn't fit!\n\
 Maybe it's for the\n\
-basement..."))
+basement... Idiot"))
 
 DEFINE_DIALOG(DIALOG_024, 1, 5, 95, 200, _("\
-You need Star power to\n\
-open this door. Recover a\n\
-Power Star from an enemy\n\
-inside one of the castle's\n\
-paintings."))
+Hey dumbass\n\
+Try the door without a number."))
 
 DEFINE_DIALOG(DIALOG_025, 1, 4, 95, 200, _("\
 It takes the power of\n\
 [%] Stars to open this\n\
-door."))
+door. So Fuck off!"))
 
 DEFINE_DIALOG(DIALOG_026, 1, 4, 95, 200, _("\
 It takes the power of\n\
 [%] Stars to open this\n\
-door."))
+door. So Fuck off!"))
 
 DEFINE_DIALOG(DIALOG_027, 1, 4, 95, 200, _("\
 It takes the power of\n\
 [%] Stars to open this\n\
-door."))
+door. So Fuck off!"))
 
 DEFINE_DIALOG(DIALOG_028, 1, 4, 95, 200, _("\
 It takes the power of\n\
 [%] Stars to open this\n\
-door."))
+door. So Fuck off!"))
 
 DEFINE_DIALOG(DIALOG_029, 1, 5, 95, 200, _("\
 To open the door that\n\
 leads to the 『endless』\n\
 stairs, you need [%]\n\
-Stars.\n\
+Stars. So Fuck off!\n\
 Bwa ha ha!"))
 
 DEFINE_DIALOG(DIALOG_030, 1, 6, 30, 200, _("\
 Hello! The Lakitu Bros.,\n\
-cutting in with a live\n\
-update on Mario's\n\
-progress. He's about to\n\
-learn a technique for\n\
-sneaking up on enemies.\n\
-The trick is this: He has\n\
-to walk very slowly in\n\
-order to walk quietly.\n\
-\n\
-\n\
-\n\
-And wrapping up filming\n\
-techniques reported on\n\
-earlier, you can take a\n\
-look around using [C]> and\n\
-[C]<. Press [C]| to view the\n\
-action from a distance.\n\
-When you can't move the\n\
-camera any farther, the\n\
-buzzer will sound. This is\n\
-the Lakitu Bros.,\n\
-signing off."))
+Here to film\n\
+a fat fuck running around!"))
 
 DEFINE_DIALOG(DIALOG_031, 1, 5, 30, 200, _("\
 No way! You beat me...\n\
-again!! And I just spent\n\
+Fuck you Mario! i spent\n\
 my entire savings on\n\
 these new Koopa\n\
 Mach 1 Sprint shoes!\n\
-Here, I guess I have to\n\
-hand over this Star to\n\
-the winner of the race.\n\
-Congrats, Mario!"))
+What a fucking waste\n\
+Your a bitch!"))
 
 DEFINE_DIALOG(DIALOG_032, 1, 5, 30, 200, _("\
 If you get the Wing Cap,\n\
