@@ -54,8 +54,7 @@ Ready....\n\
 //Go!////Don't Go"))
 
 DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, _("\
-Bitch!!! Don't try to " SCAM_ME
-"You've gotta run\n\
+Bitch!!! Don't try to " SCAM_ME "You've gotta run\n\
 the whole course.\n\
 No stars sfor cheating bitches."))
 
@@ -686,8 +685,7 @@ by enemy attacks.\n\
 You don't even have to\n\
 breathe while wearing it.\n\
 \n\
-The only problem:\n"
-YOU_CANT_SWIM_IN_IT))
+The only problem:\n" YOU_CANT_SWIM_IN_IT))
 
 DEFINE_DIALOG(DIALOG_063, 1, 5, 30, 200, _("\
 The Vanish Cap is inside\n\
@@ -1868,7 +1866,8 @@ sliding, press [A] or [B]."))
 #ifdef VERSION_EU
 #define KEEP_ON_PLAYING ".."
 #else
-#define KEEP_ON_PLAYING "\n\
+#define KEEP_ON_PLAYING                                                                                \
+    "\n\
 We want you to keep on\n\
 playing, so we have a\n\
 little something for you.\n\
@@ -1896,8 +1895,7 @@ message for you.\n\
 『Thanks for playing Super\n\
 Mario 64! This is the\n\
 end of the game, but not\n\
-the end of the fun." \
-KEEP_ON_PLAYING "』\n\
+the end of the fun." KEEP_ON_PLAYING "』\n\
 \n\
 The Super Mario 64 Team"))
 
@@ -1996,3 +1994,191 @@ Arrgghh!\n\
 Anyone entering this cave\n\
 without permission will\n\
 meet certain disaster."))
+
+DEFINE_DIALOG(DIALOG_LITERATURE_TRAP, 1, 6, 30, 200, _("\
+According to all known laws\n\
+of aviation, there is no\n\
+way a bee should be able\n\
+to fly. Its wings are too\n\
+small to get its fat little\n\
+body off the ground.\n\
+The bee, of course, flies\n\
+anyway because bees don't\n\
+care what humans think\n\
+is impossible.\n\
+Yellow, black. Yellow,\n\
+black. Yellow, black.\n\
+Yellow, black. Ooh, black\n\
+and yellow! Let's shake\n\
+it up a little.\n\
+Barry! Breakfast is ready!\n\
+Coming! Hang on a second.\n\
+Hello? Barry? Adam?\n\
+Can you believe this is\n\
+happening? I can't. I'll\n\
+pick you up. Looking\n\
+sharp. Use the stairs.\n\
+Your father paid good\n\
+money for those. Sorry.\n\
+I'm excited. Here's the\n\
+graduate. We're very\n\
+proud of you, son.\n\
+A perfect report card,\n\
+all B's. Very proud.\n\
+Ma! I got a thing going\n\
+here. You got lint on\n\
+your fuzz. Ow! That's me!\n\
+Wave to us! We'll be in\n\
+row 118,000. Bye!\n\
+Barry, I told you, stop\n\
+flying in the house!\n\
+Hey, Adam. Hey, Barry.\n\
+Is that fuzz gel? A\n\
+little. Special day,\n\
+graduation. Never thought\n\
+I'd make it. Three days\n\
+grade school, three days\n\
+high school. Those were\n\
+awkward. Three days\n\
+college. I'm glad I took\n\
+a day and piggybacked\n\
+around the hive.\n\
+You did come back\n\
+different. Hi, Adam.\n\
+Artie, growing a mustache?\n\
+Looks good. Hear about\n\
+Frankie? Yeah. You going\n\
+to the funeral? No, I'm\n\
+not going. Everybody\n\
+knows, sting someone,\n\
+you die. Don't waste it\n\
+on a squirrel. Such a\n\
+hothead. I guess he\n\
+could have just gotten\n\
+out of the way. I love\n\
+this incorporating an\n\
+amusement park into our\n\
+day. That's why we don't\n\
+need vacations. Boy,\n\
+quite a bit of pomp...\n\
+under the circumstances.\n\
+Well, Adam, today we are\n\
+men. We are! Bee-men.\n\
+Amen! Hallelujah!\n\
+Students, faculty,\n\
+distinguished bees, please\n\
+welcome Dean Buzzwell.\n\
+Welcome, New Hive City\n\
+Graduating Class of... 9:15.\n\
+That concludes our\n\
+ceremonies. And begins\n\
+your career at Honex\n\
+Industries! Will we pick\n\
+our job today? I heard\n\
+it's just orientation.\n\
+Heads up! Here we go.\n\
+Keep your hands and\n\
+antennas inside the tram\n\
+at all times.\n\
+Wonder what it'll be\n\
+like? A little scary.\n\
+Welcome to Honex, a\n\
+division of Honesco and\n\
+a part of the Hexagon\n\
+Group. This is it!\n\
+Wow. Wow. We know that\n\
+you, as a bee, have\n\
+worked your whole life\n\
+to get to the point\n\
+where you can work for\n\
+your whole life.\n\
+Honey begins when our\n\
+valiant Pollen Jockeys\n\
+bring the nectar to the\n\
+hive. Our top-secret\n\
+formula is automatically\n\
+color-corrected, scent-\n\
+adjusted and bubble-\ncontoured into this\n\
+soothing sweet syrup\n\
+with its distinctive\n\
+golden glow you know as...\n\
+Honey! That girl was hot.\n\
+She's my cousin! She is?\n\
+Yes, we're all cousins.\n\
+Right. You're right.\n\
+At Honex, we constantly\n\
+strive to improve every\n\
+aspect of bee existence.\n\
+These bees are stress-\n\
+testing a new helmet\n\
+technology. What do you\n\
+think he makes? Not\nenough. Here we have our\n\
+latest advancement, the\n\
+Krelman. What does that\n\
+do? Catches that little\n\
+strand of honey that\n\
+hangs after you pour it.\n\
+Saves us millions. Can\n\
+anyone work on the\n\
+Krelman? Of course. Most\n\
+bee jobs are small ones.\n\
+But bees know that every\n\
+small job, if it's done\n\
+well, means a lot.\n\
+But choose carefully\n\
+because you'll stay in\n\
+the job you pick for the\n\
+rest of your life. The\n\
+same job the rest of\n\
+your life? I didn't know\n\
+that. What's the\n\
+difference? You'll be\n\
+happy to know that bees,\n\
+as a species, haven't\n\
+had one day off in 27\n\
+million years. So you'll\n\
+just work us to death?\n\
+We'll sure try."))
+
+DEFINE_DIALOG(DIALOG_LITERATURE_TRAP_2, 1, 6, 30, 200, _("\
+Yo listen up, here's the story\n\
+About a little guy that lives in a blue world\n\
+And all day and all night and everything he sees is just blue\n\
+Like him, inside and outside\n\
+Blue his house with a blue little window\n\
+And a blue corvette\n\
+And everything is blue for him\n\
+And himself and everybody around\n\
+'Cause he ain't got nobody to listen\n\
+I'm blue da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+I'm blue da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+I have a blue house with a blue window\n\
+Blue is the color of all that I wear\n\
+Blue are the streets and all the trees are too\n\
+I have a girlfriend and she is so blue\n\
+Blue are the people here that walk around\n\
+Blue like my corvette, it's in and outside\n\
+Blue are the words I say and what I think\n\
+Blue are the feelings that live inside me\n\
+I'm blue da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+I'm blue da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+Da ba dee da ba daa, da ba dee da ba daa\n\
+I have a blue house with a blue window\n\
+Blue is the color of all that I wear\n\
+Blue are the streets and all the trees are too\n\
+I have a girlfriend and she is so blue\n\
+Blue are the people here that walk around\n\
+Blue like my corvette, it's in and outside\n\
+Blue are the words I say and what I think\n\
+Blue are the feelings that live inside me"))

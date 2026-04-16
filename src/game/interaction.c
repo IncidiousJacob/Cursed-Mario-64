@@ -1865,6 +1865,9 @@ void update_arch_delayed_items(struct MarioState *m) {
             update_mario_sound_and_camera(m);
             set_mario_action(m, ACT_GETTING_BLOWN, 0);
             break;
+        case SM64AP_ID_LITERATURE_TRAP:
+            set_mario_action(m, ACT_READING_AUTOMATIC_DIALOG, (random_u16() % 2 == 0) ? DIALOG_LITERATURE_TRAP : DIALOG_LITERATURE_TRAP_2);
+            break;
         default:
             break;
     }
