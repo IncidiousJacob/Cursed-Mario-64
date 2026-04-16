@@ -415,7 +415,7 @@ void SM64AP_GenericInit() {
 }
 
 void SM64AP_InitMW(const char *ip, const char *player_name, const char *passwd) {
-    AP_Init(ip, "Mario 64 Incidious", player_name, passwd);
+    AP_Init(ip, "Shitpost of Mario", player_name, passwd);
     SM64AP_GenericInit();
     AP_Start();
 }
