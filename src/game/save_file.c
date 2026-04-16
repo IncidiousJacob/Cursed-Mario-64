@@ -530,7 +530,9 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
             if (!(save_file_get_star_flags(fileIndex, courseIndex) & starFlag)) {
                 save_file_set_star_flags(fileIndex, courseIndex, starFlag);
             }
-            SM64AP_SendItem((courseIndex == -1 ? (10+15-1)*7 : courseIndex*7) + starIndex + SM64AP_ID_OFFSET);
+            u32 itemID = (courseIndex == -1 ? (10 + 15 - 1) * 7 : courseIndex * 7) + starIndex + SM64AP_ID_OFFSET;
+            SM64AP_SendItem(itemID);
+            SM64AP_SendItem(itemID + SM64AP_SECOND_CHECK_OFFSET);
             break;
     }
 }
