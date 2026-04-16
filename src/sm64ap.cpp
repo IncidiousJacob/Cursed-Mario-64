@@ -44,6 +44,12 @@ int sm64_cost_mips2 = 50;
 int msg_frame_duration = 90; // 3 Secounds at 30F/s
 int cur_msg_frame_duration = msg_frame_duration;
 std::queue<int64_t> delayed_queue;
+bool gRRTrapped = false;
+bool gRRReturning = false;
+s16 gRRReturnLevel = 0;
+s16 gRRReturnArea = 0;
+f32 gRRReturnPos[3] = {0,0,0};
+f32 gRRReturnAngle = 0;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -96,7 +102,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         case SM64AP_ID_ABILITY(1)... SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1):
             sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
             break;
-        case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_LITERATURE_TRAP:
+        case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_RR_TRAP:
             if (!notify)
                 break;
             delayed_queue.push(idx);
