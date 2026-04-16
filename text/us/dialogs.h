@@ -106,20 +106,17 @@ Now Wing Caps will pop\n\
 out of all the red blocks\n\
 you find.\n\
 \n\
-Would you like to Save?\n\
+Would you like to\n\
+do something useless?\n\
 \n\
 //Yes////No"))
 
 DEFINE_DIALOG(DIALOG_011, 1, 4, 30, 200, _("\
-You've just stepped on\n\
-the Metal Cap Switch!\n\
-The Metal Cap makes\n\
-Mario invincible.\n\
-Now Metal Caps will\n\
-pop out of all of the\n\
-green blocks you find.\n\
+Congratulations!\n\
+You are hard now\n\
 \n\
-Would you like to Save?\n\
+Would you like to\n\
+do something useless?\n\
 \n\
 //Yes////No"))
 
@@ -132,7 +129,8 @@ Now Vanish Caps will pop\n\
 from all of the blue\n\
 blocks you find.\n\
 \n\
-Would you like to Save?\n\
+Would you like to\n\
+do something useless?\n\
 \n\
 //Yes////No"))
 
@@ -140,7 +138,9 @@ DEFINE_DIALOG(DIALOG_013, 1, 5, 30, 200, _("\
 You've collected 100\n\
 coins! Mario gains more\n\
 power from the castle.\n\
-Do you want to Save?\n\
+Would you like to\n\
+do something useless?\n\
+\n\
 //Yes////No"))
 
 DEFINE_DIALOG(DIALOG_014, 1, 4, 30, 200, _("\
@@ -148,9 +148,10 @@ Wow! Another Power Star!\n\
 Mario gains more courage\n\
 from the power of the\n\
 castle.\n\
-Do you want to Save?\n\
+Would you like to\n\
+do something useless?\n\
 \n\
-//You Bet//Not Now"))
+//Yes////No"))
 
 DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, _("\
 You can punch enemies to\n\
