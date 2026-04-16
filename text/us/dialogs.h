@@ -501,8 +501,9 @@ practice. You don't stand\n\
 a chance without them."))
 
 DEFINE_DIALOG(DIALOG_047, 1, 2, 95, 200, _("\
-Hi! I'll prepare the\n\
-cannon for you!"))
+I'll get tht for you soon\n\
+Leafeon, I mean Evieon,\n\
+I mean EVI, GOD DANGGIT!"))
 
 DEFINE_DIALOG(DIALOG_048, 1, 4, 30, 200, _("\
 Snow Mountain Summit\n\
