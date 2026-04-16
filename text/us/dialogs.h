@@ -1,52 +1,52 @@
 // Parameters: dialog enum ID, (unused), lines per box, left offset, width
 
 #ifdef VERSION_EU
-#define COMRADES "Pink Bitches"
+#define COMRADES "Pink B***hes"
 #define PLASTERED "splattered"
 #define SCAM_ME "cheat!\n"
-#define SCRAM "Fuck Off!"
+#define SCRAM "F**k Off!"
 #define YOU_CANT_SWIM_IN_IT "Its too heavy to swim\nwith."
-#define GIVE_UP "Fuck off!"
+#define GIVE_UP "F**k off!"
 #else
 #define COMRADES "comrades"
 #define PLASTERED "plastered"
 #define SCAM_ME "scam\nME. "
-#define SCRAM "Fuck off"
+#define SCRAM "F**k off"
 #define YOU_CANT_SWIM_IN_IT "You can't swim in it."
 #define GIVE_UP "give"
 #endif
 
 DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, _("\
-Well... You fucked up.\n\
-This is a Fucking warzone.\n\
+Well... You f**ked up.\n\
+This is a F**king warzone.\n\
 Is that Pink Bomb Staring?\n\
-Go tell him to fuck off!"))
+Go tell him to f**k off!"))
 
 DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, _("\
-Fuck you!"))
+F**k you!"))
 
 DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, _("\
-What the fuck do you want?\n\
-I'll Fucking kill you!\n\
+What the f**k do you want?\n\
+I'll F**king kill you!\n\
 my advice.\n\
 Go away"))
 
 DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, _("\
-Well look at this asshole!\n\
+Well look at this a**hole!\n\
 The king was our kill!\n\
 You stole it!\n\
 I hope you become a stain\n\
 using this!"))
 
 DEFINE_DIALOG(DIALOG_004, 1, 3, 95, 200, _("\
-Fuck You!"))
+F**k You!"))
 
 DEFINE_DIALOG(DIALOG_005, 1, 3, 30, 200, _("\
-Hey Fatass!\n\
-Race me now bitch!\n\
+Hey Fata**!\n\
+Race me now b***h!\n\
 Top of the hill!\n\
 And none of that Circus Clown\n\
-Cannon bullshit\n\
+Cannon bullsh*t\n\
 『Go,』 let the race begin!\n\
 \n\
 Ready....\n\
@@ -54,16 +54,16 @@ Ready....\n\
 //Go!////Don't Go"))
 
 DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, _("\
-Bitch!!! Don't try to " SCAM_ME "You've gotta run\n\
+B***h!!! Don't try to " SCAM_ME "You've gotta run\n\
 the whole course.\n\
-No stars sfor cheating bitches."))
+No stars sfor cheating b***hes."))
 
 DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, _("\
 Dammit!\n\
 How are you so fast?\n\
 Your like 3000lbs!\n\
 Fine take it...\n\
-Bitch!"))
+B***h!"))
 
 DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, _("\
 BEWARE OF CHAIN CHOMP\n\
@@ -220,7 +220,7 @@ Gwa ha ha!"))
 
 DEFINE_DIALOG(DIALOG_022, 1, 2, 95, 200, _("\
 You need a key to open\n\
-this door Dumbass."))
+this door Dumba**."))
 
 DEFINE_DIALOG(DIALOG_023, 1, 3, 95, 200, _("\
 This key doesn't fit!\n\
@@ -228,18 +228,18 @@ Maybe it's for the\n\
 basement... Idiot"))
 
 DEFINE_DIALOG(DIALOG_024, 1, 5, 95, 200, _("\
-Hey dumbass\n\
+Hey dumba**\n\
 Try the door without a number."))
 
 DEFINE_DIALOG(DIALOG_025, 1, 4, 95, 200, _("\
 It takes the power of\n\
 [%] Stars to open this\n\
-door. So Fuck off!"))
+door. So F**k off!"))
 
 DEFINE_DIALOG(DIALOG_026, 1, 4, 95, 200, _("\
 It takes the power of\n\
 [%] Stars to open this\n\
-door. So Fuck off!"))
+door. So F**k off!"))
 
 DEFINE_DIALOG(DIALOG_027, 1, 4, 95, 200, _("\
 It takes the power of\n\
@@ -249,28 +249,28 @@ the laws of physics. Get\n\
 DEFINE_DIALOG(DIALOG_028, 1, 4, 95, 200, _("\
 You can't just break\n\
 [%] Stars to open this\n\
-door. So Fuck off!"))
+door. So F**k off!"))
 
 DEFINE_DIALOG(DIALOG_029, 1, 5, 95, 200, _("\
 To open the door that\n\
 leads to the 『endless』\n\
 stairs, you need [%]\n\
-Stars. So Fuck off!\n\
+Stars. So F**k off!\n\
 Bwa ha ha!"))
 
 DEFINE_DIALOG(DIALOG_030, 1, 6, 30, 200, _("\
 Hello! The Lakitu Bros.,\n\
 Here to film\n\
-a fat fuck running around!"))
+a fat f**k running around!"))
 
 DEFINE_DIALOG(DIALOG_031, 1, 5, 30, 200, _("\
 No way! You beat me...\n\
-Fuck you Mario! i spent\n\
+F**k you Mario! i spent\n\
 my entire savings on\n\
 these new Koopa\n\
 Mach 1 Sprint shoes!\n\
-What a fucking waste\n\
-Your a bitch!"))
+What a f**king waste\n\
+Your a b***h!"))
 
 DEFINE_DIALOG(DIALOG_032, 1, 5, 30, 200, _("\
 If you get the Wing Cap,\n\
@@ -1195,10 +1195,10 @@ on, hop into the cannon!"))
 DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, _("\
 Bruh...\n\
 Are you...\n\
-FUCKING STUPID?!\n\
+F**KING STUPID?!\n\
 Trying to kill a ghost?\n\
 Get you head...\n\
-out ya damn ass!"))
+out ya d**n a**!"))
 
 DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, _("\
 Boooooo-m! Here comes\n\
