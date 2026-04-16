@@ -96,7 +96,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         case SM64AP_ID_ABILITY(1)... SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1):
             sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
             break;
-        case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_GUST_TRAP:
+        case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_LITERATURE_TRAP:
             if (!notify)
                 break;
             delayed_queue.push(idx);
