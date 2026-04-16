@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 #define AP_EXTERN_C extern "C"
 #else
-#define AP_EXTERN_C
+#define AP_EXTERN_C extern
 #endif
 
 #ifdef __cplusplus
