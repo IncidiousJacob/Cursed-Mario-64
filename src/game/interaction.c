@@ -1871,6 +1871,17 @@ void update_arch_delayed_items(struct MarioState *m) {
                 set_mario_action(m, ACT_READING_AUTOMATIC_DIALOG, trapDialogs[random_u16() % 3]);
             }
             break;
+        case SM64AP_ID_RR_TRAP:
+            gRRTrapped = true;
+            gRRReturnLevel = gCurrLevelNum;
+            gRRReturnArea = gCurrentArea->index;
+            gRRReturnPos[0] = m->pos[0];
+            gRRReturnPos[1] = m->pos[1];
+            gRRReturnPos[2] = m->pos[2];
+            gRRReturnAngle = m->faceAngle[1];
+            initiate_warp(LEVEL_RR, 1, 0x0A, 0);
+            fade_into_special_warp(0, 0);
+            break;
         default:
             break;
     }

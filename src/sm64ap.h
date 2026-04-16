@@ -56,6 +56,7 @@ extern "C" {
 #define SM64AP_ID_SPIN_TRAP      (SM64AP_ID_OFFSET+1764)
 #define SM64AP_ID_GUST_TRAP      (SM64AP_ID_OFFSET+1765)
 #define SM64AP_ID_LITERATURE_TRAP (SM64AP_ID_OFFSET+1766)
+#define SM64AP_ID_RR_TRAP         (SM64AP_ID_OFFSET+1767)
 
 
 #define SM64AP_LOCATIONID_BOARDBOWSERSSUB (SM64AP_ID_OFFSET + 56)
@@ -123,5 +124,11 @@ AP_EXTERN_C bool SM64AP_MoatDrained();
 
 // Check for switch state (used for initial switch state on level load)
 AP_EXTERN_C bool SM64AP_PressedSwitch(int);
+AP_EXTERN_C bool gRRTrapped;
+AP_EXTERN_C bool gRRReturning;
+AP_EXTERN_C s16 gRRReturnLevel;
+AP_EXTERN_C s16 gRRReturnArea;
+AP_EXTERN_C f32 gRRReturnPos[3];
+AP_EXTERN_C f32 gRRReturnAngle;
 
 #undef AP_EXTERN_C

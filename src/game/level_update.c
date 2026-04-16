@@ -373,13 +373,21 @@ void init_mario_after_warp(void) {
     u32 marioSpawnType = get_mario_spawn_type(spawnNode->object);
 
     if (gMarioState->action != ACT_UNINITIALIZED) {
-        gPlayerSpawnInfos[0].startPos[0] = (s16) spawnNode->object->oPosX;
-        gPlayerSpawnInfos[0].startPos[1] = (s16) spawnNode->object->oPosY;
-        gPlayerSpawnInfos[0].startPos[2] = (s16) spawnNode->object->oPosZ;
+        if (gRRReturning) {
+            gPlayerSpawnInfos[0].startPos[0] = (s16) gRRReturnPos[0];
+            gPlayerSpawnInfos[0].startPos[1] = (s16) gRRReturnPos[1];
+            gPlayerSpawnInfos[0].startPos[2] = (s16) gRRReturnPos[2];
+            gPlayerSpawnInfos[0].startAngle[1] = (s16) gRRReturnAngle;
+            gRRReturning = false;
+        } else {
+            gPlayerSpawnInfos[0].startPos[0] = (s16) spawnNode->object->oPosX;
+            gPlayerSpawnInfos[0].startPos[1] = (s16) spawnNode->object->oPosY;
+            gPlayerSpawnInfos[0].startPos[2] = (s16) spawnNode->object->oPosZ;
 
-        gPlayerSpawnInfos[0].startAngle[0] = 0;
-        gPlayerSpawnInfos[0].startAngle[1] = spawnNode->object->oMoveAngleYaw;
-        gPlayerSpawnInfos[0].startAngle[2] = 0;
+            gPlayerSpawnInfos[0].startAngle[0] = 0;
+            gPlayerSpawnInfos[0].startAngle[1] = spawnNode->object->oMoveAngleYaw;
+            gPlayerSpawnInfos[0].startAngle[2] = 0;
+        }
 
         if (marioSpawnType == MARIO_SPAWN_DOOR_WARP) {
             init_door_warp(&gPlayerSpawnInfos[0], sWarpDest.arg);
@@ -617,6 +625,18 @@ s16 music_changed_through_warp(s16 arg) {
  */
 
 void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 arg3) {
+    if (gRRReturning) {
+        destLevel = gRRReturnLevel;
+        destArea = gRRReturnArea;
+        destWarpNode = 0x0A; // Node will be overridden by position restoration
+    } else if (gRRTrapped && gCurrLevelNum == LEVEL_RR) {
+        if (sSourceWarpNodeId == WARP_NODE_DEATH || sSourceWarpNodeId == WARP_NODE_WARP_FLOOR) {
+            destLevel = LEVEL_RR;
+            destArea = 1;
+            destWarpNode = 0x0A;
+        }
+    }
+
     SM64AP_RedirectWarp(&gCurrLevelNum, &destLevel, &(gCurrentArea->index), &destArea, &destWarpNode, sSourceWarpNodeId == WARP_NODE_DEATH, sDelayedWarpOp);
     if (destWarpNode >= WARP_NODE_CREDITS_MIN) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
