@@ -1680,8 +1680,12 @@ You've found 70 Power\n\
 Stars! The mystery of the\n\
 endless stairs is solved,\n\
 thanks to you--and is\n\
-Bowser ever upset! Now,\n\
-on to the final bout!"))
+Bowser ever upset! Now\n\
+you don't need to\n\
+use the power of your\n\
+Stand the BLG to break\n\
+the laws of physics to\n\
+defeat Bowser."))
 
 DEFINE_DIALOG(DIALOG_147, 1, 5, 30, 200, _("\
 Are you using the Cap\n\
