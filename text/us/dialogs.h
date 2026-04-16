@@ -2182,3 +2182,53 @@ Blue are the people here that walk around\n\
 Blue like my corvette, it's in and outside\n\
 Blue are the words I say and what I think\n\
 Blue are the feelings that live inside me"))
+
+DEFINE_DIALOG(DIALOG_LITERATURE_TRAP_3, 1, 6, 30, 200, _("\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy\n\
+Crazy?\n\
+I was crazy once\n\
+They locked me in a room\n\
+A rubber room\n\
+A rubber room with rats\n\
+The rats make me crazy"))
