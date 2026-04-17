@@ -6,6 +6,9 @@ extern "C" {
 #include "gfx_dimensions.h"
 #include "level_table.h"
 #include "game/level_update.h"
+#include "game/area.h"
+#include "object_fields.h"
+#include "behavior_data.h"
 }
 
 #include <string>
@@ -50,6 +53,7 @@ s16 gRRReturnLevel = 0;
 s16 gRRReturnArea = 0;
 f32 gRRReturnPos[3] = {0,0,0};
 f32 gRRReturnAngle = 0;
+s32 gRRTrapTimer = 0;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -105,6 +109,9 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_RR_TRAP:
             if (!notify)
                 break;
+            if (idx == SM64AP_ID_RR_TRAP) {
+                gRRTrapTimer = 6 * 60 * 30; // 6 minutes at 30fps
+            }
             delayed_queue.push(idx);
             break;
     }
@@ -438,6 +445,49 @@ void SM64AP_SendByBoxID(int id) {
 
 void SM64AP_SendItem(int idx) {
     AP_SendItem(idx);
+}
+
+void SM64AP_CheckEnemyDeath(struct Object *o) {
+    if (gCurrLevelNum != LEVEL_BOB) return;
+    if (o->behavior != bhvGoomba) return;
+
+    int64_t loc_id = 0;
+    float homeX = o->oHomeX;
+    float homeZ = o->oHomeZ;
+
+    // Direct Macro Goombas
+    if (homeX == -2713.0f && homeZ == 5778.0f) loc_id = 3626300;
+    else if (homeX == -342.0f && homeZ == 5433.0f) loc_id = 3626301;
+    
+    // Triplet Spawned Goombas
+    // We use the parent's home position to identify the spawner
+    else if (o->parentObj != o && o->parentObj->behavior == bhvGoombaTripletSpawner) {
+        float pHomeX = o->parentObj->oHomeX;
+        float pHomeZ = o->parentObj->oHomeZ;
+        int tri_idx = (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK) >> 2;
+        
+        if (pHomeX == 3640.0f && pHomeZ == 6280.0f) loc_id = 3626302 + tri_idx;
+        else if (pHomeX == 6060.0f && pHomeZ == 2000.0f) loc_id = 3626305 + tri_idx;
+        else if (pHomeX == -6050.0f && pHomeZ == 1250.0f) loc_id = 3626308 + tri_idx;
+    }
+
+    if (loc_id != 0) {
+        SM64AP_SendItem(loc_id);
+    }
+}
+
+void SM64AP_UpdateRRTrapTimer(struct MarioState *m) {
+    if (!gRRTrapped || gCurrLevelNum != LEVEL_RR) return;
+    if (gRRTrapTimer > 0) {
+        gRRTrapTimer--;
+        if (gRRTrapTimer == 0) {
+            SM64AP_DeathLinkSend();
+            gRRTrapped = false;
+            gRRReturning = true;
+            initiate_warp(gRRReturnLevel, gRRReturnArea, 0x0A, 0);
+            fade_into_special_warp(0, 0);
+        }
+    }
 }
 
 // If an item exists on the stack, return it, otherwise 0

@@ -25,6 +25,11 @@ void bhv_collect_star_init(void) {
     }
 
     obj_set_hitbox(o, &sCollectStarHitbox);
+    if (gRRTrapped && gCurrLevelNum == LEVEL_RR) {
+        if (!(o->oBehParams & RR_TRAP_STAR_BIT)) {
+            o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        }
+    }
 }
 
 void bhv_collect_star_loop(void) {

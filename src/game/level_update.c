@@ -23,6 +23,9 @@
 #include "obj_behaviors.h"
 #include "save_file.h"
 #include "debug_course.h"
+#include "behavior_data.h"
+#include "model_ids.h"
+#include "object_helpers.h"
 #ifdef VERSION_EU
 #include "memory.h"
 #include "eu_translation.h"
@@ -1078,6 +1081,7 @@ s32 play_mode_normal(void) {
     }
 
     area_update_objects();
+    SM64AP_UpdateRRTrapTimer(gMarioState);
     update_hud_values();
 
     if (gCurrentArea != NULL) {
@@ -1320,6 +1324,11 @@ s32 init_level(void) {
 
     if (gMarioState->action == ACT_INTRO_CUTSCENE) {
         sound_banks_disable(2, 0x0330);
+    }
+
+    if (gRRTrapped && gCurrLevelNum == LEVEL_RR && gMarioState->marioObj) {
+        struct Object *trapStar = spawn_object_abs_with_rot(gMarioState->marioObj, 0, MODEL_STAR, bhvStar, -550, -1000, -50, 0, 0, 0);
+        trapStar->oBehParams = RR_TRAP_STAR_BIT;
     }
 
     return 1;
