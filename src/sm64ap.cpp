@@ -698,15 +698,15 @@ bool SM64AP_CanLedgeGrab() {
 }
 
 bool SM64AP_CanGrab() {
-    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
+    return true; // sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanPunch() {
-    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
+    return true; // sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanSwim() {
-    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
+    return true; // sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
 }
 
 void SM64AP_PrintNext() {
