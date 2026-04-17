@@ -453,23 +453,28 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
     if (o->behavior != bhvGoomba) return;
 
     int64_t loc_id = 0;
-    float homeX = o->oHomeX;
-    float homeZ = o->oHomeZ;
+    int hX = (int)o->oHomeX;
+    int hZ = (int)o->oHomeZ;
 
     // Direct Macro Goombas
-    if (homeX == -2713.0f && homeZ == 5778.0f) loc_id = 3626300;
-    else if (homeX == -342.0f && homeZ == 5433.0f) loc_id = 3626301;
+    if (hX == -2713 && hZ == 5778) loc_id = 3626300;
+    else if (hX == -342 && hZ == 5433) loc_id = 3626301;
     
     // Triplet Spawned Goombas
-    // We use the parent's home position to identify the spawner
     else if (o->parentObj != o && o->parentObj->behavior == bhvGoombaTripletSpawner) {
-        float pHomeX = o->parentObj->oHomeX;
-        float pHomeZ = o->parentObj->oHomeZ;
-        int tri_idx = (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK) >> 2;
+        int pHX = (int)o->parentObj->oHomeX;
+        int pHZ = (int)o->parentObj->oHomeZ;
+        int raw_idx = (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK);
+        int tri_idx = -1;
+        if (raw_idx == 4) tri_idx = 0;
+        else if (raw_idx == 8) tri_idx = 1;
+        else if (raw_idx == 16) tri_idx = 2;
         
-        if (pHomeX == 3640.0f && pHomeZ == 6280.0f) loc_id = 3626302 + tri_idx;
-        else if (pHomeX == 6060.0f && pHomeZ == 2000.0f) loc_id = 3626305 + tri_idx;
-        else if (pHomeX == -6050.0f && pHomeZ == 1250.0f) loc_id = 3626308 + tri_idx;
+        if (tri_idx != -1) {
+            if (pHX == 3640 && pHZ == 6280) loc_id = 3626302 + tri_idx;
+            else if (pHX == 6060 && pHZ == 2000) loc_id = 3626305 + tri_idx;
+            else if (pHX == -6050 && pHZ == 1250) loc_id = 3626308 + tri_idx;
+        }
     }
 
     if (loc_id != 0) {
