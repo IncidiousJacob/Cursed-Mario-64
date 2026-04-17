@@ -419,6 +419,7 @@ struct Object *mario_get_collided_object(struct MarioState *m, u32 interactType)
 }
 
 u32 mario_check_object_grab(struct MarioState *m) {
+    if (!SM64AP_CanGrab()) return FALSE;
     u32 result = FALSE;
     void *script;
 

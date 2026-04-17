@@ -375,7 +375,7 @@ static s32 act_water_action_end(struct MarioState *m) {
         return set_mario_action(m, ACT_METAL_WATER_FALLING, 1);
     }
 
-    if (m->input & INPUT_B_PRESSED) {
+    if (m->input & INPUT_B_PRESSED && (SM64AP_CanPunch() || SM64AP_CanGrab())) {
         return set_mario_action(m, ACT_WATER_PUNCH, 0);
     }
 
@@ -515,7 +515,7 @@ static s32 act_breaststroke(struct MarioState *m) {
         return set_mario_action(m, ACT_METAL_WATER_FALLING, 1);
     }
 
-    if (m->input & INPUT_B_PRESSED) {
+    if (m->input & INPUT_B_PRESSED && (SM64AP_CanPunch() || SM64AP_CanGrab())) {
         return set_mario_action(m, ACT_WATER_PUNCH, 0);
     }
 
@@ -569,7 +569,7 @@ static s32 act_swimming_end(struct MarioState *m) {
         return set_mario_action(m, ACT_METAL_WATER_FALLING, 1);
     }
 
-    if (m->input & INPUT_B_PRESSED) {
+    if (m->input & INPUT_B_PRESSED && (SM64AP_CanPunch() || SM64AP_CanGrab())) {
         return set_mario_action(m, ACT_WATER_PUNCH, 0);
     }
 
@@ -606,7 +606,7 @@ static s32 act_flutter_kick(struct MarioState *m) {
         return set_mario_action(m, ACT_METAL_WATER_FALLING, 1);
     }
 
-    if (m->input & INPUT_B_PRESSED) {
+    if (m->input & INPUT_B_PRESSED && (SM64AP_CanPunch() || SM64AP_CanGrab())) {
         return set_mario_action(m, ACT_WATER_PUNCH, 0);
     }
 
@@ -766,6 +766,7 @@ static s32 act_water_shell_swimming(struct MarioState *m) {
 }
 
 static s32 check_water_grab(struct MarioState *m) {
+    if (!SM64AP_CanGrab()) return FALSE;
     //! Heave hos have the grabbable interaction type but are not normally
     // grabbable. Since water grabbing doesn't check the appropriate input flag,
     // you can use water grab to pick up heave ho.
