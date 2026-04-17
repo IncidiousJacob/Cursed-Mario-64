@@ -39,6 +39,7 @@
  */
 
 #define o gCurrentObject
+#include "sm64ap.h"
 
 #define OBJ_COL_FLAG_GROUNDED   (1 << 0)
 #define OBJ_COL_FLAG_HIT_WALL   (1 << 1)
