@@ -2859,6 +2859,10 @@ s16 render_pause_courses_and_castle(void) {
         u8 str_grab[] = { TEXT_GRAB };
         print_generic_string(x, y - spacing * 11, str_grab);
     }
+    if (SM64AP_CanSwim()) {
+        u8 str_swim[] = { TEXT_SWIM };
+        print_generic_string(x, y - spacing * 12, str_swim);
+    }
     return 0;
 }
 

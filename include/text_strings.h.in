@@ -48,6 +48,7 @@
 #define TEXT_LEDGE_GRAB _("LEDGE GRAB")
 #define TEXT_GRAB _("GRAB")
 #define TEXT_PUNCH _("PUNCH")
+#define TEXT_SWIM _("SWIM")
 
 // Paintings
 #define TEXT_PAINTING_BOB _("BOB")
