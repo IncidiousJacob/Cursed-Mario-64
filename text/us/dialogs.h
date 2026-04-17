@@ -2236,3 +2236,24 @@ They locked me in a room\n\
 A rubber room\n\
 A rubber room with rats\n\
 The rats make me crazy"))
+
+DEFINE_DIALOG(DIALOG_LITERATURE_TRAP_4, 1, 6, 30, 200, _("\
+I wanna be the very best\n\
+Like no one ever was\n\
+To catch them is my real test\n\
+To train them is my cause\n\
+I will travel across the land\n\
+Searching far and wide\n\
+Teach Pokémon to understand\n\
+The power that's inside\n\
+Pokémon\n\
+Gotta catch 'em all) It's you and me\n\
+I know it's my destiny Pokemon\n\
+Oh you're my best friend\n\
+In a world we must defend (Pokémon\n\
+Gotta catch 'em all) A heart so true\n\
+Our courage will pull us through\n\
+You teach me and I'll teach you (Ooh, ooh)\n\
+Pokémon! Gotta catch 'em all\n\
+Gotta catch 'em all\n\
+Yeah"))
