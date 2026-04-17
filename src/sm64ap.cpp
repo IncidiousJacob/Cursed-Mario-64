@@ -66,56 +66,51 @@ int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
 
 void SM64AP_RecvItem(int64_t idx, bool notify) {
-    switch (idx) {
-        case SM64AP_ITEMID_STAR:
-            starsCollected++;
-            break;
-        case SM64AP_ID_KEY1:
-            sm64_have_key1 = true;
-            break;
-        case SM64AP_ID_KEY2:
-            sm64_have_key2 = true;
-            break;
-        case SM64AP_ID_KEYPROG:
-            sm64_have_key2 = sm64_have_key1;
-            sm64_have_key1 = true;
-            break;
-        case SM64AP_ID_WINGCAP:
-            sm64_have_wingcap = true;
-            break;
-        case SM64AP_ID_METALCAP:
-            sm64_have_metalcap = true;
-            break;
-        case SM64AP_ID_VANISHCAP:
-            sm64_have_vanishcap = true;
-            break;
-        case SM64AP_ITEMID_1UP:
-            gMarioState->numLives++;
-            break;
-        case SM64AP_ID_CANNONUNLOCK(0)... SM64AP_ID_CANNONUNLOCK(15 - 1):
-            sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
-            break;
-        case SM64AP_ID_PAINTINGUNLOCK(0)... SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1):
-            // We don't have a painting unlock for BoB, so (0) will never appear; index 1 corresponds to
-            // WF, and so on
-            sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
-            break;
-        case SM64AP_ID_ABILITY(0):
-            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET + 1] =
-                sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET];
-            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
-            break;
-        case SM64AP_ID_ABILITY(1)... SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1):
-            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
-            break;
-        case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_RR_TRAP:
-            if (!notify)
-                break;
+    if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
+        sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
+    } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0) && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
+        sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
+    } else if (idx == SM64AP_ID_ABILITY(0)) {
+        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET + 1] =
+            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET];
+        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+    } else if (idx >= SM64AP_ID_ABILITY(1) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
+        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+    } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
+        if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
                 gRRTrapTimer = 6 * 60 * 30; // 6 minutes at 30fps
             }
             delayed_queue.push(idx);
-            break;
+        }
+    } else {
+        switch (idx) {
+            case SM64AP_ITEMID_STAR:
+                starsCollected++;
+                break;
+            case SM64AP_ID_KEY1:
+                sm64_have_key1 = true;
+                break;
+            case SM64AP_ID_KEY2:
+                sm64_have_key2 = true;
+                break;
+            case SM64AP_ID_KEYPROG:
+                sm64_have_key2 = sm64_have_key1;
+                sm64_have_key1 = true;
+                break;
+            case SM64AP_ID_WINGCAP:
+                sm64_have_wingcap = true;
+                break;
+            case SM64AP_ID_METALCAP:
+                sm64_have_metalcap = true;
+                break;
+            case SM64AP_ID_VANISHCAP:
+                sm64_have_vanishcap = true;
+                break;
+            case SM64AP_ITEMID_1UP:
+                gMarioState->numLives++;
+                break;
+        }
     }
 }
 
