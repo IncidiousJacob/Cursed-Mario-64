@@ -1,5 +1,5 @@
 # Cursed Mario 64
-Fork of [sm64-port/sm64-port](https://github.com/N00byKing/sm64ex) with additional features. 
+Fork of [N00byKing/sm64-port](https://github.com/N00byKing/sm64ex) with additional features. 
 
 Feel free to report bugs and contribute, but remember, there must be **no upload of any copyrighted asset**. 
 Run `./extract_assets.py --clean && make clean` or `make distclean` to remove ROM-originated content.

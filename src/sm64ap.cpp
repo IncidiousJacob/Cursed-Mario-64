@@ -14,6 +14,7 @@ extern "C" {
 
 #include <string>
 #include <vector>
+#include <cmath>
 #include <map>
 #include <cstdio>
 #include <bitset>
@@ -453,22 +454,25 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
     if (o->behavior != bhvGoomba) return;
 
     int64_t loc_id = 0;
-    int hX = (int)o->oHomeX;
-    int hZ = (int)o->oHomeZ;
+    int hX = (int)roundf(o->oHomeX);
+    int hZ = (int)roundf(o->oHomeZ);
 
     // Direct Macro Goombas
     if (hX == -2713 && hZ == 5778) loc_id = 3626300;
     else if (hX == -342 && hZ == 5433) loc_id = 3626301;
     
     // Triplet Spawned Goombas
-    else if (o->parentObj != o && o->parentObj->behavior == bhvGoombaTripletSpawner) {
-        int pHX = (int)o->parentObj->oHomeX;
-        int pHZ = (int)o->parentObj->oHomeZ;
-        int raw_idx = (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK);
+    else if (o->parentObj != o) {
+        int pHX = (int)roundf(o->parentObj->oHomeX);
+        int pHZ = (int)roundf(o->parentObj->oHomeZ);
+        int raw_idx = (o->oBehParams2ndByte & 0xFC); // GOOMBA_BP_TRIPLET_FLAG_MASK
         int tri_idx = -1;
-        if (raw_idx == 4) tri_idx = 0;
-        else if (raw_idx == 8) tri_idx = 1;
-        else if (raw_idx == 16) tri_idx = 2;
+        
+        // Map common triplet flags to indices 0, 1, 2
+        // Typically 4, 8, 16 but bits might be shifted or combined with size
+        if (raw_idx & 0x04) tri_idx = 0;
+        else if (raw_idx & 0x08) tri_idx = 1;
+        else if (raw_idx & 0x10) tri_idx = 2;
         
         if (tri_idx != -1) {
             if (pHX == 3640 && pHZ == 6280) loc_id = 3626302 + tri_idx;
