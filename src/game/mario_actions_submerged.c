@@ -1,4 +1,5 @@
 #include <PR/ultratypes.h>
+#include "sm64ap.h"
 
 #include "sm64.h"
 #include "level_update.h"
