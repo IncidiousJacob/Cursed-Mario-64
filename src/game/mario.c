@@ -1009,7 +1009,11 @@ u32 set_mario_action(struct MarioState *m, u32 action, u32 actionArg) {
             break;
 
         case ACT_GROUP_SUBMERGED:
-            action = set_mario_action_submerged(m, action, actionArg);
+            if (!SM64AP_CanSwim() && !(m->flags & MARIO_METAL_CAP) && action != ACT_WATER_DEATH && action != ACT_DROWNING) {
+                action = ACT_WATER_DEATH;
+            } else {
+                action = set_mario_action_submerged(m, action, actionArg);
+            }
             break;
 
         case ACT_GROUP_CUTSCENE:

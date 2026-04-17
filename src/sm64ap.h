@@ -39,6 +39,7 @@ extern "C" {
 #define SM64AP_ID_LEDGEGRAB (SM64AP_ABILITY_OFFSET+10)
 #define SM64AP_ID_GRAB (SM64AP_ABILITY_OFFSET+11)
 #define SM64AP_ID_PUNCH (SM64AP_ABILITY_OFFSET+12)
+#define SM64AP_ID_SWIM (SM64AP_ABILITY_OFFSET+13)
 
 #define SM64AP_ID_CANNONUNLOCK(x) (SM64AP_ID_OFFSET+200+x)
 #define SM64AP_ID_PAINTINGUNLOCK(x) (SM64AP_ID_OFFSET+230+x)
@@ -73,7 +74,7 @@ extern "C" {
 
 #define SM64AP_NUM_LOCS 1200
 
-#define SM64AP_NUM_ABILITIES 13
+#define SM64AP_NUM_ABILITIES 14
 
 //Init
 AP_EXTERN_C void SM64AP_InitMW(const char*, const char*, const char*);
@@ -111,6 +112,7 @@ AP_EXTERN_C bool SM64AP_CanClimb();
 AP_EXTERN_C bool SM64AP_CanLedgeGrab();
 AP_EXTERN_C bool SM64AP_CanGrab();
 AP_EXTERN_C bool SM64AP_CanPunch();
+AP_EXTERN_C bool SM64AP_CanSwim();
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
