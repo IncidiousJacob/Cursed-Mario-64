@@ -6,6 +6,8 @@ extern "C" {
 #include "gfx_dimensions.h"
 #include "level_table.h"
 #include "game/level_update.h"
+#include "object_fields.h"
+#include "behavior_data.h"
 }
 
 #include <string>
@@ -438,6 +440,35 @@ void SM64AP_SendByBoxID(int id) {
 
 void SM64AP_SendItem(int idx) {
     AP_SendItem(idx);
+}
+
+void SM64AP_CheckEnemyDeath(struct Object *o) {
+    if (gCurrLevelNum != LEVEL_BOB) return;
+    if (o->behavior != bhvGoomba) return;
+
+    int64_t loc_id = 0;
+    float homeX = o->oHomeX;
+    float homeZ = o->oHomeZ;
+
+    // Direct Macro Goombas
+    if (homeX == -2713.0f && homeZ == 5778.0f) loc_id = 3626300;
+    else if (homeX == -342.0f && homeZ == 5433.0f) loc_id = 3626301;
+    
+    // Triplet Spawned Goombas
+    // We use the parent's home position to identify the spawner
+    else if (o->parentObj != o && o->parentObj->behavior == bhvGoombaTripletSpawner) {
+        float pHomeX = o->parentObj->oHomeX;
+        float pHomeZ = o->parentObj->oHomeZ;
+        int tri_idx = (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK) >> 2;
+        
+        if (pHomeX == 3640.0f && pHomeZ == 6280.0f) loc_id = 3626302 + tri_idx;
+        else if (pHomeX == 6060.0f && pHomeZ == 2000.0f) loc_id = 3626305 + tri_idx;
+        else if (pHomeX == -6050.0f && pHomeZ == 1250.0f) loc_id = 3626308 + tri_idx;
+    }
+
+    if (loc_id != 0) {
+        SM64AP_SendItem(loc_id);
+    }
 }
 
 // If an item exists on the stack, return it, otherwise 0

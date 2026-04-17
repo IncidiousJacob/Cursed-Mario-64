@@ -108,6 +108,7 @@ AP_EXTERN_C bool SM64AP_CanLedgeGrab();
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
 AP_EXTERN_C void SM64AP_SendItem(int);
+AP_EXTERN_C void SM64AP_CheckEnemyDeath(struct Object*);
 
 // Print Next Message to Screen
 AP_EXTERN_C void SM64AP_PrintNext();
