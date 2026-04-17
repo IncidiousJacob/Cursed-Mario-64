@@ -668,10 +668,7 @@ s32 save_file_is_cannon_unlocked(void) {
  */
 void save_file_set_cannon_unlocked(void) {
     if (gCurrCourseNum <= 15 ) SM64AP_SendItem(200 + gCurrCourseNum - 1 + SM64AP_ID_OFFSET);
-    gSaveBuffer.files[gCurrSaveFileNum - 1][0].courseStars[gCurrCourseNum] |= 0x80;
-    gSaveBuffer.files[gCurrSaveFileNum - 1][0].flags |= SAVE_FLAG_FILE_EXISTS;
-    gSaveFileModified = TRUE;
-    (gCurrCourseNum <= 15 ) SM64AP_SendItem(200 + gCurrCourseNum - 1 + SM64AP_ID_OFFSET + SM64AP_SECOND_CHECK_OFFSET);
+    SM64AP_SendItem(200 + gCurrCourseNum - 1 + SM64AP_ID_OFFSET + SM64AP_SECOND_CHECK_OFFSET);
     gSaveBuffer.files[gCurrSaveFileNum - 1][0].courseStars[gCurrCourseNum] |= 0x80;
     gSaveBuffer.files[gCurrSaveFileNum - 1][0].flags |= SAVE_FLAG_FILE_EXISTS;
     gSaveFileModified = TRUE;
