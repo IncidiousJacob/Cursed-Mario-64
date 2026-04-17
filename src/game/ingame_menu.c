@@ -2851,6 +2851,14 @@ s16 render_pause_courses_and_castle(void) {
         u8 str_ledge_grab[] = { TEXT_LEDGE_GRAB };
         print_generic_string(x, y - spacing * 9, str_ledge_grab);
     }
+    if (SM64AP_CanPunch()) {
+        u8 str_punch[] = { TEXT_PUNCH };
+        print_generic_string(x, y - spacing * 10, str_punch);
+    }
+    if (SM64AP_CanGrab()) {
+        u8 str_grab[] = { TEXT_GRAB };
+        print_generic_string(x, y - spacing * 11, str_grab);
+    }
     return 0;
 }
 

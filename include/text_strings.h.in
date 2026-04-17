@@ -46,6 +46,8 @@
 #define TEXT_KICK _("KICK")
 #define TEXT_CLIMB _("CLIMB")
 #define TEXT_LEDGE_GRAB _("LEDGE GRAB")
+#define TEXT_GRAB _("GRAB")
+#define TEXT_PUNCH _("PUNCH")
 
 // Paintings
 #define TEXT_PAINTING_BOB _("BOB")

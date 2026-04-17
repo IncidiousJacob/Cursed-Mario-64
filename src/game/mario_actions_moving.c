@@ -502,7 +502,9 @@ s32 check_ground_dive_or_punch(struct MarioState *m) {
             m->vel[1] = 20.0f;
             return set_mario_action(m, ACT_DIVE, 1);
         }
-        return set_mario_action(m, ACT_MOVE_PUNCHING, 0);
+        if (SM64AP_CanPunch()) {
+            return set_mario_action(m, ACT_MOVE_PUNCHING, 0);
+        }
     }
 
     return FALSE;
@@ -1059,7 +1061,7 @@ s32 act_braking(struct MarioState *m) {
         return set_mario_action(m, ACT_BRAKING_STOP, 0);
     }
 
-    if (m->input & INPUT_B_PRESSED) {
+    if (m->input & INPUT_B_PRESSED && SM64AP_CanPunch()) {
         return set_mario_action(m, ACT_MOVE_PUNCHING, 0);
     }
 
