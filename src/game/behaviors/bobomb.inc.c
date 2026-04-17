@@ -37,6 +37,7 @@ void bobomb_act_explode(void) {
 
         bobomb_spawn_coin();
         create_respawner(MODEL_BLACK_BOBOMB, bhvBobomb, 3000);
+        SM64AP_CheckEnemyDeath(o);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 }
