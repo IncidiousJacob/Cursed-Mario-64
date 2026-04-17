@@ -8,6 +8,7 @@ extern "C" {
 #include "game/level_update.h"
 #include "game/area.h"
 #include "object_fields.h"
+#include "object_constants.h"
 #include "behavior_data.h"
 }
 
