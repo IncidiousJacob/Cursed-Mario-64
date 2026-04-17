@@ -15,6 +15,7 @@
 #include "save_file.h"
 #include "print.h"
 #include "pc/configfile.h"
+#include "sm64ap.h"
 
 /* @file hud.c
  * This file implements HUD rendering and power meter animations.
