@@ -2237,3 +2237,34 @@ A rubber room\n\
 A rubber room with rats\n\
 The rats make me crazy"))
 
+    
+DEFINE_DIALOG(DIALOG_LITERATURE_TRAP_4, 1, 6, 30, 200, _("\
+Bulbasaur Ivysaur Venusaur Charmander Charmeleon\n\
+Charizard Squirtle Wartortle Blastoise Caterpie\n\
+Metapod Butterfree Weedle Kakuna Beedrill\n\
+Pidgey Pidgeotto Pidgeot Rattata Raticate\n\
+Spearow Fearow Ekans Arbok Pikachu Raichu \n\
+Sandshrew Sandslash Nidoran Nidorina\n\
+Nidoqueen Nidorino Nidoking Clefairy\n\
+Clefable Vulpix Ninetales Jigglypuff\n\
+Wigglytuff Zubat Golbat Oddish Gloom\n\
+Vileplume Paras Parasect Venonat Venomoth\n\
+Diglett Dugtrio Meowth Persian Psyduck\n\ 
+Golduck Mankey Primeape Growlithe Arcanine\n\ 
+Poliwag Poliwhirl Poliwrath Abra Kadabra\n\ 
+Alakazam Machop Machoke Machamp Bellsprout\n\ 
+Weepinbell Victreebel Tentacool Tentacruel\n\
+Geodude Graveler Golem Ponyta Rapidash\n\ 
+Slowpoke Slowbro Magnemite Magneton Farfetchd\n\
+Doduo Dodrio Seel Dewgong Grimer Muk Shellder\n\
+Cloyster Gastly Haunter Gengar Onix Drowzee\n\
+Hypno Krabby Kingler Voltorb Electrode Exeggcute\n\
+Exeggutor Cubone Marowak Hitmonlee Hitmonchan\n\ 
+Lickitung Koffing Weezing Rhyhorn Rhydon Chansey\n\ 
+Tangela Kangaskhan Horsea Seadra Goldeen Seaking\n\
+Staryu Starmie Mr Mime Scyther Jynx Electabuzz\n\
+Magmar Pinsir Tauros Magikarp Gyarados Lapras\n\
+Ditto Eevee Vaporeon Jolteon Flareon Porygon\n\
+Omanyte Omastar Kabuto Kabutops Aerodactyl\n\
+Snorlax Articuno Zapdos Moltres Dratini\n\ 
+Dragonair Dragonite Mewtwo Mew"))
