@@ -2851,6 +2851,7 @@ s16 render_pause_courses_and_castle(void) {
         u8 str_ledge_grab[] = { TEXT_LEDGE_GRAB };
         print_generic_string(x, y - spacing * 9, str_ledge_grab);
     }
+/*
     if (SM64AP_CanPunch()) {
         u8 str_punch[] = { TEXT_PUNCH };
         print_generic_string(x, y - spacing * 10, str_punch);
@@ -2863,6 +2864,7 @@ s16 render_pause_courses_and_castle(void) {
         u8 str_swim[] = { TEXT_SWIM };
         print_generic_string(x, y - spacing * 12, str_swim);
     }
+*/
     return 0;
 }
 
