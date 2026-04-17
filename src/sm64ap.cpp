@@ -463,8 +463,8 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
     
     // Triplet Spawned Goombas
     else if (o->parentObj != o) {
-        int pHX = (int)roundf(o->parentObj->oHomeX);
-        int pHZ = (int)roundf(o->parentObj->oHomeZ);
+        int pHX = (int)roundf(o->parentObj->oPosX);
+        int pHZ = (int)roundf(o->parentObj->oPosZ);
         int raw_idx = (o->oBehParams2ndByte & 0xFC); // GOOMBA_BP_TRIPLET_FLAG_MASK
         int tri_idx = -1;
         
