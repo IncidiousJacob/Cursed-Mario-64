@@ -73,7 +73,7 @@ extern "C" {
 
 #define SM64AP_NUM_LOCS 1200
 
-#define SM64AP_NUM_ABILITIES 14
+#define SM64AP_NUM_ABILITIES 200
 
 // Init
 AP_EXTERN_C void SM64AP_InitMW(const char *, const char *, const char *);
