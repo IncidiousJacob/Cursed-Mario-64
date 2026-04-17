@@ -8,6 +8,8 @@
 #include "engine/math_util.h"
 #include "area.h"
 #include "level_update.h"
+#include "mario.h"
+#include "object_fields.h"
 #include "save_file.h"
 #include "sound_init.h"
 #include "level_table.h"
@@ -528,18 +530,24 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
             SM64AP_FinishBowser(2);
             break;
 
-        default:
-            if (!(save_file_get_star_flags(fileIndex, courseIndex) & starFlag)) {
-                save_file_set_star_flags(fileIndex, courseIndex, starFlag);
+        default: {
+            bool isTrapStar = (gMarioState->interactObj != NULL && (gMarioState->interactObj->oBehParams & RR_TRAP_STAR_BIT));
+            if (!isTrapStar) {
+                if (!(save_file_get_star_flags(fileIndex, courseIndex) & starFlag)) {
+                    save_file_set_star_flags(fileIndex, courseIndex, starFlag);
+                }
             }
             if (gRRTrapped && gCurrLevelNum == LEVEL_RR) {
                 gRRTrapped = false;
                 gRRReturning = true;
             }
-            u32 itemID = (courseIndex == -1 ? (10 + 15 - 1) * 7 : courseIndex * 7) + starIndex + SM64AP_ID_OFFSET;
-            SM64AP_SendItem(itemID);
-            SM64AP_SendItem(itemID + SM64AP_SECOND_CHECK_OFFSET);
+            if (!isTrapStar) {
+                u32 itemID = (courseIndex == -1 ? (10 + 15 - 1) * 7 : courseIndex * 7) + starIndex + SM64AP_ID_OFFSET;
+                SM64AP_SendItem(itemID);
+                SM64AP_SendItem(itemID + SM64AP_SECOND_CHECK_OFFSET);
+            }
             break;
+        }
     }
 }
 

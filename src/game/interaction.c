@@ -1873,6 +1873,7 @@ void update_arch_delayed_items(struct MarioState *m) {
             break;
         case SM64AP_ID_RR_TRAP:
             gRRTrapped = true;
+            gRRTrapTimer = 6 * 60 * 30;
             gRRReturnLevel = gCurrLevelNum;
             gRRReturnArea = gCurrentArea->index;
             gRRReturnPos[0] = m->pos[0];

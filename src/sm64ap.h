@@ -109,6 +109,7 @@ AP_EXTERN_C bool SM64AP_CanLedgeGrab();
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
 AP_EXTERN_C void SM64AP_SendItem(int);
 AP_EXTERN_C void SM64AP_CheckEnemyDeath(struct Object*);
+AP_EXTERN_C void SM64AP_UpdateRRTrapTimer(struct MarioState*);
 
 // Print Next Message to Screen
 AP_EXTERN_C void SM64AP_PrintNext();
@@ -131,5 +132,8 @@ AP_EXTERN_C s16 gRRReturnLevel;
 AP_EXTERN_C s16 gRRReturnArea;
 AP_EXTERN_C f32 gRRReturnPos[3];
 AP_EXTERN_C f32 gRRReturnAngle;
+AP_EXTERN_C s32 gRRTrapTimer;
+
+#define RR_TRAP_STAR_BIT 0x80000000
 
 #undef AP_EXTERN_C

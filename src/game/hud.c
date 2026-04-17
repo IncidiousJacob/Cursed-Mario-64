@@ -364,6 +364,24 @@ void render_hud_timer(void) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
 }
 
+void render_rr_trap_timer(void) {
+    u8 *(*hudLUT)[58];
+    u16 timerMins;
+    u16 timerSecs;
+
+    hudLUT = segmented_to_virtual(&main_hud_lut);
+    timerMins = gRRTrapTimer / 1800;
+    timerSecs = (gRRTrapTimer % 1800) / 30;
+
+    print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(110), 209, "TRAP");
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(160), 209, "%d", timerMins);
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(180), 209, "%02d", timerSecs);
+
+    gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
+    render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(170), 32, (*hudLUT)[GLYPH_APOSTROPHE]);
+    gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+}
+
 /**
  * Sets HUD status camera value depending of the actions
  * defined in update_camera_status.
@@ -476,6 +494,10 @@ void render_hud(void) {
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIMER && configHUD) {
             render_hud_timer();
+        }
+
+        if (gRRTrapped && configHUD) {
+            render_rr_trap_timer();
         }
     }
 }

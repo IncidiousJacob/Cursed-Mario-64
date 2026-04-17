@@ -6,6 +6,7 @@ extern "C" {
 #include "gfx_dimensions.h"
 #include "level_table.h"
 #include "game/level_update.h"
+#include "game/area.h"
 #include "object_fields.h"
 #include "behavior_data.h"
 }
@@ -52,6 +53,7 @@ s16 gRRReturnLevel = 0;
 s16 gRRReturnArea = 0;
 f32 gRRReturnPos[3] = {0,0,0};
 f32 gRRReturnAngle = 0;
+s32 gRRTrapTimer = 0;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -107,6 +109,9 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         case SM64AP_ID_1_HEALTH_PIP ... SM64AP_ID_RR_TRAP:
             if (!notify)
                 break;
+            if (idx == SM64AP_ID_RR_TRAP) {
+                gRRTrapTimer = 6 * 60 * 30; // 6 minutes at 30fps
+            }
             delayed_queue.push(idx);
             break;
     }
@@ -468,6 +473,20 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
 
     if (loc_id != 0) {
         SM64AP_SendItem(loc_id);
+    }
+}
+
+void SM64AP_UpdateRRTrapTimer(struct MarioState *m) {
+    if (!gRRTrapped || gCurrLevelNum != LEVEL_RR) return;
+    if (gRRTrapTimer > 0) {
+        gRRTrapTimer--;
+        if (gRRTrapTimer == 0) {
+            SM64AP_DeathLinkSend();
+            gRRTrapped = false;
+            gRRReturning = true;
+            initiate_warp(gRRReturnLevel, gRRReturnArea, 0x0A, 0);
+            fade_into_special_warp(0, 0);
+        }
     }
 }
 
