@@ -939,6 +939,10 @@ void create_dialog_box(s16 dialog) {
         gDialogBoxType = DIALOG_TYPE_ROTATE;
         if (dialog == DIALOG_133) {
             SM64AP_SendItem(2000);
+        if (dialog == DIALOG_135) {
+            SM64AP_SendItem(2001);
+        if (dialog == DIALOG_134) {
+            SM64AP_SendItem(2002);
         }
     }
 }
