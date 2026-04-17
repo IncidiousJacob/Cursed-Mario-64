@@ -312,9 +312,11 @@ void SM64AP_SetCourseMap(std::map<int, int> map) {
 }
 
 void SM64AP_SetMoveRandoVec(int vec) {
-    for (int i = 1; i < SM64AP_NUM_ABILITIES; i++) { // Start at 1, DJ bit is unnecessary
+    // Standard moves are in the first 32 bits. High IDs (like 196-198) are purely randomized.
+    int limit = (SM64AP_NUM_ABILITIES < 32) ? SM64AP_NUM_ABILITIES : 32;
+    for (int i = 1; i < limit; i++) {
         sm64_have_abilities[i] =
-            !std::bitset<SM64AP_NUM_ABILITIES>(vec).test(i) || sm64_have_abilities[i];
+            !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
 void SM64AP_SetPaintingRando(int enabled) {
