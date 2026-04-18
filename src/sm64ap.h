@@ -129,6 +129,7 @@ AP_EXTERN_C bool sm64_have_toad_083;
 AP_EXTERN_C bool sm64_have_toad_137;
 AP_EXTERN_C bool sm64_have_toad_082;
 AP_EXTERN_C bool sm64_have_toad_136;
+AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
