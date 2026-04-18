@@ -1,6 +1,20 @@
 
 #include "sm64ap.h"
 
+static s32 sm64ap_toad_is_unlocked(s16 dialogId) {
+    switch (dialogId) {
+        case DIALOG_133: return sm64_have_toad_133;
+        case DIALOG_134: return sm64_have_toad_134;
+        case DIALOG_135: return sm64_have_toad_135;
+        case DIALOG_076: return sm64_have_toad_076;
+        case DIALOG_083: return sm64_have_toad_083;
+        case DIALOG_137: return sm64_have_toad_137;
+        case DIALOG_082: return sm64_have_toad_082;
+        case DIALOG_136: return sm64_have_toad_136;
+        default: return TRUE;
+    }
+}
+
 void bhv_toad_message_loop(void) {
     s16 dialogId = o->oBehParams2ndByte;
 
