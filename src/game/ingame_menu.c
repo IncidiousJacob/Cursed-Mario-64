@@ -935,8 +935,38 @@ s16 get_dialog_id(void) {
 
 void create_dialog_box(s16 dialog) {
     if (gDialogID == -1) {
+
+        switch (dialog) {
+            case DIALOG_133:
+                if (!sm64_have_toad_133) dialog = DIALOG_001;
+                break;
+            case DIALOG_134:
+                if (!sm64_have_toad_134) dialog = DIALOG_001;
+                break;
+            case DIALOG_135:
+                if (!sm64_have_toad_135) dialog = DIALOG_001;
+                break;
+            case DIALOG_076:
+                if (!sm64_have_toad_076) dialog = DIALOG_001;
+                break;
+            case DIALOG_083:
+                if (!sm64_have_toad_083) dialog = DIALOG_001;
+                break;
+            case DIALOG_137:
+                if (!sm64_have_toad_137) dialog = DIALOG_001;
+                break;
+            case DIALOG_082:
+                if (!sm64_have_toad_082) dialog = DIALOG_001;
+                break;
+            case DIALOG_136:
+                if (!sm64_have_toad_136) dialog = DIALOG_001;
+                break;
+        }
+
         gDialogID = dialog;
         gDialogBoxType = DIALOG_TYPE_ROTATE;
+
+        // Only fires if NOT replaced (i.e. unlocked)
         if (dialog == DIALOG_133) {
             SM64AP_SendItem(2000);
         }
@@ -949,26 +979,11 @@ void create_dialog_box(s16 dialog) {
         if (dialog == DIALOG_136) {
             SM64AP_SendItem(2003);
         }
-        if (dialog == DIALOG_154) {
-            SM64AP_SendItem(2004);
-        }
         if (dialog == DIALOG_137) {
             SM64AP_SendItem(2005);
         }
         if (dialog == DIALOG_076) {
             SM64AP_SendItem(2006);
-        }
-        if (dialog == DIALOG_156) {
-            SM64AP_SendItem(2007);
-        }
-        if (dialog == DIALOG_017) {
-            SM64AP_SendItem(2008);
-        }
-        if (dialog == DIALOG_128) {
-            SM64AP_SendItem(2009);
-        }
-        if (dialog == DIALOG_116) {
-            SM64AP_SendItem(2010);
         }
     }
 }
