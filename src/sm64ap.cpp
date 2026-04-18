@@ -80,7 +80,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
-                gRRTrapTimer = 6 * 60 * 30; // 6 minutes at 30fps
+                gRRTrapTimer = 6 * 60 * 30;
             }
             delayed_queue.push(idx);
         }
@@ -111,10 +111,12 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
             case SM64AP_ITEMID_1UP:
                 gMarioState->numLives++;
                 break;
+            case SM64AP_ID_KOOPA_SHELL:
+                SM64AP_SpawnKoopaShellInFrontOfMario();
+                break;
         }
     }
 }
-
 void SM64AP_CheckLocation(int64_t loc_id) {
     sm64_locations[loc_id - SM64AP_ID_OFFSET] = true;
 }
