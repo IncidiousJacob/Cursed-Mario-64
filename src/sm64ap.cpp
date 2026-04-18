@@ -314,6 +314,23 @@ void SM64AP_SetMoveRandoVec(int vec) {
             !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
+
+// Separate bitmask for high-index abilities (Punch=bit0, Grab=bit1, Swim=bit2).
+// A 0 bit means NOT randomized (auto-unlock). A 1 bit means RANDOMIZED (wait for RecvItem).
+// If the AP world never sends MoveRandoVecHigh we assume these moves are not randomized
+// and auto-unlock them for backward compatibility.
+static bool sm64_received_move_rando_high = false;
+
+void SM64AP_SetMoveRandoVecHigh(int vec) {
+    sm64_received_move_rando_high = true;
+    // bit 0 = Punch, bit 1 = Grab, bit 2 = Swim
+    if (!std::bitset<32>(vec).test(0))
+        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+    if (!std::bitset<32>(vec).test(1))
+        sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
+    if (!std::bitset<32>(vec).test(2))
+        sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+}
 void SM64AP_SetPaintingRando(int enabled) {
     if (!enabled) {
         // Not enabled, so unlock all paintings
@@ -333,6 +350,7 @@ void SM64AP_ResetItems() {
         sm64_have_painting[i] = false;
     }
     sm64_have_abilities.reset();
+    sm64_received_move_rando_high = false;
     sm64_have_key1 = false;
     sm64_have_key2 = false;
     sm64_have_wingcap = false;
@@ -384,6 +402,7 @@ void SM64AP_GenericInit() {
     AP_RegisterSlotDataIntCallback("StarsToFinish", &SM64AP_SetStarsToFinish);
     AP_RegisterSlotDataIntCallback("CompletionType", &SM64AP_SetCompletionType);
     AP_RegisterSlotDataIntCallback("MoveRandoVec", &SM64AP_SetMoveRandoVec);
+    AP_RegisterSlotDataIntCallback("MoveRandoVecHigh", &SM64AP_SetMoveRandoVecHigh);
     AP_RegisterSlotDataIntCallback("PaintingRando", &SM64AP_SetPaintingRando);
     AP_RegisterSlotDataMapIntIntCallback("AreaRando", &SM64AP_SetCourseMap);
 
@@ -698,15 +717,15 @@ bool SM64AP_CanLedgeGrab() {
 }
 
 bool SM64AP_CanGrab() {
-    return true; // sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanPunch() {
-    return true; // sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanSwim() {
-    return true; // sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
 }
 
 void SM64AP_PrintNext() {
@@ -720,6 +739,17 @@ void SM64AP_PrintNext() {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20,
                    "CHECK ARGS");
     }
+
+    // Backward compatibility: if the AP world never sent MoveRandoVecHigh (old worlds),
+    // auto-unlock Punch/Grab/Swim once we are connected and slot data has been processed.
+    if (!sm64_received_move_rando_high &&
+        AP_GetConnectionStatus() == AP_ConnectionStatus::Authenticated) {
+        sm64_received_move_rando_high = true; // Run only once
+        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = true;
+    }
+
     if (!sm64_have_abilities.all() && !SM64AP_SUPPORT_MOVE_RANDO) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2,
                    "INCOMPATIBLE WITH");
