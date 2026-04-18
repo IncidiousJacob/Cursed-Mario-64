@@ -593,6 +593,8 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
             else if (hX == 4346 && hZ == 400) loc_id = 3626405;
             else if (hX == -5054 && hZ == -1054) loc_id = 3626406;
             else if (hX == -5033 && hZ == -2666) loc_id = 3626407;
+            else if (hX == -488 && hZ == -2305) loc_id = 3626408;
+            else if (hX == -1768 && hZ == -1793) loc_id = 3626409;
         }
     } else if (gCurrLevelNum == LEVEL_LLL) {
         if (o->behavior == bhvMrI) {
