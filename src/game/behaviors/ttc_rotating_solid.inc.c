@@ -1,4 +1,15 @@
 
+#include "sm64ap.h"
+
+void bhv_toad_message_loop(void) {
+    s16 dialogId = o->oBehParams2ndByte;
+
+    if (!sm64ap_toad_is_unlocked(dialogId)) {
+        cur_obj_hide();
+        cur_obj_become_intangible();
+        obj_mark_for_deletion(o);
+        return;
+    }
 /**
  * Behavior for bhvTTCRotatingSolid, which are the rotating cube and triangular
  * prism.
