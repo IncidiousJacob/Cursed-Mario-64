@@ -14,8 +14,10 @@ struct ObjectHitbox sSpindriftHitbox = {
 
 void bhv_spindrift_loop(void) {
     o->activeFlags |= ACTIVE_FLAG_UNK10;
-    if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0))
+    if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0)) {
+        SM64AP_CheckEnemyDeath(o);
         cur_obj_change_action(1);
+    }
     cur_obj_update_floor_and_walls();
     switch (o->oAction) {
         case 0:

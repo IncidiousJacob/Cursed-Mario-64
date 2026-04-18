@@ -383,6 +383,23 @@ void SM64AP_SetMoveRandoVec(int vec) {
             !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
+
+// Separate bitmask for high-index abilities (Punch=bit0, Grab=bit1, Swim=bit2).
+// A 0 bit means NOT randomized (auto-unlock). A 1 bit means RANDOMIZED (wait for RecvItem).
+// If the AP world never sends MoveRandoVecHigh we assume these moves are not randomized
+// and auto-unlock them for backward compatibility.
+static bool sm64_received_move_rando_high = false;
+
+void SM64AP_SetMoveRandoVecHigh(int vec) {
+    sm64_received_move_rando_high = true;
+    // bit 0 = Punch, bit 1 = Grab, bit 2 = Swim
+    if (!std::bitset<32>(vec).test(0))
+        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+    if (!std::bitset<32>(vec).test(1))
+        sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
+    if (!std::bitset<32>(vec).test(2))
+        sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+}
 void SM64AP_SetPaintingRando(int enabled) {
     if (!enabled) {
         // Not enabled, so unlock all paintings
@@ -402,6 +419,7 @@ void SM64AP_ResetItems() {
         sm64_have_painting[i] = false;
     }
     sm64_have_abilities.reset();
+    sm64_received_move_rando_high = false;
     sm64_have_key1 = false;
     sm64_have_key2 = false;
     sm64_have_wingcap = false;
@@ -453,6 +471,7 @@ void SM64AP_GenericInit() {
     AP_RegisterSlotDataIntCallback("StarsToFinish", &SM64AP_SetStarsToFinish);
     AP_RegisterSlotDataIntCallback("CompletionType", &SM64AP_SetCompletionType);
     AP_RegisterSlotDataIntCallback("MoveRandoVec", &SM64AP_SetMoveRandoVec);
+    AP_RegisterSlotDataIntCallback("MoveRandoVecHigh", &SM64AP_SetMoveRandoVecHigh);
     AP_RegisterSlotDataIntCallback("PaintingRando", &SM64AP_SetPaintingRando);
     AP_RegisterSlotDataMapIntIntCallback("AreaRando", &SM64AP_SetCourseMap);
 
@@ -516,53 +535,65 @@ void SM64AP_SendItem(int idx) {
 }
 
 void SM64AP_CheckEnemyDeath(struct Object *o) {
-    if (gCurrLevelNum != LEVEL_BOB) return;
-
     int64_t loc_id = 0;
     int hX = (int)roundf(o->oHomeX);
     int hZ = (int)roundf(o->oHomeZ);
 
-    if (o->behavior == bhvGoomba) {
-        // Direct Macro Goombas
-        if (hX == -2713 && hZ == 5778) loc_id = 3626300;
-        else if (hX == -342 && hZ == 5433) loc_id = 3626301;
-        
-        // Triplet Spawned Goombas
-        else if (o->parentObj != o) {
-            int pHX = (int)roundf(o->parentObj->oPosX);
-            int pHZ = (int)roundf(o->parentObj->oPosZ);
-            int raw_idx = (o->oBehParams2ndByte & 0xFC); // GOOMBA_BP_TRIPLET_FLAG_MASK
-            int tri_idx = -1;
+    if (gCurrLevelNum == LEVEL_BOB) {
+        if (o->behavior == bhvGoomba) {
+            // Direct Macro Goombas
+            if (hX == -2713 && hZ == 5778) loc_id = 3626300;
+            else if (hX == -342 && hZ == 5433) loc_id = 3626301;
             
-            // Map common triplet flags to indices 0, 1, 2
-            // Typically 4, 8, 16 but bits might be shifted or combined with size
-            if (raw_idx & 0x04) tri_idx = 0;
-            else if (raw_idx & 0x08) tri_idx = 1;
-            else if (raw_idx & 0x10) tri_idx = 2;
-            
-            if (tri_idx != -1) {
-                if (pHX == 3640 && pHZ == 6280) loc_id = 3626302 + tri_idx;
-                else if (pHX == 6060 && pHZ == 2000) loc_id = 3626305 + tri_idx;
-                else if (pHX == -6050 && pHZ == 1250) loc_id = 3626308 + tri_idx;
+            // Triplet Spawned Goombas
+            else if (o->parentObj != o) {
+                int pHX = (int)roundf(o->parentObj->oPosX);
+                int pHZ = (int)roundf(o->parentObj->oPosZ);
+                int raw_idx = (o->oBehParams2ndByte & 0xFC); // GOOMBA_BP_TRIPLET_FLAG_MASK
+                int tri_idx = -1;
+                
+                // Map common triplet flags to indices 0, 1, 2
+                // Typically 4, 8, 16 but bits might be shifted or combined with size
+                if (raw_idx & 0x04) tri_idx = 0;
+                else if (raw_idx & 0x08) tri_idx = 1;
+                else if (raw_idx & 0x10) tri_idx = 2;
+                
+                if (tri_idx != -1) {
+                    if (pHX == 3640 && pHZ == 6280) loc_id = 3626302 + tri_idx;
+                    else if (pHX == 6060 && pHZ == 2000) loc_id = 3626305 + tri_idx;
+                    else if (pHX == -6050 && pHZ == 1250) loc_id = 3626308 + tri_idx;
+                }
             }
         }
-    }
-    else if (o->behavior == bhvBobomb) {
-        if (hX == -3080 && hZ == -5200) loc_id = 3626311;
-        else if (hX == -3688 && hZ == -3813) loc_id = 3626312;
-        else if (hX == -4629 && hZ == -1772) loc_id = 3626313;
-        else if (hX == -3480 && hZ == -2120) loc_id = 3626314;
-        else if (hX == -3800 && hZ == -460) loc_id = 3626315;
-        else if (hX == 6888 && hZ == -5608) loc_id = 3626316;
-        else if (hX == 2350 && hZ == 3700) loc_id = 3626317;
-        else if (hX == -1750 && hZ == -2800) loc_id = 3626318;
-        else if (hX == -1400 && hZ == -950) loc_id = 3626319;
-        else if (hX == -2650 && hZ == 1750) loc_id = 3626320;
-        else if (hX == -1900 && hZ == 3450) loc_id = 3626321;
-        else if (hX == 1127 && hZ == -2495) loc_id = 3626322;
-    }
-    else if (o->behavior == bhvKoopa) {
-        if (hX == 3400 && hZ == 6500) loc_id = 3626323;
+        else if (o->behavior == bhvBobomb) {
+            if (hX == -3080 && hZ == -5200) loc_id = 3626311;
+            else if (hX == -3688 && hZ == -3813) loc_id = 3626312;
+            else if (hX == -4629 && hZ == -1772) loc_id = 3626313;
+            else if (hX == -3480 && hZ == -2120) loc_id = 3626314;
+            else if (hX == -3800 && hZ == -460) loc_id = 3626315;
+            else if (hX == 6888 && hZ == -5608) loc_id = 3626316;
+            else if (hX == 2350 && hZ == 3700) loc_id = 3626317;
+            else if (hX == -1750 && hZ == -2800) loc_id = 3626318;
+            else if (hX == -1400 && hZ == -950) loc_id = 3626319;
+            else if (hX == -2650 && hZ == 1750) loc_id = 3626320;
+            else if (hX == -1900 && hZ == 3450) loc_id = 3626321;
+            else if (hX == 1127 && hZ == -2495) loc_id = 3626322;
+        }
+        else if (o->behavior == bhvKoopa) {
+            if (hX == 3400 && hZ == 6500) loc_id = 3626323;
+        }
+    } else if (gCurrLevelNum == LEVEL_CCM) {
+        if (o->behavior == bhvMrBlizzard) {
+            if (hX == -2376 && hZ == 4256) loc_id = 3626400;
+            else if (hX == -394 && hZ == 4878) loc_id = 3626401;
+            else if (hX == 3054 && hZ == 2072) loc_id = 3626402;
+        } else if (o->behavior == bhvSpindrift) {
+            if (hX == 2542 && hZ == -1714) loc_id = 3626403;
+            else if (hX == -6090 && hZ == 1936) loc_id = 3626404;
+            else if (hX == 4346 && hZ == 400) loc_id = 3626405;
+            else if (hX == -5054 && hZ == -1054) loc_id = 3626406;
+            else if (hX == -5033 && hZ == -2666) loc_id = 3626407;
+        }
     }
 
     if (loc_id != 0) {
@@ -767,15 +798,15 @@ bool SM64AP_CanLedgeGrab() {
 }
 
 bool SM64AP_CanGrab() {
-    return true; // sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanPunch() {
-    return true; // sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanSwim() {
-    return true; // sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
 }
 
 void SM64AP_PrintNext() {
@@ -789,6 +820,17 @@ void SM64AP_PrintNext() {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20,
                    "CHECK ARGS");
     }
+
+    // Backward compatibility: if the AP world never sent MoveRandoVecHigh (old worlds),
+    // auto-unlock Punch/Grab/Swim once we are connected and slot data has been processed.
+    if (!sm64_received_move_rando_high &&
+        AP_GetConnectionStatus() == AP_ConnectionStatus::Authenticated) {
+        sm64_received_move_rando_high = true; // Run only once
+        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = true;
+    }
+
     if (!sm64_have_abilities.all() && !SM64AP_SUPPORT_MOVE_RANDO) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2,
                    "INCOMPATIBLE WITH");
