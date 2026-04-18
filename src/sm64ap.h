@@ -121,14 +121,14 @@ AP_EXTERN_C bool SM64AP_CanLedgeGrab();
 AP_EXTERN_C bool SM64AP_CanGrab();
 AP_EXTERN_C bool SM64AP_CanPunch();
 AP_EXTERN_C bool SM64AP_CanSwim();
-AP_EXTERN_C bool sm64_have_toad_133;
-AP_EXTERN_C bool sm64_have_toad_134;
-AP_EXTERN_C bool sm64_have_toad_135;
-AP_EXTERN_C bool sm64_have_toad_076;
-AP_EXTERN_C bool sm64_have_toad_083;
-AP_EXTERN_C bool sm64_have_toad_137;
-AP_EXTERN_C bool sm64_have_toad_082;
-AP_EXTERN_C bool sm64_have_toad_136;
+AP_EXTERN_C bool SM64AP_have_toad_133();
+AP_EXTERN_C bool SM64AP_have_toad_134();
+AP_EXTERN_C bool SM64AP_have_toad_135();
+AP_EXTERN_C bool SM64AP_have_toad_076();
+AP_EXTERN_C bool SM64AP_have_toad_083();
+AP_EXTERN_C bool SM64AP_have_toad_137();
+AP_EXTERN_C bool SM64AP_have_toad_082();
+AP_EXTERN_C bool SM64AP_have_toad_136();
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
