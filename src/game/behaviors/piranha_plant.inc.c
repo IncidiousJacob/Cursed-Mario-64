@@ -180,7 +180,7 @@ void piranha_plant_act_shrink_and_die(void) {
     }
 
     cur_obj_scale(o->oPiranhaPlantScale);
-    piranha_plant_reset_when_far(); // see this function's comment
+    piranha_plant_reset_when_far();
 }
 
     /**
