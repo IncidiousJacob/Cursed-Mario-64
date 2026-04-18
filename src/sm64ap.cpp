@@ -66,6 +66,27 @@ std::map<int, int> map_boxid_locid;
 int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
 
+static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
+    if (gMarioObject == NULL || gMarioState == NULL || gCurrArea == NULL) {
+        return;
+    }
+
+    struct Object *shell = spawn_object_relative(
+        0,
+        0,      // X offset
+        60,     // Y offset
+        220,    // forward
+        gMarioObject,
+        MODEL_KOOPA_SHELL,
+        bhvKoopaShell
+    );
+
+    if (shell != NULL) {
+        shell->oForwardVel = 0.0f;
+        shell->oVelY = 0.0f;
+    }
+}
+
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
@@ -206,6 +227,8 @@ void setCourseNodeAndArea(int coursenum, s16 *oldnode, bool isDeathWarp, int war
             return;
     }
 }
+
+
 
 void SM64AP_RedirectWarp(s16 *curLevel, s16 *destLevel, s8 *curArea, s16 *destArea, s16 *destWarpNode,
                          bool isDeathWarp, int warpOp) {
