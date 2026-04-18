@@ -104,6 +104,7 @@ void mr_i_act_3(void) {
         // do nothing
     } else if (o->oTimer < 168) {
         if (o->oTimer == 104) {
+            SM64AP_CheckEnemyDeath(o);
             cur_obj_become_intangible();
             spawn_mist_particles();
             o->oMrISize = sp1C * 0.6;

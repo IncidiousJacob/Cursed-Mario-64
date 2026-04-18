@@ -192,6 +192,7 @@ void bully_spawn_coin(void) {
 
 void bully_act_level_death(void) {
     if (obj_lava_death() == 1) {
+        SM64AP_CheckEnemyDeath(o);
         if (o->oBehParams2ndByte == BULLY_BP_SIZE_SMALL) {
             if (o->oBullySubtype == BULLY_STYPE_MINION)
                 o->parentObj->oBullyKBTimerAndMinionKOCounter++;
