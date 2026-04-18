@@ -1,11 +1,18 @@
+#ifndef SM64AP_H
+#define SM64AP_H
+
 #include <stdbool.h>
+#include "types.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef __cplusplus
 #define AP_EXTERN_C extern "C"
 #else
 #define AP_EXTERN_C extern
 #endif
-
 #ifdef __cplusplus
 extern "C" {
 #include "types.h"
@@ -163,4 +170,11 @@ AP_EXTERN_C s32 gRRTrapTimer;
 
 #define RR_TRAP_STAR_BIT 0x80000000
 
+
 #undef AP_EXTERN_C
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
