@@ -834,12 +834,20 @@ void SM64AP_PrintNext() {
 
     // Backward compatibility: if the AP world never sent MoveRandoVecHigh (old worlds),
     // auto-unlock Punch/Grab/Swim once we are connected and slot data has been processed.
-    if (!sm64_received_move_rando_high &&
-        AP_GetConnectionStatus() == AP_ConnectionStatus::Authenticated) {
-        sm64_received_move_rando_high = true; // Run only once
-        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
-        sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = true;
-        sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = true;
+    static int auth_timer = 0;
+    if (AP_GetConnectionStatus() == AP_ConnectionStatus::Authenticated) {
+        if (!sm64_received_move_rando_high) {
+            if (auth_timer < 90) {
+                auth_timer++;
+            } else {
+                sm64_received_move_rando_high = true; // Run only once
+                sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+                sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = true;
+                sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = true;
+            }
+        }
+    } else {
+        auth_timer = 0;
     }
 
     if (!sm64_have_abilities.all() && !SM64AP_SUPPORT_MOVE_RANDO) {
