@@ -299,15 +299,9 @@ const LevelScript level_castle_inside_entry[] = {
         OBJECT(/*model*/ MODEL_NONE,       /*pos*/  3748,  507,   773, /*angle*/ 0, -45, 0, /*behParam*/ 0x00000000, /*beh*/ bhvTankFishGroup),
         OBJECT(/*model*/ MODEL_NONE,       /*pos*/  2778,  507,  1255, /*angle*/ 0, -90, 0, /*behParam*/ 0x00000000, /*beh*/ bhvTankFishGroup),
         OBJECT(/*model*/ MODEL_BOO_CASTLE, /*pos*/ -1000,   50, -3500, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvBooInCastle),
-        if (sm64_have_toad_133)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_133 << 24, bhvToadMessage),
-        if (sm64_have_toad_134)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_134 << 24, bhvToadMessage),
-        if (sm64_have_toad_135)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_135 << 24, bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/ -1671,    0,  1313, /*angle*/ 0,  83, 0, /*behParam*/ DIALOG_133 << 24, /*beh*/ bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/  1524,  307,   458, /*angle*/ 0, 110, 0, /*behParam*/ DIALOG_134 << 24, /*beh*/ bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/   596, -306, -2637, /*angle*/ 0, 152, 0, /*behParam*/ DIALOG_135 << 24, /*beh*/ bhvToadMessage),
         JUMP_LINK(script_func_local_1),
         WARP_NODE(/*id*/ 0xF1, /*destLevel*/ LEVEL_CASTLE_GROUNDS, /*destArea*/ 0x01, /*destNode*/ 0x03, /*flags*/ WARP_NO_CHECKPOINT),
         TERRAIN(/*terrainData*/ inside_castle_seg7_area_1_collision),
@@ -322,15 +316,9 @@ const LevelScript level_castle_inside_entry[] = {
         OBJECT(/*model*/ MODEL_CASTLE_CLOCK_HOUR_HAND,   /*pos*/  -205, 2918, 7222, /*angle*/ 0, 180, 0, /*behParam*/ LEVEL_TTC, /*beh*/ bhvClockHourHand),
         OBJECT(/*model*/ MODEL_CASTLE_CLOCK_PENDULUM,    /*pos*/  -205, 2611, 7140, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvDecorativePendulum),
         OBJECT(/*model*/ MODEL_LAKITU,                   /*pos*/  4231, 1408, 1601, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvCameraLakitu),
-        if (sm64_have_toad_076)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_076 << 24, bhvToadMessage),
-        if (sm64_have_toad_134)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_134 << 24, bhvToadMessage),
-        if (sm64_have_toad_137)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_137 << 24, bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/ -1671,    0,  1313, /*angle*/ 0,  83, 0, /*behParam*/ DIALOG_076 << 24, /*beh*/ bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/  1524,  307,   458, /*angle*/ 0, 110, 0, /*behParam*/ DIALOG_083 << 24, /*beh*/ bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/   596, -306, -2637, /*angle*/ 0, 152, 0, /*behParam*/ DIALOG_137 << 24, /*beh*/ bhvToadMessage),
         JUMP_LINK(script_func_local_2),
         WARP_NODE(/*id*/ 0xF1, /*destLevel*/ LEVEL_CASTLE_GROUNDS, /*destArea*/ 0x01, /*destNode*/ 0x03, /*flags*/ WARP_NO_CHECKPOINT),
         TERRAIN(/*terrainData*/ inside_castle_seg7_area_2_collision),
@@ -346,12 +334,8 @@ const LevelScript level_castle_inside_entry[] = {
         OBJECT(/*model*/ MODEL_CASTLE_WATER_LEVEL_PILLAR, /*pos*/  7066, -1178,  -205, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvWaterLevelPillar),
         OBJECT(/*model*/ MODEL_NONE,                      /*pos*/     0,     0,     0, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvDddWarp),
         OBJECT(/*model*/ MODEL_MIPS,                      /*pos*/ -1509, -1177, -1564, /*angle*/ 0,   0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvMips),
-        if (sm64_have_toad_082)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_082 << 24, bhvToadMessage),
-        if (sm64_have_toad_136)
-            OBJECT(/*model*/ MODEL_TOAD, -1671, 0, 1313, 0, 83, 0,
-                DIALOG_136 << 24, bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/  1524,  307,   458, /*angle*/ 0, 110, 0, /*behParam*/ DIALOG_082 << 24, /*beh*/ bhvToadMessage),
+        OBJECT(/*model*/ MODEL_TOAD,       /*pos*/   596, -306, -2637, /*angle*/ 0, 152, 0, /*behParam*/ DIALOG_136 << 24, /*beh*/ bhvToadMessage),
         JUMP_LINK(script_func_local_3),
         JUMP_LINK(script_func_local_4),
         WARP_NODE(/*id*/ 0xF1, /*destLevel*/ LEVEL_CASTLE_GROUNDS, /*destArea*/ 0x01, /*destNode*/ 0x03, /*flags*/ WARP_NO_CHECKPOINT),
