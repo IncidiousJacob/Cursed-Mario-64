@@ -180,8 +180,6 @@ void piranha_plant_act_shrink_and_die(void) {
     }
 
     cur_obj_scale(o->oPiranhaPlantScale);
-    piranha_plant_reset_when_far();
-}
 
     /**
      * Note that this if-statement occurs unconditionally after the above if-
@@ -194,8 +192,11 @@ void piranha_plant_act_shrink_and_die(void) {
         o->oPiranhaPlantScale = o->oPiranhaPlantScale - 0.04;
     } else {
         o->oPiranhaPlantScale = 0.0f;
-        cur_obj_spawn_loot_blue_coin();
-        o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
+        // Only spawn coin and change action if not already done in the first block
+        if (o->oAction != PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN) {
+            cur_obj_spawn_loot_blue_coin();
+            o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
+        }
     }
 
     cur_obj_scale(o->oPiranhaPlantScale);
