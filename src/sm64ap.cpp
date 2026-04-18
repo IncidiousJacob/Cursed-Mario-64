@@ -70,15 +70,15 @@ int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
-    if (gMarioObject == NULL || gMarioState == NULL || gCurrArea == NULL) {
+    if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
         return;
     }
 
     struct Object *shell = spawn_object_relative(
         0,
-        0,      // X offset
-        60,     // Y offset
-        220,    // forward
+        0,
+        60,
+        220,
         gMarioObject,
         MODEL_KOOPA_SHELL,
         bhvKoopaShell
