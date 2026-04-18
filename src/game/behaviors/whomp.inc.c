@@ -226,10 +226,18 @@ void whomp_act_8(void) {
         spawn_triangle_break_particles(20, 138, 3.0f, 4);
         cur_obj_shake_screen(SHAKE_POS_SMALL);
         create_sound_spawner(SOUND_OBJ_THWOMP);
+
+        if (gCurrLevelNum == LEVEL_WF) {
+            if (o->oHomeX == -1545.0f && o->oHomeY == 2560.0f && o->oHomeZ == -286.0f) {
+                SM64AP_SendItem(2013);
+            } else if (o->oHomeX == 189.0f && o->oHomeY == 2560.0f && o->oHomeZ == -1857.0f) {
+                SM64AP_SendItem(2014);
+            }
+        }
+
         obj_mark_for_deletion(o);
     }
 }
-
 void whomp_act_9(void) {
     if (o->oTimer == 60)
         stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_BOSS));
