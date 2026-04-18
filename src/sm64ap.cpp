@@ -46,6 +46,14 @@ bool sm64_have_toad_083 = false;
 bool sm64_have_toad_137 = false;
 bool sm64_have_toad_082 = false;
 bool sm64_have_toad_136 = false;
+bool sm64_have_toad_133 = false;
+bool sm64_have_toad_134 = false;
+bool sm64_have_toad_135 = false;
+bool sm64_have_toad_076 = false;
+bool sm64_have_toad_083 = false;
+bool sm64_have_toad_137 = false;
+bool sm64_have_toad_082 = false;
+bool sm64_have_toad_136 = false;
 int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
@@ -145,6 +153,30 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
                 break;
             case SM64AP_ID_KOOPA_SHELL:
                 SM64AP_SpawnKoopaShellInFrontOfMario();
+                break;
+            case SM64AP_ID_TOAD_133_UNLOCK:
+                sm64_have_toad_133 = true;
+                break;
+            case SM64AP_ID_TOAD_134_UNLOCK:
+                sm64_have_toad_134 = true;
+                break;
+            case SM64AP_ID_TOAD_135_UNLOCK:
+                sm64_have_toad_135 = true;
+                break;
+            case SM64AP_ID_TOAD_076_UNLOCK:
+                sm64_have_toad_076 = true;
+                break;
+            case SM64AP_ID_TOAD_083_UNLOCK:
+                sm64_have_toad_083 = true;
+                break;
+            case SM64AP_ID_TOAD_137_UNLOCK:
+                sm64_have_toad_137 = true;
+                break;
+            case SM64AP_ID_TOAD_082_UNLOCK:
+                sm64_have_toad_082 = true;
+                break;
+            case SM64AP_ID_TOAD_136_UNLOCK:
+                sm64_have_toad_136 = true;
                 break;
         }
     }
