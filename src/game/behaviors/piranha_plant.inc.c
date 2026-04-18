@@ -168,12 +168,19 @@ void piranha_plant_act_shrink_and_die(void) {
     if (o->oTimer == 0) {
         cur_obj_play_sound_2(SOUND_OBJ_ENEMY_DEFEAT_SHRINK);
         o->oPiranhaPlantScale = 1.0f;
+    }
+
+    if (o->oPiranhaPlantScale > 0.0f) {
+        o->oPiranhaPlantScale -= 0.04f;
     } else {
         o->oPiranhaPlantScale = 0.0f;
         SM64AP_CheckWFPiranhaPlant(o);
         cur_obj_spawn_loot_blue_coin();
         o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
     }
+
+    cur_obj_scale(o->oPiranhaPlantScale);
+    piranha_plant_reset_when_far(); // see this function's comment
 }
 
     /**
