@@ -958,7 +958,7 @@ static s32 act_water_plunge(struct MarioState *m) {
 
     if (m->flags & MARIO_METAL_CAP) {
         stateFlags |= 4;
-    } else if ((m->prevAction & ACT_FLAG_DIVING) || (m->input & INPUT_A_DOWN)) {
+    } else if (((m->prevAction & ACT_FLAG_DIVING) || (m->input & INPUT_A_DOWN)) && SM64AP_CanSwim()) {
         stateFlags |= 2;
     }
 

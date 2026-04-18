@@ -1624,7 +1624,7 @@ u32 interact_grabbable(struct MarioState *m, u32 interactType, struct Object *o)
         }
     }
 
-    if (able_to_grab_object(m, o)) {
+    if (able_to_grab_object(m, o) && SM64AP_CanGrab()) {
         if (!(o->oInteractionSubtype & INT_SUBTYPE_NOT_GRABBABLE)) {
             m->interactObj = o;
             m->input |= INPUT_INTERACT_OBJ_GRABBABLE;
