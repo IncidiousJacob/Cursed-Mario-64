@@ -168,7 +168,13 @@ void piranha_plant_act_shrink_and_die(void) {
     if (o->oTimer == 0) {
         cur_obj_play_sound_2(SOUND_OBJ_ENEMY_DEFEAT_SHRINK);
         o->oPiranhaPlantScale = 1.0f;
+    } else {
+        o->oPiranhaPlantScale = 0.0f;
+        SM64AP_CheckWFPiranhaPlant(o);
+        cur_obj_spawn_loot_blue_coin();
+        o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
     }
+}
 
     /**
      * Note that this if-statement occurs unconditionally after the above if-
