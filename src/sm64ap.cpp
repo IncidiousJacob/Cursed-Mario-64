@@ -7,9 +7,13 @@ extern "C" {
 #include "level_table.h"
 #include "game/level_update.h"
 #include "game/area.h"
+#include "game/mario.h"
+#include "game/object_list_processor.h"
 #include "object_fields.h"
 #include "object_constants.h"
 #include "behavior_data.h"
+#include "game/object_helpers.h"
+#include "model_ids.h"
 }
 
 #include <string>
@@ -34,6 +38,22 @@ bool sm64_have_key2 = false;
 bool sm64_have_wingcap = false;
 bool sm64_have_metalcap = false;
 bool sm64_have_vanishcap = false;
+bool sm64_have_toad_133 = false;
+bool sm64_have_toad_134 = false;
+bool sm64_have_toad_135 = false;
+bool sm64_have_toad_076 = false;
+bool sm64_have_toad_083 = false;
+bool sm64_have_toad_137 = false;
+bool sm64_have_toad_082 = false;
+bool sm64_have_toad_136 = false;
+bool sm64_have_toad_133 = false;
+bool sm64_have_toad_134 = false;
+bool sm64_have_toad_135 = false;
+bool sm64_have_toad_076 = false;
+bool sm64_have_toad_083 = false;
+bool sm64_have_toad_137 = false;
+bool sm64_have_toad_082 = false;
+bool sm64_have_toad_136 = false;
 int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
@@ -65,6 +85,27 @@ std::map<int, int> map_boxid_locid;
 int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
 
+static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
+    if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
+        return;
+    }
+
+    struct Object *shell = spawn_object_relative(
+        0,
+        0,
+        60,
+        220,
+        gMarioObject,
+        MODEL_KOOPA_SHELL,
+        bhvKoopaShell
+    );
+
+    if (shell != NULL) {
+        shell->oForwardVel = 0.0f;
+        shell->oVelY = 0.0f;
+    }
+}
+
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
@@ -79,7 +120,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
-                gRRTrapTimer = 6 * 60 * 30; // 6 minutes at 30fps
+                gRRTrapTimer = 6 * 60 * 30;
             }
             delayed_queue.push(idx);
         }
@@ -110,10 +151,36 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
             case SM64AP_ITEMID_1UP:
                 gMarioState->numLives++;
                 break;
+            case SM64AP_ID_KOOPA_SHELL:
+                SM64AP_SpawnKoopaShellInFrontOfMario();
+                break;
+            case SM64AP_ID_TOAD_133_UNLOCK:
+                sm64_have_toad_133 = true;
+                break;
+            case SM64AP_ID_TOAD_134_UNLOCK:
+                sm64_have_toad_134 = true;
+                break;
+            case SM64AP_ID_TOAD_135_UNLOCK:
+                sm64_have_toad_135 = true;
+                break;
+            case SM64AP_ID_TOAD_076_UNLOCK:
+                sm64_have_toad_076 = true;
+                break;
+            case SM64AP_ID_TOAD_083_UNLOCK:
+                sm64_have_toad_083 = true;
+                break;
+            case SM64AP_ID_TOAD_137_UNLOCK:
+                sm64_have_toad_137 = true;
+                break;
+            case SM64AP_ID_TOAD_082_UNLOCK:
+                sm64_have_toad_082 = true;
+                break;
+            case SM64AP_ID_TOAD_136_UNLOCK:
+                sm64_have_toad_136 = true;
+                break;
         }
     }
 }
-
 void SM64AP_CheckLocation(int64_t loc_id) {
     sm64_locations[loc_id - SM64AP_ID_OFFSET] = true;
 }
@@ -203,6 +270,8 @@ void setCourseNodeAndArea(int coursenum, s16 *oldnode, bool isDeathWarp, int war
             return;
     }
 }
+
+
 
 void SM64AP_RedirectWarp(s16 *curLevel, s16 *destLevel, s8 *curArea, s16 *destArea, s16 *destWarpNode,
                          bool isDeathWarp, int warpOp) {
