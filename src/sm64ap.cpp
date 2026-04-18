@@ -594,6 +594,25 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
             else if (hX == -5054 && hZ == -1054) loc_id = 3626406;
             else if (hX == -5033 && hZ == -2666) loc_id = 3626407;
         }
+    } else if (gCurrLevelNum == LEVEL_LLL) {
+        if (o->behavior == bhvMrI) {
+            if (hX == -3199 && hZ == 3456) loc_id = 3626500;
+            else if (hX == 6673 && hZ == -3060) loc_id = 3626508;
+        } else if (o->behavior == bhvBigBully || o->behavior == bhvBigBullyWithMinions) {
+            if (hX == 0 && hZ == -4385) loc_id = 3626501;
+            else if (hX == 4046 && hZ == -5521) loc_id = 3626502;
+        } else if (o->behavior == bhvSmallBully) {
+            if (hX == -5119 && hZ == -2482) loc_id = 3626503;
+            else if (hX == 0 && hZ == 3712) loc_id = 3626504;
+            else if (hX == 6813 && hZ == 1613) loc_id = 3626505;
+            else if (hX == 7168 && hZ == 998) loc_id = 3626506;
+            else if (hX == -5130 && hZ == -1663) loc_id = 3626507;
+            else if (hX == 1300 && hZ == 2300) loc_id = 3626509;
+            else if (hX == -960 && hZ == -2610) loc_id = 3626510;
+            else if (hX == 4454 && hZ == -5426) loc_id = 3626511;
+            else if (hX == 3840 && hZ == -6041) loc_id = 3626512;
+            else if (hX == 3226 && hZ == -5426) loc_id = 3626513;
+        }
     }
 
     if (loc_id != 0) {
