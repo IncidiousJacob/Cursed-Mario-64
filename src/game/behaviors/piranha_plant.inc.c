@@ -171,13 +171,19 @@ void piranha_plant_act_shrink_and_die(void) {
     }
 
     if (o->oPiranhaPlantScale > 0.0f) {
-        o->oPiranhaPlantScale -= 0.04f;
+        o->oPiranhaPlantScale = o->oPiranhaPlantScale - 0.04f;
     } else {
         o->oPiranhaPlantScale = 0.0f;
         SM64AP_CheckWFPiranhaPlant(o);
         cur_obj_spawn_loot_blue_coin();
         o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
     }
+
+    cur_obj_scale(o->oPiranhaPlantScale);
+#if BUGFIX_PIRANHA_PLANT_STATE_RESET
+    piranha_plant_reset_when_far();
+#endif
+}
 
     cur_obj_scale(o->oPiranhaPlantScale);
 
