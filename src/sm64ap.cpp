@@ -543,36 +543,30 @@ void SM64AP_SendItem(int idx) {
 
 void SM64AP_CheckEnemyDeath(struct Object *o) {
     int64_t loc_id = 0;
-    int hX = (int)roundf(o->oHomeX);
-    int hZ = (int)roundf(o->oHomeZ);
+    int hX = (int) roundf(o->oHomeX);
+    int hZ = (int) roundf(o->oHomeZ);
 
     if (gCurrLevelNum == LEVEL_BOB) {
         if (o->behavior == bhvGoomba) {
-            // Direct Macro Goombas
             if (hX == -2713 && hZ == 5778) loc_id = 3626300;
             else if (hX == -342 && hZ == 5433) loc_id = 3626301;
-            
-            // Triplet Spawned Goombas
             else if (o->parentObj != o) {
-                int pHX = (int)roundf(o->parentObj->oPosX);
-                int pHZ = (int)roundf(o->parentObj->oPosZ);
-                int raw_idx = (o->oBehParams2ndByte & 0xFC); // GOOMBA_BP_TRIPLET_FLAG_MASK
+                int pHX = (int) roundf(o->parentObj->oPosX);
+                int pHZ = (int) roundf(o->parentObj->oPosZ);
+                int raw_idx = (o->oBehParams2ndByte & 0xFC);
                 int tri_idx = -1;
-                
-                // Map common triplet flags to indices 0, 1, 2
-                // Typically 4, 8, 16 but bits might be shifted or combined with size
+
                 if (raw_idx & 0x04) tri_idx = 0;
                 else if (raw_idx & 0x08) tri_idx = 1;
                 else if (raw_idx & 0x10) tri_idx = 2;
-                
+
                 if (tri_idx != -1) {
                     if (pHX == 3640 && pHZ == 6280) loc_id = 3626302 + tri_idx;
                     else if (pHX == 6060 && pHZ == 2000) loc_id = 3626305 + tri_idx;
                     else if (pHX == -6050 && pHZ == 1250) loc_id = 3626308 + tri_idx;
                 }
             }
-        }
-        else if (o->behavior == bhvBobomb) {
+        } else if (o->behavior == bhvBobomb) {
             if (hX == -3080 && hZ == -5200) loc_id = 3626311;
             else if (hX == -3688 && hZ == -3813) loc_id = 3626312;
             else if (hX == -4629 && hZ == -1772) loc_id = 3626313;
@@ -585,8 +579,7 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
             else if (hX == -2650 && hZ == 1750) loc_id = 3626320;
             else if (hX == -1900 && hZ == 3450) loc_id = 3626321;
             else if (hX == 1127 && hZ == -2495) loc_id = 3626322;
-        }
-        else if (o->behavior == bhvKoopa) {
+        } else if (o->behavior == bhvKoopa) {
             if (hX == 3400 && hZ == 6500) loc_id = 3626323;
         }
     } else if (gCurrLevelNum == LEVEL_CCM) {
@@ -620,6 +613,19 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
             else if (hX == 3840 && hZ == -6041) loc_id = 3626512;
             else if (hX == 3226 && hZ == -5426) loc_id = 3626513;
         }
+    } else if (gCurrLevelNum == LEVEL_WF) {
+        if (o->behavior == bhvGoomba) {
+            if (hX == WF_GOOMBA_X && hZ == WF_GOOMBA_Z) {
+                loc_id = 3626600;
+            }
+        }
+    }
+
+    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
+        SM64AP_SendItem(loc_id);
+    }
+}
+        
     }
 
     if (loc_id != 0) {
