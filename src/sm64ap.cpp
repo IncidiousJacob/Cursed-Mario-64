@@ -10,6 +10,7 @@ extern "C" {
 #include "object_fields.h"
 #include "object_constants.h"
 #include "behavior_data.h"
+#include "object_helpers.h"
 }
 
 #include <string>
