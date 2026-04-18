@@ -269,7 +269,7 @@ static void chain_chomp_released_trigger_cutscene(void) {
         && cutscene_object(CUTSCENE_STAR_SPAWN, o) == 1) {
 
         if (!sent_chain_chomp_check) {
-            Archipelago_SendCheck(2011);
+            SM64AP_SendItem(2011);
             sent_chain_chomp_check = 1;
         }
 
