@@ -65,7 +65,7 @@ bool gRRTrapped = false;
 bool gRRReturning = false;
 s16 gRRReturnLevel = 0;
 s16 gRRReturnArea = 0;
-f32 gRRReturnPos[3] = {0,0,0};
+f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
 
@@ -82,15 +82,8 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
         return;
     }
 
-    struct Object *shell = spawn_object_relative(
-        0,
-        0,
-        60,
-        220,
-        gMarioObject,
-        MODEL_KOOPA_SHELL,
-        bhvKoopaShell
-    );
+    struct Object *shell =
+        spawn_object_relative(0, 0, 60, 220, gMarioObject, MODEL_KOOPA_SHELL, bhvKoopaShell);
 
     if (shell != NULL) {
         shell->oForwardVel = 0.0f;
@@ -116,7 +109,8 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *obj) {
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
-    } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0) && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
+    } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
+               && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
         sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
     } else if (idx == SM64AP_ID_ABILITY(0)) {
         sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET + 1] =
@@ -278,8 +272,6 @@ void setCourseNodeAndArea(int coursenum, s16 *oldnode, bool isDeathWarp, int war
     }
 }
 
-
-
 void SM64AP_RedirectWarp(s16 *curLevel, s16 *destLevel, s8 *curArea, s16 *destArea, s16 *destWarpNode,
                          bool isDeathWarp, int warpOp) {
     // When warping, always lock the clock and reset var to avoid segfault if old clock val is not in
@@ -386,8 +378,7 @@ void SM64AP_SetMoveRandoVec(int vec) {
     // Standard moves are in the first 32 bits. High IDs (like 196-198) are purely randomized.
     int limit = (SM64AP_NUM_ABILITIES < 32) ? SM64AP_NUM_ABILITIES : 32;
     for (int i = 1; i < limit; i++) {
-        sm64_have_abilities[i] =
-            !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
+        sm64_have_abilities[i] = !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
 
@@ -548,78 +539,117 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
 
     if (gCurrLevelNum == LEVEL_BOB) {
         if (o->behavior == bhvGoomba) {
-            if (hX == -2713 && hZ == 5778) loc_id = 3626300;
-            else if (hX == -342 && hZ == 5433) loc_id = 3626301;
+            if (hX == -2713 && hZ == 5778)
+                loc_id = 3626300;
+            else if (hX == -342 && hZ == 5433)
+                loc_id = 3626301;
             else if (o->parentObj != o) {
                 int pHX = (int) roundf(o->parentObj->oPosX);
                 int pHZ = (int) roundf(o->parentObj->oPosZ);
                 int raw_idx = (o->oBehParams2ndByte & 0xFC);
                 int tri_idx = -1;
 
-                if (raw_idx & 0x04) tri_idx = 0;
-                else if (raw_idx & 0x08) tri_idx = 1;
-                else if (raw_idx & 0x10) tri_idx = 2;
+                if (raw_idx & 0x04)
+                    tri_idx = 0;
+                else if (raw_idx & 0x08)
+                    tri_idx = 1;
+                else if (raw_idx & 0x10)
+                    tri_idx = 2;
 
                 if (tri_idx != -1) {
-                    if (pHX == 3640 && pHZ == 6280) loc_id = 3626302 + tri_idx;
-                    else if (pHX == 6060 && pHZ == 2000) loc_id = 3626305 + tri_idx;
-                    else if (pHX == -6050 && pHZ == 1250) loc_id = 3626308 + tri_idx;
+                    if (pHX == 3640 && pHZ == 6280)
+                        loc_id = 3626302 + tri_idx;
+                    else if (pHX == 6060 && pHZ == 2000)
+                        loc_id = 3626305 + tri_idx;
+                    else if (pHX == -6050 && pHZ == 1250)
+                        loc_id = 3626308 + tri_idx;
                 }
             }
         } else if (o->behavior == bhvBobomb) {
-            if (hX == -3080 && hZ == -5200) loc_id = 3626311;
-            else if (hX == -3688 && hZ == -3813) loc_id = 3626312;
-            else if (hX == -4629 && hZ == -1772) loc_id = 3626313;
-            else if (hX == -3480 && hZ == -2120) loc_id = 3626314;
-            else if (hX == -3800 && hZ == -460) loc_id = 3626315;
-            else if (hX == 6888 && hZ == -5608) loc_id = 3626316;
-            else if (hX == 2350 && hZ == 3700) loc_id = 3626317;
-            else if (hX == -1750 && hZ == -2800) loc_id = 3626318;
-            else if (hX == -1400 && hZ == -950) loc_id = 3626319;
-            else if (hX == -2650 && hZ == 1750) loc_id = 3626320;
-            else if (hX == -1900 && hZ == 3450) loc_id = 3626321;
-            else if (hX == 1127 && hZ == -2495) loc_id = 3626322;
+            if (hX == -3080 && hZ == -5200)
+                loc_id = 3626311;
+            else if (hX == -3688 && hZ == -3813)
+                loc_id = 3626312;
+            else if (hX == -4629 && hZ == -1772)
+                loc_id = 3626313;
+            else if (hX == -3480 && hZ == -2120)
+                loc_id = 3626314;
+            else if (hX == -3800 && hZ == -460)
+                loc_id = 3626315;
+            else if (hX == 6888 && hZ == -5608)
+                loc_id = 3626316;
+            else if (hX == 2350 && hZ == 3700)
+                loc_id = 3626317;
+            else if (hX == -1750 && hZ == -2800)
+                loc_id = 3626318;
+            else if (hX == -1400 && hZ == -950)
+                loc_id = 3626319;
+            else if (hX == -2650 && hZ == 1750)
+                loc_id = 3626320;
+            else if (hX == -1900 && hZ == 3450)
+                loc_id = 3626321;
+            else if (hX == 1127 && hZ == -2495)
+                loc_id = 3626322;
         } else if (o->behavior == bhvKoopa) {
-            if (hX == 3400 && hZ == 6500) loc_id = 3626323;
+            if (hX == 3400 && hZ == 6500)
+                loc_id = 3626323;
         }
     } else if (gCurrLevelNum == LEVEL_CCM) {
         if (o->behavior == bhvMrBlizzard) {
-            if (hX == -2376 && hZ == 4256) loc_id = 3626400;
-            else if (hX == -394 && hZ == 4878) loc_id = 3626401;
-            else if (hX == 3054 && hZ == 2072) loc_id = 3626402;
+            if (hX == -2376 && hZ == 4256)
+                loc_id = 3626400;
+            else if (hX == -394 && hZ == 4878)
+                loc_id = 3626401;
+            else if (hX == 3054 && hZ == 2072)
+                loc_id = 3626402;
         } else if (o->behavior == bhvSpindrift) {
-            if (hX == 2542 && hZ == -1714) loc_id = 3626403;
-            else if (hX == -6090 && hZ == 1936) loc_id = 3626404;
-            else if (hX == 4346 && hZ == 400) loc_id = 3626405;
-            else if (hX == -5054 && hZ == -1054) loc_id = 3626406;
-            else if (hX == -5033 && hZ == -2666) loc_id = 3626407;
-            else if (hX == -488 && hZ == -2305) loc_id = 3626408;
-            else if (hX == -1768 && hZ == -1793) loc_id = 3626409;
+            if (hX == 2542 && hZ == -1714)
+                loc_id = 3626403;
+            else if (hX == -6090 && hZ == 1936)
+                loc_id = 3626404;
+            else if (hX == 4346 && hZ == 400)
+                loc_id = 3626405;
+            else if (hX == -5054 && hZ == -1054)
+                loc_id = 3626406;
+            else if (hX == -5033 && hZ == -2666)
+                loc_id = 3626407;
+            else if (hX == -488 && hZ == -2305)
+                loc_id = 3626408;
+            else if (hX == -1768 && hZ == -1793)
+                loc_id = 3626409;
         }
     } else if (gCurrLevelNum == LEVEL_LLL) {
         if (o->behavior == bhvMrI) {
-            if (hX == -3199 && hZ == 3456) loc_id = 3626500;
-            else if (hX == 6673 && hZ == -3060) loc_id = 3626508;
+            if (hX == -3199 && hZ == 3456)
+                loc_id = 3626500;
+            else if (hX == 6673 && hZ == -3060)
+                loc_id = 3626508;
         } else if (o->behavior == bhvBigBully || o->behavior == bhvBigBullyWithMinions) {
-            if (hX == 0 && hZ == -4385) loc_id = 3626501;
-            else if (hX == 4046 && hZ == -5521) loc_id = 3626502;
+            if (hX == 0 && hZ == -4385)
+                loc_id = 3626501;
+            else if (hX == 4046 && hZ == -5521)
+                loc_id = 3626502;
         } else if (o->behavior == bhvSmallBully) {
-            if (hX == -5119 && hZ == -2482) loc_id = 3626503;
-            else if (hX == 0 && hZ == 3712) loc_id = 3626504;
-            else if (hX == 6813 && hZ == 1613) loc_id = 3626505;
-            else if (hX == 7168 && hZ == 998) loc_id = 3626506;
-            else if (hX == -5130 && hZ == -1663) loc_id = 3626507;
-            else if (hX == 1300 && hZ == 2300) loc_id = 3626509;
-            else if (hX == -960 && hZ == -2610) loc_id = 3626510;
-            else if (hX == 4454 && hZ == -5426) loc_id = 3626511;
-            else if (hX == 3840 && hZ == -6041) loc_id = 3626512;
-            else if (hX == 3226 && hZ == -5426) loc_id = 3626513;
-        }
-    } else if (gCurrLevelNum == LEVEL_WF) {
-        if (o->behavior == bhvGoomba) {
-            if (hX == WF_GOOMBA_X && hZ == WF_GOOMBA_Z) {
-                loc_id = 3626600;
-            }
+            if (hX == -5119 && hZ == -2482)
+                loc_id = 3626503;
+            else if (hX == 0 && hZ == 3712)
+                loc_id = 3626504;
+            else if (hX == 6813 && hZ == 1613)
+                loc_id = 3626505;
+            else if (hX == 7168 && hZ == 998)
+                loc_id = 3626506;
+            else if (hX == -5130 && hZ == -1663)
+                loc_id = 3626507;
+            else if (hX == 1300 && hZ == 2300)
+                loc_id = 3626509;
+            else if (hX == -960 && hZ == -2610)
+                loc_id = 3626510;
+            else if (hX == 4454 && hZ == -5426)
+                loc_id = 3626511;
+            else if (hX == 3840 && hZ == -6041)
+                loc_id = 3626512;
+            else if (hX == 3226 && hZ == -5426)
+                loc_id = 3626513;
         }
     }
 
@@ -627,16 +657,10 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
         SM64AP_SendItem(loc_id);
     }
 }
-        
-    }
-
-    if (loc_id != 0) {
-        SM64AP_SendItem(loc_id);
-    }
-}
 
 void SM64AP_UpdateRRTrapTimer(struct MarioState *m) {
-    if (!gRRTrapped || gCurrLevelNum != LEVEL_RR) return;
+    if (!gRRTrapped || gCurrLevelNum != LEVEL_RR)
+        return;
     if (gRRTrapTimer > 0) {
         gRRTrapTimer--;
         if (gRRTrapTimer == 0) {
@@ -865,8 +889,8 @@ void SM64AP_PrintNext() {
             } else {
                 sm64_received_move_rando_high = true; // Run only once
                 sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
-                sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = true;
-                sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = true;
+                sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
+                sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
             }
         }
     } else {
