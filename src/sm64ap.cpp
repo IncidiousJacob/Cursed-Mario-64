@@ -92,6 +92,29 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         case SM64AP_ITEMID_1UP:
             gMarioState->numLives++;
             break;
+        case SM64AP_ID_TOAD_133_UNLOCK:
+            sm64_have_toad_133 = true;
+            break;
+        case SM64AP_ID_TOAD_134_UNLOCK
+            sm64_have_toad_134 = true;
+            break;
+        case SM64AP_ID_TOAD_135_UNLOCK:
+            sm64_have_toad_135 = true;
+            break;
+        case SM64AP_ID_TOAD_076_UNLOCK:
+            sm64_have_toad_076 = true;
+            break;
+        case SM64AP_ID_TOAD_083_UNLOCK:
+            sm64_have_toad_083 = true;
+            break;
+        case SM64AP_ID_TOAD_137_UNLOCK:
+            sm64_have_toad_137 = true;
+            break;
+        case SM64AP_ID_TOAD_082_UNLOCK:
+            sm64_have_toad_082 = true;
+            break;
+        case SM64AP_ID_TOAD_136_UNLOCK:
+            sm64_have_toad_136 = true;
         case SM64AP_ID_CANNONUNLOCK(0)... SM64AP_ID_CANNONUNLOCK(15 - 1):
             sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
             break;
@@ -343,6 +366,15 @@ void SM64AP_ResetItems() {
     sm64_have_wingcap = false;
     sm64_have_metalcap = false;
     sm64_have_vanishcap = false;
+    sm64_have_toad_133 = false;
+    sm64_have_toad_134 = false;
+    sm64_have_toad_135 = false;
+    sm64_have_toad_076 = false;
+    sm64_have_toad_083 = false;
+    sm64_have_toad_137 = false;
+    sm64_have_toad_082 = false;
+    sm64_have_toad_136 = false;
+    
     starsCollected = 0;
 
     AP_SetServerDataRequest moat_request;
