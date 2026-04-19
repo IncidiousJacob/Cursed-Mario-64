@@ -217,7 +217,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
             case SM64AP_ID_TOAD_136_UNLOCK:
                 sm64_have_toad_136 = true;
                 break;
-            case SM64AP_ID_BITDW_BOWSER_UNLOCK:
+            case SM64AP_ID_BSBITDW_UNLOCK:
                 sm64_have_bitdw_bowser = true;
                 break;
         }
