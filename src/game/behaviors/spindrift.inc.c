@@ -16,7 +16,7 @@ void bhv_spindrift_loop(void) {
     o->activeFlags |= ACTIVE_FLAG_UNK10;
 
     if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0)) {
-        SM64AP_CheckEnemyDeath(o);
+        SM64AP_CheckCCMSpindrift(o);
         cur_obj_change_action(1);
     }
 
@@ -43,6 +43,9 @@ void bhv_spindrift_loop(void) {
             }
             break;
     }
+
+    cur_obj_move_standard(-60);
+}
 
     cur_obj_move_standard(-60);
 }
