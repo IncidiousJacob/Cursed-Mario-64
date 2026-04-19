@@ -91,21 +91,22 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     }
 }
 
-void SM64AP_CheckWFPiranhaPlant(struct Object *obj) {
-    if (gCurrLevelNum != LEVEL_WF || obj == NULL) {
+void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
+    if (gCurrLevelNum != LEVEL_WF || o == NULL) {
         return;
     }
 
-    // Match each WF plant by home position.
-    if (obj->oHomeX == -1734.0f && obj->oHomeY == 1024.0f && obj->oHomeZ == -2457.0f) {
-        SM64AP_SendItem(2400);
-    } else if (obj->oHomeX == -3379.0f && obj->oHomeY == 1024.0f && obj->oHomeZ == -2457.0f) {
-        SM64AP_SendItem(2401);
-    } else if (obj->oHomeX == -2557.0f && obj->oHomeY == 1024.0f && obj->oHomeZ == -3876.0f) {
-        SM64AP_SendItem(2402);
+    int hX = (int)roundf(o->oHomeX);
+    int hZ = (int)roundf(o->oHomeZ);
+
+    if (hX == -1734 && hZ == -2457) {
+        if (!SM64AP_CheckedLoc(2400)) SM64AP_SendItem(2400);
+    } else if (hX == -3379 && hZ == -2457) {
+        if (!SM64AP_CheckedLoc(2401)) SM64AP_SendItem(2401);
+    } else if (hX == -2557 && hZ == -3876) {
+        if (!SM64AP_CheckedLoc(2402)) SM64AP_SendItem(2402);
     }
 }
-
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
