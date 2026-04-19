@@ -93,6 +93,13 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     }
 }
 
+void SM64AP_DrawPlantDebugText(void) {
+    if (gPlantDebugTimer > 0) {
+        print_text(20, 20, gPlantDebugText);
+        gPlantDebugTimer--;
+    }
+}
+
 void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     if (o == NULL || gCurrLevelNum != LEVEL_WF) {
         return;
