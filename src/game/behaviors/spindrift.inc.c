@@ -14,11 +14,17 @@ struct ObjectHitbox sSpindriftHitbox = {
 
 void bhv_spindrift_loop(void) {
     o->activeFlags |= ACTIVE_FLAG_UNK10;
-    if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0)) {
+
+    if (o->oAction == 1) {
         SM64AP_SpindriftStolen(o);
+    }
+
+    if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0)) {
         cur_obj_change_action(1);
     }
+
     cur_obj_update_floor_and_walls();
+
     switch (o->oAction) {
         case 0:
             approach_forward_vel(&o->oForwardVel, 4.0f, 1.0f);
@@ -38,5 +44,8 @@ void bhv_spindrift_loop(void) {
             }
             break;
     }
+
+    cur_obj_move_standard(-60);
+}
     cur_obj_move_standard(-60);
 }
