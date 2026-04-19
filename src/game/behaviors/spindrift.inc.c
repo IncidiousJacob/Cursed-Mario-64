@@ -46,6 +46,3 @@ void bhv_spindrift_loop(void) {
 
     cur_obj_move_standard(-60);
 }
-
-    cur_obj_move_standard(-60);
-}
