@@ -16,7 +16,6 @@ void bhv_spindrift_loop(void) {
     o->activeFlags |= ACTIVE_FLAG_UNK10;
 
     if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0)) {
-        SM64AP_CheckCCMSpindrift(o);
         cur_obj_change_action(1);
     }
 
@@ -31,6 +30,7 @@ void bhv_spindrift_loop(void) {
                 o->oAngleToMario = obj_angle_to_object(o, gMarioObject);
             }
             cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
+            SM64AP_CheckCCMSpindrift(o);
             break;
 
         case 1:
