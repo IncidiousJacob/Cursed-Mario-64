@@ -152,7 +152,6 @@ void piranha_plant_reset_when_far(void) {
 void piranha_plant_attacked(void) {
     cur_obj_become_intangible();
     cur_obj_init_animation_with_sound(2);
-    SM64AP_CheckWFPiranhaPlant(o);
     o->oInteractStatus = 0;
     if (cur_obj_check_if_near_animation_end())
         o->oAction = PIRANHA_PLANT_ACT_SHRINK_AND_DIE;
@@ -173,20 +172,17 @@ void piranha_plant_act_shrink_and_die(void) {
     }
 
     if (o->oPiranhaPlantScale > 0.0f) {
-        o->oPiranhaPlantScale = o->oPiranhaPlantScale - 0.04f;
+        o->oPiranhaPlantScale -= 0.04f;
     } else {
         o->oPiranhaPlantScale = 0.0f;
+        SM64AP_CheckWFPiranhaPlant(o);
         cur_obj_spawn_loot_blue_coin();
         o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
     }
 
     cur_obj_scale(o->oPiranhaPlantScale);
-#if BUGFIX_PIRANHA_PLANT_STATE_RESET
     piranha_plant_reset_when_far();
-#endif
 }
-
-    cur_obj_scale(o->oPiranhaPlantScale);
 
     /**
      * Note that this if-statement occurs unconditionally after the above if-
