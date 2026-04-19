@@ -46,6 +46,9 @@ bool sm64_have_toad_083 = false;
 bool sm64_have_toad_137 = false;
 bool sm64_have_toad_082 = false;
 bool sm64_have_toad_136 = false;
+bool sm64_have_bitdw_bowser = false;
+bool sm64_have_bitfs_bowser = false;
+bool sm64_have_bits_bowser = false;
 int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
@@ -216,6 +219,17 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
             case SM64AP_ID_TOAD_136_UNLOCK:
                 sm64_have_toad_136 = true;
                 break;
+           case SM64AP_ID_BSBITDW_UNLOCK:
+               sm64_have_bitdw_bowser = true;
+               break;
+
+           case SM64AP_ID_BSBITFS_UNLOCK:
+               sm64_have_bitfs_bowser = true;
+               break;
+
+           case SM64AP_ID_BSBITS_UNLOCK:
+              sm64_have_bits_bowser = true;
+              break;
         }
     }
 }
