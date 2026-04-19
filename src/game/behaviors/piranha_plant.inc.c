@@ -155,13 +155,6 @@ void piranha_plant_attacked(void) {
     o->oInteractStatus = 0;
 
     if (cur_obj_check_if_near_animation_end()) {
-        int hX = (int) roundf(o->oHomeX);
-        int hY = (int) roundf(o->oHomeY);
-        int hZ = (int) roundf(o->oHomeZ);
-
-        char buf[64];
-        snprintf(buf, sizeof(buf), "Plant: %d %d %d", hX, hY, hZ);
-        print_text(20, 20, buf);
 
         o->oAction = PIRANHA_PLANT_ACT_SHRINK_AND_DIE;
     }
