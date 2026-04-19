@@ -114,6 +114,19 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
         }
     }
 }
+
+void SM64AP_SpndriftStolen(struct Object *o) {
+    if (o == NULL || gCurrLevelNum != LEVEL_WF) {
+        return;
+    }
+
+    int hX = (int) roundf(o->oHomeX);
+    int hY = (int) roundf(o->oHomeY);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    snprintf(gPlantDebugText, sizeof(gPlantDebugText), "%d %d %d", hX, hY, hZ);
+    gPlantDebugTimer = 150;
+}
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
