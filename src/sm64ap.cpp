@@ -118,7 +118,7 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
 }
 
 void SM64AP_SpindriftStolen(struct Object *o) {
-    if (o == NULL || gCurrLevelNum != LEVEL_WF) {
+    if (o == NULL || gCurrLevelNum != LEVEL_CCM) {
         return;
     }
 
@@ -126,7 +126,7 @@ void SM64AP_SpindriftStolen(struct Object *o) {
     int hY = (int) roundf(o->oHomeY);
     int hZ = (int) roundf(o->oHomeZ);
 
-    snprintf(gPlantDebugText, sizeof(gPlantDebugText), "%d %d %d", hX, hY, hZ);
+    snprintf(gPlantDebugText, sizeof(gPlantDebugText), "CCM %d %d %d", hX, hY, hZ);
     gPlantDebugTimer = 150;
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
