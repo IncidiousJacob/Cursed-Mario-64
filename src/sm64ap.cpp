@@ -92,8 +92,25 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
 }
 
 void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
-    if (gCurrLevelNum == LEVEL_WF) {
-        SM64AP_SendItem(2400);
+    if (o == NULL || gCurrLevelNum != LEVEL_WF) {
+        return;
+    }
+
+    int hX = (int) roundf(o->oHomeX);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    if (hX == PLANT1_X && hZ == PLANT1_Z) {
+        if (!SM64AP_CheckedLoc(2400)) {
+            SM64AP_SendItem(2400);
+        }
+    } else if (hX == PLANT2_X && hZ == PLANT2_Z) {
+        if (!SM64AP_CheckedLoc(2401)) {
+            SM64AP_SendItem(2401);
+        }
+    } else if (hX == PLANT3_X && hZ == PLANT3_Z) {
+        if (!SM64AP_CheckedLoc(2402)) {
+            SM64AP_SendItem(2402);
+        }
     }
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
