@@ -1,3 +1,6 @@
+
+#include "sm64ap.h"
+
 // bowser.c.inc
 
 void bowser_tail_anchor_act_0(void) {
