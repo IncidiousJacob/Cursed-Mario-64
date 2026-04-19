@@ -153,11 +153,13 @@ void piranha_plant_attacked(void) {
     cur_obj_become_intangible();
     cur_obj_init_animation_with_sound(2);
     o->oInteractStatus = 0;
-    if (cur_obj_check_if_near_animation_end())
+
+    if (cur_obj_check_if_near_animation_end()) {
+
         o->oAction = PIRANHA_PLANT_ACT_SHRINK_AND_DIE;
-#if BUGFIX_PIRANHA_PLANT_STATE_RESET
-    piranha_plant_reset_when_far(); // see this function's comment
-#endif
+    }
+
+    piranha_plant_reset_when_far();
 }
 
 /**
@@ -180,35 +182,9 @@ void piranha_plant_act_shrink_and_die(void) {
     }
 
     cur_obj_scale(o->oPiranhaPlantScale);
-
-    /**
-     * Note that this if-statement occurs unconditionally after the above if-
-     * statement. Since the Piranha Plant's scale is 1.0f by default, perhaps
-     * this was intentional. However, it is equally plausible that the
-     * programmers meant to type `else if`.
-     */
-    if (o->oPiranhaPlantScale > 0.0f) {
-        // Shrink by 0.04 per frame.
-        o->oPiranhaPlantScale = o->oPiranhaPlantScale - 0.04;
-    } else {
-        o->oPiranhaPlantScale = 0.0f;
-        // Only spawn coin and change action if not already done in the first block
-        if (o->oAction != PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN) {
-            cur_obj_spawn_loot_blue_coin();
-            o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
-        }
-    }
-
-    cur_obj_scale(o->oPiranhaPlantScale);
-
-#if BUGFIX_PIRANHA_PLANT_STATE_RESET
-    piranha_plant_reset_when_far(); // see this function's comment
-#endif
+    piranha_plant_reset_when_far();
 }
 
-/**
- * Wait for Mario to move far away, then respawn the Piranha Plant.
- */
 void piranha_plant_act_wait_to_respawn(void) {
     if (o->oDistanceToMario > 1200.0f) {
         o->oAction = PIRANHA_PLANT_ACT_RESPAWN;

@@ -70,6 +70,8 @@ s16 gRRReturnArea = 0;
 f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
+char gPlantDebugText[64];
+s32 gPlantDebugTimer = 0;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -121,21 +123,56 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     }
 }
 
-void SM64AP_CheckWFPiranhaPlant(struct Object *obj) {
-    if (gCurrLevelNum != LEVEL_WF || obj == NULL) {
+
+
+void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
+    if (o == NULL || gCurrLevelNum != LEVEL_WF) {
         return;
     }
 
-    // Match each WF plant by home position.
-    if (obj->oHomeX == -1734.0f && obj->oHomeY == 1024.0f && obj->oHomeZ == -2457.0f) {
-        SM64AP_SendItem(2400);
-    } else if (obj->oHomeX == -3379.0f && obj->oHomeY == 1024.0f && obj->oHomeZ == -2457.0f) {
-        SM64AP_SendItem(2401);
-    } else if (obj->oHomeX == -2557.0f && obj->oHomeY == 1024.0f && obj->oHomeZ == -3876.0f) {
-        SM64AP_SendItem(2402);
+    int hX = (int) roundf(o->oHomeX);
+    int hY = (int) roundf(o->oHomeY);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    if (hX == 4625 && hY == 256 && hZ == 5017) {
+        if (!SM64AP_CheckedLoc(2400)) {
+            SM64AP_SendItem(2400);
+        }
+    } else if (hX == 1822 && hY == 2560 && hZ == -101) {
+        if (!SM64AP_CheckedLoc(2401)) {
+            SM64AP_SendItem(2401);
+        }
+    } else if (hX == 689 && hY == 2560 && hZ == 1845) {
+        if (!SM64AP_CheckedLoc(2402)) {
+            SM64AP_SendItem(2402);
+        }
     }
 }
 
+void SM64AP_SpindriftStolen(struct Object *o) {
+    if (o == NULL || gCurrLevelNum != LEVEL_CCM) {
+        return;
+    }
+
+    int hX = (int) roundf(o->oHomeX);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    if (hX == 2542 && hZ == -1714) {
+        if (!SM64AP_CheckedLoc(3626403)) SM64AP_SendItem(3626403);
+    } else if (hX == -6090 && hZ == 1936) {
+        if (!SM64AP_CheckedLoc(3626404)) SM64AP_SendItem(3626404);
+    } else if (hX == 4346 && hZ == 400) {
+        if (!SM64AP_CheckedLoc(3626405)) SM64AP_SendItem(3626405);
+    } else if (hX == -5054 && hZ == -1054) {
+        if (!SM64AP_CheckedLoc(3626406)) SM64AP_SendItem(3626406);
+    } else if (hX == -5033 && hZ == -2666) {
+        if (!SM64AP_CheckedLoc(3626407)) SM64AP_SendItem(3626407);
+    } else if (hX == -488 && hZ == -2305) {
+        if (!SM64AP_CheckedLoc(3626408)) SM64AP_SendItem(3626408);
+    } else if (hX == -1768 && hZ == -1793) {
+        if (!SM64AP_CheckedLoc(3626409)) SM64AP_SendItem(3626409);
+    }
+}
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     SM64AP_DebugLog("RecvItem: %lld (notify: %d)", idx, notify);
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
@@ -649,7 +686,7 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
             else if (hX == 3054 && hZ == 2072)
                 loc_id = 3626402;
         } else if (o->behavior == bhvSpindrift) {
-            if (hX == 2542 && hZ == -1714)
+             if (hX == 2542 && hZ == -1714)
                 loc_id = 3626403;
             else if (hX == -6090 && hZ == 1936)
                 loc_id = 3626404;
