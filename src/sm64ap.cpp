@@ -100,9 +100,19 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     int hY = (int) roundf(o->oHomeY);
     int hZ = (int) roundf(o->oHomeZ);
 
-    char buf[64];
-    snprintf(buf, sizeof(buf), "WF Plant: %d %d %d", hX, hY, hZ);
-    print_text(20, 20, buf);
+    if (hX == 4625 && hY == 256 && hZ == 5017) {
+        if (!SM64AP_CheckedLoc(2400)) {
+            SM64AP_SendItem(2400);
+        }
+    } else if (hX == 1822 && hY == 2560 && hZ == -101) {
+        if (!SM64AP_CheckedLoc(2401)) {
+            SM64AP_SendItem(2401);
+        }
+    } else if (hX == 689 && hY == 2560 && hZ == 1845) {
+        if (!SM64AP_CheckedLoc(2402)) {
+            SM64AP_SendItem(2402);
+        }
+    }
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
