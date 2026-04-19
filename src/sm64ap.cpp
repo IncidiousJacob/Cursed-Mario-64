@@ -124,7 +124,24 @@ void SM64AP_SpindriftStolen(struct Object *o) {
         return;
     }
 
-    SM64AP_SendItem(3626403);
+    int hX = (int) roundf(o->oHomeX);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    if (hX == 2542 && hZ == -1714) {
+        if (!SM64AP_CheckedLoc(3626403)) SM64AP_SendItem(3626403);
+    } else if (hX == -6090 && hZ == 1936) {
+        if (!SM64AP_CheckedLoc(3626404)) SM64AP_SendItem(3626404);
+    } else if (hX == 4346 && hZ == 400) {
+        if (!SM64AP_CheckedLoc(3626405)) SM64AP_SendItem(3626405);
+    } else if (hX == -5054 && hZ == -1054) {
+        if (!SM64AP_CheckedLoc(3626406)) SM64AP_SendItem(3626406);
+    } else if (hX == -5033 && hZ == -2666) {
+        if (!SM64AP_CheckedLoc(3626407)) SM64AP_SendItem(3626407);
+    } else if (hX == -488 && hZ == -2305) {
+        if (!SM64AP_CheckedLoc(3626408)) SM64AP_SendItem(3626408);
+    } else if (hX == -1768 && hZ == -1793) {
+        if (!SM64AP_CheckedLoc(3626409)) SM64AP_SendItem(3626409);
+    }
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
