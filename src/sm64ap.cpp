@@ -24,6 +24,8 @@ extern "C" {
 #include <bitset>
 #include <set>
 #include <queue>
+#include <stdarg.h>
+#include <ctime>
 
 #define WARP_NODE_CREDITS_MIN 0xF8 // level_update.c
 #define NUM_PAINTING_LOCKS 15
@@ -78,6 +80,34 @@ std::map<int, int> map_boxid_locid;
 
 int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
+
+static int sm64_move_rando_vec = 0;
+static int sm64_move_rando_vec_high = 0;
+
+void SM64AP_DebugLog(const char *fmt, ...) {
+    static bool log_cleared = false;
+    FILE *f = fopen("sm64ap_debug.log", log_cleared ? "a" : "w");
+    if (!f) return;
+    log_cleared = true;
+
+    time_t rawtime;
+    struct tm *timeinfo;
+    char buffer[80];
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", timeinfo);
+
+    fprintf(f, "[%s] ", buffer);
+
+    va_list args;
+    va_start(args, fmt);
+    vfprintf(f, fmt, args);
+    va_end(args);
+
+    fprintf(f, "\n");
+    fclose(f);
+}
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
@@ -144,6 +174,7 @@ void SM64AP_SpindriftStolen(struct Object *o) {
     }
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
+    SM64AP_DebugLog("RecvItem: %lld (notify: %d)", idx, notify);
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
     } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
@@ -412,9 +443,11 @@ void SM64AP_SetCourseMap(std::map<int, int> map) {
 }
 
 void SM64AP_SetMoveRandoVec(int vec) {
+    SM64AP_DebugLog("SetMoveRandoVec: 0x%X", vec);
+    sm64_move_rando_vec = vec;
     // Standard moves are in the first 32 bits. High IDs (like 196-198) are purely randomized.
     int limit = (SM64AP_NUM_ABILITIES < 32) ? SM64AP_NUM_ABILITIES : 32;
-    for (int i = 1; i < limit; i++) {
+    for (int i = 0; i < limit; i++) {
         sm64_have_abilities[i] = !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
@@ -426,6 +459,8 @@ void SM64AP_SetMoveRandoVec(int vec) {
 static bool sm64_received_move_rando_high = false;
 
 void SM64AP_SetMoveRandoVecHigh(int vec) {
+    SM64AP_DebugLog("SetMoveRandoVecHigh: 0x%X", vec);
+    sm64_move_rando_vec_high = vec;
     sm64_received_move_rando_high = true;
     // bit 0 = Punch, bit 1 = Grab, bit 2 = Swim
     if (!std::bitset<32>(vec).test(0))
@@ -444,6 +479,7 @@ void SM64AP_SetPaintingRando(int enabled) {
 }
 
 void SM64AP_ResetItems() {
+    SM64AP_DebugLog("ResetItems triggered");
     for (int i = 0; i < SM64AP_NUM_LOCS; i++) {
         sm64_locations[i] = false;
     }
@@ -454,7 +490,12 @@ void SM64AP_ResetItems() {
         sm64_have_painting[i] = false;
     }
     sm64_have_abilities.reset();
-    sm64_received_move_rando_high = false;
+    // Re-apply slot data moves
+    SM64AP_SetMoveRandoVec(sm64_move_rando_vec);
+    if (sm64_received_move_rando_high) {
+        SM64AP_SetMoveRandoVecHigh(sm64_move_rando_vec_high);
+    }
+
     sm64_have_key1 = false;
     sm64_have_key2 = false;
     sm64_have_wingcap = false;
@@ -473,6 +514,7 @@ void SM64AP_ResetItems() {
 }
 
 void SM64AP_SetReplyHandler(AP_SetReply reply) {
+    SM64AP_DebugLog("SetReplyHandler: key=%s", reply.key.c_str());
     if (reply.key == AP_GetPrivateServerDataPrefix() + "FinishedBowser") {
         switch (sm64_completion_type) {
             case 0: // Only BitS
@@ -550,12 +592,14 @@ void SM64AP_GenericInit() {
 }
 
 void SM64AP_InitMW(const char *ip, const char *player_name, const char *passwd) {
+    SM64AP_DebugLog("InitMW: ip=%s, player=%s", ip, player_name);
     AP_Init(ip, "Cursed Mario 64", player_name, passwd);
     SM64AP_GenericInit();
     AP_Start();
 }
 
 void SM64AP_InitSP(const char *filename) {
+    SM64AP_DebugLog("InitSP: file=%s", filename);
     AP_Init(filename);
     SM64AP_GenericInit();
     AP_Start();
@@ -566,10 +610,12 @@ void SM64AP_SendByBoxID(int id) {
 }
 
 void SM64AP_SendItem(int idx) {
+    SM64AP_DebugLog("SendItem: %d", idx);
     AP_SendItem(idx);
 }
 
 void SM64AP_CheckEnemyDeath(struct Object *o) {
+    SM64AP_DebugLog("CheckEnemyDeath: behavior=%p, pos=(%.1f, %.1f, %.1f)", o->behavior, o->oPosX, o->oPosY, o->oPosZ);
     int64_t loc_id = 0;
     int hX = (int) roundf(o->oHomeX);
     int hZ = (int) roundf(o->oHomeZ);
