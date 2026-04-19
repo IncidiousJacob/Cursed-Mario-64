@@ -97,22 +97,20 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     }
 
     int hX = (int) roundf(o->oHomeX);
-    int hY = (int) roundf(o->oHomeY);
     int hZ = (int) roundf(o->oHomeZ);
 
-    printf("WF Plant death at: %d %d %d\n", hX, hY, hZ);
-
     if (hX == PLANT1_X && hZ == PLANT1_Z) {
-        printf("Matched plant 2400\n");
-        if (!SM64AP_CheckedLoc(2400)) SM64AP_SendItem(2400);
+        if (!SM64AP_CheckedLoc(2400)) {
+            SM64AP_SendItem(2400);
+        }
     } else if (hX == PLANT2_X && hZ == PLANT2_Z) {
-        printf("Matched plant 2401\n");
-        if (!SM64AP_CheckedLoc(2401)) SM64AP_SendItem(2401);
+        if (!SM64AP_CheckedLoc(2401)) {
+            SM64AP_SendItem(2401);
+        }
     } else if (hX == PLANT3_X && hZ == PLANT3_Z) {
-        printf("Matched plant 2402\n");
-        if (!SM64AP_CheckedLoc(2402)) SM64AP_SendItem(2402);
-    } else {
-        printf("No plant match\n");
+        if (!SM64AP_CheckedLoc(2402)) {
+            SM64AP_SendItem(2402);
+        }
     }
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
