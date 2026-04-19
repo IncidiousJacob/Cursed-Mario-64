@@ -101,20 +101,6 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     int hZ = (int) roundf(o->oHomeZ);
 
     printf("WF Plant death at: %d %d %d\n", hX, hY, hZ);
-
-    if (hX == -1734 && hZ == -2457) {
-        if (!SM64AP_CheckedLoc(2400)) {
-            SM64AP_SendItem(2400);
-        }
-    } else if (hX == -3379 && hZ == -2457) {
-        if (!SM64AP_CheckedLoc(2401)) {
-            SM64AP_SendItem(2401);
-        }
-    } else if (hX == -2557 && hZ == -3876) {
-        if (!SM64AP_CheckedLoc(2402)) {
-            SM64AP_SendItem(2402);
-        }
-    }
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
