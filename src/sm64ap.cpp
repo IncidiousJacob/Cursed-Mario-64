@@ -115,7 +115,7 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     }
 }
 
-void SM64AP_SpndriftStolen(struct Object *o) {
+void SM64AP_SpindriftStolen(struct Object *o) {
     if (o == NULL || gCurrLevelNum != LEVEL_WF) {
         return;
     }
