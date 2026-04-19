@@ -97,6 +97,13 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     }
 
     int hX = (int) roundf(o->oHomeX);
+    int hY = (int) roundf(o->oHomeY);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    printf("WF Plant death at: %d %d %d\n", hX, hY, hZ);
+
+
+    int hX = (int) roundf(o->oHomeX);
     int hZ = (int) roundf(o->oHomeZ);
 
     if (hX == -1734 && hZ == -2457) {
