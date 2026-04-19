@@ -33,10 +33,12 @@ void bhv_spindrift_loop(void) {
             break;
 
         case 1:
+            if (o->oTimer == 0) {
+                SM64AP_CheckCCMSpindrift(o);
+            }
             o->oFlags &= ~8;
             o->oForwardVel = -10.0f;
             if (o->oTimer > 20) {
-                SM64AP_CheckCCMSpindrift(o);
                 o->oAction = 0;
                 o->oInteractStatus = 0;
                 o->oFlags |= 8;
@@ -45,4 +47,3 @@ void bhv_spindrift_loop(void) {
     }
 
     cur_obj_move_standard(-60);
-}
