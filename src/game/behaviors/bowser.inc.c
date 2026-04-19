@@ -1095,8 +1095,9 @@ void bowser_thrown_dropped_update(void) {
 }
 
 void bhv_bowser_loop(void) {
-    
-     if (gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bowser) {
+    if ((gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bowser) ||
+        (gCurrLevelNum == LEVEL_BOWSER_2 && !sm64_have_bitfs_bowser) ||
+        (gCurrLevelNum == LEVEL_BOWSER_3 && !sm64_have_bits_bowser)) {
         cur_obj_hide();
         cur_obj_become_intangible();
         return;
