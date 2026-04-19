@@ -99,15 +99,15 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     int hX = (int) roundf(o->oHomeX);
     int hZ = (int) roundf(o->oHomeZ);
 
-    if (hX == PLANT1_X && hZ == PLANT1_Z) {
+    if (hX == -1734 && hZ == -2457) {
         if (!SM64AP_CheckedLoc(2400)) {
             SM64AP_SendItem(2400);
         }
-    } else if (hX == PLANT2_X && hZ == PLANT2_Z) {
+    } else if (hX == -3379 && hZ == -2457) {
         if (!SM64AP_CheckedLoc(2401)) {
             SM64AP_SendItem(2401);
         }
-    } else if (hX == PLANT3_X && hZ == PLANT3_Z) {
+    } else if (hX == -2557 && hZ == -3876) {
         if (!SM64AP_CheckedLoc(2402)) {
             SM64AP_SendItem(2402);
         }
