@@ -15,6 +15,10 @@ struct ObjectHitbox sSpindriftHitbox = {
 void bhv_spindrift_loop(void) {
     o->activeFlags |= ACTIVE_FLAG_UNK10;
 
+    if (o->oInteractStatus & INT_STATUS_WAS_ATTACKED) {
+        SM64AP_CheckCCMSpindrift(o);
+    }
+
     if (cur_obj_set_hitbox_and_die_if_attacked(&sSpindriftHitbox, SOUND_OBJ_DYING_ENEMY1, 0)) {
         cur_obj_change_action(1);
     }
@@ -33,9 +37,6 @@ void bhv_spindrift_loop(void) {
             break;
 
         case 1:
-            if (o->oTimer == 0) {
-                SM64AP_CheckCCMSpindrift(o);
-            }
             o->oFlags &= ~8;
             o->oForwardVel = -10.0f;
             if (o->oTimer > 20) {
