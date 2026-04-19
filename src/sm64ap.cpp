@@ -124,11 +124,7 @@ void SM64AP_SpindriftStolen(struct Object *o) {
         return;
     }
 
-    int hX = (int) roundf(o->oHomeX);
-    int hY = (int) roundf(o->oHomeY);
-    int hZ = (int) roundf(o->oHomeZ);
-
-    printf("CCM Spindrift: %d %d %d\n", hX, hY, hZ);
+    SM64AP_SendItem(3626403);
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
