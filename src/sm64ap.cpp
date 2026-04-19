@@ -93,12 +93,7 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     }
 }
 
-void SM64AP_DrawPlantDebugText(void) {
-    if (gPlantDebugTimer > 0) {
-        print_text(20, 20, gPlantDebugText);
-        gPlantDebugTimer--;
-    }
-}
+
 
 void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     if (o == NULL || gCurrLevelNum != LEVEL_WF) {
@@ -133,8 +128,7 @@ void SM64AP_SpindriftStolen(struct Object *o) {
     int hY = (int) roundf(o->oHomeY);
     int hZ = (int) roundf(o->oHomeZ);
 
-    snprintf(gPlantDebugText, sizeof(gPlantDebugText), "CCM %d %d %d", hX, hY, hZ);
-    gPlantDebugTimer = 150;
+    printf("CCM Spindrift: %d %d %d\n", hX, hY, hZ);
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
