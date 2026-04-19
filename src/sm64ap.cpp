@@ -612,14 +612,7 @@ void SM64AP_CheckEnemyDeath(struct Object *o) {
             else if (hX == 3054 && hZ == 2072)
                 loc_id = 3626402;
         } else if (o->behavior == bhvSpindrift) {
-            
-             int hX = (int) roundf(o->oHomeX);
-             int hY = (int) roundf(o->oHomeY);
-             int hZ = (int) roundf(o->oHomeZ);
-
-    printf("CCM Plant death at: %d %d %d\n", hX, hY, hZ);
-            
-            if (hX == 2542 && hZ == -1714)
+             if (hX == 2542 && hZ == -1714)
                 loc_id = 3626403;
             else if (hX == -6090 && hZ == 1936)
                 loc_id = 3626404;
