@@ -142,7 +142,7 @@ AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
 AP_EXTERN_C void SM64AP_SendItem(int);
 AP_EXTERN_C void SM64AP_CheckEnemyDeath(struct Object *);
-AP_EXTERN_C void SM64AP_SpindriftStolen(struct Object *o);
+AP_EXTERN_C void SM64AP_CheckCCMSpindrift(struct Object *o);
 AP_EXTERN_C void SM64AP_UpdateRRTrapTimer(struct MarioState *);
 AP_EXTERN_C bool gFreezeTrapped;
 AP_EXTERN_C s32 gFreezeTrapTimer;
