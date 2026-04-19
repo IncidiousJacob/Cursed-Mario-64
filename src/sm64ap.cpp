@@ -100,7 +100,9 @@ void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
     int hY = (int) roundf(o->oHomeY);
     int hZ = (int) roundf(o->oHomeZ);
 
-    printf("WF Plant death at: %d %d %d\n", hX, hY, hZ);
+    char buf[64];
+    snprintf(buf, sizeof(buf), "WF Plant: %d %d %d", hX, hY, hZ);
+    print_text(20, 20, buf);
 }
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
