@@ -159,9 +159,6 @@ AP_EXTERN_C bool SM64AP_UpdateFreezeTrap(struct MarioState *m);
 // Print Next Message to Screen
 AP_EXTERN_C void SM64AP_PrintNext();
 
-// Logging
-AP_EXTERN_C void SM64AP_DebugLog(const char *fmt, ...);
-
 // If an item exists on the stack, return it, otherwise 0
 AP_EXTERN_C int64_t SM64AP_PopDelayedStack();
 
