@@ -30,13 +30,13 @@ void bhv_spindrift_loop(void) {
                 o->oAngleToMario = obj_angle_to_object(o, gMarioObject);
             }
             cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
-            SM64AP_CheckCCMSpindrift(o);
             break;
 
         case 1:
             o->oFlags &= ~8;
             o->oForwardVel = -10.0f;
             if (o->oTimer > 20) {
+                SM64AP_CheckCCMSpindrift(o);
                 o->oAction = 0;
                 o->oInteractStatus = 0;
                 o->oFlags |= 8;
