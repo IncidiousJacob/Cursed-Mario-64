@@ -153,12 +153,20 @@ void piranha_plant_attacked(void) {
     cur_obj_become_intangible();
     cur_obj_init_animation_with_sound(2);
     o->oInteractStatus = 0;
-    if (cur_obj_check_if_near_animation_end())
+
+    if (cur_obj_check_if_near_animation_end()) {
+        int hX = (int) roundf(o->oHomeX);
+        int hY = (int) roundf(o->oHomeY);
+        int hZ = (int) roundf(o->oHomeZ);
+
+        char buf[64];
+        snprintf(buf, sizeof(buf), "Plant: %d %d %d", hX, hY, hZ);
+        print_text(20, 20, buf);
+
         o->oAction = PIRANHA_PLANT_ACT_SHRINK_AND_DIE;
-#if BUGFIX_PIRANHA_PLANT_STATE_RESET
-    piranha_plant_reset_when_far(); // see this function
-    // s comment
-#endif
+    }
+
+    piranha_plant_reset_when_far();
 }
 
 /**
