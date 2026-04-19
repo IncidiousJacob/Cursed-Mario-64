@@ -68,6 +68,8 @@ s16 gRRReturnArea = 0;
 f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
+char gPlantDebugText[64];
+s32 gPlantDebugTimer = 0;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
