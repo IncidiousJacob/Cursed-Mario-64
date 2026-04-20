@@ -149,6 +149,34 @@ void SM64AP_CheckCCMSpindrift(struct Object *o) {
         if (!SM64AP_CheckedLoc(3626409)) SM64AP_SendItem(3626409);
     }
 }
+
+void SM64AP_Boosanity(struct Object *o) {
+    int64_t loc_id = 0;
+    int hX = (int) roundf(o->oHomeX);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    if (gCurrLevelNum == LEVEL_BBH) {
+
+        // Ghost Hunt Boos (5 total)
+        if (o->behavior == bhvGhostHuntBoo) {
+            if      (hX ==   20 && hZ ==  -908) loc_id = 2500;
+            else if (hX == 3150 && hZ ==   398) loc_id = 2501;
+            else if (hX ==-2000 && hZ ==  -800) loc_id = 2502;
+            else if (hX == 2851 && hZ ==  2289) loc_id = 2503;
+            else if (hX ==-1551 && hZ == -1018) loc_id = 2504;
+        }
+
+        // Lone Boo
+        else if (o->behavior == bhvBoo) {
+            if (hX == 581 && hZ == -206) loc_id = 2505;
+        }
+    }
+
+    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
+        SM64AP_SendItem(loc_id);
+    }
+}
+
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
