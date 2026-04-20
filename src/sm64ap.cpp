@@ -91,6 +91,7 @@ SM64AP_RGB8 gMarioHairColor;
 SM64AP_RGB8 gMarioOverallsColor;
 SM64AP_RGB8 gMarioShoesColor;
 SM64AP_RGB8 gMarioGlovesColor;
+SM64AP_RGB8 gStarColor;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -124,8 +125,11 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gMarioOverallsColor = sm64ap_make_color(x, 64, 255);
     gMarioShoesColor    = sm64ap_make_color(x, 16, 180);
     gMarioGlovesColor   = sm64ap_make_color(x, 180, 255);
+    gStarColor          = sm64ap_make_color(x, 64, 255);
+    
 
     SM64AP_ApplyMarioPalette();
+    SM64AP_ApplyStarPalette();
 }
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
