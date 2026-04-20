@@ -177,6 +177,25 @@ void SM64AP_Boosanity(struct Object *o) {
     }
 }
 
+void SM64AP_Scuttlesanity(struct Object *o) {
+    int64_t loc_id = 0;
+    int hX = (int) roundf(o->oHomeX);
+    int hZ = (int) roundf(o->oHomeZ);
+
+    if (gCurrLevelNum == LEVEL_BBH) {
+        if (hX == -346 && hZ == -2813)
+            loc_id = 2600;
+        else if (hX == 1146 && hZ == -2280)
+            loc_id = 2601;
+        else if (hX == 3466 && hZ == 5106)
+            loc_id = 2602;
+    }
+
+    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
+        SM64AP_SendItem(loc_id);
+    }
+}
+
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
