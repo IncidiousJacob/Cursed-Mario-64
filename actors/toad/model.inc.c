@@ -791,6 +791,39 @@ static Lights1 toad_seg6_lights_060088B8 = gdSPDefLights1(
     0x68, 0x40, 0x1b, 0x28, 0x28, 0x28
 );
 
+static void sm64ap_set_toad_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyToadPalette(void) {
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06005908,
+        gToadBodyColor.r, gToadBodyColor.g, gToadBodyColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06007788,
+        gToadBodyColor.r, gToadBodyColor.g, gToadBodyColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06007A80,
+        gToadSpotColor.r, gToadSpotColor.g, gToadSpotColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06007A98,
+        gToadSkinColor.r, gToadSkinColor.g, gToadSkinColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06008220,
+        gToadSkinColor.r, gToadSkinColor.g, gToadSkinColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06008560,
+        gToadShoeColor.r, gToadShoeColor.g, gToadShoeColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_060088B8,
+        gToadShoeColor.r, gToadShoeColor.g, gToadShoeColor.b);
+}
+
 // 0x060088D0
 static const Vtx toad_seg6_vertex_060088D0[] = {
     {{{   -22,    -15,     52}, 0, {     0,      0}, {0xe2, 0x98, 0x41, 0xff}}},
