@@ -1,3 +1,6 @@
+
+#include "sm64ap.h"
+
 // scuttlebug.c.inc
 
 struct ObjectHitbox sScuttlebugHitbox = {
