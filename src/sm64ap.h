@@ -13,13 +13,20 @@ extern "C" {
 #else
 #define AP_EXTERN_C extern
 #endif
-#ifdef __cplusplus
-extern "C" {
-#include "types.h"
-}
-#else
-#include "types.h"
-#endif
+
+typedef struct {
+    u8 r, g, b;
+} SM64AP_RGB8;
+
+AP_EXTERN_C SM64AP_RGB8 gMarioHatShirtColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioSkinColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioHairColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioOverallsColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioShoesColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioGlovesColor;
+
+AP_EXTERN_C void SM64AP_SetMarioPaletteSeed(int seed);
+AP_EXTERN_C void SM64AP_ApplyMarioPalette(void);
 
 #define SM64AP_ID_OFFSET 3626000
 #define SM64AP_SECOND_CHECK_OFFSET 1000
