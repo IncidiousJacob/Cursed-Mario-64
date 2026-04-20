@@ -231,6 +231,10 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
            case SM64AP_ID_BSBITS_UNLOCK:
               sm64_have_bits_bowser = true;
               break;
+
+            case SM64AP_ID_BBBITDW_UNLOCK:
+              sm64_have_bits_bowser = true;
+              break;
         }
     }
 }
