@@ -1,6 +1,11 @@
 // bowser_bomb.c.inc
 
 void bhv_bowser_bomb_loop(void) {
+    if ((gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bombs) {
+        cur_obj_hide();
+        cur_obj_become_intangible();
+        return;
+}
     if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
         o->oInteractStatus &= ~INT_STATUS_INTERACTED;
         spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
