@@ -186,6 +186,29 @@ void SM64AP_Boosanity(struct Object *o) {
     }
 }
 
+void SM64AP_Scuttlesanity(struct Object *o) {
+    int64_t loc_id = 0;
+
+    if (o == NULL || gCurrLevelNum != LEVEL_BBH)
+        return;
+
+    switch (o->oBehParams2ndByte) {
+        case 1:
+            loc_id = 2600;
+            break;
+        case 2:
+            loc_id = 2601;
+            break;
+        case 3:
+            loc_id = 2602;
+            break;
+    }
+
+    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
+        SM64AP_SendItem(loc_id);
+    }
+}
+
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;

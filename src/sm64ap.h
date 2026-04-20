@@ -150,6 +150,7 @@ AP_EXTERN_C bool sm64_have_bitfs_bombs;
 AP_EXTERN_C bool sm64_have_bits_bombs;
 AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 AP_EXTERN_C void SM64AP_Boosanity(struct Object *);
+AP_EXTERN_C void SM64AP_Scuttlesanity(struct Object *o);
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);

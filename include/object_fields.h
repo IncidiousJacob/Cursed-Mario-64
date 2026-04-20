@@ -1,5 +1,6 @@
 #ifndef OBJECT_FIELDS_H
 #define OBJECT_FIELDS_H
+#define oScuttlebugAPID OBJECT_FIELD_S32(0x1C)
 
 /**
  * The array [0x88, 0x1C8) in struct Object consists of fields that can vary by
