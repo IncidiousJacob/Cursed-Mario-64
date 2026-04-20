@@ -1,10 +1,28 @@
+
+#include "src/sm64ap.h"
+
 // Star
 
 // 0x0302A6D8
-static const Lights1 star_seg3_lights_0302A6D8 = gdSPDefLights1(
+static Lights1 star_seg3_lights_0302A6D8 = gdSPDefLights1(
     0x3f, 0x3f, 0x3f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
+
+static void sm64ap_set_star_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyStarPalette(void) {
+    sm64ap_set_star_light_group(&star_seg3_lights_0302A6D8,
+        gStarColor.r, gStarColor.g, gStarColor.b);
+}
 
 // 0x0302A6F0
 ALIGNED8 static const u8 star_seg3_texture_0302A6F0[] = {
