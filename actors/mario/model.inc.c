@@ -1,3 +1,6 @@
+
+#include "src/sm64ap.h"
+
 // Mario
 
 // 0x04000000 # solid color blue - butt, left thigh, right thigh - all poly types
