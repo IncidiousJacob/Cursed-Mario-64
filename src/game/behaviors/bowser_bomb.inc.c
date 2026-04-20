@@ -1,19 +1,19 @@
 // bowser_bomb.c.inc
 
 void bhv_bowser_bomb_loop(void) {
-    if ((gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bombs) {
+    if ((gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bombs)) {
         cur_obj_hide();
         cur_obj_become_intangible();
         return;
-}
+    }
+
     if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
         o->oInteractStatus &= ~INT_STATUS_INTERACTED;
         spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 
-    if (o->oInteractStatus & INT_STATUS_HIT_MINE)
-    {
+    if (o->oInteractStatus & INT_STATUS_HIT_MINE) {
         spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
         create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
         set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
