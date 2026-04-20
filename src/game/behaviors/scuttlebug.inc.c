@@ -32,10 +32,15 @@ void bhv_scuttlebug_loop(void) {
 
     cur_obj_update_floor_and_walls();
 
+    if (o->oInteractStatus & INT_STATUS_WAS_ATTACKED) {
+        SM64AP_Scuttlesanity(o);
+    }
+
     if (o->oSubAction != 0
         && cur_obj_set_hitbox_and_die_if_attacked(&sScuttlebugHitbox, SOUND_OBJ_DYING_ENEMY1,
-                                                  o->oScuttlebugUnkF4))
+                                                  o->oScuttlebugUnkF4)) {
         o->oSubAction = 3;
+    }
 
     if (o->oSubAction != 1)
         o->oScuttlebugUnkF8 = 0;
@@ -87,7 +92,6 @@ void bhv_scuttlebug_loop(void) {
             break;
 
         case 3:
-            SM64AP_Scuttlesanity(o);
             o->oFlags &= ~8;
             o->oForwardVel = -10.0f;
             o->oVelY = 30.0f;
@@ -135,13 +139,28 @@ void bhv_scuttlebug_loop(void) {
 }
 void bhv_scuttlebug_spawn_loop(void) {
     struct Object *scuttlebug;
+
     if (o->oAction == 0) {
         if (o->oTimer > 30 && 500.0f < o->oDistanceToMario && o->oDistanceToMario < 1500.0f) {
             cur_obj_play_sound_2(SOUND_OBJ2_SCUTTLEBUG_ALERT);
             scuttlebug = spawn_object(o, MODEL_SCUTTLEBUG, bhvScuttlebug);
+
             scuttlebug->oScuttlebugUnkF4 = o->oScuttlebugSpawnerUnkF4;
             scuttlebug->oForwardVel = 30.0f;
             scuttlebug->oVelY = 80.0f;
+
+            if (gCurrLevelNum == LEVEL_BBH) {
+                int x = (int) roundf(o->oPosX);
+                int z = (int) roundf(o->oPosZ);
+
+                if (x == -346 && z == -2813)
+                    scuttlebug->oBehParams2ndByte = 1;
+                else if (x == 1146 && z == -2280)
+                    scuttlebug->oBehParams2ndByte = 2;
+                else if (x == 3466 && z == 5106)
+                    scuttlebug->oBehParams2ndByte = 3;
+            }
+
             o->oAction++;
             o->oScuttlebugUnkF4 = 1;
         }

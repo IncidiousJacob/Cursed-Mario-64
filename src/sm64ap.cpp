@@ -86,6 +86,62 @@ std::map<int, int> map_boxid_locid;
 int sm64_exit_return_to;
 int sm64_exit_orig_entrancelvl;
 
+SM64AP_RGB8 gMarioHatShirtColor;
+SM64AP_RGB8 gMarioSkinColor;
+SM64AP_RGB8 gMarioHairColor;
+SM64AP_RGB8 gMarioOverallsColor;
+SM64AP_RGB8 gMarioShoesColor;
+SM64AP_RGB8 gMarioGlovesColor;
+SM64AP_RGB8 gStarColor;
+SM64AP_RGB8 gToadBodyColor;
+SM64AP_RGB8 gToadSpotColor;
+SM64AP_RGB8 gToadSkinColor;
+SM64AP_RGB8 gToadShoeColor;
+
+static uint32_t sm64ap_splitmix32(uint32_t &x) {
+    x += 0x9E3779B9u;
+    uint32_t z = x;
+    z ^= z >> 16;
+    z *= 0x85EBCA6Bu;
+    z ^= z >> 13;
+    z *= 0xC2B2AE35u;
+    z ^= z >> 16;
+    return z;
+}
+
+static u8 sm64ap_palette_byte(uint32_t &x, int minv, int maxv) {
+    return (u8)(minv + (sm64ap_splitmix32(x) % (maxv - minv + 1)));
+}
+
+static SM64AP_RGB8 sm64ap_make_color(uint32_t &x, int minv, int maxv) {
+    SM64AP_RGB8 c;
+    c.r = sm64ap_palette_byte(x, minv, maxv);
+    c.g = sm64ap_palette_byte(x, minv, maxv);
+    c.b = sm64ap_palette_byte(x, minv, maxv);
+    return c;
+}
+
+void SM64AP_SetMarioPaletteSeed(int seed) {
+    uint32_t x = (uint32_t)(seed ? seed : 1);
+
+    gMarioHatShirtColor = sm64ap_make_color(x, 64, 255);
+    gMarioSkinColor     = sm64ap_make_color(x, 80, 240);
+    gMarioHairColor     = sm64ap_make_color(x, 16, 180);
+    gMarioOverallsColor = sm64ap_make_color(x, 64, 255);
+    gMarioShoesColor    = sm64ap_make_color(x, 16, 180);
+    gMarioGlovesColor   = sm64ap_make_color(x, 180, 255);
+    gStarColor          = sm64ap_make_color(x, 64, 255);
+
+    gToadBodyColor = sm64ap_make_color(x, 48, 255);
+    gToadSpotColor = sm64ap_make_color(x, 96, 255);
+    gToadSkinColor = sm64ap_make_color(x, 80, 240);
+    gToadShoeColor = sm64ap_make_color(x, 16, 180);
+
+    SM64AP_ApplyMarioPalette();
+    SM64AP_ApplyStarPalette();
+    SM64AP_ApplyToadPalette();
+}
+
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
         return;
@@ -188,8 +244,25 @@ void SM64AP_Boosanity(struct Object *o) {
 }
 
 void SM64AP_Scuttlesanity(struct Object *o) {
-    if (!SM64AP_CheckedLoc(2600)) {
-        SM64AP_SendItem(2600);
+    int64_t loc_id = 0;
+
+    if (o == NULL || gCurrLevelNum != LEVEL_BBH)
+        return;
+
+    switch (o->oBehParams2ndByte) {
+        case 1:
+            loc_id = 2600;
+            break;
+        case 2:
+            loc_id = 2601;
+            break;
+        case 3:
+            loc_id = 2602;
+            break;
+    }
+
+    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
+        SM64AP_SendItem(loc_id);
     }
 }
 
@@ -578,6 +651,7 @@ void SM64AP_GenericInit() {
     AP_RegisterSlotDataIntCallback("MoveRandoVecHigh", &SM64AP_SetMoveRandoVecHigh);
     AP_RegisterSlotDataIntCallback("PaintingRando", &SM64AP_SetPaintingRando);
     AP_RegisterSlotDataMapIntIntCallback("AreaRando", &SM64AP_SetCourseMap);
+    AP_RegisterSlotDataIntCallback("MarioPaletteSeed", &SM64AP_SetMarioPaletteSeed);
 
     course_dest_supported = { LEVEL_BOB,     LEVEL_WF,    LEVEL_JRB,   LEVEL_CCM,      LEVEL_BBH,
                               LEVEL_HMC,     LEVEL_LLL,   LEVEL_SSL,   LEVEL_DDD,      LEVEL_SL,
