@@ -1,3 +1,7 @@
+
+
+#include "src/sm64ap.h"
+
 // 0x0302B870 - 0x0302B908
 const Gfx star_seg3_dl_0302B870[] = {
     gsDPPipeSync(),
