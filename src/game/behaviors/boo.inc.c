@@ -1,3 +1,7 @@
+
+
+#include "sm64ap.h"
+
 // boo.c.inc
 
 static struct ObjectHitbox sBooGivingStarHitbox = {
