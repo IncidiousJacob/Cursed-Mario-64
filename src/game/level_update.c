@@ -1326,9 +1326,16 @@ s32 init_level(void) {
         sound_banks_disable(2, 0x0330);
     }
 
-    if (gRRTrapped && gCurrLevelNum == LEVEL_RR && gMarioState->marioObj) {
-        struct Object *trapStar = spawn_object_abs_with_rot(gMarioState->marioObj, 0, MODEL_STAR, bhvStar, -550, -1000, -50, 0, 0, 0);
-        trapStar->oBehParams = RR_TRAP_STAR_BIT;
+    if (gRRTrapped && gCurrLevelNum == LEVEL_RR) {
+        const BehaviorScript *bhv = gRRTrapShowCutscene ? bhvStarSpawnCoordinates : bhvStar;
+        struct Object *trapStar = spawn_object_abs_with_rot(&gMacroObjectDefaultParent, 0, MODEL_STAR, bhv, -4200, 6700, -4450, 0, 0, 0);
+        if (trapStar != NULL) {
+            trapStar->oHomeX = -4200.0f;
+            trapStar->oHomeY = 6700.0f;
+            trapStar->oHomeZ = -4450.0f;
+            trapStar->oBehParams = RR_TRAP_STAR_BIT;
+        }
+        gRRTrapShowCutscene = 0;
     }
 
     return 1;

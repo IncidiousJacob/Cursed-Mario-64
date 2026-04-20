@@ -187,6 +187,7 @@ AP_EXTERN_C bool SM64AP_MoatDrained();
 // Check for switch state (used for initial switch state on level load)
 AP_EXTERN_C bool SM64AP_PressedSwitch(int);
 AP_EXTERN_C bool gRRTrapped;
+AP_EXTERN_C u8 gRRTrapShowCutscene;
 AP_EXTERN_C bool gRRReturning;
 AP_EXTERN_C s16 gRRReturnLevel;
 AP_EXTERN_C s16 gRRReturnArea;
