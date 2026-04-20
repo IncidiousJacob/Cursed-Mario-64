@@ -152,23 +152,32 @@ void SM64AP_CheckCCMSpindrift(struct Object *o) {
 
 void SM64AP_Boosanity(struct Object *o) {
     int64_t loc_id = 0;
+
     int hX = (int) roundf(o->oHomeX);
     int hZ = (int) roundf(o->oHomeZ);
 
     if (gCurrLevelNum == LEVEL_BBH) {
-
         // Ghost Hunt Boos (5 total)
         if (o->behavior == bhvGhostHuntBoo) {
-            if      (hX ==   20 && hZ ==  -908) loc_id = 2500;
-            else if (hX == 3150 && hZ ==   398) loc_id = 2501;
-            else if (hX ==-2000 && hZ ==  -800) loc_id = 2502;
-            else if (hX == 2851 && hZ ==  2289) loc_id = 2503;
-            else if (hX ==-1551 && hZ == -1018) loc_id = 2504;
+            if (hX == 20 && hZ == -908) loc_id = 2500;
+            else if (hX == 3150 && hZ == 398) loc_id = 2501;
+            else if (hX == -2000 && hZ == -800) loc_id = 2502;
+            else if (hX == 2851 && hZ == 2289) loc_id = 2503;
+            else if (hX == -1551 && hZ == -1018) loc_id = 2504;
         }
 
         // Lone Boo
         else if (o->behavior == bhvBoo) {
             if (hX == 581 && hZ == -206) loc_id = 2505;
+        }
+
+        // Merry-Go-Round small boos (5 total)
+        else if (o->behavior == bhvMerryGoRoundBoo
+              && obj_has_behavior(o->parentObj, bhvMerryGoRoundBooManager)) {
+
+            loc_id = 2506 + o->parentObj->oMerryGoRoundBooManagerNumBoosKilled;
+            // results:
+            // 2506, 2507, 2508, 2509, 2510
         }
     }
 
