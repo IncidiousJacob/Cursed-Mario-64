@@ -1,3 +1,6 @@
+
+#include "src/sm64ap.h"
+
 // Toad
 
 // 0x06005908
