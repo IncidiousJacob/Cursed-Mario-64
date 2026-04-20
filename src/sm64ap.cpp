@@ -178,18 +178,27 @@ void SM64AP_Boosanity(struct Object *o) {
 }
 
 void SM64AP_Scuttlesanity(struct Object *o) {
-    int64_t loc_id = 0;
-    int hX = (int) roundf(o->oHomeX);
-    int hZ = (int) roundf(o->oHomeZ);
-
-    if (gCurrLevelNum == LEVEL_BBH) {
-        if (hX == -346 && hZ == -2813)
-            loc_id = 2600;
-        else if (hX == 1146 && hZ == -2280)
-            loc_id = 2601;
-        else if (hX == 3466 && hZ == 5106)
-            loc_id = 2602;
+    if (o == NULL || gCurrLevelNum != LEVEL_BBH) {
+        return;
     }
+
+    int64_t loc_id = 0;
+
+    struct Object *src = o;
+
+    if (o->parentObj != NULL && o->parentObj != o) {
+        src = o->parentObj;
+    }
+
+    int x = (int) roundf(src->oPosX);
+    int z = (int) roundf(src->oPosZ);
+
+    if (x == -346 && z == -2813)
+        loc_id = 2600;
+    else if (x == 1146 && z == -2280)
+        loc_id = 2601;
+    else if (x == 3466 && z == 5106)
+        loc_id = 2602;
 
     if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
         SM64AP_SendItem(loc_id);
