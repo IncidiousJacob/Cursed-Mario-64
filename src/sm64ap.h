@@ -18,12 +18,12 @@ typedef struct {
     u8 r, g, b;
 } SM64AP_RGB8;
 
-AP_EXTERN_C extern SM64AP_RGB8 gMarioHatShirtColor;
-AP_EXTERN_C extern SM64AP_RGB8 gMarioSkinColor;
-AP_EXTERN_C extern SM64AP_RGB8 gMarioHairColor;
-AP_EXTERN_C extern SM64AP_RGB8 gMarioOverallsColor;
-AP_EXTERN_C extern SM64AP_RGB8 gMarioShoesColor;
-AP_EXTERN_C extern SM64AP_RGB8 gMarioGlovesColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioHatShirtColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioSkinColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioHairColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioOverallsColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioShoesColor;
+AP_EXTERN_C SM64AP_RGB8 gMarioGlovesColor;
 
 AP_EXTERN_C void SM64AP_SetMarioPaletteSeed(int seed);
 AP_EXTERN_C void SM64AP_ApplyMarioPalette(void);
