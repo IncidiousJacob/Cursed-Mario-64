@@ -26,7 +26,12 @@ AP_EXTERN_C SM64AP_RGB8 gMarioShoesColor;
 AP_EXTERN_C SM64AP_RGB8 gMarioGlovesColor;
 AP_EXTERN_C SM64AP_RGB8 gStarColor;
 AP_EXTERN_C void SM64AP_ApplyStarPalette(void);
+AP_EXTERN_C SM64AP_RGB8 gToadBodyColor;
+AP_EXTERN_C SM64AP_RGB8 gToadSpotColor;
+AP_EXTERN_C SM64AP_RGB8 gToadSkinColor;
+AP_EXTERN_C SM64AP_RGB8 gToadShoeColor;
 
+AP_EXTERN_C void SM64AP_ApplyToadPalette(void);
 AP_EXTERN_C void SM64AP_SetMarioPaletteSeed(int seed);
 AP_EXTERN_C void SM64AP_ApplyMarioPalette(void);
 
