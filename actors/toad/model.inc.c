@@ -1,5 +1,13 @@
 #include "src/sm64ap.h"
 
+ALIGNED8 static const u8 toad_seg6_texture_06005920[] = {
+#include "actors/toad/toad_head.rgba16.inc.c"
+};
+
+ALIGNED8 static const u8 toad_seg6_texture_06006120[] = {
+#include "actors/toad/toad_face.rgba16.inc.c"
+};
+
 // Toad
 
 // 0x06005908

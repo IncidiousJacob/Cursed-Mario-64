@@ -68,6 +68,7 @@ int msg_frame_duration = 90; // 3 Secounds at 30F/s
 int cur_msg_frame_duration = msg_frame_duration;
 std::queue<int64_t> delayed_queue;
 bool gRRTrapped = false;
+u8 gRRTrapShowCutscene = 0;
 bool gRRReturning = false;
 s16 gRRReturnLevel = 0;
 s16 gRRReturnArea = 0;
@@ -280,7 +281,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
-                gRRTrapTimer = 6 * 60 * 30;
+                gRRTrapTimer = 4 * 60 * 30;
             }
             delayed_queue.push(idx);
         }
