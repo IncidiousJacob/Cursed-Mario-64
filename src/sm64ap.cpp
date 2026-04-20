@@ -50,6 +50,8 @@ bool sm64_have_bitdw_bowser = false;
 bool sm64_have_bitfs_bowser = false;
 bool sm64_have_bits_bowser = false;
 bool sm64_have_bitdw_bombs = false;
+bool sm64_have_bitfs_bombs = false;
+bool sm64_have_bits_bombs = false;
 int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
@@ -230,6 +232,14 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
 
            case SM64AP_ID_BBBITDW_UNLOCK:
               sm64_have_bitdw_bombs = true;
+              break;
+           
+           case SM64AP_ID_BBBITFS_UNLOCK:
+              sm64_have_bitfs_bombs = true;
+              break;
+           
+           case SM64AP_ID_BBBITS_UNLOCK:
+              sm64_have_bits_bombs = true;
               break;
         }
     }

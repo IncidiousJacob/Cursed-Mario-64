@@ -1,10 +1,12 @@
 // bowser_bomb.c.inc
 
 void bhv_bowser_bomb_loop(void) {
-    if ((gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bombs)) {
-        cur_obj_hide();
-        cur_obj_become_intangible();
-        return;
+    if ((gCurrLevelNum == LEVEL_BOWSER_1 && !sm64_have_bitdw_bombs) ||
+       (gCurrLevelNum == LEVEL_BOWSER_2 && !sm64_have_bitfs_bombs) ||
+       (gCurrLevelNum == LEVEL_BOWSER_3 && !sm64_have_bits_bombs)) {
+       cur_obj_hide();
+       cur_obj_become_intangible();
+       return;
     }
 
     if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
