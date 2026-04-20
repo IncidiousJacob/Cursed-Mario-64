@@ -1,40 +1,70 @@
 // Mario
 
 // 0x04000000 # solid color blue - butt, left thigh, right thigh - all poly types
-static const Lights1 mario_blue_lights_group = gdSPDefLights1(
+static Lights1 mario_blue_lights_group = gdSPDefLights1(
     0x00, 0x00, 0x7f,
     0x00, 0x00, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x04000018 # solid color red - left & right arm, torso (tshirt part), caps - all poly types
-static const Lights1 mario_red_lights_group = gdSPDefLights1(
+static Lights1 mario_red_lights_group = gdSPDefLights1(
     0x7f, 0x00, 0x00,
     0xff, 0x00, 0x00, 0x28, 0x28, 0x28
 );
 
 // 0x04000030 # solid color white - metal butt & left thigh - normal left & right hand closed & open (with cap too) and all wings - all poly types
-static const Lights1 mario_white_lights_group = gdSPDefLights1(
+static Lights1 mario_white_lights_group = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x04000048 # solid color brown 1 - foot - all poly types
-static const Lights1 mario_brown1_lights_group = gdSPDefLights1(
+static Lights1 mario_brown1_lights_group = gdSPDefLights1(
     0x39, 0x0e, 0x07,
     0x72, 0x1c, 0x0e, 0x28, 0x28, 0x28
 );
 
 // 0x04000060 # solid color beige skin - face (cap on and off dls) - all poly types
-static const Lights1 mario_beige_lights_group = gdSPDefLights1(
+static Lights1 mario_beige_lights_group = gdSPDefLights1(
     0x7f, 0x60, 0x3c,
     0xfe, 0xc1, 0x79, 0x28, 0x28, 0x28
 );
 
 // 0x04000078  # solid color brown 2 - hair - all poly types
-static const Lights1 mario_brown2_lights_group = gdSPDefLights1(
+static Lights1 mario_brown2_lights_group = gdSPDefLights1(
     0x39, 0x03, 0x00,
     0x73, 0x06, 0x00, 0x28, 0x28, 0x28
 );
+
+static void sm64ap_set_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyMarioPalette(void) {
+    sm64ap_set_light_group(&mario_red_lights_group,
+        gMarioHatShirtColor.r, gMarioHatShirtColor.g, gMarioHatShirtColor.b);
+
+    sm64ap_set_light_group(&mario_blue_lights_group,
+        gMarioOverallsColor.r, gMarioOverallsColor.g, gMarioOverallsColor.b);
+
+    sm64ap_set_light_group(&mario_beige_lights_group,
+        gMarioSkinColor.r, gMarioSkinColor.g, gMarioSkinColor.b);
+
+    sm64ap_set_light_group(&mario_brown2_lights_group,
+        gMarioHairColor.r, gMarioHairColor.g, gMarioHairColor.b);
+
+    sm64ap_set_light_group(&mario_brown1_lights_group,
+        gMarioShoesColor.r, gMarioShoesColor.g, gMarioShoesColor.b);
+
+    sm64ap_set_light_group(&mario_white_lights_group,
+        gMarioGlovesColor.r, gMarioGlovesColor.g, gMarioGlovesColor.b);
+}
 
 // 0x04000090
 ALIGNED8 static const u8 mario_texture_metal[] = {
