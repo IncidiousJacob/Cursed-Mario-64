@@ -137,15 +137,27 @@ void bhv_scuttlebug_loop(void) {
 
     cur_obj_move_standard(-50);
 }
-void bhv_scuttlebug_spawn_loop(void) {
-    struct Object *scuttlebug;
-    if (o->oAction == 0) {
+if (o->oAction == 0) {
         if (o->oTimer > 30 && 500.0f < o->oDistanceToMario && o->oDistanceToMario < 1500.0f) {
             cur_obj_play_sound_2(SOUND_OBJ2_SCUTTLEBUG_ALERT);
             scuttlebug = spawn_object(o, MODEL_SCUTTLEBUG, bhvScuttlebug);
+
             scuttlebug->oScuttlebugUnkF4 = o->oScuttlebugSpawnerUnkF4;
             scuttlebug->oForwardVel = 30.0f;
             scuttlebug->oVelY = 80.0f;
+
+            if (gCurrLevelNum == LEVEL_BBH) {
+                int x = (int) roundf(o->oPosX);
+                int z = (int) roundf(o->oPosZ);
+
+                if (x == -346 && z == -2813)
+                    scuttlebug->oBehParams2ndByte = 1;
+                else if (x == 1146 && z == -2280)
+                    scuttlebug->oBehParams2ndByte = 2;
+                else if (x == 3466 && z == 5106)
+                    scuttlebug->oBehParams2ndByte = 3;
+            }
+
             o->oAction++;
             o->oScuttlebugUnkF4 = 1;
         }
