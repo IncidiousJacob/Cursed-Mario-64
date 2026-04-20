@@ -142,6 +142,7 @@ AP_EXTERN_C bool sm64_have_toad_136;
 AP_EXTERN_C bool sm64_have_bitdw_bowser;
 AP_EXTERN_C bool sm64_have_bitfs_bowser;
 AP_EXTERN_C bool sm64_have_bits_bowser;
+AP_EXTERN_C bool sm64_have_bitdw_bombs;
 AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 
 // Send Item
