@@ -43,6 +43,7 @@ extern "C" {
 #define SM64AP_ID_BSBITDW_UNLOCK (SM64AP_ID_OFFSET + 1777)
 #define SM64AP_ID_BSBITFS_UNLOCK (SM64AP_ID_OFFSET + 1778)
 #define SM64AP_ID_BSBITS_UNLOCK (SM64AP_ID_OFFSET + 1779)
+#define SM64AP_ID_BBBITDW_UNLOCK (SM64AP_ID_OFFSET + 1780)
 
 #define SM64AP_ABILITY_OFFSET (SM64AP_ITEMID_1UP + 1)
 #define SM64AP_ID_DOUBLEJUMP (SM64AP_ABILITY_OFFSET)
@@ -142,6 +143,7 @@ AP_EXTERN_C bool sm64_have_toad_136;
 AP_EXTERN_C bool sm64_have_bitdw_bowser;
 AP_EXTERN_C bool sm64_have_bitfs_bowser;
 AP_EXTERN_C bool sm64_have_bits_bowser;
+AP_EXTERN_C bool sm64_have_bitdw_bombs;
 AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 
 // Send Item
