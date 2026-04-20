@@ -444,6 +444,8 @@ static void boo_act_2(void) {
 
 static void boo_act_3(void) {
     if (boo_update_during_death()) {
+        SM64AP_Boosanity(o);
+        
         if (o->oBehParams2ndByte != 0) {
             obj_mark_for_deletion(o);
         } else {
