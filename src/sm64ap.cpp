@@ -49,6 +49,7 @@ bool sm64_have_toad_136 = false;
 bool sm64_have_bitdw_bowser = false;
 bool sm64_have_bitfs_bowser = false;
 bool sm64_have_bits_bowser = false;
+bool sm64_have_bitdw_bombs = false;
 int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
