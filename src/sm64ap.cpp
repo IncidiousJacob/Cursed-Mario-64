@@ -144,9 +144,9 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     gGoombaColor = sm64ap_make_color(x, 96, 255);
 
-    gPiranhaHeadColor = sm64ap_make_color(x, 75, 255);
+    gPiranhaHeadColor = sm64ap_make_color(x, 60, 255);
     gPiranhaStemColor = sm64ap_make_color(x, 75, 255);
-    gPiranhaLeafColor = sm64ap_make_color(x, 75, 255);
+    gPiranhaLeafColor = sm64ap_make_color(x, 85, 255);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
