@@ -123,10 +123,6 @@ static SM64AP_RGB8 sm64ap_make_color(uint32_t &x, int minv, int maxv) {
 }
 
 void SM64AP_SetMarioPaletteSeed(int seed) {
-   
-    uint32_t x = (uint32_t)(seed ? seed : 1);
-
-    debug_seed = seed;
 
     gMarioHatShirtColor = sm64ap_make_color(x, 64, 255);
     gMarioSkinColor     = sm64ap_make_color(x, 80, 240);
