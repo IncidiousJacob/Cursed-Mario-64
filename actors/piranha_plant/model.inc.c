@@ -1,22 +1,61 @@
+#include "src/sm64ap.h"
+
 // Piranha Plant
 
 // 0x060113B0
-static const Lights1 piranha_plant_seg6_lights_060113B0 = gdSPDefLights1(
+static Lights1 piranha_plant_seg6_lights_060113B0 = gdSPDefLights1(
     0x3f, 0x3f, 0x3f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x060113C8
-static const Lights1 piranha_plant_seg6_lights_060113C8 = gdSPDefLights1(
+static Lights1 piranha_plant_seg6_lights_060113C8 = gdSPDefLights1(
     0x0a, 0x2b, 0x02,
     0x2b, 0xae, 0x0a, 0x28, 0x28, 0x28
 );
 
 // 0x060113E0
-static const Lights1 piranha_plant_seg6_lights_060113E0 = gdSPDefLights1(
+static Lights1 piranha_plant_seg6_lights_060113E0 = gdSPDefLights1(
     0x3f, 0x00, 0x00,
     0xff, 0x00, 0x00, 0x28, 0x28, 0x28
 );
+
+static void sm64ap_set_piranha_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+static u8 sm64ap_scale_u8(u8 v, int num, int den) {
+    int x = (v * num) / den;
+    if (x < 0) x = 0;
+    if (x > 255) x = 255;
+    return (u8)x;
+}
+
+void SM64AP_ApplyPiranhaPalette(void) {
+    // Stem + leaves (main body)
+    sm64ap_set_piranha_light_group(&piranha_plant_seg6_lights_060113B0,
+        gPiranhaStemColor.r,
+        gPiranhaStemColor.g,
+        gPiranhaStemColor.b);
+
+    // Mouth / lips
+    sm64ap_set_piranha_light_group(&piranha_plant_seg6_lights_060113C8,
+        gPiranhaHeadColor.r,
+        gPiranhaHeadColor.g,
+        gPiranhaHeadColor.b);
+
+    // Inner shading (slightly darker so it doesn't blow out)
+    sm64ap_set_piranha_light_group(&piranha_plant_seg6_lights_060113E0,
+        sm64ap_scale_u8(gPiranhaHeadColor.r, 70, 100),
+        sm64ap_scale_u8(gPiranhaHeadColor.g, 70, 100),
+        sm64ap_scale_u8(gPiranhaHeadColor.b, 70, 100));
+}
 
 // 0x060113F8
 ALIGNED8 static const u8 piranha_plant_seg6_texture_060113F8[] = {
