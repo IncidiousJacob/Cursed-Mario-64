@@ -102,10 +102,6 @@ SM64AP_RGB8 gPiranhaHeadColor;
 SM64AP_RGB8 gPiranhaStemColor;
 SM64AP_RGB8 gPiranhaLeafColor;
 SM64AP_RGB8 gBowserBodyColor;
-SM64AP_RGB8 gBowserShellColor;
-SM64AP_RGB8 gBowserHornColor;
-SM64AP_RGB8 gBowserHairColor;
-SM64AP_RGB8 gBowserBellyColor;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
