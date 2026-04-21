@@ -103,6 +103,7 @@ SM64AP_RGB8 gPiranhaStemColor;
 SM64AP_RGB8 gPiranhaLeafColor;
 SM64AP_RGB8 gBowserBodyColor;
 SM64AP_RGB8 gBobombColor;
+SM64AP_RGB8 gBobombMetalColor;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -152,7 +153,8 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     gBowserBodyColor  = sm64ap_make_color(x, 64, 220);
 
-    gBobombColor = sm64ap_make_color(x, 64, 255);
+    gBobombColor      = sm64ap_make_color(x, 96, 255);
+    gBobombMetalColor = sm64ap_make_color(x, 32, 200);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
