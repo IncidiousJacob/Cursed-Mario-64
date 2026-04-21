@@ -129,13 +129,13 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     uint32_t x = (uint32_t)(seed ? seed : 1);
 
-    gMarioHatShirtColor = sm64ap_make_color(x, 64, 255);
-    gMarioSkinColor     = sm64ap_make_color(x, 80, 240);
-    gMarioHairColor     = sm64ap_make_color(x, 16, 180);
+    gMarioHatShirtColor = sm64ap_make_color(x, 80, 255);
+    gMarioSkinColor     = sm64ap_make_color(x, 80, 255);
+    gMarioHairColor     = sm64ap_make_color(x, 85, 255);
     gMarioOverallsColor = sm64ap_make_color(x, 64, 255);
-    gMarioShoesColor    = sm64ap_make_color(x, 16, 180);
-    gMarioGlovesColor   = sm64ap_make_color(x, 180, 255);
-    gStarColor          = sm64ap_make_color(x, 64, 255);
+    gMarioShoesColor    = sm64ap_make_color(x, 70, 255);
+    gMarioGlovesColor   = sm64ap_make_color(x, 75, 255);
+    gStarColor          = sm64ap_make_color(x, 69, 255);
 
     gToadBodyColor = sm64ap_make_color(x, 48, 255);
     gToadSpotColor = sm64ap_make_color(x, 96, 255);
@@ -145,8 +145,8 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gGoombaColor = sm64ap_make_color(x, 96, 255);
 
     gPiranhaHeadColor = sm64ap_make_color(x, 96, 255);
-    gPiranhaStemColor = sm64ap_make_color(x, 32, 180);
-    gPiranhaLeafColor = sm64ap_make_color(x, 32, 220);
+    gPiranhaStemColor = sm64ap_make_color(x, 90, 180);
+    gPiranhaLeafColor = sm64ap_make_color(x, 90, 220);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
