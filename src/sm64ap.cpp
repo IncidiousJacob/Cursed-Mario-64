@@ -97,6 +97,7 @@ SM64AP_RGB8 gToadBodyColor;
 SM64AP_RGB8 gToadSpotColor;
 SM64AP_RGB8 gToadSkinColor;
 SM64AP_RGB8 gToadShoeColor;
+SM64AP_RGB8 gGoombaColor;
 int debug_seed = -1;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
