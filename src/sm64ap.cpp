@@ -227,6 +227,10 @@ void SM64AP_CheckCCMSpindrift(struct Object *o) {
 void SM64AP_Boosanity(struct Object *o) {
     int64_t loc_id = 0;
 
+    if (o == NULL) {
+        return;
+    }
+
     int hX = (int) roundf(o->oHomeX);
     int hZ = (int) roundf(o->oHomeZ);
 
@@ -248,12 +252,44 @@ void SM64AP_Boosanity(struct Object *o) {
         // Merry-Go-Round small boos (5 total)
         else if (o->behavior == bhvMerryGoRoundBoo
               && obj_has_behavior(o->parentObj, bhvMerryGoRoundBooManager)) {
-
             loc_id = 2506 + o->parentObj->oMerryGoRoundBooManagerNumBoosKilled;
-            // results:
             // 2506, 2507, 2508, 2509, 2510
         }
     }
+    else if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD) {
+        // Courtyard Boo Triplets (9 total)
+        // Parent spawners are at:
+        // (-3217, 100,  -101)
+        // ( 3317, 100, -1701)
+        // (  -71,   1, -1387)
+        //
+        // Relative offsets are:
+        // (0, 50, 0), (210, 110, 210), (-210, 70, -210)
+        //
+        // So the actual boo home X/Z pairs are:
+        // (-3217, -101), (-3007, 109), (-3427, -311)
+        // ( 3317, -1701), (3527, -1491), (3107, -1911)
+        // (  -71, -1387), ( 139, -1177), (-281, -1597)
+
+        if (o->behavior == bhvGhostHuntBoo) {
+            if (hX == -3217 && hZ == -101)      loc_id = 2511;
+            else if (hX == -3007 && hZ == 109)  loc_id = 2512;
+            else if (hX == -3427 && hZ == -311) loc_id = 2513;
+
+            else if (hX == 3317 && hZ == -1701) loc_id = 2514;
+            else if (hX == 3527 && hZ == -1491) loc_id = 2515;
+            else if (hX == 3107 && hZ == -1911) loc_id = 2516;
+
+            else if (hX == -71 && hZ == -1387)  loc_id = 2517;
+            else if (hX == 139 && hZ == -1177)  loc_id = 2518;
+            else if (hX == -281 && hZ == -1597) loc_id = 2519;
+        }
+    }
+
+    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
+        SM64AP_SendItem(loc_id);
+    }
+}
 
     if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
         SM64AP_SendItem(loc_id);
