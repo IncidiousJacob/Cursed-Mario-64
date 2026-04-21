@@ -101,6 +101,11 @@ SM64AP_RGB8 gGoombaColor;
 SM64AP_RGB8 gPiranhaHeadColor;
 SM64AP_RGB8 gPiranhaStemColor;
 SM64AP_RGB8 gPiranhaLeafColor;
+SM64AP_RGB8 gBowserBodyColor;
+SM64AP_RGB8 gBowserShellColor;
+SM64AP_RGB8 gBowserHornColor;
+SM64AP_RGB8 gBowserHairColor;
+SM64AP_RGB8 gBowserBellyColor;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -148,11 +153,18 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gPiranhaStemColor = sm64ap_make_color(x, 75, 245);
     gPiranhaLeafColor = sm64ap_make_color(x, 85, 255);
 
+    gBowserBodyColor  = sm64ap_make_color(x, 64, 220);
+    gBowserShellColor = sm64ap_make_color(x, 64, 255);
+    gBowserHornColor  = sm64ap_make_color(x, 180, 255);
+    gBowserHairColor  = sm64ap_make_color(x, 16, 180);
+    gBowserBellyColor = sm64ap_make_color(x, 96, 240);
+
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
     SM64AP_ApplyToadPalette();
     SM64AP_ApplyGoombaPalette();
     SM64AP_ApplyPiranhaPalette();
+    SM64AP_ApplyBowserPalette();
 }
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
