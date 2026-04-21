@@ -98,6 +98,35 @@ SM64AP_RGB8 gToadSpotColor;
 SM64AP_RGB8 gToadSkinColor;
 SM64AP_RGB8 gToadShoeColor;
 SM64AP_RGB8 gGoombaColor;
+SM64AP_RGB8 gCastleWallColor;
+SM64AP_RGB8 gCastleRoofColor;
+SM64AP_RGB8 gCastleTrimColor;
+
+static void sm64ap_apply_color_to_vertex_group(Vtx *vtx, int count, u8 r, u8 g, u8 b) {
+    for (int i = 0; i < count; i++) {
+        vtx[i].v.cn[0] = r;
+        vtx[i].v.cn[1] = g;
+        vtx[i].v.cn[2] = b;
+    }
+}
+
+void SM64AP_ApplyCastlePalette(void) {
+    // light stone / walls
+    sm64ap_apply_color_to_vertex_group(castle_grounds_seg7_vertex_07005A00, 12,
+        gCastleWallColor.r, gCastleWallColor.g, gCastleWallColor.b);
+    sm64ap_apply_color_to_vertex_group(castle_grounds_seg7_vertex_07005AF0, 16,
+        gCastleWallColor.r, gCastleWallColor.g, gCastleWallColor.b);
+
+    // darker trim / shadows / lower masonry
+    sm64ap_apply_color_to_vertex_group(castle_grounds_seg7_vertex_07005BE0, 16,
+        gCastleTrimColor.r, gCastleTrimColor.g, gCastleTrimColor.b);
+    sm64ap_apply_color_to_vertex_group(castle_grounds_seg7_vertex_07005CE0, 12,
+        gCastleTrimColor.r, gCastleTrimColor.g, gCastleTrimColor.b);
+
+    // optional: roof group once you identify its vertex arrays
+    // sm64ap_apply_color_to_vertex_group(castle_grounds_seg7_vertex_XXXXXXXX, count,
+    //     gCastleRoofColor.r, gCastleRoofColor.g, gCastleRoofColor.b);
+}
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -141,10 +170,16 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     gGoombaColor = sm64ap_make_color(x, 96, 255);
 
+    gCastleWallColor = sm64ap_make_color(x, 140, 255);
+    gCastleRoofColor = sm64ap_make_color(x, 80, 255);
+    gCastleTrimColor = sm64ap_make_color(x, 70, 220);
+    
+
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
     SM64AP_ApplyToadPalette();
     SM64AP_ApplyGoombaPalette();
+    SM64AP_ApplyCastlePalette();
 }
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
