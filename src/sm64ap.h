@@ -29,6 +29,8 @@ AP_EXTERN_C void SM64AP_ApplyStarPalette(void);
 
 AP_EXTERN_C void SM64AP_SetMarioPaletteSeed(int seed);
 AP_EXTERN_C void SM64AP_ApplyMarioPalette(void);
+AP_EXTERN_C SM64AP_RGB8 gGoombaColor;
+AP_EXTERN_C void SM64AP_ApplyGoombaPalette(void);
 
 #define SM64AP_ID_OFFSET 3626000
 #define SM64AP_SECOND_CHECK_OFFSET 1000
