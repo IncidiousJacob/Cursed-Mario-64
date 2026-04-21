@@ -150,10 +150,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gPiranhaLeafColor = sm64ap_make_color(x, 85, 255);
 
     gBowserBodyColor  = sm64ap_make_color(x, 64, 220);
-    gBowserShellColor = sm64ap_make_color(x, 64, 255);
-    gBowserHornColor  = sm64ap_make_color(x, 180, 255);
-    gBowserHairColor  = sm64ap_make_color(x, 16, 180);
-    gBowserBellyColor = sm64ap_make_color(x, 96, 240);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
