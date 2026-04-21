@@ -14,6 +14,7 @@ extern "C" {
 #include "behavior_data.h"
 #include "game/object_helpers.h"
 #include "model_ids.h"
+#include "levels/castle_grounds/header.h"
 }
 
 #include <string>
