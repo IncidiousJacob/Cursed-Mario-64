@@ -1,3 +1,5 @@
+#include "src/sm64ap.h"
+
 // Goomba
 
 // Unreferenced light group
@@ -13,28 +15,45 @@ UNUSED static const Lights1 goomba_lights_unused2 = gdSPDefLights1(
 );
 
 // 0x080194D0
-static const Lights1 goomba_seg8_lights_080194D0 = gdSPDefLights1(
+static Lights1 goomba_seg8_lights_080194D0 = gdSPDefLights1(
     0x15, 0x0b, 0x04,
     0x54, 0x2e, 0x10, 0x28, 0x28, 0x28
 );
 
 // 0x080194E8
-static const Lights1 goomba_seg8_lights_080194E8 = gdSPDefLights1(
+static Lights1 goomba_seg8_lights_080194E8 = gdSPDefLights1(
     0x18, 0x0d, 0x04,
     0x61, 0x34, 0x13, 0x28, 0x28, 0x28
 );
 
 // 0x08019500
-static const Lights1 goomba_seg8_lights_08019500 = gdSPDefLights1(
+static Lights1 goomba_seg8_lights_08019500 = gdSPDefLights1(
     0x1d, 0x10, 0x08,
     0x77, 0x42, 0x20, 0x28, 0x28, 0x28
 );
 
 // 0x08019518
-static const Lights1 goomba_seg8_lights_08019518 = gdSPDefLights1(
+static Lights1 goomba_seg8_lights_08019518 = gdSPDefLights1(
     0x37, 0x2d, 0x13,
     0xde, 0xb4, 0x4e, 0x28, 0x28, 0x28
 );
+
+static void sm64ap_set_goomba_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+static u8 sm64ap_scale_u8(u8 v, int num, int den) {
+    int x = (v * num) / den;
+    if (x < 0) x = 0;
+    if (x > 255) x = 255;
+    return (u8)x;
+}
 
 // 0x08019530
 ALIGNED8 static const u8 goomba_seg8_texture_08019530[] = {
@@ -52,11 +71,37 @@ ALIGNED8 static const u8 goomba_seg8_texture_0801A530[] = {
 };
 
 // 0x0801AD30
-static const Lights1 goomba_seg8_lights_0801AD30 = gdSPDefLights1(
+static Lights1 goomba_seg8_lights_0801AD30 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
+void SM64AP_ApplyGoombaPalette(void) {
+    sm64ap_set_goomba_light_group(&goomba_seg8_lights_080194D0,
+        sm64ap_scale_u8(gGoombaColor.r, 70, 100),
+        sm64ap_scale_u8(gGoombaColor.g, 70, 100),
+        sm64ap_scale_u8(gGoombaColor.b, 70, 100));
+
+    sm64ap_set_goomba_light_group(&goomba_seg8_lights_080194E8,
+        sm64ap_scale_u8(gGoombaColor.r, 80, 100),
+        sm64ap_scale_u8(gGoombaColor.g, 80, 100),
+        sm64ap_scale_u8(gGoombaColor.b, 80, 100));
+
+    sm64ap_set_goomba_light_group(&goomba_seg8_lights_08019500,
+        sm64ap_scale_u8(gGoombaColor.r, 95, 100),
+        sm64ap_scale_u8(gGoombaColor.g, 95, 100),
+        sm64ap_scale_u8(gGoombaColor.b, 95, 100));
+
+    sm64ap_set_goomba_light_group(&goomba_seg8_lights_08019518,
+        sm64ap_scale_u8(gGoombaColor.r, 175, 100),
+        sm64ap_scale_u8(gGoombaColor.g, 175, 100),
+        sm64ap_scale_u8(gGoombaColor.b, 175, 100));
+
+    sm64ap_set_goomba_light_group(&goomba_seg8_lights_0801AD30,
+        gGoombaColor.r,
+        gGoombaColor.g,
+        gGoombaColor.b);
+}
 // 0x0801AD48
 static const Vtx goomba_seg8_vertex_0801AD48[] = {
     {{{    80,     58,    105}, 0, {  1124,    322}, {0x22, 0x3f, 0x68, 0xff}}},
