@@ -141,9 +141,12 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gToadSkinColor = sm64ap_make_color(x, 80, 240);
     gToadShoeColor = sm64ap_make_color(x, 16, 180);
 
+    gGoombaColor = sm64ap_make_color(x, 32, 200);
+
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
     SM64AP_ApplyToadPalette();
+    SM64AP_ApplyGoombaPalette();
 }
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
