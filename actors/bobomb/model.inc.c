@@ -1,3 +1,5 @@
+#include "src/sm64ap.h"
+
 // Bobomb
 
 // 0x0801DA60
@@ -168,13 +170,37 @@ const Gfx bobomb_seg8_dl_08022D78[] = {
 };
 
 // 0x08022DE8
-static const Lights1 bobomb_seg8_lights_08022DE8 = gdSPDefLights1(
+static Lights1 bobomb_seg8_lights_08022DE8 = gdSPDefLights1(
     0x3f, 0x26, 0x04,
     0xff, 0x99, 0x12, 0x28, 0x28, 0x28
 );
 
+static void sm64ap_set_bobomb_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyBobombPalette(void) {
+    // Body
+    sm64ap_set_bobomb_light_group(&bobomb_seg8_lights_08022DE8,
+        gBobombColor.r,
+        gBobombColor.g,
+        gBobombColor.b);
+
+    // Metal (slightly dimmer so it doesn't glow weird)
+    sm64ap_set_bobomb_light_group(&bobomb_seg8_lights_08022E00,
+        sm64ap_scale_u8(gBobombMetalColor.r, 80, 100),
+        sm64ap_scale_u8(gBobombMetalColor.g, 80, 100),
+        sm64ap_scale_u8(gBobombMetalColor.b, 80, 100));
+}
+
 // 0x08022E00
-static const Lights1 bobomb_seg8_lights_08022E00 = gdSPDefLights1(
+static Lights1 bobomb_seg8_lights_08022E00 = gdSPDefLights1(
     0x2c, 0x2c, 0x2c,
     0xb2, 0xb2, 0xb2, 0x28, 0x28, 0x28
 );
