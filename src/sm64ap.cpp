@@ -1,6 +1,6 @@
 #include "sm64ap.h"
 #include "Archipelago.h"
-s
+
 extern "C" {
 #include "game/print.h"
 #include "gfx_dimensions.h"
