@@ -839,7 +839,7 @@ static const Vtx castle_grounds_seg7_vertex_07005800[] = {
 };
 
 // 0x07005900 - 0x07005A00
-static const Vtx castle_grounds_seg7_vertex_07005900[] = {
+Vtx castle_grounds_seg7_vertex_07005900[] = {
     {{{  1024,    803,  -2127}, 0, {  3032,  -5574}, {0xe5, 0xe5, 0xea, 0xff}}},
     {{{  1024,   1692,  -2127}, 0, {  3032, -10006}, {0xe5, 0xe5, 0xea, 0xff}}},
     {{{   554,   1692,  -2127}, 0, {   688, -10006}, {0xe5, 0xe5, 0xea, 0xff}}},
@@ -859,7 +859,7 @@ static const Vtx castle_grounds_seg7_vertex_07005900[] = {
 };
 
 // 0x07005A00 - 0x07005AF0
-static const Vtx castle_grounds_seg7_vertex_07005A00[] = {
+Vtx castle_grounds_seg7_vertex_07005A00[] = {
     {{{  -553,    803,  -2127}, 0, { -4836,  -5574}, {0xe5, 0xe5, 0xea, 0xff}}},
     {{{ -1023,    803,  -2127}, 0, { -7180,  -5574}, {0xe5, 0xe5, 0xea, 0xff}}},
     {{{ -1023,   -511,  -2127}, 0, { -7180,    990}, {0xe5, 0xe5, 0xea, 0xff}}},
@@ -878,7 +878,7 @@ static const Vtx castle_grounds_seg7_vertex_07005A00[] = {
 };
 
 // 0x07005AF0 - 0x07005BE0
-static const Vtx castle_grounds_seg7_vertex_07005AF0[] = {
+Vtx castle_grounds_seg7_vertex_07005AF0[] = {
     {{{ -3481,   2339,  -6149}, 0, {  2356, -16816}, {0xe5, 0xe5, 0xea, 0xff}}},
     {{{ -4369,   2339,  -6149}, 0, { -2072, -16816}, {0xe5, 0xe5, 0xea, 0xff}}},
     {{{ -4369,  -1228,  -6149}, 0, { -2072,    990}, {0xe5, 0xe5, 0xea, 0xff}}},
@@ -897,7 +897,7 @@ static const Vtx castle_grounds_seg7_vertex_07005AF0[] = {
 };
 
 // 0x07005BE0 - 0x07005CE0
-static const Vtx castle_grounds_seg7_vertex_07005BE0[] = {
+Vtx castle_grounds_seg7_vertex_07005BE0[] = {
     {{{ -3541,   -972,  -3361}, 0, { -4672,    480}, {0x67, 0x67, 0x69, 0xff}}},
     {{{ -4686,   -972,  -3361}, 0, {  4464,    478}, {0x67, 0x67, 0x69, 0xff}}},
     {{{ -4686,   -921,  -3361}, 0, {  4464,    990}, {0x67, 0x67, 0x69, 0xff}}},
@@ -917,7 +917,7 @@ static const Vtx castle_grounds_seg7_vertex_07005BE0[] = {
 };
 
 // 0x07005CE0 - 0x07005DA0
-static const Vtx castle_grounds_seg7_vertex_07005CE0[] = {
+Vtx castle_grounds_seg7_vertex_07005CE0[] = {
     {{{ -4686,   -869,  -3151}, 0, {  5468,    744}, {0x58, 0x58, 0x62, 0xff}}},
     {{{ -4686,   -511,  -3151}, 0, {  5472,  -1046}, {0x58, 0x58, 0x62, 0xff}}},
     {{{ -3583,   -511,  -3151}, 0, {     0,  -1054}, {0x58, 0x58, 0x62, 0xff}}},
