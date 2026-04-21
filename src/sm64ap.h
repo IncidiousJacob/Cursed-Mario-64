@@ -26,7 +26,12 @@ AP_EXTERN_C SM64AP_RGB8 gMarioShoesColor;
 AP_EXTERN_C SM64AP_RGB8 gMarioGlovesColor;
 AP_EXTERN_C SM64AP_RGB8 gStarColor;
 AP_EXTERN_C void SM64AP_ApplyStarPalette(void);
+AP_EXTERN_C SM64AP_RGB8 gToadBodyColor;
+AP_EXTERN_C SM64AP_RGB8 gToadSpotColor;
+AP_EXTERN_C SM64AP_RGB8 gToadSkinColor;
+AP_EXTERN_C SM64AP_RGB8 gToadShoeColor;
 
+AP_EXTERN_C void SM64AP_ApplyToadPalette(void);
 AP_EXTERN_C void SM64AP_SetMarioPaletteSeed(int seed);
 AP_EXTERN_C void SM64AP_ApplyMarioPalette(void);
 AP_EXTERN_C SM64AP_RGB8 gGoombaColor;
@@ -198,6 +203,7 @@ AP_EXTERN_C bool SM64AP_MoatDrained();
 // Check for switch state (used for initial switch state on level load)
 AP_EXTERN_C bool SM64AP_PressedSwitch(int);
 AP_EXTERN_C bool gRRTrapped;
+AP_EXTERN_C u8 gRRTrapShowCutscene;
 AP_EXTERN_C bool gRRReturning;
 AP_EXTERN_C s16 gRRReturnLevel;
 AP_EXTERN_C s16 gRRReturnArea;

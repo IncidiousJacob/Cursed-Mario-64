@@ -68,6 +68,7 @@ int msg_frame_duration = 90; // 3 Secounds at 30F/s
 int cur_msg_frame_duration = msg_frame_duration;
 std::queue<int64_t> delayed_queue;
 bool gRRTrapped = false;
+u8 gRRTrapShowCutscene = 0;
 bool gRRReturning = false;
 s16 gRRReturnLevel = 0;
 s16 gRRReturnArea = 0;
@@ -92,6 +93,11 @@ SM64AP_RGB8 gMarioOverallsColor;
 SM64AP_RGB8 gMarioShoesColor;
 SM64AP_RGB8 gMarioGlovesColor;
 SM64AP_RGB8 gStarColor;
+SM64AP_RGB8 gToadBodyColor;
+SM64AP_RGB8 gToadSpotColor;
+SM64AP_RGB8 gToadSkinColor;
+SM64AP_RGB8 gToadShoeColor;
+int debug_seed = -1;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -117,7 +123,10 @@ static SM64AP_RGB8 sm64ap_make_color(uint32_t &x, int minv, int maxv) {
 }
 
 void SM64AP_SetMarioPaletteSeed(int seed) {
+   
     uint32_t x = (uint32_t)(seed ? seed : 1);
+
+    debug_seed = seed;
 
     gMarioHatShirtColor = sm64ap_make_color(x, 64, 255);
     gMarioSkinColor     = sm64ap_make_color(x, 80, 240);
@@ -126,10 +135,15 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gMarioShoesColor    = sm64ap_make_color(x, 16, 180);
     gMarioGlovesColor   = sm64ap_make_color(x, 180, 255);
     gStarColor          = sm64ap_make_color(x, 64, 255);
-    
+
+    gToadBodyColor = sm64ap_make_color(x, 48, 255);
+    gToadSpotColor = sm64ap_make_color(x, 96, 255);
+    gToadSkinColor = sm64ap_make_color(x, 80, 240);
+    gToadShoeColor = sm64ap_make_color(x, 16, 180);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
+    SM64AP_ApplyToadPalette();
 }
 
 static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
@@ -271,7 +285,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
-                gRRTrapTimer = 6 * 60 * 30;
+                gRRTrapTimer = 4 * 60 * 30;
             }
             delayed_queue.push(idx);
         }
@@ -335,6 +349,10 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
 
            case SM64AP_ID_BSBITFS_UNLOCK:
                sm64_have_bitfs_bowser = true;
+               break;
+
+            case SM64AP_ID_BSBITS_UNLOCK:
+               sm64_have_bits_bowser = true;
                break;
 
            case SM64AP_ID_BBBITDW_UNLOCK:
@@ -1038,6 +1056,11 @@ bool SM64AP_CanSwim() {
 }
 
 void SM64AP_PrintNext() {
+    extern int debug_seed;
+    char buf[64];
+    snprintf(buf, sizeof(buf), "Seed: %d", debug_seed);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(20), 40, buf);
+    
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
                    "Connecting");

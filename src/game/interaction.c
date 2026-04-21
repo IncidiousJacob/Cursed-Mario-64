@@ -1874,15 +1874,25 @@ void update_arch_delayed_items(struct MarioState *m) {
             break;
         case SM64AP_ID_RR_TRAP:
             gRRTrapped = true;
-            gRRTrapTimer = 6 * 60 * 30;
+            gRRTrapShowCutscene = 1;
+            gRRTrapTimer = 4 * 60 * 30;
             gRRReturnLevel = gCurrLevelNum;
             gRRReturnArea = gCurrentArea->index;
             gRRReturnPos[0] = m->pos[0];
             gRRReturnPos[1] = m->pos[1];
             gRRReturnPos[2] = m->pos[2];
             gRRReturnAngle = m->faceAngle[1];
-            initiate_warp(LEVEL_RR, 1, 0x0A, 0);
-            fade_into_special_warp(0, 0);
+            if (gCurrLevelNum != LEVEL_RR) {
+                initiate_warp(LEVEL_RR, 1, 0x0A, 0);
+                fade_into_special_warp(0, 0);
+            } else {
+                // Already in RR, just teleport to the "start" of the trap (though we usually warp anyway to reset state)
+                // Actually, let's keep the warp as it resets the level state which is expected for traps, 
+                // but the parent fix in level_update.c should solve the visual bug.
+                // However, to be extra safe against state issues, we can force a reload.
+                initiate_warp(LEVEL_RR, 1, 0x0A, 0);
+                fade_into_special_warp(0, 0);
+            }
             break;
         default:
             break;

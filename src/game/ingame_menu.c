@@ -2711,8 +2711,8 @@ s16 render_pause_courses_and_castle(void) {
                 render_pause_red_coins();
 
                 /* Added support for the "Exit course at any time" cheat */
-                if ((gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT)
-                    || (Cheats.EnableCheats && Cheats.ExitAnywhere)) {
+                if (((gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT)
+                    || (Cheats.EnableCheats && Cheats.ExitAnywhere)) && !gRRTrapped) {
                     render_pause_course_options(99, 93, &gDialogLineNum, 15);
                 }
 

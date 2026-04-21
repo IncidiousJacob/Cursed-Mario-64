@@ -1,20 +1,20 @@
-// Toad
+#include "src/sm64ap.h"
 
-// 0x06005908
-static const Lights1 toad_seg6_lights_06005908 = gdSPDefLights1(
-    0x7f, 0x7f, 0x7f,
-    0xff, 0xff, 0xff, 0x28, 0x28, 0x28
-);
-
-// 0x06005920
 ALIGNED8 static const u8 toad_seg6_texture_06005920[] = {
+#include "actors/toad/toad_head.rgba16.inc.c"
+};
+
+ALIGNED8 static const u8 toad_seg6_texture_06006120[] = {
 #include "actors/toad/toad_face.rgba16.inc.c"
 };
 
-// 0x06006120
-ALIGNED8 static const u8 toad_seg6_texture_06006120[] = {
-#include "actors/toad/toad_head.rgba16.inc.c"
-};
+// Toad
+
+// 0x06005908
+static Lights1 toad_seg6_lights_06005908 = gdSPDefLights1(
+    0x21, 0x13, 0x5a,
+    0x42, 0x27, 0xb5, 0x28, 0x28, 0x28
+);
 
 // 0x06006920
 static const Vtx toad_seg6_vertex_06006920[] = {
@@ -350,7 +350,7 @@ const Gfx toad_seg6_us_dl_06007788[] = {
 #endif
 
 // 0x06007788
-static const Lights1 toad_seg6_lights_06007788 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_06007788 = gdSPDefLights1(
     0x21, 0x13, 0x5a,
     0x42, 0x27, 0xb5, 0x28, 0x28, 0x28
 );
@@ -435,13 +435,13 @@ const Gfx toad_seg6_us_dl_06007B00[] = {
 #endif
 
 // 0x06007A80
-static const Lights1 toad_seg6_lights_06007A80 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_06007A80 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x06007A98
-static const Lights1 toad_seg6_lights_06007A98 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_06007A98 = gdSPDefLights1(
     0x7f, 0x6a, 0x50,
     0xfe, 0xd5, 0xa1, 0x28, 0x28, 0x28
 );
@@ -541,7 +541,7 @@ const Gfx toad_seg6_dl_06007EB0[] = {
 };
 
 // 0x06007ED8
-static const Lights1 toad_seg6_lights_06007ED8 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_06007ED8 = gdSPDefLights1(
     0x7f, 0x6a, 0x50,
     0xfe, 0xd5, 0xa1, 0x28, 0x28, 0x28
 );
@@ -619,7 +619,7 @@ const Gfx toad_seg6_dl_060081F8[] = {
 };
 
 // 0x06008220
-static const Lights1 toad_seg6_lights_06008220 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_06008220 = gdSPDefLights1(
     0x7f, 0x6a, 0x50,
     0xfe, 0xd5, 0xa1, 0x28, 0x28, 0x28
 );
@@ -714,7 +714,7 @@ const Gfx toad_seg6_us_dl_06008608[] = {
 #endif
 
 // 0x06008560
-static const Lights1 toad_seg6_lights_06008560 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_06008560 = gdSPDefLights1(
     0x34, 0x20, 0x0d,
     0x68, 0x40, 0x1b, 0x28, 0x28, 0x28
 );
@@ -794,10 +794,43 @@ const Gfx toad_seg6_dl_06008890[] = {
 };
 
 // 0x060088B8
-static const Lights1 toad_seg6_lights_060088B8 = gdSPDefLights1(
+static Lights1 toad_seg6_lights_060088B8 = gdSPDefLights1(
     0x34, 0x20, 0x0d,
     0x68, 0x40, 0x1b, 0x28, 0x28, 0x28
 );
+
+static void sm64ap_set_toad_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyToadPalette(void) {
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06005908,
+        gToadBodyColor.r, gToadBodyColor.g, gToadBodyColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06007788,
+        gToadBodyColor.r, gToadBodyColor.g, gToadBodyColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06007A80,
+        gToadSpotColor.r, gToadSpotColor.g, gToadSpotColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06007A98,
+        gToadSkinColor.r, gToadSkinColor.g, gToadSkinColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06008220,
+        gToadSkinColor.r, gToadSkinColor.g, gToadSkinColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_06008560,
+        gToadShoeColor.r, gToadShoeColor.g, gToadShoeColor.b);
+
+    sm64ap_set_toad_light_group(&toad_seg6_lights_060088B8,
+        gToadShoeColor.r, gToadShoeColor.g, gToadShoeColor.b);
+}
 
 // 0x060088D0
 static const Vtx toad_seg6_vertex_060088D0[] = {
