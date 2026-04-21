@@ -97,6 +97,7 @@ SM64AP_RGB8 gToadBodyColor;
 SM64AP_RGB8 gToadSpotColor;
 SM64AP_RGB8 gToadSkinColor;
 SM64AP_RGB8 gToadShoeColor;
+int debug_seed = -1;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -122,11 +123,10 @@ static SM64AP_RGB8 sm64ap_make_color(uint32_t &x, int minv, int maxv) {
 }
 
 void SM64AP_SetMarioPaletteSeed(int seed) {
-    char buf[64];
-    snprintf(buf, sizeof(buf), "PaletteSeed: %d", seed);
-    print_text(20, 200, buf);
-
+   
     uint32_t x = (uint32_t)(seed ? seed : 1);
+
+    debug_seed = seed;
 
     gMarioHatShirtColor = sm64ap_make_color(x, 64, 255);
     gMarioSkinColor     = sm64ap_make_color(x, 80, 240);
@@ -1056,6 +1056,11 @@ bool SM64AP_CanSwim() {
 }
 
 void SM64AP_PrintNext() {
+    extern int debug_seed;
+    char buf[64];
+    snprintf(buf, sizeof(buf), "Seed: %d", debug_seed);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(20), 40, buf);
+    
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
                    "Connecting");
