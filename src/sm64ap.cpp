@@ -98,7 +98,6 @@ SM64AP_RGB8 gToadSpotColor;
 SM64AP_RGB8 gToadSkinColor;
 SM64AP_RGB8 gToadShoeColor;
 SM64AP_RGB8 gGoombaColor;
-int debug_seed = -1;
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -1058,10 +1057,6 @@ bool SM64AP_CanSwim() {
 }
 
 void SM64AP_PrintNext() {
-    extern int debug_seed;
-    char buf[64];
-    snprintf(buf, sizeof(buf), "Seed: %d", debug_seed);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(20), 40, buf);
     
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
