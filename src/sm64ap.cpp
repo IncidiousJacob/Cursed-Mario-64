@@ -1184,9 +1184,6 @@ bool SM64AP_CanSwim() {
     return sm64_have_abilities[13];
 }
 
-    return sm64_have_abilities[13];
-}
-
 
 void SM64AP_PrintNext() {
 
