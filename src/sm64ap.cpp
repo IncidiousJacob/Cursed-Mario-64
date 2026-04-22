@@ -1128,48 +1128,48 @@ void SM64AP_DeathLinkSend() {
 }
 
 bool SM64AP_CanDoubleJump() {
-    return sm64_have_abilities[SM64AP_ID_DOUBLEJUMP - SM64AP_ID_ABILITY(0)]
-           || sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_DOUBLEJUMP - SM64AP_ABILITY_OFFSET]
+           || sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanTripleJump() {
-    return sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanLongJump() {
-    return sm64_have_abilities[SM64AP_ID_LONGJUMP - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_LONGJUMP - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanBackflip() {
-    return sm64_have_abilities[SM64AP_ID_BACKFLIP - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_BACKFLIP - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanSideFlip() {
-    return sm64_have_abilities[SM64AP_ID_SIDEFLIP - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_SIDEFLIP - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanWallKick() {
-    return sm64_have_abilities[SM64AP_ID_WALLKICK - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_WALLKICK - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanDive() {
-    return sm64_have_abilities[SM64AP_ID_DIVE - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_DIVE - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanGroundPound() {
-    return sm64_have_abilities[SM64AP_ID_GROUNDPOUND - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_GROUNDPOUND - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanKick() {
-    return sm64_have_abilities[SM64AP_ID_KICK - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_KICK - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanClimb() {
-    return sm64_have_abilities[SM64AP_ID_CLIMB - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_CLIMB - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanLedgeGrab() {
-    return sm64_have_abilities[SM64AP_ID_LEDGEGRAB - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[SM64AP_ID_LEDGEGRAB - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanPunch() {
