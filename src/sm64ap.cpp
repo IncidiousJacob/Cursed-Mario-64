@@ -344,10 +344,44 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
         return;
 
-    } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
-            && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
-        sm64_have_painting[idx - SM64AP_ID_PAINTINGUNLOCK(0)] = true;
-        return;
+   } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
+        && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
+    switch (idx) {
+        case SM64AP_ID_PAINTINGUNLOCK(1):  // CCM
+            sm64_have_painting[1] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(2):  // WF
+            sm64_have_painting[2] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(3):  // KRB / JRB
+            sm64_have_painting[3] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(6):  // LLL
+            sm64_have_painting[6] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(7):  // SSL
+            sm64_have_painting[7] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(8):  // DDD
+            sm64_have_painting[8] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(9):  // SL
+            sm64_have_painting[9] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(10): // WDW
+            sm64_have_painting[10] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(11): // TTM
+            sm64_have_painting[11] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(12): // THI
+            sm64_have_painting[12] = true;
+            break;
+        case SM64AP_ID_PAINTINGUNLOCK(13): // TTC
+            sm64_have_painting[13] = true;
+            break;
+    }
+    return;
 
     } else if (idx == SM64AP_ID_KOOPA_SHELL) {
         if (notify || !SM64AP_CanSpawnFieldItem()) {
