@@ -1197,26 +1197,6 @@ void SM64AP_PrintNext() {
 
     SM64AP_ProcessDelayedItems();
 
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 200,
-               SM64AP_CanSwim() ? "SWIM: ON" : "SWIM: OFF");
-
-    char buf1[64];
-    char buf2[64];
-    char buf3[64];
-    char buf4[64];
-
-    sprintf(buf1, "LAST IDX: %d", sm64_debug_last_idx);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 180, buf1);
-
-    sprintf(buf2, "LAST SLOT: %d", sm64_debug_last_slot);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 160, buf2);
-
-    sprintf(buf3, "SWIM SLOT: %d", (int)sm64_have_abilities[13]);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 140, buf3);
-
-    sprintf(buf4, "HIGH RX: %d", (int)sm64_received_move_rando_high);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 120, buf4);
-
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
                    "Connecting");
@@ -1256,25 +1236,26 @@ void SM64AP_PrintNext() {
         return;
 
     AP_Message *msg = AP_GetLatestMessage();
+
     if (msg->type == AP_MessageType::ItemSend) {
         AP_ItemSendMessage *o_msg = static_cast<AP_ItemSendMessage *>(msg);
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 0) * 20,
                    (o_msg->item + std::string(" was sent")).c_str());
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 1) * 20,
                    (std::string("to ") + o_msg->recvPlayer).c_str());
+
     } else if (msg->type == AP_MessageType::ItemRecv) {
         AP_ItemRecvMessage *o_msg = static_cast<AP_ItemRecvMessage *>(msg);
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 0) * 20,
                    (std::string("Got ") + o_msg->item).c_str());
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1 - 1) * 20,
                    (std::string("From ") + o_msg->sendPlayer).c_str());
+
     } else if (msg->type == AP_MessageType::Countdown) {
         cur_msg_frame_duration = std::min(cur_msg_frame_duration, 30);
         AP_CountdownMessage *o_msg = static_cast<AP_CountdownMessage *>(msg);
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0) + SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                    std::to_string(o_msg->timer).c_str());
-    } else {
-        // print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-0)*20, msg->text.c_str());
     }
 
     if (cur_msg_frame_duration > 0) {
