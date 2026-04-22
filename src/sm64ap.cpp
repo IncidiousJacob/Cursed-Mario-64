@@ -688,7 +688,7 @@ void SM64AP_SetCourseMap(std::map<int, int> map) {
 
 void SM64AP_SetMoveRandoVec(int vec) {
     int limit = (SM64AP_NUM_ABILITIES < 32) ? SM64AP_NUM_ABILITIES : 32;
-    for (int i = 1; i < limit; i++) {
+    for (int i = 0; i < limit; i++) {
         sm64_have_abilities[i] = !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
