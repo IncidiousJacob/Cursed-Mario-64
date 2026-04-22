@@ -1189,6 +1189,16 @@ void SM64AP_PrintNext() {
     print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 200,
                SM64AP_CanSwim() ? "SWIM: ON" : "SWIM: OFF");
 
+    char debugBuf1[64];
+    char debugBuf2[64];
+
+    sprintf(debugBuf1, "SWIM SLOT: %d",
+            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET]);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 180, debugBuf1);
+
+    sprintf(debugBuf2, "HIGH RX: %d", (int)sm64_received_move_rando_high);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 160, debugBuf2);
+
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
                    "Connecting");
