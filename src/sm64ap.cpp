@@ -678,7 +678,6 @@ void SM64AP_SetMoveRandoVec(int vec) {
 // and auto-unlock them for backward compatibility.
 
 
-
 void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_received_move_rando_high = true;
 
@@ -691,6 +690,14 @@ void SM64AP_SetMoveRandoVecHigh(int vec) {
         (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET],
         (int)sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET],
         (int)sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET]);
+}
+
+bool SM64AP_CanPunch() {
+    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
+}
+
+bool SM64AP_CanGrab() {
+    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
 }
 
 bool SM64AP_CanSwim() {
@@ -1185,12 +1192,8 @@ void SM64AP_PrintNext() {
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
                    "Connecting");
-    } // <-- ADD THIS
-    
-    if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
-        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
-                   "Connecting");
     }
+
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::ConnectionRefused) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2,
                    "CONNECTION REFUSED");
@@ -1206,7 +1209,7 @@ void SM64AP_PrintNext() {
             if (auth_timer < 90) {
                 auth_timer++;
             } else {
-                sm64_received_move_rando_high = true; // Run only once
+                sm64_received_move_rando_high = true;
                 sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
                 sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
                 sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
@@ -1222,8 +1225,10 @@ void SM64AP_PrintNext() {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 10, SCREEN_HEIGHT / 2 - 20,
                    "MOUE RANDO");
     }
+
     if (!AP_IsMessagePending())
         return;
+
     AP_Message *msg = AP_GetLatestMessage();
     if (msg->type == AP_MessageType::ItemSend) {
         AP_ItemSendMessage *o_msg = static_cast<AP_ItemSendMessage *>(msg);
@@ -1245,6 +1250,7 @@ void SM64AP_PrintNext() {
     } else {
         // print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(0), (1-0)*20, msg->text.c_str());
     }
+
     if (cur_msg_frame_duration > 0) {
         cur_msg_frame_duration--;
     } else {
