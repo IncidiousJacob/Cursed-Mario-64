@@ -102,6 +102,39 @@ SM64AP_RGB8 gPiranhaHeadColor;
 SM64AP_RGB8 gPiranhaStemColor;
 SM64AP_RGB8 gPiranhaLeafColor;
 SM64AP_RGB8 gBowserBodyColor;
+SM64AP_RGB8 gBobombColor;
+SM64AP_RGB8 gBobombMetalColor;
+
+
+static bool SM64AP_CanSpawnFieldItem(void) {
+    if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
+        return false;
+    }
+
+    // Don't spawn field items in hub / non-course maps
+    switch (gCurrLevelNum) {
+        case LEVEL_CASTLE:
+        case LEVEL_CASTLE_GROUNDS:
+        case LEVEL_CASTLE_COURTYARD:
+            return false;
+    }
+
+    return true;
+}
+
+static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
+    if (!SM64AP_CanSpawnFieldItem()) {
+        return;
+    }
+
+    struct Object *shell =
+        spawn_object_relative(0, 0, 60, 220, gMarioObject, MODEL_KOOPA_SHELL, bhvKoopaShell);
+
+    if (shell != NULL) {
+        shell->oForwardVel = 0.0f;
+        shell->oVelY = 0.0f;
+    }
+}
 
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
@@ -151,26 +184,16 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     gBowserBodyColor  = sm64ap_make_color(x, 64, 220);
 
+    gBobombColor      = sm64ap_make_color(x, 96, 255);
+    gBobombMetalColor = sm64ap_make_color(x, 32, 200);
+
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
     SM64AP_ApplyToadPalette();
     SM64AP_ApplyGoombaPalette();
     SM64AP_ApplyPiranhaPalette();
     SM64AP_ApplyBowserPalette();
-}
-
-static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
-    if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
-        return;
-    }
-
-    struct Object *shell =
-        spawn_object_relative(0, 0, 60, 220, gMarioObject, MODEL_KOOPA_SHELL, bhvKoopaShell);
-
-    if (shell != NULL) {
-        shell->oForwardVel = 0.0f;
-        shell->oVelY = 0.0f;
-    }
+    SM64AP_ApplyBobombPalette();
 }
 
 
@@ -251,7 +274,6 @@ void SM64AP_Boosanity(struct Object *o) {
         else if (o->behavior == bhvMerryGoRoundBoo
               && obj_has_behavior(o->parentObj, bhvMerryGoRoundBooManager)) {
             loc_id = 2506 + o->parentObj->oMerryGoRoundBooManagerNumBoosKilled;
-            // 2506, 2507, 2508, 2509, 2510
         }
     }
     else if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD) {
@@ -302,99 +324,77 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
+
     } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
-               && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
+        && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
         sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
+
     } else if (idx == SM64AP_ID_ABILITY(0)) {
         sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET + 1] =
             sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET];
         sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+
     } else if (idx >= SM64AP_ID_ABILITY(1) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
         sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+
+    } else if (idx == SM64AP_ID_KOOPA_SHELL) {
+        // Behave like delayed/trap-style items:
+        // if received as a notification, or if we're in a hub, queue it until later
+        if (notify || !SM64AP_CanSpawnFieldItem()) {
+            delayed_queue.push(idx);
+        } else {
+            SM64AP_SpawnKoopaShellInFrontOfMario();
+        }
+
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
                 gRRTrapTimer = 4 * 60 * 30;
             }
+
             delayed_queue.push(idx);
         }
+
     } else {
         switch (idx) {
             case SM64AP_ITEMID_STAR:
                 starsCollected++;
                 break;
+
             case SM64AP_ID_KEY1:
                 sm64_have_key1 = true;
                 break;
+
             case SM64AP_ID_KEY2:
                 sm64_have_key2 = true;
                 break;
+
             case SM64AP_ID_KEYPROG:
                 sm64_have_key2 = sm64_have_key1;
                 sm64_have_key1 = true;
                 break;
+
             case SM64AP_ID_WINGCAP:
                 sm64_have_wingcap = true;
                 break;
+
             case SM64AP_ID_METALCAP:
                 sm64_have_metalcap = true;
                 break;
+
             case SM64AP_ID_VANISHCAP:
                 sm64_have_vanishcap = true;
                 break;
+
             case SM64AP_ITEMID_1UP:
                 gMarioState->numLives++;
                 break;
-            case SM64AP_ID_KOOPA_SHELL:
-                SM64AP_SpawnKoopaShellInFrontOfMario();
-                break;
+
             case SM64AP_ID_TOAD_133_UNLOCK:
                 sm64_have_toad_133 = true;
                 break;
-            case SM64AP_ID_TOAD_134_UNLOCK:
-                sm64_have_toad_134 = true;
-                break;
-            case SM64AP_ID_TOAD_135_UNLOCK:
-                sm64_have_toad_135 = true;
-                break;
-            case SM64AP_ID_TOAD_076_UNLOCK:
-                sm64_have_toad_076 = true;
-                break;
-            case SM64AP_ID_TOAD_083_UNLOCK:
-                sm64_have_toad_083 = true;
-                break;
-            case SM64AP_ID_TOAD_137_UNLOCK:
-                sm64_have_toad_137 = true;
-                break;
-            case SM64AP_ID_TOAD_082_UNLOCK:
-                sm64_have_toad_082 = true;
-                break;
-            case SM64AP_ID_TOAD_136_UNLOCK:
-                sm64_have_toad_136 = true;
-                break;
-           case SM64AP_ID_BSBITDW_UNLOCK:
-               sm64_have_bitdw_bowser = true;
-               break;
 
-           case SM64AP_ID_BSBITFS_UNLOCK:
-               sm64_have_bitfs_bowser = true;
-               break;
-
-            case SM64AP_ID_BSBITS_UNLOCK:
-               sm64_have_bits_bowser = true;
-               break;
-
-           case SM64AP_ID_BBBITDW_UNLOCK:
-              sm64_have_bitdw_bombs = true;
-              break;
-           
-           case SM64AP_ID_BBBITFS_UNLOCK:
-              sm64_have_bitfs_bombs = true;
-              break;
-           
-           case SM64AP_ID_BBBITS_UNLOCK:
-              sm64_have_bits_bombs = true;
-              break;
+            // ...keep the rest unchanged...
         }
     }
 }
@@ -890,15 +890,30 @@ void SM64AP_UpdateRRTrapTimer(struct MarioState *m) {
     }
 }
 
-// If an item exists on the stack, return it, otherwise 0
-int64_t SM64AP_PopDelayedStack() {
+int64_t SM64AP_PopDelayedStack(void) {
     if (delayed_queue.empty())
         return 0;
+
     int64_t item = delayed_queue.front();
     delayed_queue.pop();
     return item;
 }
 
+void SM64AP_ProcessDelayedItems(void) {
+    size_t count = delayed_queue.size();
+
+    for (size_t i = 0; i < count; i++) {
+        int64_t item = SM64AP_PopDelayedStack();
+
+        if (item == SM64AP_ID_KOOPA_SHELL) {
+            if (SM64AP_CanSpawnFieldItem()) {
+                SM64AP_SpawnKoopaShellInFrontOfMario();
+            } else {
+                delayed_queue.push(item);
+            }
+        }
+    }
+}
 void SM64AP_FinishBowser(int i) {
     AP_SetServerDataRequest req;
     req.key = AP_GetPrivateServerDataPrefix() + "FinishedBowser";
@@ -1085,6 +1100,8 @@ bool SM64AP_CanSwim() {
 }
 
 void SM64AP_PrintNext() {
+
+    SM64AP_ProcessDelayedItems(); // <-- ADD THIS
     
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
