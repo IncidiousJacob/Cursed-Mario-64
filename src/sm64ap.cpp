@@ -687,10 +687,16 @@ void SM64AP_SetCourseMap(std::map<int, int> map) {
 }
 
 void SM64AP_SetMoveRandoVec(int vec) {
-    // Standard moves are in the first 32 bits. High IDs (like 196-198) are purely randomized.
-    int limit = (SM64AP_NUM_ABILITIES < 32) ? SM64AP_NUM_ABILITIES : 32;
-    for (int i = 1; i < limit; i++) {
-        sm64_have_abilities[i] = !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
+    std::bitset<32> bits(vec);
+
+    for (int i = 0; i < 32; i++) {
+        int ability_id = SM64AP_ID_ABILITY(i);
+        int slot = ability_id - SM64AP_ID_ABILITY(0);
+
+        if (slot >= 0 && slot < SM64AP_NUM_ABILITIES) {
+            sm64_have_abilities[slot] =
+                !bits.test(i) || sm64_have_abilities[slot];
+        }
     }
 }
 
@@ -714,25 +720,6 @@ void SM64AP_SetMoveRandoVecHigh(int vec) {
         (int)sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ID_ABILITY(0)]);
 }
 
-bool SM64AP_CanPunch() {
-    return sm64_have_abilities[SM64AP_ID_X - SM64AP_ID_ABILITY(0)];
-}
-
-bool SM64AP_CanGrab() {
-    return sm64_have_abilities[SM64AP_ID_X - SM64AP_ID_ABILITY(0)];
-}
-
-bool SM64AP_CanSwim() {
-    int val = (int)sm64_have_abilities[SM64AP_ID_X - SM64AP_ID_ABILITY(0)];
-
-    static int last = -1;
-    if (val != last) {
-        last = val;
-        printf("CanSwim changed -> %d\n", val);
-    }
-
-    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)];
-}
 void SM64AP_SetPaintingRando(int enabled) {
     if (!enabled) {
         // Not enabled, so unlock all paintings
