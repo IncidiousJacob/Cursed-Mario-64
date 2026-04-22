@@ -116,7 +116,6 @@ static bool SM64AP_CanSpawnFieldItem(void) {
         case LEVEL_CASTLE:
         case LEVEL_CASTLE_GROUNDS:
         case LEVEL_CASTLE_COURTYARD:
-        case LEVEL_MENU:
             return false;
     }
 
@@ -877,14 +876,21 @@ void SM64AP_UpdateRRTrapTimer(struct MarioState *m) {
 }
 
 // If an item exists on the stack, return it, otherwise 0
-int64_t SM64AP_PopDelayedStack() {
-    if (delayed_queue.empty())
-        return 0;
-    int64_t item = delayed_queue.front();
-    delayed_queue.pop();
-    return item;
-}
+void SM64AP_ProcessDelayedItems(void) {
+    while (true) {
+        int64_t item = SM64AP_PopDelayedStack();
+        if (item == 0)
+            return;
 
+        if (item == SM64AP_ID_KOOPA_SHELL) {
+            if (SM64AP_CanSpawnFieldItem()) {
+                SM64AP_SpawnKoopaShellInFrontOfMario();
+            } else {
+                delayed_queue.push(item);
+            }
+        }
+    }
+}
 void SM64AP_FinishBowser(int i) {
     AP_SetServerDataRequest req;
     req.key = AP_GetPrivateServerDataPrefix() + "FinishedBowser";
@@ -1071,6 +1077,8 @@ bool SM64AP_CanSwim() {
 }
 
 void SM64AP_PrintNext() {
+
+    SM64AP_ProcessDelayedItems(); // <-- ADD THIS
     
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
