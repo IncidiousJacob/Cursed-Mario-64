@@ -604,7 +604,7 @@ void SM64AP_SetMoveRandoVec(int vec) {
 // If the AP world never sends MoveRandoVecHigh we assume these moves are not randomized
 // and auto-unlock them for backward compatibility.
 
-static bool sm64_received_move_rando_high = false;
+
 
 void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_received_move_rando_high = true;
