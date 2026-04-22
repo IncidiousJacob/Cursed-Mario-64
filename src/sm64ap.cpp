@@ -329,41 +329,46 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
     printf("=== RecvItem idx=%lld notify=%d ===\n", (long long)idx, (int)notify);
 
     if (idx == SM64AP_ID_PUNCH) {
-        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)] = true;
+        sm64_debug_last_idx = (int)idx;
+        sm64_debug_last_slot = SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0);
         printf("PUNCH RECEIVED -> slot=%d\n",
-            (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET]);
+            (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)]);
         return;
 
     } else if (idx == SM64AP_ID_GRAB) {
-        sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0)] = true;
+        sm64_debug_last_idx = (int)idx;
+        sm64_debug_last_slot = SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0);
         printf("GRAB RECEIVED -> slot=%d\n",
-            (int)sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET]);
+            (int)sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0)]);
         return;
 
     } else if (idx == SM64AP_ID_SWIM) {
-        sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)] = true;
+        sm64_debug_last_idx = (int)idx;
+        sm64_debug_last_slot = SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0);
         printf("SWIM RECEIVED (MATCHED ID!) -> slot=%d\n",
-            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET]);
+            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)]);
         return;
 
     } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
-    int slot = idx - SM64AP_ABILITY_OFFSET;
-    sm64_have_abilities[slot] = true;
+        int slot = idx - SM64AP_ID_ABILITY(0);
+        sm64_have_abilities[slot] = true;
 
-    sm64_debug_last_idx = (int)idx;
-    sm64_debug_last_slot = slot;
+        sm64_debug_last_idx = (int)idx;
+        sm64_debug_last_slot = slot;
 
-    printf("GENERIC ABILITY RECEIVED idx=%lld slot=%d value=%d\n",
-        (long long)idx,
-        slot,
-        (int)sm64_have_abilities[slot]);
+        printf("GENERIC ABILITY RECEIVED idx=%lld slot=%d value=%d\n",
+            (long long)idx,
+            slot,
+            (int)sm64_have_abilities[slot]);
 
-    if (slot == (SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET)) {
-        printf("!!! THIS IS ACTUALLY SWIM BUT DID NOT MATCH ID CHECK !!!\n");
-    }
+        if (slot == (SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0))) {
+            printf("!!! THIS IS ACTUALLY SWIM BUT DID NOT MATCH ID CHECK !!!\n");
+        }
+        return;
 
-    return;
-        
     } else if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
         printf("CANNON ITEM RECEIVED idx=%lld\n", (long long)idx);
@@ -698,27 +703,27 @@ void SM64AP_SetMoveRandoVec(int vec) {
 void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_received_move_rando_high = true;
 
-    sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 0));
-    sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 1));
-    sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 2));
+    sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)] = !(vec & (1 << 0));
+    sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ID_ABILITY(0)] = !(vec & (1 << 1));
+    sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ID_ABILITY(0)] = !(vec & (1 << 2));
 
     printf("MoveRandoVecHigh=%d | punch=%d grab=%d swim=%d\n",
         vec,
-        (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET],
-        (int)sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET],
-        (int)sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET]);
+        (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)],
+        (int)sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ID_ABILITY(0)],
+        (int)sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ID_ABILITY(0)]);
 }
 
 bool SM64AP_CanPunch() {
-    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_X - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanGrab() {
-    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_X - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanSwim() {
-    int val = (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
+    int val = (int)sm64_have_abilities[SM64AP_ID_X - SM64AP_ID_ABILITY(0)];
 
     static int last = -1;
     if (val != last) {
@@ -726,7 +731,7 @@ bool SM64AP_CanSwim() {
         printf("CanSwim changed -> %d\n", val);
     }
 
-    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)];
 }
 void SM64AP_SetPaintingRando(int enabled) {
     if (!enabled) {
@@ -1157,48 +1162,68 @@ void SM64AP_DeathLinkSend() {
 }
 
 bool SM64AP_CanDoubleJump() {
-    return sm64_have_abilities[SM64AP_ID_DOUBLEJUMP - SM64AP_ABILITY_OFFSET]
-           || sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_DOUBLEJUMP - SM64AP_ID_ABILITY(0)]
+           || sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanTripleJump() {
-    return sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanLongJump() {
-    return sm64_have_abilities[SM64AP_ID_LONGJUMP - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_LONGJUMP - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanBackflip() {
-    return sm64_have_abilities[SM64AP_ID_BACKFLIP - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_BACKFLIP - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanSideFlip() {
-    return sm64_have_abilities[SM64AP_ID_SIDEFLIP - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_SIDEFLIP - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanWallKick() {
-    return sm64_have_abilities[SM64AP_ID_WALLKICK - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_WALLKICK - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanDive() {
-    return sm64_have_abilities[SM64AP_ID_DIVE - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_DIVE - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanGroundPound() {
-    return sm64_have_abilities[SM64AP_ID_GROUNDPOUND - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_GROUNDPOUND - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanKick() {
-    return sm64_have_abilities[SM64AP_ID_KICK - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_KICK - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanClimb() {
-    return sm64_have_abilities[SM64AP_ID_CLIMB - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_CLIMB - SM64AP_ID_ABILITY(0)];
 }
 
 bool SM64AP_CanLedgeGrab() {
-    return sm64_have_abilities[SM64AP_ID_LEDGEGRAB - SM64AP_ABILITY_OFFSET];
+    return sm64_have_abilities[SM64AP_ID_LEDGEGRAB - SM64AP_ID_ABILITY(0)];
+}
+
+bool SM64AP_CanPunch() {
+    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)];
+}
+
+bool SM64AP_CanGrab() {
+    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0)];
+}
+
+bool SM64AP_CanSwim() {
+    int val = (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)];
+
+    static int last = -1;
+    if (val != last) {
+        last = val;
+        printf("CanSwim changed -> %d\n", val);
+    }
+
+    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)];
 }
 
 
@@ -1221,7 +1246,7 @@ void SM64AP_PrintNext() {
     print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 160, buf2);
 
     sprintf(buf3, "SWIM SLOT: %d",
-            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET]);
+            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)]);
     print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 140, buf3);
 
     sprintf(buf4, "HIGH RX: %d", (int)sm64_received_move_rando_high);
@@ -1248,9 +1273,9 @@ void SM64AP_PrintNext() {
                 auth_timer++;
             } else {
                 sm64_received_move_rando_high = true;
-                sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
-                sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
-                sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+                sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)] = true;
+                sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0)] = true;
+                sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)] = true;
             }
         }
     } else {
