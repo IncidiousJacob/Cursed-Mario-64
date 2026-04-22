@@ -875,12 +875,20 @@ void SM64AP_UpdateRRTrapTimer(struct MarioState *m) {
     }
 }
 
-// If an item exists on the stack, return it, otherwise 0
+int64_t SM64AP_PopDelayedStack(void) {
+    if (delayed_queue.empty())
+        return 0;
+
+    int64_t item = delayed_queue.front();
+    delayed_queue.pop();
+    return item;
+}
+
 void SM64AP_ProcessDelayedItems(void) {
-    while (true) {
+    size_t count = delayed_queue.size();
+
+    for (size_t i = 0; i < count; i++) {
         int64_t item = SM64AP_PopDelayedStack();
-        if (item == 0)
-            return;
 
         if (item == SM64AP_ID_KOOPA_SHELL) {
             if (SM64AP_CanSpawnFieldItem()) {
