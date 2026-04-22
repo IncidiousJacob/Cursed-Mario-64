@@ -75,6 +75,7 @@ s16 gRRReturnArea = 0;
 f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
+static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
 
@@ -602,17 +603,27 @@ void SM64AP_SetMoveRandoVec(int vec) {
 // A 0 bit means NOT randomized (auto-unlock). A 1 bit means RANDOMIZED (wait for RecvItem).
 // If the AP world never sends MoveRandoVecHigh we assume these moves are not randomized
 // and auto-unlock them for backward compatibility.
+
 static bool sm64_received_move_rando_high = false;
 
 void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_received_move_rando_high = true;
-    // bit 0 = Punch, bit 1 = Grab, bit 2 = Swim
-    if (!std::bitset<32>(vec).test(0))
-        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
-    if (!std::bitset<32>(vec).test(1))
-        sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
-    if (!std::bitset<32>(vec).test(2))
-        sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+
+    sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 0));
+    sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 1));
+    sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 2));
+}
+
+bool SM64AP_CanPunch() {
+    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
+}
+
+bool SM64AP_CanGrab() {
+    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
+}
+
+bool SM64AP_CanSwim() {
+    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
 }
 void SM64AP_SetPaintingRando(int enabled) {
     if (!enabled) {
@@ -1087,17 +1098,6 @@ bool SM64AP_CanLedgeGrab() {
     return sm64_have_abilities[SM64AP_ID_LEDGEGRAB - SM64AP_ABILITY_OFFSET];
 }
 
-bool SM64AP_CanGrab() {
-    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
-}
-
-bool SM64AP_CanPunch() {
-    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
-}
-
-bool SM64AP_CanSwim() {
-    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
-}
 
 void SM64AP_PrintNext() {
 
