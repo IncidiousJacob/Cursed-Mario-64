@@ -77,6 +77,8 @@ f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 static int sm64_debug_swim_last = -1;
+static int sm64_debug_last_idx = -1;
+static int sm64_debug_last_slot = -1;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
 
@@ -345,19 +347,23 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         return;
 
     } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
-        int slot = idx - SM64AP_ABILITY_OFFSET;
-        sm64_have_abilities[slot] = true;
+    int slot = idx - SM64AP_ABILITY_OFFSET;
+    sm64_have_abilities[slot] = true;
 
-        printf("GENERIC ABILITY RECEIVED idx=%lld slot=%d value=%d\n",
-            (long long)idx,
-            slot,
-            (int)sm64_have_abilities[slot]);
+    sm64_debug_last_idx = (int)idx;
+    sm64_debug_last_slot = slot;
 
-        if (slot == (SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET)) {
-            printf("!!! THIS IS ACTUALLY SWIM BUT DID NOT MATCH ID CHECK !!!\n");
-        }
-        return;
+    printf("GENERIC ABILITY RECEIVED idx=%lld slot=%d value=%d\n",
+        (long long)idx,
+        slot,
+        (int)sm64_have_abilities[slot]);
 
+    if (slot == (SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET)) {
+        printf("!!! THIS IS ACTUALLY SWIM BUT DID NOT MATCH ID CHECK !!!\n");
+    }
+
+    return;
+        
     } else if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
         printf("CANNON ITEM RECEIVED idx=%lld\n", (long long)idx);
@@ -1203,15 +1209,23 @@ void SM64AP_PrintNext() {
     print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 200,
                SM64AP_CanSwim() ? "SWIM: ON" : "SWIM: OFF");
 
-    char debugBuf1[64];
-    char debugBuf2[64];
+    char buf1[64];
+    char buf2[64];
+    char buf3[64];
+    char buf4[64];
 
-    sprintf(debugBuf1, "SWIM SLOT: %d",
+    sprintf(buf1, "LAST IDX: %d", sm64_debug_last_idx);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 180, buf1);
+
+    sprintf(buf2, "LAST SLOT: %d", sm64_debug_last_slot);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 160, buf2);
+
+    sprintf(buf3, "SWIM SLOT: %d",
             (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET]);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 180, debugBuf1);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 140, buf3);
 
-    sprintf(debugBuf2, "HIGH RX: %d", (int)sm64_received_move_rando_high);
-    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 160, debugBuf2);
+    sprintf(buf4, "HIGH RX: %d", (int)sm64_received_move_rando_high);
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 120, buf4);
 
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
