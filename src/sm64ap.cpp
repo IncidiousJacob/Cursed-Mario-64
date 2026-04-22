@@ -1181,13 +1181,8 @@ bool SM64AP_CanGrab() {
 }
 
 bool SM64AP_CanSwim() {
-    int val = (int)sm64_have_abilities[13];
-
-    static int last = -1;
-    if (val != last) {
-        last = val;
-        printf("CanSwim changed -> %d\n", val);
-    }
+    return sm64_have_abilities[13];
+}
 
     return sm64_have_abilities[13];
 }
