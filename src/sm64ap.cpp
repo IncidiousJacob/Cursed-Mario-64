@@ -197,20 +197,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyBobombPalette();
 }
 
-static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
-    if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
-        return;
-    }
-
-    struct Object *shell =
-        spawn_object_relative(0, 0, 60, 220, gMarioObject, MODEL_KOOPA_SHELL, bhvKoopaShell);
-
-    if (shell != NULL) {
-        shell->oForwardVel = 0.0f;
-        shell->oVelY = 0.0f;
-    }
-}
-
 
 
 void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
