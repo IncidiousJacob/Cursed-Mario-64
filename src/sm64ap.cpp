@@ -76,6 +76,7 @@ f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
+static int sm64_debug_swim_last = -1;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
 
@@ -323,24 +324,43 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 }
 
 void SM64AP_RecvItem(int64_t idx, bool notify) {
+    printf("RecvItem idx=%lld notify=%d\n", (long long)idx, (int)notify);
+
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
         sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
+        return;
 
     } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
             && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
         sm64_have_painting[idx - SM64AP_ID_PAINTINGUNLOCK(0)] = true;
+        return;
 
     } else if (idx == SM64AP_ID_PUNCH) {
         sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+        printf("Punch received, slot=%d\n",
+            (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET]);
+        return;
 
     } else if (idx == SM64AP_ID_GRAB) {
         sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
+        printf("Grab received, slot=%d\n",
+            (int)sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET]);
+        return;
 
     } else if (idx == SM64AP_ID_SWIM) {
         sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+        printf("Swim item received, swim slot now=%d\n",
+            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET]);
+        return;
 
-    } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
+    } else if (idx >= SM64AP_ID_ABILITY(0)
+            && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
         sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+        printf("Generic ability received idx=%lld slot=%d value=%d\n",
+            (long long)idx,
+            (int)(idx - SM64AP_ABILITY_OFFSET),
+            (int)sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET]);
+        return;
 
     } else if (idx == SM64AP_ID_KOOPA_SHELL) {
         if (notify || !SM64AP_CanSpawnFieldItem()) {
@@ -348,6 +368,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         } else {
             SM64AP_SpawnKoopaShellInFrontOfMario();
         }
+        return;
 
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
@@ -356,6 +377,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
             }
             delayed_queue.push(idx);
         }
+        return;
 
     } else {
         switch (idx) {
@@ -396,7 +418,57 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
                 sm64_have_toad_133 = true;
                 break;
 
-            // ...keep the rest unchanged...
+            case SM64AP_ID_TOAD_134_UNLOCK:
+                sm64_have_toad_134 = true;
+                break;
+
+            case SM64AP_ID_TOAD_135_UNLOCK:
+                sm64_have_toad_135 = true;
+                break;
+
+            case SM64AP_ID_TOAD_076_UNLOCK:
+                sm64_have_toad_076 = true;
+                break;
+
+            case SM64AP_ID_TOAD_083_UNLOCK:
+                sm64_have_toad_083 = true;
+                break;
+
+            case SM64AP_ID_TOAD_137_UNLOCK:
+                sm64_have_toad_137 = true;
+                break;
+
+            case SM64AP_ID_TOAD_082_UNLOCK:
+                sm64_have_toad_082 = true;
+                break;
+
+            case SM64AP_ID_TOAD_136_UNLOCK:
+                sm64_have_toad_136 = true;
+                break;
+
+            case SM64AP_ID_BSBITDW_UNLOCK:
+                sm64_have_bitdw_bowser = true;
+                break;
+
+            case SM64AP_ID_BSBITFS_UNLOCK:
+                sm64_have_bitfs_bowser = true;
+                break;
+
+            case SM64AP_ID_BSBITS_UNLOCK:
+                sm64_have_bits_bowser = true;
+                break;
+
+            case SM64AP_ID_BBBITDW_UNLOCK:
+                sm64_have_bitdw_bombs = true;
+                break;
+
+            case SM64AP_ID_BBBITFS_UNLOCK:
+                sm64_have_bitfs_bombs = true;
+                break;
+
+            case SM64AP_ID_BBBITS_UNLOCK:
+                sm64_have_bits_bombs = true;
+                break;
         }
     }
 }
@@ -613,17 +685,20 @@ void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 0));
     sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 1));
     sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 2));
-}
 
-bool SM64AP_CanPunch() {
-    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET];
-}
-
-bool SM64AP_CanGrab() {
-    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET];
+    printf("MoveRandoVecHigh=%d punch=%d grab=%d swim=%d\n",
+        vec,
+        (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET],
+        (int)sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET],
+        (int)sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET]);
 }
 
 bool SM64AP_CanSwim() {
+    int val = (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
+    if (val != sm64_debug_swim_last) {
+        sm64_debug_swim_last = val;
+        printf("CanSwim changed -> %d\n", val);
+    }
     return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
 }
 void SM64AP_SetPaintingRando(int enabled) {
@@ -1102,7 +1177,15 @@ bool SM64AP_CanLedgeGrab() {
 
 void SM64AP_PrintNext() {
 
-    SM64AP_ProcessDelayedItems(); // <-- ADD THIS
+    SM64AP_ProcessDelayedItems();
+
+    print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 200,
+               SM64AP_CanSwim() ? "SWIM: ON" : "SWIM: OFF");
+
+    if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
+        print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
+                   "Connecting");
+    } // <-- ADD THIS
     
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Disconnected) {
         print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(SCREEN_WIDTH / 2) - 7, SCREEN_HEIGHT / 2,
