@@ -271,10 +271,7 @@ void SM64AP_Boosanity(struct Object *o) {
         // Merry-Go-Round small boos (5 total)
         else if (o->behavior == bhvMerryGoRoundBoo
               && obj_has_behavior(o->parentObj, bhvMerryGoRoundBooManager)) {
-
             loc_id = 2506 + o->parentObj->oMerryGoRoundBooManagerNumBoosKilled;
-            // results:
-            // 2506, 2507, 2508, 2509, 2510
         }
     }
 
