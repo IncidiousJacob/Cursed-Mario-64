@@ -675,7 +675,7 @@ void SM64AP_SetCourseMap(std::map<int, int> map) {
 
 void SM64AP_SetMoveRandoVec(int vec) {
     int limit = (SM64AP_NUM_ABILITIES < 32) ? SM64AP_NUM_ABILITIES : 32;
-    for (int i = 0; i < limit; i++) {
+    for (int i = 1; i < limit; i++) {
         sm64_have_abilities[i] = !std::bitset<32>(vec).test(i) || sm64_have_abilities[i];
     }
 }
@@ -1173,15 +1173,15 @@ bool SM64AP_CanLedgeGrab() {
 }
 
 bool SM64AP_CanPunch() {
-    return sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[11];
 }
 
 bool SM64AP_CanGrab() {
-    return sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[12];
 }
 
 bool SM64AP_CanSwim() {
-    int val = (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)];
+    int val = (int)sm64_have_abilities[13];
 
     static int last = -1;
     if (val != last) {
@@ -1189,7 +1189,7 @@ bool SM64AP_CanSwim() {
         printf("CanSwim changed -> %d\n", val);
     }
 
-    return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)];
+    return sm64_have_abilities[13];
 }
 
 
@@ -1211,8 +1211,7 @@ void SM64AP_PrintNext() {
     sprintf(buf2, "LAST SLOT: %d", sm64_debug_last_slot);
     print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 160, buf2);
 
-    sprintf(buf3, "SWIM SLOT: %d",
-            (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)]);
+    sprintf(buf3, "SWIM SLOT: %d", (int)sm64_have_abilities[13]);
     print_text(GFX_DIMENSIONS_FROM_LEFT_EDGE(10), 140, buf3);
 
     sprintf(buf4, "HIGH RX: %d", (int)sm64_received_move_rando_high);
@@ -1230,8 +1229,6 @@ void SM64AP_PrintNext() {
                    "CHECK ARGS");
     }
 
-    // Backward compatibility: if the AP world never sent MoveRandoVecHigh (old worlds),
-    // auto-unlock Punch/Grab/Swim once we are connected and slot data has been processed.
     static int auth_timer = 0;
     if (AP_GetConnectionStatus() == AP_ConnectionStatus::Authenticated) {
         if (!sm64_received_move_rando_high) {
@@ -1239,9 +1236,9 @@ void SM64AP_PrintNext() {
                 auth_timer++;
             } else {
                 sm64_received_move_rando_high = true;
-                sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)] = true;
-                sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ID_ABILITY(0)] = true;
-                sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ID_ABILITY(0)] = true;
+                sm64_have_abilities[11] = true;
+                sm64_have_abilities[12] = true;
+                sm64_have_abilities[13] = true;
             }
         }
     } else {
