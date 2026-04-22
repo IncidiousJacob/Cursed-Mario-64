@@ -689,17 +689,16 @@ void SM64AP_SetMoveRandoVec(int vec) {
 void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_received_move_rando_high = true;
 
-    sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)] = !(vec & (1 << 0));
-    sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ID_ABILITY(0)] = !(vec & (1 << 1));
-    sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ID_ABILITY(0)] = !(vec & (1 << 2));
+    sm64_have_abilities[11] = !(vec & (1 << 0)); // Punch
+    sm64_have_abilities[12] = !(vec & (1 << 1)); // Grab
+    sm64_have_abilities[13] = !(vec & (1 << 2)); // Swim
 
     printf("MoveRandoVecHigh=%d | punch=%d grab=%d swim=%d\n",
         vec,
-        (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ID_ABILITY(0)],
-        (int)sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ID_ABILITY(0)],
-        (int)sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ID_ABILITY(0)]);
+        (int)sm64_have_abilities[11],
+        (int)sm64_have_abilities[12],
+        (int)sm64_have_abilities[13]);
 }
-
 void SM64AP_SetPaintingRando(int enabled) {
     if (!enabled) {
         // Not enabled, so unlock all paintings
