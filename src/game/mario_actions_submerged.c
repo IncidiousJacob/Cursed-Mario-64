@@ -490,6 +490,10 @@ static void play_swimming_noise(struct MarioState *m) {
 static s32 check_water_jump(struct MarioState *m) {
     s32 probe = (s32)(m->pos[1] + 1.5f);
 
+    if (!SM64AP_CanSwim()) {
+        return FALSE;
+    }
+
     if (m->input & INPUT_A_PRESSED) {
         if (probe >= m->waterLevel - 80 && m->faceAngle[0] >= 0 && m->controller->stickY < -60.0f) {
             vec3s_set(m->angleVel, 0, 0, 0);
