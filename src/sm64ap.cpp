@@ -323,40 +323,21 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 }
 
 void SM64AP_RecvItem(int64_t idx, bool notify) {
-    printf("=== RecvItem idx=%lld notify=%d ===\n", (long long)idx, (int)notify);
-
     if (idx == SM64AP_ID_PUNCH) {
         sm64_have_abilities[11] = true;
-        sm64_debug_last_idx = (int)idx;
-        sm64_debug_last_slot = 11;
-        printf("PUNCH RECEIVED -> slot=%d\n", (int)sm64_have_abilities[11]);
         return;
 
     } else if (idx == SM64AP_ID_GRAB) {
         sm64_have_abilities[12] = true;
-        sm64_debug_last_idx = (int)idx;
-        sm64_debug_last_slot = 12;
-        printf("GRAB RECEIVED -> slot=%d\n", (int)sm64_have_abilities[12]);
         return;
 
     } else if (idx == SM64AP_ID_SWIM) {
         sm64_have_abilities[13] = true;
-        sm64_debug_last_idx = (int)idx;
-        sm64_debug_last_slot = 13;
-        printf("SWIM RECEIVED (MATCHED ID!) -> slot=%d\n", (int)sm64_have_abilities[13]);
         return;
 
     } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
         int slot = idx - SM64AP_ABILITY_OFFSET;
         sm64_have_abilities[slot] = true;
-
-        sm64_debug_last_idx = (int)idx;
-        sm64_debug_last_slot = slot;
-
-        printf("GENERIC ABILITY RECEIVED idx=%lld slot=%d value=%d\n",
-            (long long)idx,
-            slot,
-            (int)sm64_have_abilities[slot]);
         return;
 
     } else if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
