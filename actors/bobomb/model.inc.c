@@ -193,7 +193,7 @@ void SM64AP_ApplyBobombPalette(void) {
         gBobombColor.b);
 
     // Metal (slightly dimmer so it doesn't glow weird)
-    sm64ap_set_bobomb_light_group(&bobomb_seg8_lights_08022E00,
+    sm64ap_set_bobomb_light_group(&bobomb_seg8_lights_08022DE8,
         sm64ap_scale_u8(gBobombMetalColor.r, 80, 100),
         sm64ap_scale_u8(gBobombMetalColor.g, 80, 100),
         sm64ap_scale_u8(gBobombMetalColor.b, 80, 100));
