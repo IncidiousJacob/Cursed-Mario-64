@@ -330,14 +330,21 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
         sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
 
-    } else if (idx == SM64AP_ID_ABILITY(0)) {
-        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET + 1] =
-            sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET];
-        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+   } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
+    sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+        
+    } else if (idx == SM64AP_ID_PUNCH) {
+    sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
 
-    } else if (idx >= SM64AP_ID_ABILITY(1) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
-        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+} else if (idx == SM64AP_ID_GRAB) {
+    sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
 
+} else if (idx == SM64AP_ID_SWIM) {
+    sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+
+} else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
+    sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+    
     } else if (idx == SM64AP_ID_KOOPA_SHELL) {
         // Behave like delayed/trap-style items:
         // if received as a notification, or if we're in a hub, queue it until later
