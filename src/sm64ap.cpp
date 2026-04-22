@@ -250,6 +250,10 @@ void SM64AP_CheckCCMSpindrift(struct Object *o) {
 void SM64AP_Boosanity(struct Object *o) {
     int64_t loc_id = 0;
 
+    if (o == NULL) {
+        return;
+    }
+
     int hX = (int) roundf(o->oHomeX);
     int hZ = (int) roundf(o->oHomeZ);
 
@@ -262,16 +266,30 @@ void SM64AP_Boosanity(struct Object *o) {
             else if (hX == 2851 && hZ == 2289) loc_id = 2503;
             else if (hX == -1551 && hZ == -1018) loc_id = 2504;
         }
-
         // Lone Boo
         else if (o->behavior == bhvBoo) {
             if (hX == 581 && hZ == -206) loc_id = 2505;
         }
-
         // Merry-Go-Round small boos (5 total)
         else if (o->behavior == bhvMerryGoRoundBoo
               && obj_has_behavior(o->parentObj, bhvMerryGoRoundBooManager)) {
             loc_id = 2506 + o->parentObj->oMerryGoRoundBooManagerNumBoosKilled;
+        }
+    }
+    else if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD) {
+        // Courtyard boos (9 total)
+        if (o->behavior == bhvGhostHuntBoo) {
+            if (hX == -3217 && hZ == -101) loc_id = 2511;
+            else if (hX == -3007 && hZ == 109) loc_id = 2512;
+            else if (hX == -3427 && hZ == -311) loc_id = 2513;
+
+            else if (hX == 3317 && hZ == -1701) loc_id = 2514;
+            else if (hX == 3527 && hZ == -1491) loc_id = 2515;
+            else if (hX == 3107 && hZ == -1911) loc_id = 2516;
+
+            else if (hX == -71 && hZ == -1387) loc_id = 2517;
+            else if (hX == 139 && hZ == -1177) loc_id = 2518;
+            else if (hX == -281 && hZ == -1597) loc_id = 2519;
         }
     }
 
