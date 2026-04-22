@@ -76,9 +76,6 @@ f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
-static int sm64_debug_swim_last = -1;
-static int sm64_debug_last_idx = -1;
-static int sm64_debug_last_slot = -1;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
 
