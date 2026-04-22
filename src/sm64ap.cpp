@@ -324,45 +324,53 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 }
 
 void SM64AP_RecvItem(int64_t idx, bool notify) {
-    printf("RecvItem idx=%lld notify=%d\n", (long long)idx, (int)notify);
+    printf("=== RecvItem idx=%lld notify=%d ===\n", (long long)idx, (int)notify);
 
-    if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
-        sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
-        return;
-
-    } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
-            && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
-        sm64_have_painting[idx - SM64AP_ID_PAINTINGUNLOCK(0)] = true;
-        return;
-
-    } else if (idx == SM64AP_ID_PUNCH) {
+    if (idx == SM64AP_ID_PUNCH) {
         sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
-        printf("Punch received, slot=%d\n",
+        printf("PUNCH RECEIVED -> slot=%d\n",
             (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET]);
         return;
 
     } else if (idx == SM64AP_ID_GRAB) {
         sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
-        printf("Grab received, slot=%d\n",
+        printf("GRAB RECEIVED -> slot=%d\n",
             (int)sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET]);
         return;
 
     } else if (idx == SM64AP_ID_SWIM) {
         sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
-        printf("Swim item received, swim slot now=%d\n",
+        printf("SWIM RECEIVED (MATCHED ID!) -> slot=%d\n",
             (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET]);
         return;
 
-    } else if (idx >= SM64AP_ID_ABILITY(0)
-            && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
-        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
-        printf("Generic ability received idx=%lld slot=%d value=%d\n",
+    } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
+        int slot = idx - SM64AP_ABILITY_OFFSET;
+        sm64_have_abilities[slot] = true;
+
+        printf("GENERIC ABILITY RECEIVED idx=%lld slot=%d value=%d\n",
             (long long)idx,
-            (int)(idx - SM64AP_ABILITY_OFFSET),
-            (int)sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET]);
+            slot,
+            (int)sm64_have_abilities[slot]);
+
+        if (slot == (SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET)) {
+            printf("!!! THIS IS ACTUALLY SWIM BUT DID NOT MATCH ID CHECK !!!\n");
+        }
+        return;
+
+    } else if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
+        sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
+        printf("CANNON ITEM RECEIVED idx=%lld\n", (long long)idx);
+        return;
+
+    } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
+            && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
+        sm64_have_painting[idx - SM64AP_ID_PAINTINGUNLOCK(0)] = true;
+        printf("PAINTING ITEM RECEIVED idx=%lld\n", (long long)idx);
         return;
 
     } else if (idx == SM64AP_ID_KOOPA_SHELL) {
+        printf("KOOPA SHELL RECEIVED\n");
         if (notify || !SM64AP_CanSpawnFieldItem()) {
             delayed_queue.push(idx);
         } else {
@@ -371,6 +379,7 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         return;
 
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
+        printf("TRAP/FILLER RECEIVED idx=%lld\n", (long long)idx);
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
                 gRRTrapTimer = 4 * 60 * 30;
@@ -380,6 +389,8 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
         return;
 
     } else {
+        printf("NON-ABILITY ITEM RECEIVED idx=%lld\n", (long long)idx);
+
         switch (idx) {
             case SM64AP_ITEMID_STAR:
                 starsCollected++;
@@ -685,7 +696,7 @@ void SM64AP_SetMoveRandoVecHigh(int vec) {
     sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 1));
     sm64_have_abilities[SM64AP_ID_SWIM  - SM64AP_ABILITY_OFFSET] = !(vec & (1 << 2));
 
-    printf("MoveRandoVecHigh=%d punch=%d grab=%d swim=%d\n",
+    printf("MoveRandoVecHigh=%d | punch=%d grab=%d swim=%d\n",
         vec,
         (int)sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET],
         (int)sm64_have_abilities[SM64AP_ID_GRAB  - SM64AP_ABILITY_OFFSET],
@@ -702,10 +713,13 @@ bool SM64AP_CanGrab() {
 
 bool SM64AP_CanSwim() {
     int val = (int)sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
-    if (val != sm64_debug_swim_last) {
-        sm64_debug_swim_last = val;
+
+    static int last = -1;
+    if (val != last) {
+        last = val;
         printf("CanSwim changed -> %d\n", val);
     }
+
     return sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET];
 }
 void SM64AP_SetPaintingRando(int enabled) {
