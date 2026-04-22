@@ -324,30 +324,25 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 
 void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx >= SM64AP_ID_CANNONUNLOCK(0) && idx <= SM64AP_ID_CANNONUNLOCK(15 - 1)) {
-        sm64_have_cannon[idx - (SM64AP_ID_CANNONUNLOCK(0))] = true;
+        sm64_have_cannon[idx - SM64AP_ID_CANNONUNLOCK(0)] = true;
 
     } else if (idx >= SM64AP_ID_PAINTINGUNLOCK(0)
-        && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
-        sm64_have_painting[idx - (SM64AP_ID_PAINTINGUNLOCK(0))] = true;
+            && idx <= SM64AP_ID_PAINTINGUNLOCK(NUM_PAINTING_LOCKS - 1)) {
+        sm64_have_painting[idx - SM64AP_ID_PAINTINGUNLOCK(0)] = true;
 
-   } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
-    sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
-        
     } else if (idx == SM64AP_ID_PUNCH) {
-    sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
+        sm64_have_abilities[SM64AP_ID_PUNCH - SM64AP_ABILITY_OFFSET] = true;
 
-} else if (idx == SM64AP_ID_GRAB) {
-    sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
+    } else if (idx == SM64AP_ID_GRAB) {
+        sm64_have_abilities[SM64AP_ID_GRAB - SM64AP_ABILITY_OFFSET] = true;
 
-} else if (idx == SM64AP_ID_SWIM) {
-    sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
+    } else if (idx == SM64AP_ID_SWIM) {
+        sm64_have_abilities[SM64AP_ID_SWIM - SM64AP_ABILITY_OFFSET] = true;
 
-} else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
-    sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
-    
+    } else if (idx >= SM64AP_ID_ABILITY(0) && idx <= SM64AP_ID_ABILITY(SM64AP_NUM_ABILITIES - 1)) {
+        sm64_have_abilities[idx - SM64AP_ABILITY_OFFSET] = true;
+
     } else if (idx == SM64AP_ID_KOOPA_SHELL) {
-        // Behave like delayed/trap-style items:
-        // if received as a notification, or if we're in a hub, queue it until later
         if (notify || !SM64AP_CanSpawnFieldItem()) {
             delayed_queue.push(idx);
         } else {
@@ -359,7 +354,6 @@ void SM64AP_RecvItem(int64_t idx, bool notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
                 gRRTrapTimer = 4 * 60 * 30;
             }
-
             delayed_queue.push(idx);
         }
 
