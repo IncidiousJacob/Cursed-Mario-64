@@ -2142,7 +2142,8 @@ as a species, haven't\n\
 had one day off in 27\n\
 million years. So you'll\n\
 just work us to death?\n\
-We'll sure try."))
+We'll sure try.\n\
+You Just Lost The Game."))
 
 DEFINE_DIALOG(DIALOG_LITERATURE_TRAP_2, 1, 6, 30, 200, _("\
 Yo listen up, here's the story\n\
