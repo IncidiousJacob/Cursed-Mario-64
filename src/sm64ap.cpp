@@ -170,7 +170,7 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gMarioOverallsColor = sm64ap_make_color(x, 64, 255);
     gMarioShoesColor    = sm64ap_make_color(x, 70, 255);
     gMarioGlovesColor   = sm64ap_make_color(x, 75, 255);
-    gStarColor          = sm64ap_make_color(x, 69, 255);
+    gStarColor          = sm64ap_make_color(x, 77, 240);
 
     gToadBodyColor = sm64ap_make_color(x, 48, 255);
     gToadSpotColor = sm64ap_make_color(x, 96, 255);
