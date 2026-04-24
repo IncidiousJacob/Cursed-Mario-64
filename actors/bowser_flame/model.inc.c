@@ -279,8 +279,3 @@ static void sm64ap_set_bowser_flame_vertex_color(Vtx *verts, s32 count, u8 r, u8
         verts[i].v.cn[3] = 0xff;
     }
 }
-
-void SM64AP_ApplyBowserFlamePalette(void) {
-    sm64ap_set_bowser_flame_vertex_color(flame_seg6_vertex_0601C000, 8,
-        gBowserFlameColor.r, gBowserFlameColor.g, gBowserFlameColor.b);
-}
