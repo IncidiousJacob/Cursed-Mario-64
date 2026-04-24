@@ -1,3 +1,5 @@
+#include "sm64ap.h"
+
 #include <PR/ultratypes.h>
 
 #include "sm64ap.h"
@@ -1767,9 +1769,18 @@ s32 execute_mario_action(UNUSED struct Object *o) {
         if (Cheats.SuperSpeed && gMarioState->forwardVel > 0)
             gMarioState->forwardVel += 100;
     }
-    /**
-    * End of cheat stuff
-    */
+
+    if (gMarioState) {
+    SM64AP_ApplyProgressiveHealth();
+    }
+
+if (gMarioState->action) {
+    gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+    mario_reset_bodystate(gMarioState);
+    update_mario_inputs(gMarioState);
+    mario_handle_special_floors(gMarioState);
+    mario_process_interactions(gMarioState)
+    
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
