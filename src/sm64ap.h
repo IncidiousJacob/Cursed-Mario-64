@@ -58,6 +58,10 @@ AP_EXTERN_C SM64AP_RGB8 gBooColor;
 
 AP_EXTERN_C void SM64AP_ApplyBooPalette(void);
 
+AP_EXTERN_C SM64AP_RGB8 gBowserFlameColor;
+
+AP_EXTERN_C void SM64AP_ApplyBowserFlamePalette(void);
+
 #define SM64AP_ID_OFFSET 3626000
 #define SM64AP_SECOND_CHECK_OFFSET 1000
 #define SM64AP_ITEMID_STAR SM64AP_ID_OFFSET
