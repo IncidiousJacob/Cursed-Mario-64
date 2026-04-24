@@ -1758,7 +1758,6 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     /**
     * Cheat stuff
     */
-
     if (Cheats.EnableCheats) {
         if (Cheats.GodMode)
             gMarioState->health = 0x880;
@@ -1770,8 +1769,10 @@ s32 execute_mario_action(UNUSED struct Object *o) {
             gMarioState->forwardVel += 100;
     }
 
+    // ✅ YOUR HEALTH SYSTEM
     SM64AP_ApplyProgressiveHealth();
 
+    // ✅ NORMAL MARIO UPDATE (ONLY ONCE)
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
@@ -1780,10 +1781,8 @@ s32 execute_mario_action(UNUSED struct Object *o) {
         mario_process_interactions(gMarioState);
     }
 
-        // If Mario is OOB, stop executing actions.
-        if (gMarioState->floor == NULL) {
-            return 0;
-        }
+    return 0;
+}
 
         // The function can loop through many action shifts in one frame,
         // which can lead to unexpected sub-frame behavior. Could potentially hang
