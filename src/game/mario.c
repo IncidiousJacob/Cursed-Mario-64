@@ -1754,12 +1754,12 @@ void func_sh_8025574C(void) {
  */
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
+
     /**
     * Cheat stuff
     */
 
-    if (Cheats.EnableCheats)
-    {
+    if (Cheats.EnableCheats) {
         if (Cheats.GodMode)
             gMarioState->health = 0x880;
 
@@ -1770,23 +1770,15 @@ s32 execute_mario_action(UNUSED struct Object *o) {
             gMarioState->forwardVel += 100;
     }
 
-    if (gMarioState) {
     SM64AP_ApplyProgressiveHealth();
-    }
 
-if (gMarioState->action) {
-    gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
-    mario_reset_bodystate(gMarioState);
-    update_mario_inputs(gMarioState);
-    mario_handle_special_floors(gMarioState);
-    mario_process_interactions(gMarioState);
-    
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
         update_mario_inputs(gMarioState);
         mario_handle_special_floors(gMarioState);
         mario_process_interactions(gMarioState);
+    }
 
         // If Mario is OOB, stop executing actions.
         if (gMarioState->floor == NULL) {
