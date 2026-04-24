@@ -1,7 +1,7 @@
 // Boo
 
 // 0x05009B28
-static const Lights1 boo_seg5_lights_05009B28 = gdSPDefLights1(
+static Lights1 boo_seg5_lights_05009B28 = gdSPDefLights1(
     0x97, 0x9a, 0xff,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
