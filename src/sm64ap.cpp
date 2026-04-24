@@ -106,6 +106,33 @@ SM64AP_RGB8 gBowserBodyColor;
 SM64AP_RGB8 gBobombColor;
 SM64AP_RGB8 gBobombMetalColor;
 
+int sm64_ap_health_items_received = 0;
+
+#define SM64AP_MIN_MAX_HEALTH 0x0300
+#define SM64AP_FULL_MAX_HEALTH 0x0880
+
+static s16 SM64AP_GetMaxHealth(void) {
+    s16 maxHealth = SM64AP_MIN_MAX_HEALTH + (sm64_ap_health_items_received * 0x0100);
+
+    if (maxHealth > SM64AP_FULL_MAX_HEALTH) {
+        maxHealth = SM64AP_FULL_MAX_HEALTH;
+    }
+
+    return maxHealth;
+}
+
+void SM64AP_ApplyProgressiveHealth(void) {
+    if (gMarioState == NULL) {
+        return;
+    }
+
+    s16 maxHealth = SM64AP_GetMaxHealth();
+
+    if (gMarioState->health > maxHealth || gMarioState->health == 0x0880) {
+        gMarioState->health = maxHealth;
+    }
+}
+
 
 static bool SM64AP_CanSpawnFieldItem(void) {
     if (gMarioObject == NULL || gMarioState == NULL || gCurrentArea == NULL) {
@@ -321,8 +348,12 @@ void SM64AP_Scuttlesanity(struct Object *o) {
         SM64AP_SendItem(loc_id);
     }
 }
+   void SM64AP_RecvItem(int64_t idx, bool notify) {
+    if (idx >= SM64AP_ID_1_HEALTH_PIP && idx < SM64AP_ID_RR_TRAP) {
+    sm64_ap_health_items_received++;
+    SM64AP_ApplyProgressiveHealth();
+}
 
-void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx == SM64AP_ID_PUNCH) {
         sm64_have_abilities[11] = true;
         return;
