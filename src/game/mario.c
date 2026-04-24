@@ -1769,24 +1769,15 @@ s32 execute_mario_action(UNUSED struct Object *o) {
             gMarioState->forwardVel += 100;
     }
 
-    // ✅ YOUR HEALTH SYSTEM
     SM64AP_ApplyProgressiveHealth();
 
-    // ✅ NORMAL MARIO UPDATE (ONLY ONCE)
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
         update_mario_inputs(gMarioState);
         mario_handle_special_floors(gMarioState);
         mario_process_interactions(gMarioState);
-    }
 
-    return 0;
-}
-
-        // The function can loop through many action shifts in one frame,
-        // which can lead to unexpected sub-frame behavior. Could potentially hang
-        // if a loop of actions were found, but there has not been a situation found.
         while (inLoop) {
             switch (gMarioState->action & ACT_GROUP_MASK) {
                 case ACT_GROUP_STATIONARY:
@@ -1823,11 +1814,10 @@ s32 execute_mario_action(UNUSED struct Object *o) {
         squish_mario_model(gMarioState);
         set_submerged_cam_preset_and_spawn_bubbles(gMarioState);
         update_mario_health(gMarioState);
+        SM64AP_ApplyProgressiveHealth();
         update_mario_info_for_cam(gMarioState);
         mario_update_hitbox_and_cap_model(gMarioState);
 
-        // Both of the wind handling portions play wind audio only in
-        // non-Japanese releases.
         if (gMarioState->floor->type == SURFACE_HORIZONTAL_WIND) {
             spawn_wind_particles(0, (gMarioState->floor->force << 8));
 #ifndef VERSION_JP
