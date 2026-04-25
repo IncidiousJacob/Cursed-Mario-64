@@ -975,6 +975,7 @@ Gfx *geo_movtex_update_horizontal(s32 callContext, struct GraphNode *node, UNUSE
         update_moving_texture_offset(movtexVerts, MOVTEX_ATTR_COLORED_S);
     }
     return NULL;
+}
 
    void SM64AP_ApplyWaterPalette(void) {
     s32 i;
