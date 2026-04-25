@@ -190,16 +190,6 @@ static Lights1 snowman_seg5_lights_0500C7D0 = gdSPDefLights1(
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
-tic void sm64ap_set_mr_blizzard_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
-    dst->a.l.col[0] = r / 2;
-    dst->a.l.col[1] = g / 2;
-    dst->a.l.col[2] = b / 2;
-
-    dst->l[0].l.col[0] = r;
-    dst->l[0].l.col[1] = g;
-    dst->l[0].l.col[2] = b;
-}
-
 static void sm64ap_set_mr_blizzard_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
     dst->a.l.col[0] = r / 2;
     dst->a.l.col[1] = g / 2;
@@ -210,7 +200,7 @@ static void sm64ap_set_mr_blizzard_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
     dst->l[0].l.col[2] = b;
 }
 
-extern "C" void SM64AP_ApplyMrBlizzardPalette(void) {
+void SM64AP_ApplyMrBlizzardPalette(void) {
     sm64ap_set_mr_blizzard_light_group(&snowman_seg5_lights_0500C470,
         gMrBlizzardColor.r,
         gMrBlizzardColor.g,
@@ -221,7 +211,6 @@ extern "C" void SM64AP_ApplyMrBlizzardPalette(void) {
         gMrBlizzardMittenColor.g,
         gMrBlizzardMittenColor.b);
 }
-
 
 
 // 0x0500C7E8
