@@ -352,8 +352,7 @@ Gfx *geo_movtex_pause_control(s32 callContext, UNUSED struct GraphNode *node, UN
  * rotOffset: gets added to base rotation
  * scale: how often the texture repeats, 1 = no repeat
  */
-void movtex_make_quad_vertex(Vtx *verts, s32 index, s16 x, s16 y, s16 z, s16 rot, s16 rotOffset,
-                             f32 scale, u8 alpha) {
+void movtex_make_quad_vertex(Vtx *verts, s32 index, s16 x, s16 y, s16 z, s16 rot, s16 rotOffset, f32 scale, u8 alpha) {
     s16 s = 32.0 * (32.0 * scale - 1.0) * sins(rot + rotOffset);
     s16 t = 32.0 * (32.0 * scale - 1.0) * coss(rot + rotOffset);
 
@@ -362,10 +361,10 @@ void movtex_make_quad_vertex(Vtx *verts, s32 index, s16 x, s16 y, s16 z, s16 rot
     } else if (gMovtexVtxColor == MOVTEX_VTX_COLOR_RED) {
         make_vertex(verts, index, x, y, z, s, t, 255, 0, 0, alpha);
     } else {
-        make_vertex(verts, index, x, y, z, s, t, 255, 255, 255, alpha);
+        make_vertex(verts, index, x, y, z, s, t,
+            gWaterColor.r, gWaterColor.g, gWaterColor.b, alpha);
     }
 }
-
 /**
  * Represents a single flat quad with a rotating texture
  * Stores x and z for 4 vertices, though it is often just a rectangle.
