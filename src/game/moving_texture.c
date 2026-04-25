@@ -361,8 +361,7 @@ void movtex_make_quad_vertex(Vtx *verts, s32 index, s16 x, s16 y, s16 z, s16 rot
     } else if (gMovtexVtxColor == MOVTEX_VTX_COLOR_RED) {
         make_vertex(verts, index, x, y, z, s, t, 255, 0, 0, alpha);
     } else {
-        make_vertex(verts, index, x, y, z, s, t,
-            gWaterColor.r, gWaterColor.g, gWaterColor.b, alpha);
+        make_vertex(verts, index, x, y, z, s, t, 255, 255, 255, alpha);
     }
 }
 /**
@@ -976,14 +975,67 @@ Gfx *geo_movtex_update_horizontal(s32 callContext, struct GraphNode *node, UNUSE
     return NULL;
 }
 
-   void SM64AP_ApplyWaterPalette(void) {
+   static u16 sWaterOriginalTexture[32 * 32];
+static s32 sWaterOriginalTextureSaved = FALSE;
+
+static void sm64ap_save_water_original_texture(void) {
     s32 i;
+    u8 *texture = gMovtexIdToTexture[TEXTURE_WATER];
+
+    if (sWaterOriginalTextureSaved) {
+        return;
+    }
+
+    for (i = 0; i < 32 * 32; i++) {
+        sWaterOriginalTexture[i] = (texture[i * 2] << 8) | texture[i * 2 + 1];
+    }
+
+    sWaterOriginalTextureSaved = TRUE;
+}
+
+static void sm64ap_tint_water_texture(u8 *texture, u16 *original, u8 r, u8 g, u8 b) {
+    s32 i;
+
+    for (i = 0; i < 32 * 32; i++) {
+        u16 px = original[i];
+
+        u8 oldR = ((px >> 11) & 0x1F) << 3;
+        u8 oldG = ((px >>  6) & 0x1F) << 3;
+        u8 oldB = ((px >>  1) & 0x1F) << 3;
+        u8 alpha = px & 1;
+
+        u8 intensity = oldR;
+        if (oldG > intensity) intensity = oldG;
+        if (oldB > intensity) intensity = oldB;
+
+        u8 newR = (r * intensity) / 255;
+        u8 newG = (g * intensity) / 255;
+        u8 newB = (b * intensity) / 255;
+
+        u16 newPx =
+            (((newR >> 3) & 0x1F) << 11) |
+            (((newG >> 3) & 0x1F) <<  6) |
+            (((newB >> 3) & 0x1F) <<  1) |
+            alpha;
+
+        texture[i * 2] = newPx >> 8;
+        texture[i * 2 + 1] = newPx & 0xFF;
+    }
+}
+
+void SM64AP_ApplyWaterPalette(void) {
+    s32 i;
+
+    sm64ap_save_water_original_texture();
+
+    sm64ap_tint_water_texture(gMovtexIdToTexture[TEXTURE_WATER], sWaterOriginalTexture,
+        gWaterColor.r, gWaterColor.g, gWaterColor.b);
 
     for (i = 0; gMovtexNonColored[i].movtexVerts != NULL; i++) {
         if (gMovtexNonColored[i].textureId == TEXTURE_WATER) {
-            gMovtexNonColored[i].r = gWaterColor.r;
-            gMovtexNonColored[i].g = gWaterColor.g;
-            gMovtexNonColored[i].b = gWaterColor.b;
+            gMovtexNonColored[i].r = 255;
+            gMovtexNonColored[i].g = 255;
+            gMovtexNonColored[i].b = 255;
         }
     }
 }
