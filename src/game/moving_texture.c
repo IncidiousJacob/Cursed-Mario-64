@@ -976,16 +976,14 @@ Gfx *geo_movtex_update_horizontal(s32 callContext, struct GraphNode *node, UNUSE
     }
     return NULL;
 
-    void SM64AP_ApplyWaterPalette(void) {
+   void SM64AP_ApplyWaterPalette(void) {
     s32 i;
 
     for (i = 0; gMovtexNonColored[i].movtexVerts != NULL; i++) {
-        if (gMovtexNonColored[i].textureId == TEXTURE_WATER
-            || gMovtexNonColored[i].textureId == TEX_JRB_WATER) {
+        if (gMovtexNonColored[i].textureId == TEXTURE_WATER) {
             gMovtexNonColored[i].r = gWaterColor.r;
             gMovtexNonColored[i].g = gWaterColor.g;
             gMovtexNonColored[i].b = gWaterColor.b;
         }
     }
-}
 }
