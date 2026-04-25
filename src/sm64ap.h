@@ -67,6 +67,10 @@ AP_EXTERN_C SM64AP_RGB8 gSpindriftBodyColor;
 AP_EXTERN_C void SM64AP_ApplySpindriftPalette(void);
 AP_EXTERN_C SM64AP_RGB8 gWaterColor;
 AP_EXTERN_C void SM64AP_ApplyWaterPalette(void);
+AP_EXTERN_C SM64AP_RGB8 gMrBlizzardColor;
+AP_EXTERN_C SM64AP_RGB8 gMrBlizzardMittenColor;
+
+AP_EXTERN_C void SM64AP_ApplyMrBlizzardPalette(void);
 
 #define SM64AP_ID_OFFSET 3626000
 #define SM64AP_SECOND_CHECK_OFFSET 1000
