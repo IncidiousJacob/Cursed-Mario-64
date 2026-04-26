@@ -162,6 +162,8 @@ void bhv_snowmans_bottom_loop(void) {
 }
 
 void bhv_snowmans_head_init(void) {
+    SM64AP_ApplyMrBlizzardPalette();
+
     u8 sp37;
     s8 sp36;
 
