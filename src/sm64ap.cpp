@@ -248,7 +248,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyBowserFlamePalette();
     SM64AP_ApplySpindriftPalette();
     SM64AP_ApplyWaterPalette();
-    SM64AP_ApplyMrBlizzardPalette();
 }
 
 
