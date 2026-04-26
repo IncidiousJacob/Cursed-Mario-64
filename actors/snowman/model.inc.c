@@ -55,7 +55,7 @@ ALIGNED8 static const u8 snowman_seg5_texture_0500BC70[] = {
 };
 
 // 0x0500C470
-static Lights1 snowman_seg5_lights_0500C470 = gdSPDefLights1(
+static const Lights1 snowman_seg5_lights_0500C470 = gdSPDefLights1(
     0x1c, 0x0f, 0x07,
     0x38, 0x1e, 0x0e, 0x28, 0x28, 0x28
 );
@@ -185,7 +185,7 @@ const Gfx snowman_seg5_dl_0500C760[] = {
 };
 
 // 0x0500C7D0
-static Lights1 snowman_seg5_lights_0500C7D0 = gdSPDefLights1(
+static const Lights1 snowman_seg5_lights_0500C7D0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
