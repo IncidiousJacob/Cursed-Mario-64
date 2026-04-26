@@ -230,8 +230,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gSpindriftFlowerColor = sm64ap_make_color(x, 96, 255);
     gSpindriftBodyColor = sm64ap_make_color(x, 64, 220);
     gWaterColor = sm64ap_make_color(x, 80, 255);
-    gMrBlizzardColor = sm64ap_make_color(x, 96, 255);
-    gMrBlizzardMittenColor = sm64ap_make_color(x, 64, 220);
     
 
     SM64AP_ApplyMarioPalette();
