@@ -42,6 +42,8 @@ void mr_blizzard_spawn_white_particles(s8 count, s8 offsetY, s8 forwardVelBase, 
  */
 
 void bhv_mr_blizzard_init(void) {
+    SM64AP_ApplyMrBlizzardPalette();
+
     if (o->oBehParams2ndByte == MR_BLIZZARD_STYPE_JUMPING) {
         // Jumping Mr. Blizzard.
         o->oAction = MR_BLIZZARD_ACT_JUMP;
