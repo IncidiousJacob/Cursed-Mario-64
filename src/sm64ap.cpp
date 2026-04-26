@@ -113,8 +113,6 @@ SM64AP_RGB8 gBowserFlameColor;
 SM64AP_RGB8 gSpindriftFlowerColor;
 SM64AP_RGB8 gSpindriftBodyColor;
 SM64AP_RGB8 gWaterColor;
-SM64AP_RGB8 gMrBlizzardColor;
-SM64AP_RGB8 gMrBlizzardMittenColor;
 
 int sm64_ap_health_items_received = 0;
 
