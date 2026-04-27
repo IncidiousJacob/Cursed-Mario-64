@@ -1,3 +1,4 @@
+#include "src/sm64ap.h"
 // Penguin
 
 // 0x05002D80
