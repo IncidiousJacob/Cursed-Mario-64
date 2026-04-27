@@ -1,25 +1,25 @@
 // Penguin
 
 // 0x05002D80
-static const Lights1 penguin_seg5_lights_05002D80 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05002D80 = gdSPDefLights1(
     0x06, 0x06, 0x39,
     0x0f, 0x0f, 0x90, 0x28, 0x28, 0x28
 );
 
 // 0x05002D98
-static const Lights1 penguin_seg5_lights_05002D98 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05002D98 = gdSPDefLights1(
     0x52, 0x34, 0x0a,
     0xce, 0x84, 0x1a, 0x28, 0x28, 0x28
 );
 
 // 0x05002DB0
-static const Lights1 penguin_seg5_lights_05002DB0 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05002DB0 = gdSPDefLights1(
     0x59, 0x42, 0x14,
     0xdf, 0xa7, 0x34, 0x28, 0x28, 0x28
 );
 
 // 0x05002DC8
-static const Lights1 penguin_seg5_lights_05002DC8 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05002DC8 = gdSPDefLights1(
     0x66, 0x66, 0x65,
     0xff, 0xff, 0xfd, 0x28, 0x28, 0x28
 );
@@ -55,19 +55,19 @@ ALIGNED8 static const u8 penguin_seg5_texture_050055E0[] = {
 };
 
 // 0x05005DE0
-static const Lights1 penguin_seg5_lights_05005DE0 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05005DE0 = gdSPDefLights1(
     0x04, 0x0f, 0x41,
     0x0b, 0x26, 0xa4, 0x28, 0x28, 0x28
 );
 
 // 0x05005DF8
-static const Lights1 penguin_seg5_lights_05005DF8 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05005DF8 = gdSPDefLights1(
     0x66, 0x66, 0x66,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x05005E10
-static const Lights1 penguin_seg5_lights_05005E10 = gdSPDefLights1(
+static Lights1 penguin_seg5_lights_05005E10 = gdSPDefLights1(
     0x60, 0x55, 0x0b,
     0xf2, 0xd5, 0x1c, 0x28, 0x28, 0x28
 );
@@ -678,3 +678,36 @@ const Gfx penguin_seg5_dl_05007540[] = {
     gsSP1Triangle( 2,  9, 13, 0x0),
     gsSPEndDisplayList(),
 };
+
+static void sm64ap_set_penguin_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyPenguinPalette(void) {
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05002D80,
+        gPenguinBodyColor.r, gPenguinBodyColor.g, gPenguinBodyColor.b);
+
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05002D98,
+        gPenguinBeakColor.r, gPenguinBeakColor.g, gPenguinBeakColor.b);
+
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05002DB0,
+        gPenguinBeakColor.r, gPenguinBeakColor.g, gPenguinBeakColor.b);
+
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05002DC8,
+        gPenguinBellyColor.r, gPenguinBellyColor.g, gPenguinBellyColor.b);
+
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05005DE0,
+        gPenguinBodyColor.r, gPenguinBodyColor.g, gPenguinBodyColor.b);
+
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05005DF8,
+        gPenguinBellyColor.r, gPenguinBellyColor.g, gPenguinBellyColor.b);
+
+    sm64ap_set_penguin_light_group(&penguin_seg5_lights_05005E10,
+        gPenguinBeakColor.r, gPenguinBeakColor.g, gPenguinBeakColor.b);
+}
