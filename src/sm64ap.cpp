@@ -105,6 +105,9 @@ SM64AP_RGB8 gPiranhaLeafColor;
 SM64AP_RGB8 gBowserBodyColor;
 SM64AP_RGB8 gBobombColor;
 SM64AP_RGB8 gBobombMetalColor;
+SM64AP_RGB8 gPenguinBodyColor;
+SM64AP_RGB8 gPenguinBellyColor;
+SM64AP_RGB8 gPenguinBeakColor;
 
 int sm64_ap_health_items_received = 0;
 
@@ -214,6 +217,9 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     gBobombColor      = sm64ap_make_color(x, 96, 255);
     gBobombMetalColor = sm64ap_make_color(x, 32, 200);
+    gPenguinBodyColor = sm64ap_make_color(x, 64, 255);
+    gPenguinBellyColor = sm64ap_make_color(x, 96, 255);
+    gPenguinBeakColor = sm64ap_make_color(x, 80, 255);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
@@ -222,6 +228,7 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyPiranhaPalette();
     SM64AP_ApplyBowserPalette();
     SM64AP_ApplyBobombPalette();
+    SM64AP_ApplyPenguinPalette();
 }
 
 
