@@ -1,5 +1,3 @@
-#include "src/sm64ap.h"
-
 // Flame
 
 // 0x030172E0
@@ -51,7 +49,7 @@ ALIGNED8 static const u8 flame_seg3_texture_0301AB20[] = {
 };
 
 // 0x0301B320 - 0x0301B3B0
-Gfx flame_seg3_dl_0301B320[] = {
+const Gfx flame_seg3_dl_0301B320[] = {
     gsSPClearGeometryMode(G_LIGHTING | G_SHADING_SMOOTH),
     gsDPSetEnvColor(255, 50, 0, 200),
     gsDPSetCombineMode(G_CC_FADEA, G_CC_FADEA),
@@ -128,7 +126,7 @@ const Gfx flame_seg3_dl_0301B458[] = {
 };
 
 // 0x0301B470 - 0x0301B500
-Gfx flame_seg3_dl_0301B470[] = {
+const Gfx flame_seg3_dl_0301B470[] = {
     gsSPClearGeometryMode(G_LIGHTING | G_SHADING_SMOOTH),
     gsDPSetEnvColor(100, 100, 255, 255),
     gsDPSetCombineMode(G_CC_FADEA, G_CC_FADEA),
@@ -203,14 +201,3 @@ const Gfx flame_seg3_dl_0301B5A8[] = {
     gsDPSetTextureImage(G_IM_FMT_IA, G_IM_SIZ_16b, 1, flame_seg3_texture_0301AB20),
     gsSPBranchList(flame_seg3_dl_0301B470),
 };
-
-void SM64AP_ApplyBowserFlamePalette(void) {
-    u32 color =
-        ((u32) gBowserFlameColor.r << 24) |
-        ((u32) gBowserFlameColor.g << 16) |
-        ((u32) gBowserFlameColor.b << 8) |
-        200;
-
-    flame_seg3_dl_0301B320[1].words.w1 = color;
-    flame_seg3_dl_0301B470[1].words.w1 = color;
-}
