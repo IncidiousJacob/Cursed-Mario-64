@@ -49,25 +49,6 @@ AP_EXTERN_C void SM64AP_ApplyBowserPalette(void);
 AP_EXTERN_C SM64AP_RGB8 gBobombColor;
 AP_EXTERN_C SM64AP_RGB8 gBobombMetalColor;
 AP_EXTERN_C void SM64AP_ApplyBobombPalette(void);
-AP_EXTERN_C SM64AP_RGB8 gPenguinBodyColor;
-AP_EXTERN_C SM64AP_RGB8 gPenguinBellyColor;
-AP_EXTERN_C SM64AP_RGB8 gPenguinBeakColor;
-
-AP_EXTERN_C void SM64AP_ApplyPenguinPalette(void);
-AP_EXTERN_C SM64AP_RGB8 gBooColor;
-
-AP_EXTERN_C void SM64AP_ApplyBooPalette(void);
-
-AP_EXTERN_C SM64AP_RGB8 gBowserFlameColor;
-
-AP_EXTERN_C void SM64AP_ApplyBowserFlamePalette(void);
-AP_EXTERN_C SM64AP_RGB8 gSpindriftFlowerColor;
-AP_EXTERN_C SM64AP_RGB8 gSpindriftBodyColor;
-
-AP_EXTERN_C void SM64AP_ApplySpindriftPalette(void);
-AP_EXTERN_C SM64AP_RGB8 gWaterColor;
-AP_EXTERN_C void SM64AP_ApplyWaterPalette(void);
-
 
 #define SM64AP_ID_OFFSET 3626000
 #define SM64AP_SECOND_CHECK_OFFSET 1000

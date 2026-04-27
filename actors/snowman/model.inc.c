@@ -1,4 +1,3 @@
-
 // Snowman
 
 // ???
@@ -188,7 +187,6 @@ static const Lights1 snowman_seg5_lights_0500C7D0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
-
 
 // 0x0500C7E8
 static const Vtx snowman_seg5_vertex_0500C7E8[] = {

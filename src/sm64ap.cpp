@@ -105,14 +105,6 @@ SM64AP_RGB8 gPiranhaLeafColor;
 SM64AP_RGB8 gBowserBodyColor;
 SM64AP_RGB8 gBobombColor;
 SM64AP_RGB8 gBobombMetalColor;
-SM64AP_RGB8 gPenguinBodyColor;
-SM64AP_RGB8 gPenguinBellyColor;
-SM64AP_RGB8 gPenguinBeakColor;
-SM64AP_RGB8 gBooColor;
-SM64AP_RGB8 gBowserFlameColor;
-SM64AP_RGB8 gSpindriftFlowerColor;
-SM64AP_RGB8 gSpindriftBodyColor;
-SM64AP_RGB8 gWaterColor;
 
 int sm64_ap_health_items_received = 0;
 
@@ -222,15 +214,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
 
     gBobombColor      = sm64ap_make_color(x, 96, 255);
     gBobombMetalColor = sm64ap_make_color(x, 32, 200);
-    gPenguinBodyColor = sm64ap_make_color(x, 64, 220);
-    gPenguinBellyColor = sm64ap_make_color(x, 96, 255);
-    gPenguinBeakColor = sm64ap_make_color(x, 80, 240);
-    gBooColor = sm64ap_make_color(x, 96, 255);
-    gBowserFlameColor = sm64ap_make_color(x, 96, 255);
-    gSpindriftFlowerColor = sm64ap_make_color(x, 96, 255);
-    gSpindriftBodyColor = sm64ap_make_color(x, 64, 220);
-    gWaterColor = sm64ap_make_color(x, 80, 255);
-    
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
@@ -239,11 +222,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyPiranhaPalette();
     SM64AP_ApplyBowserPalette();
     SM64AP_ApplyBobombPalette();
-    SM64AP_ApplyPenguinPalette();
-    SM64AP_ApplyBooPalette();
-    SM64AP_ApplyBowserFlamePalette();
-    SM64AP_ApplySpindriftPalette();
-    SM64AP_ApplyWaterPalette();
 }
 
 

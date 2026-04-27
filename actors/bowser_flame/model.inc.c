@@ -1,5 +1,3 @@
-#include "src/sm64ap.h"
-
 // Bowser Flame
 
 // TODO: Are these seperate textures or unified 64x64 ones?
@@ -75,7 +73,7 @@ ALIGNED8 static const u8 flame_seg6_texture_0601A000[] = {
 };
 
 // 0x0601C000
-static Vtx flame_seg6_vertex_0601C000[] = {
+static const Vtx flame_seg6_vertex_0601C000[] = {
     {{{  -150,    150,      0}, 0, {     0,    992}, {0xff, 0xff, 0xff, 0xff}}},
     {{{   150,    150,      0}, 0, {  2016,    992}, {0xff, 0xff, 0xff, 0xff}}},
     {{{   150,    300,      0}, 0, {  2016,      0}, {0xff, 0xff, 0xff, 0xff}}},
@@ -268,14 +266,3 @@ const Gfx flame_seg6_dl_0601C928[] = {
     gsSPDisplayList(flame_seg6_dl_0601C0E0),
     gsSPEndDisplayList(),
 };
-
-static void sm64ap_set_bowser_flame_vertex_color(Vtx *verts, s32 count, u8 r, u8 g, u8 b) {
-    s32 i;
-
-    for (i = 0; i < count; i++) {
-        verts[i].v.cn[0] = r;
-        verts[i].v.cn[1] = g;
-        verts[i].v.cn[2] = b;
-        verts[i].v.cn[3] = 0xff;
-    }
-}
