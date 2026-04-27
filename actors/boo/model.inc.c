@@ -1,7 +1,8 @@
+#include "src/sm64ap.h"
 // Boo
 
 // 0x05009B28
-static const Lights1 boo_seg5_lights_05009B28 = gdSPDefLights1(
+static Lights1 boo_seg5_lights_05009B28 = gdSPDefLights1(
     0x97, 0x9a, 0xff,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -353,3 +354,18 @@ const Gfx boo_seg5_dl_0500C1B0[] = {
     gsDPSetEnvColor(255, 255, 255, 255),
     gsSPEndDisplayList(),
 };
+
+static void sm64ap_set_boo_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyBooPalette(void) {
+    sm64ap_set_boo_light_group(&boo_seg5_lights_05009B28,
+        gBooColor.r, gBooColor.g, gBooColor.b);
+}
