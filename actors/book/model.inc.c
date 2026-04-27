@@ -1,5 +1,3 @@
-#include "src/sm64ap.h"
-
 // Book (Pushable Book)
 
 // This actor file requires including actor bookend because of bookend_seg5_texture_05000C60
