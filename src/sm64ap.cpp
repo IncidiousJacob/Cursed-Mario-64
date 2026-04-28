@@ -110,6 +110,9 @@ SM64AP_RGB8 gPenguinBellyColor;
 SM64AP_RGB8 gPenguinBeakColor;
 SM64AP_RGB8 gBooColor;
 SM64AP_RGB8 gBowserFlameColor;
+SM64AP_RGB8 gPeachDressColor;
+SM64AP_RGB8 gPeachHairColor;
+SM64AP_RGB8 gPeachSkinColor;
 
 int sm64_ap_health_items_received = 0;
 
@@ -224,6 +227,9 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gPenguinBeakColor = sm64ap_make_color(x, 80, 255);
     gBooColor = sm64ap_make_color(x, 75, 255);
     gBowserFlameColor = sm64ap_make_color(x, 75, 255);
+    gPeachDressColor = sm64ap_make_color(x, 80, 255);
+    gPeachHairColor  = sm64ap_make_color(x, 80, 255);
+    gPeachSkinColor  = sm64ap_make_color(x, 90, 240);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
@@ -235,6 +241,7 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyPenguinPalette();
     SM64AP_ApplyBooPalette();
     SM64AP_ApplyBowserFlamePalette();
+    SM64AP_ApplyPeachPalette();
 }
 
 
