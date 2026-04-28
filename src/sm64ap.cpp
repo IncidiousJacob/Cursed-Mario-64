@@ -110,9 +110,12 @@ SM64AP_RGB8 gPenguinBellyColor;
 SM64AP_RGB8 gPenguinBeakColor;
 SM64AP_RGB8 gBooColor;
 SM64AP_RGB8 gBowserFlameColor;
-SM64AP_RGB8 gPeachDressColor;
-SM64AP_RGB8 gPeachHairColor;
-SM64AP_RGB8 gPeachSkinColor;
+SM64AP_RGB8 gPeachColor050009F8;
+SM64AP_RGB8 gPeachColor05000A10;
+SM64AP_RGB8 gPeachColor05005FA0;
+SM64AP_RGB8 gPeachColor05006138;
+SM64AP_RGB8 gPeachColor05006150;
+SM64AP_RGB8 gPeachColor05006A90;
 
 int sm64_ap_health_items_received = 0;
 
