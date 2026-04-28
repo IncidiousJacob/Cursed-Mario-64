@@ -1,13 +1,14 @@
+#include "src/sm64ap.h"
 // Peach
 
 // 0x050009F8
-static const Lights1 peach_seg5_lights_050009F8 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_050009F8 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x05000A10
-static const Lights1 peach_seg5_lights_05000A10 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05000A10 = gdSPDefLights1(
     0x7f, 0x5f, 0x0c,
     0xff, 0xbf, 0x18, 0x28, 0x28, 0x28
 );
@@ -641,7 +642,7 @@ const Gfx peach_seg5_dl_05005F48[] = {
 };
 
 // 0x05005FA0
-static const Lights1 peach_seg5_lights_05005FA0 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05005FA0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -692,13 +693,13 @@ const Gfx peach_seg5_dl_050060E0[] = {
 };
 
 // 0x05006138
-static const Lights1 peach_seg5_lights_05006138 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05006138 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x05006150
-static const Lights1 peach_seg5_lights_05006150 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05006150 = gdSPDefLights1(
     0x6c, 0x54, 0x5f,
     0xd9, 0xa9, 0xbe, 0x28, 0x28, 0x28
 );
@@ -916,7 +917,7 @@ const Gfx peach_seg5_dl_05006A18[] = {
 };
 
 // 0x05006A90
-static const Lights1 peach_seg5_lights_05006A90 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05006A90 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1106,7 +1107,7 @@ const Gfx peach_seg5_us_dl_05007288[] = {
 #endif
 
 // 0x05007288
-static const Lights1 peach_seg5_lights_05007288 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05007288 = gdSPDefLights1(
     0x7f, 0x5f, 0x0c,
     0xff, 0xbf, 0x18, 0x28, 0x28, 0x28
 );
@@ -1284,7 +1285,7 @@ const Gfx peach_seg5_dl_05007AB8[] = {
 };
 
 // 0x05007AE0
-static const Lights1 peach_seg5_lights_05007AE0 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05007AE0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1375,7 +1376,7 @@ const Gfx peach_seg5_dl_05007E58[] = {
 };
 
 // 0x05007EB0
-static const Lights1 peach_seg5_lights_05007EB0 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05007EB0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1467,7 +1468,7 @@ const Gfx peach_seg5_dl_05008228[] = {
 };
 
 // 0x05008280
-static const Lights1 peach_seg5_lights_05008280 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05008280 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1556,7 +1557,7 @@ const Gfx peach_seg5_dl_05008560[] = {
 };
 
 // 0x050085D0
-static const Lights1 peach_seg5_lights_050085D0 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_050085D0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1610,7 +1611,7 @@ const Gfx peach_seg5_dl_050087A8[] = {
 };
 
 // 0x050087D0
-static const Lights1 peach_seg5_lights_050087D0 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_050087D0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1699,7 +1700,7 @@ const Gfx peach_seg5_dl_05008AB0[] = {
 };
 
 // 0x05008B20
-static const Lights1 peach_seg5_lights_05008B20 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05008B20 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1752,7 +1753,7 @@ const Gfx peach_seg5_dl_05008CF8[] = {
 };
 
 // 0x05008D20
-static const Lights1 peach_seg5_lights_05008D20 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05008D20 = gdSPDefLights1(
     0x0b, 0x1a, 0x67,
     0x16, 0x35, 0xce, 0x28, 0x28, 0x28
 );
@@ -1808,7 +1809,7 @@ const Gfx peach_seg5_dl_05008F20[] = {
 };
 
 // 0x05008F48
-static const Lights1 peach_seg5_lights_05008F48 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05008F48 = gdSPDefLights1(
     0x0b, 0x1a, 0x67,
     0x16, 0x35, 0xce, 0x28, 0x28, 0x28
 );
@@ -1864,7 +1865,7 @@ const Gfx peach_seg5_dl_05009148[] = {
 };
 
 // 0x05009170
-static const Lights1 peach_seg5_lights_05009170 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05009170 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -1950,7 +1951,7 @@ const Gfx peach_seg5_dl_05009500[] = {
 };
 
 // 0x05009528
-static const Lights1 peach_seg5_lights_05009528 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05009528 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -2049,7 +2050,7 @@ const Gfx peach_seg5_dl_05009940[] = {
 };
 
 // 0x05009968
-static const Lights1 peach_seg5_lights_05009968 = gdSPDefLights1(
+static Lights1 peach_seg5_lights_05009968 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -2241,3 +2242,33 @@ const Gfx peach_seg5_us_dl_0500A188[] = {
     gsSPEndDisplayList(),
 };
 #endif
+
+static void sm64ap_set_peach_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyPeachPalette(void) {
+    sm64ap_set_peach_light_group(&peach_seg5_lights_050009F8,
+        gPeachColor050009F8.r, gPeachColor050009F8.g, gPeachColor050009F8.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05000A10,
+        gPeachColor05000A10.r, gPeachColor05000A10.g, gPeachColor05000A10.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05005FA0,
+        gPeachColor05005FA0.r, gPeachColor05005FA0.g, gPeachColor05005FA0.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05006138,
+        gPeachColor05006138.r, gPeachColor05006138.g, gPeachColor05006138.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05006150,
+        gPeachColor05006150.r, gPeachColor05006150.g, gPeachColor05006150.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05006A90,
+        gPeachColor05006A90.r, gPeachColor05006A90.g, gPeachColor05006A90.b);
+}
