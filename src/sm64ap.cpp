@@ -230,9 +230,12 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gPenguinBeakColor = sm64ap_make_color(x, 80, 255);
     gBooColor = sm64ap_make_color(x, 75, 255);
     gBowserFlameColor = sm64ap_make_color(x, 75, 255);
-    gPeachDressColor = sm64ap_make_color(x, 80, 255);
-    gPeachHairColor  = sm64ap_make_color(x, 80, 255);
-    gPeachSkinColor  = sm64ap_make_color(x, 90, 240);
+    gPeachColor050009F8 = sm64ap_make_color(x, 80, 255);
+    gPeachColor05000A10 = sm64ap_make_color(x, 80, 255);
+    gPeachColor05005FA0 = sm64ap_make_color(x, 80, 255);
+    gPeachColor05006138 = sm64ap_make_color(x, 80, 255);
+    gPeachColor05006150 = sm64ap_make_color(x, 80, 255);
+    gPeachColor05006A90 = sm64ap_make_color(x, 80, 255);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
