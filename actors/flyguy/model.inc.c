@@ -1,3 +1,5 @@
+#include "src/sm64ap.h"
+
 // Flyguy
 
 // ???
