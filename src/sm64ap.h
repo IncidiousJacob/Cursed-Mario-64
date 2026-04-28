@@ -62,10 +62,10 @@ AP_EXTERN_C SM64AP_RGB8 gPeachColor05006A90;
 AP_EXTERN_C void SM64AP_ApplyPeachPalette(void);
 AP_EXTERN_C SM64AP_RGB8 gFlyGuyPropellerColor;
 AP_EXTERN_C SM64AP_RGB8 gFlyGuyFeetColor;
-AP_EXTERN_C SM64AP_RGB8 gFlyGuyBodyColor;
 AP_EXTERN_C SM64AP_RGB8 gFlyGuyFaceColor;
 AP_EXTERN_C SM64AP_RGB8 gFlyGuyShadowColor;
-AP_EXTERN_C SM64AP_RGB8 gFlyGuyMaskColor;
+AP_EXTERN_C SM64AP_RGB8 gFlyGuyBodyColor;
+
 AP_EXTERN_C void SM64AP_ApplyFlyGuyPalette(void);
 
 #define SM64AP_ID_OFFSET 3626000
