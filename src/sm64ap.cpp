@@ -121,7 +121,7 @@ SM64AP_RGB8 gFlyGuyFeetColor;
 SM64AP_RGB8 gFlyGuyBodyColor;
 SM64AP_RGB8 gFlyGuyFaceColor;
 SM64AP_RGB8 gFlyGuyShadowColor;
-SM64AP_RGB8 gFlyGuyMaskColor;
+
 
 int sm64_ap_health_items_received = 0;
 
@@ -247,7 +247,7 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gFlyGuyBodyColor      = sm64ap_make_color(x, 80, 255);
     gFlyGuyFaceColor      = sm64ap_make_color(x, 90, 255);
     gFlyGuyShadowColor    = sm64ap_make_color(x, 40, 255);
-    gFlyGuyMaskColor      = sm64ap_make_color(x, 80, 255);
+    
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
