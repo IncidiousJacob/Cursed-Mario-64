@@ -2254,15 +2254,21 @@ static void sm64ap_set_peach_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
 }
 
 void SM64AP_ApplyPeachPalette(void) {
-    sm64ap_set_peach_light_group(&peach_seg5_lights_05006150,
-        gPeachDressColor.r, gPeachDressColor.g, gPeachDressColor.b);
+    sm64ap_set_peach_light_group(&peach_seg5_lights_050009F8,
+        gPeachColor050009F8.r, gPeachColor050009F8.g, gPeachColor050009F8.b);
 
     sm64ap_set_peach_light_group(&peach_seg5_lights_05000A10,
-        gPeachHairColor.r, gPeachHairColor.g, gPeachHairColor.b);
+        gPeachColor05000A10.r, gPeachColor05000A10.g, gPeachColor05000A10.b);
 
-    sm64ap_set_peach_light_group(&peach_seg5_lights_050009F8,
-        gPeachSkinColor.r, gPeachSkinColor.g, gPeachSkinColor.b);
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05005FA0,
+        gPeachColor05005FA0.r, gPeachColor05005FA0.g, gPeachColor05005FA0.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05006138,
+        gPeachColor05006138.r, gPeachColor05006138.g, gPeachColor05006138.b);
+
+    sm64ap_set_peach_light_group(&peach_seg5_lights_05006150,
+        gPeachColor05006150.r, gPeachColor05006150.g, gPeachColor05006150.b);
 
     sm64ap_set_peach_light_group(&peach_seg5_lights_05006A90,
-        gPeachSkinColor.r, gPeachSkinColor.g, gPeachSkinColor.b);
+        gPeachColor05006A90.r, gPeachColor05006A90.g, gPeachColor05006A90.b);
 }
