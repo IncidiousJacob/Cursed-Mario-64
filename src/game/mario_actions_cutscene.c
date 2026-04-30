@@ -583,10 +583,10 @@ s32 act_reading_sign(struct MarioState *m) {
                 if (dialogID == DIALOG_015 && !SM64AP_CheckedLoc(5601)) {
                     SM64AP_SendItem(5601);
                 }
-                if (dialogID == DIALOG_035 && !SM64AP_CheckedLoc(5602) {
+                if (dialogID == DIALOG_035 && !SM64AP_CheckedLoc(5602)) {
                     SM64AP_SendItem(5602);
                 }
-                if (dialogID == DIALOG_113 && !SM64AP_CheckedLoc(5603) {
+                if (dialogID == DIALOG_113 && !SM64AP_CheckedLoc(5603)) {
                     SM64AP_SendItem(5603);
                 }
                 if (dialogID == DIALOG_053 && !SM64AP_CheckedLoc(5604)) {
