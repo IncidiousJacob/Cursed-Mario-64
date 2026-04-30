@@ -533,14 +533,10 @@ s32 act_reading_sign(struct MarioState *m) {
                     SM64AP_SendItem(5500);
                 }
                 if (dialogID == DIALOG_051) {
-                    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
-                        if (!SM64AP_CheckedLoc(5601)) {
-                            SM64AP_SendItem(5601);
-                            }
-                        } else if (gCurrLevelNum == LEVEL_WF) {
-                            if (!SM64AP_CheckedLoc(5526)) {
-                            SM64AP_SendItem(5526);
-                        }
+                    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS && !SM64AP_CheckedLoc(5601)) {
+                        SM64AP_SendItem(5601);
+                    } else if (gCurrLevelNum == LEVEL_WF && !SM64AP_CheckedLoc(5526)) {
+                        SM64AP_SendItem(5526);
                     }
                 }
                 if (dialogID == DIALOG_065 && !SM64AP_CheckedLoc(5502)) {
@@ -592,16 +588,13 @@ s32 act_reading_sign(struct MarioState *m) {
                 if (dialogID == DIALOG_095 && !SM64AP_CheckedLoc(5600)) {
                     SM64AP_SendItem(5600);
                 }
-                if (dialogID == DIALOG_015 && !SM64AP_CheckedLoc(5601)) {
-                    SM64AP_SendItem(5601);
-                }
                 if (dialogID == DIALOG_035 && !SM64AP_CheckedLoc(5602)) {
                     SM64AP_SendItem(5602);
                 }
                 if (dialogID == DIALOG_113) {
                     if (gCurrLevelNum == LEVEL_BOB && !SM64AP_CheckedLoc(5603)) {
                         SM64AP_SendItem(5603);
-                    } else if (gCurrLevelNum == LEVEL_WF && !SM64AP_CheckedLoc(5521)) {
+                    } else if (gCurrLevelNum == LEVEL_WF && !SM64AP_CheckedLoc(5523)) {
                         SM64AP_SendItem(5523);
                     }
                 }
