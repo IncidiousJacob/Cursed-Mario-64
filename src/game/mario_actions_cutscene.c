@@ -572,9 +572,13 @@ s32 act_reading_sign(struct MarioState *m) {
                 if (dialogID == DIALOG_160 && !SM64AP_CheckedLoc(5510)) {
                     SM64AP_SendItem(5510);
                 }
-                if (dialogID == DIALOG_102 && !SM64AP_CheckedLoc(5511)) {
-                    SM64AP_SendItem(5511);
-                }
+                 if (dialogID == DIALOG_102) {
+                    if (gCurrLevelNum == LEVEL_COURTYARD && !SM64AP_CheckedLoc(5511)) {
+                        SM64AP_SendItem(5511);
+                    } else if (gCurrLevelNum == LEVEL_ && !SM64AP_CheckedLoc(5682)) {
+                        SM64AP_SendItem(5682);
+                    }
+                 }
                 if (dialogID == DIALOG_159 && !SM64AP_CheckedLoc(5512)) {
                     SM64AP_SendItem(5512);
                 }
@@ -655,6 +659,31 @@ s32 act_reading_sign(struct MarioState *m) {
                 if (dialogID == DIALOG_073 && !SM64AP_CheckedLoc(5654)) {
                     SM64AP_SendItem(5654);
                 }
+                if (dialogID == DIALOG_087 && !SM64AP_CheckedLoc(5660)) {
+                    SM64AP_SendItem(5660);
+                }
+                if (dialogID == DIALOG_040 && !SM64AP_CheckedLoc(5661)) {
+                    SM64AP_SendItem(5661);
+                }
+                if (dialogID == DIALOG_054 && !SM64AP_CheckedLoc(5662)) {
+                    SM64AP_SendItem(5662);
+                }
+                if (dialogID == DIALOG_049 && !SM64AP_CheckedLoc(5663)) {
+                    SM64AP_SendItem(5663);
+                }
+                if (dialogID == DIALOG_094 && !SM64AP_CheckedLoc(5664)) {
+                    SM64AP_SendItem(5664);
+                }
+                if (dialogID == DIALOG_149 && !SM64AP_CheckedLoc(5665)) {
+                    SM64AP_SendItem(5665);
+                }
+                if (dialogID == DIALOG_063 && !SM64AP_CheckedLoc(5680)) {
+                    SM64AP_SendItem(5680);
+                }
+                if (dialogID == DIALOG_085 && !SM64AP_CheckedLoc(5681)) {
+                    SM64AP_SendItem(5681);
+                }
+
 
                 m->actionState = 2;
             }
