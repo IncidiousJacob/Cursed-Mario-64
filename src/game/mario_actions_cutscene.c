@@ -577,10 +577,10 @@ s32 act_reading_sign(struct MarioState *m) {
                 if (dialogID == DIALOG_019 && !SM64AP_CheckedLoc(5515)) {
                     SM64AP_SendItem(5515);
                 }
-                if (dialogID == DIALOG_095 && !SM64AP_CheckedLoc(5600) {
+                if (dialogID == DIALOG_095 && !SM64AP_CheckedLoc(5600)) {
                     SM64AP_SendItem(5600);
                 }
-                if (dialogID == DIALOG_015 && !SM64AP_CheckedLoc(5601) {
+                if (dialogID == DIALOG_015 && !SM64AP_CheckedLoc(5601)) {
                     SM64AP_SendItem(5601);
                 }
                 if (dialogID == DIALOG_035 && !SM64AP_CheckedLoc(5602) {
@@ -589,31 +589,31 @@ s32 act_reading_sign(struct MarioState *m) {
                 if (dialogID == DIALOG_113 && !SM64AP_CheckedLoc(5603) {
                     SM64AP_SendItem(5603);
                 }
-                if (dialogID == DIALOG_053 && !SM64AP_CheckedLoc(5604) {
+                if (dialogID == DIALOG_053 && !SM64AP_CheckedLoc(5604)) {
                     SM64AP_SendItem(5604);
                 }
-                if (dialogID == DIALOG_064 && !SM64AP_CheckedLoc(5605) {
+                if (dialogID == DIALOG_064 && !SM64AP_CheckedLoc(5605)) {
                     SM64AP_SendItem(5605);
                 }
-                if (dialogID == DIALOG_008 && !SM64AP_CheckedLoc(5606) {
+                if (dialogID == DIALOG_008 && !SM64AP_CheckedLoc(5606)) {
                     SM64AP_SendItem(5606);
                 }
-                if (dialogID == DIALOG_050 && !SM64AP_CheckedLoc(5607) {
+                if (dialogID == DIALOG_050 && !SM64AP_CheckedLoc(5607)) {
                     SM64AP_SendItem(5607);
                 }
-                if (dialogID == DIALOG_104 && !SM64AP_CheckedLoc(5608) {
+                if (dialogID == DIALOG_104 && !SM64AP_CheckedLoc(5608)) {
                     SM64AP_SendItem(5608);
                 }
-                if (dialogID == DIALOG_032 && !SM64AP_CheckedLoc(5609) {
+                if (dialogID == DIALOG_032 && !SM64AP_CheckedLoc(5609)) {
                     SM64AP_SendItem(5609);
                 }
-                if (dialogID == DIALOG_039 && !SM64AP_CheckedLoc(5610) {
+                if (dialogID == DIALOG_039 && !SM64AP_CheckedLoc(5610)) {
                     SM64AP_SendItem(5610);
                 }
-                if (dialogID == DIALOG_074 && !SM64AP_CheckedLoc(5611) {
+                if (dialogID == DIALOG_074 && !SM64AP_CheckedLoc(5611)) {
                     SM64AP_SendItem(5611);
                 }
-                if (dialogID == DIALOG_112 && !SM64AP_CheckedLoc(5612) {
+                if (dialogID == DIALOG_112 && !SM64AP_CheckedLoc(5612)) {
                     SM64AP_SendItem(5612);
                 }
 
