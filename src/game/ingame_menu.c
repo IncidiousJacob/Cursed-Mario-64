@@ -985,6 +985,49 @@ void create_dialog_box(s16 dialog) {
         if (dialog == DIALOG_076) {
             SM64AP_SendItem(2006);
         }
+        if (dialog == DIALOG_167) {
+            SM64_SendItem(5500);
+        }
+        if (dialog == DIALOG_051) {
+            SM64_SendItem(5501);
+        }
+        if (dialog == DIALOG_065) {
+            SM64_SendItem(5502);
+        }
+        if (dialog == DIALOG_050) {
+            SM64_SendItem(5503);
+        }
+        if (dialog == DIALOG_046) {
+            SM64_SendItem(5504);
+        }
+        if (dialog == DIALOG_070) {
+            SM64_SendItem(5505);
+        }
+        if (dialog == DIALOG_069) {
+            SM64_SendItem(5506);
+        }
+        if (dialog == DIALOG_147) {
+            SM64_SendItem(5507);
+        }
+        if (dialog == DIALOG_052) {
+            SM64_SendItem(5508);
+        }
+        if (dialog == DIALOG_075) {
+            SM64_SendItem(5509);
+        }
+        if (dialog == DIALOG_160) {
+            SM64_SendItem(5510);
+        }
+        if (dialog == DIALOG_102) {
+            SM64_SendItem(5511);
+        }
+        if (dialog == DIALOG_159) {
+            SM64_SendItem(5512);
+        }
+        if (dialog == DIALOG_158) {
+            SM64_SendItem(5513);
+        }
+        
     }
 }
 
