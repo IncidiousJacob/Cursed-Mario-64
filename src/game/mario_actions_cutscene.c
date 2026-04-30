@@ -1,5 +1,5 @@
 #include <PR/ultratypes.h>
-
+#include "src/sm64ap.h"
 #include "prevent_bss_reordering.h"
 #include "sm64.h"
 #include "area.h"
@@ -506,32 +506,83 @@ s32 act_reading_automatic_dialog(struct MarioState *m) {
 
 s32 act_reading_sign(struct MarioState *m) {
     struct Object *marioObj = m->marioObj;
+    s16 dialogID;
 
     play_sound_if_no_flag(m, SOUND_ACTION_READ_SIGN, MARIO_ACTION_SOUND_PLAYED);
 
     switch (m->actionState) {
-        // start dialog
         case 0:
             trigger_cutscene_dialog(1);
             enable_time_stop();
-            // reading sign
+
             set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
             m->actionState = 1;
-            // intentional fall through
-        // turn toward sign
+            // fall through
+
         case 1:
             m->faceAngle[1] += marioObj->oMarioPoleUnk108 / 11;
             m->pos[0] += marioObj->oMarioReadingSignDPosX / 11.0f;
             m->pos[2] += marioObj->oMarioReadingSignDPosZ / 11.0f;
-            // create the text box
+
             if (m->actionTimer++ == 10) {
-                create_dialog_inverted_box(m->usedObj->oBehParams2ndByte);
+                dialogID = m->usedObj->oBehParams2ndByte;
+
+                create_dialog_inverted_box(dialogID);
+
+                if (dialogID == DIALOG_167 && !SM64AP_CheckedLoc(5500)) {
+                    SM64AP_SendItem(5500);
+                }
+                if (dialogID == DIALOG_051 && !SM64AP_CheckedLoc(5501)) {
+                    SM64AP_SendItem(5501);
+                }
+                if (dialogID == DIALOG_065 && !SM64AP_CheckedLoc(5502)) {
+                    SM64AP_SendItem(5502);
+                }
+                if (dialogID == DIALOG_050 && !SM64AP_CheckedLoc(5503)) {
+                    SM64AP_SendItem(5503);
+                }
+                if (dialogID == DIALOG_046 && !SM64AP_CheckedLoc(5504)) {
+                    SM64AP_SendItem(5504);
+                }
+                if (dialogID == DIALOG_070 && !SM64AP_CheckedLoc(5505)) {
+                    SM64AP_SendItem(5505);
+                }
+                if (dialogID == DIALOG_069 && !SM64AP_CheckedLoc(5506)) {
+                    SM64AP_SendItem(5506);
+                }
+                if (dialogID == DIALOG_147 && !SM64AP_CheckedLoc(5507)) {
+                    SM64AP_SendItem(5507);
+                }
+                if (dialogID == DIALOG_052 && !SM64AP_CheckedLoc(5508)) {
+                    SM64AP_SendItem(5508);
+                }
+                if (dialogID == DIALOG_075 && !SM64AP_CheckedLoc(5509)) {
+                    SM64AP_SendItem(5509);
+                }
+                if (dialogID == DIALOG_160 && !SM64AP_CheckedLoc(5510)) {
+                    SM64AP_SendItem(5510);
+                }
+                if (dialogID == DIALOG_102 && !SM64AP_CheckedLoc(5511)) {
+                    SM64AP_SendItem(5511);
+                }
+                if (dialogID == DIALOG_159 && !SM64AP_CheckedLoc(5512)) {
+                    SM64AP_SendItem(5512);
+                }
+                if (dialogID == DIALOG_158 && !SM64AP_CheckedLoc(5513)) {
+                    SM64AP_SendItem(5513);
+                }
+                if (dialogID == DIALOG_077 && !SM64AP_CheckedLoc(5514)) {
+                    SM64AP_SendItem(5514);
+                }
+                if (dialogID == DIALOG_019 && !SM64AP_CheckedLoc(5515)) {
+                    SM64AP_SendItem(5515);
+                }
+
                 m->actionState = 2;
             }
             break;
-        // in dialog
+
         case 2:
-            // dialog finished
             if (gCamera->cutscene == 0) {
                 disable_time_stop();
                 set_mario_action(m, ACT_IDLE, 0);
@@ -541,6 +592,7 @@ s32 act_reading_sign(struct MarioState *m) {
 
     vec3f_copy(marioObj->header.gfx.pos, m->pos);
     vec3s_set(marioObj->header.gfx.angle, 0, m->faceAngle[1], 0);
+
     return FALSE;
 }
 
