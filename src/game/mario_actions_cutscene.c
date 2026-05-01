@@ -549,6 +549,8 @@ s32 act_reading_sign(struct MarioState *m) {
                         SM64AP_SendItem(5503);
                     } else if (gCurrLevelNum == LEVEL_BOB && !SM64AP_CheckedLoc(5607)) {
                         SM64AP_SendItem(5607);
+                    } else if (gCurrLevelNum == LEVEL_HMC && !SM64AP_CheckedLoc(5695)) {
+                        SM64AP_SendItem(5695);
                     }
                 }
                 if (dialogID == DIALOG_046 && !SM64AP_CheckedLoc(5504)) {
@@ -682,6 +684,36 @@ s32 act_reading_sign(struct MarioState *m) {
                 }
                 if (dialogID == DIALOG_085 && !SM64AP_CheckedLoc(5681)) {
                     SM64AP_SendItem(5681);
+                }
+                if (dialogID == DIALOG_066 && !SM64AP_CheckedLoc(5690)) {
+                    SM64AP_SendItem(5690);
+                }
+                if (dialogID == DIALOG_086 && !SM64AP_CheckedLoc(5691)) {
+                    SM64AP_SendItem(5691);
+                }
+                if (dialogID == DIALOG_068 && !SM64AP_CheckedLoc(5692)) {
+                    SM64AP_SendItem(5692);
+                }
+                if (dialogID == DIALOG_016 && !SM64AP_CheckedLoc(5693)) {
+                    SM64AP_SendItem(5693);
+                }
+                if (dialogID == DIALOG_089 && !SM64AP_CheckedLoc(5694)) {
+                    SM64AP_SendItem(5694);
+                }
+                if (dialogID == DIALOG_088 && !SM64AP_CheckedLoc(5696)) {
+                    SM64AP_SendItem(5696);
+                }
+                if (dialogID == DIALOG_140 && !SM64AP_CheckedLoc(5697)) {
+                    SM64AP_SendItem(5697);
+                }
+                if (dialogID == DIALOG_125 && !SM64AP_CheckedLoc(5698)) {
+                    SM64AP_SendItem(5698);
+                }
+                if (dialogID == DIALOG_124 && !SM64AP_CheckedLoc(5699)) {
+                    SM64AP_SendItem(5699);
+                }
+                if (dialogID == DIALOG_139 && !SM64AP_CheckedLoc(5700)) {
+                    SM64AP_SendItem(5700);
                 }
 
 
