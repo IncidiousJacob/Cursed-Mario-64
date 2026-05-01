@@ -573,7 +573,7 @@ s32 act_reading_sign(struct MarioState *m) {
                     SM64AP_SendItem(5510);
                 }
                  if (dialogID == DIALOG_102) {
-                    if (gCurrLevelNum == LEVEL_COURTYARD && !SM64AP_CheckedLoc(5511)) {
+                    if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD && !SM64AP_CheckedLoc(5511)) {
                         SM64AP_SendItem(5511);
                     } else if (gCurrLevelNum == LEVEL_BBH && !SM64AP_CheckedLoc(5682)) {
                         SM64AP_SendItem(5682);
