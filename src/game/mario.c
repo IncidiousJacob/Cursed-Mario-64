@@ -1752,38 +1752,23 @@ void func_sh_8025574C(void) {
 /**
  * Main function for executing Mario's behavior.
  */
-s32 execute_mario_action(UNUSED struct Object *o) {
-    s32 inLoop = TRUE;
+if (isClimbingPole && !sWasClimbingPole) {
+    sPoleDebugA = (s32) gMarioState->pos[0];
+    sPoleDebugB = (s32) gMarioState->pos[1];
+    sPoleDebugC = (s32) gMarioState->pos[2];
+    sShowPoleDebug = TRUE;
 
-    // --- SM64AP DEBUG + TREE CHECK ---
-    static u8 sWasClimbingPole = FALSE;
-    static s32 sPoleDebugA = 0;
-    static s32 sPoleDebugB = 0;
-    static s32 sPoleDebugC = 0;
-    static u8 sShowPoleDebug = FALSE;
+    // --- SM64AP: Castle Grounds tree coordinate check ---
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        s32 mx = (s32) gMarioState->pos[0];
+        s32 my = (s32) gMarioState->pos[1];
+        s32 mz = (s32) gMarioState->pos[2];
 
-    u8 isClimbingPole =
-        gMarioState->action == ACT_GRAB_POLE_SLOW ||
-        gMarioState->action == ACT_GRAB_POLE_FAST ||
-        gMarioState->action == ACT_CLIMBING_POLE ||
-        gMarioState->action == ACT_HOLDING_POLE;
-
-    if (isClimbingPole && !sWasClimbingPole) {
-        sPoleDebugA = (s32) gMarioState->pos[0];
-        sPoleDebugB = (s32) gMarioState->pos[1];
-        sPoleDebugC = (s32) gMarioState->pos[2];
-        sShowPoleDebug = TRUE;
-
-        // --- SM64AP: Castle Grounds tree coordinate check ---
-        if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
-            s32 mx = (s32) gMarioState->pos[0];
-            s32 my = (s32) gMarioState->pos[1];
-            s32 mz = (s32) gMarioState->pos[2];
-
-            // 🔴 REPLACE THESE WITH YOUR A/B/C VALUES
-            s32 treeX = -1900; // A
-            s32 treeY = 518; // B
-            s32 treeZ = 2868; // C
+        // --- Tree 5800 ---
+        {
+            s32 treeX = -1900;
+            s32 treeY = 518;
+            s32 treeZ = 2868;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -1798,8 +1783,28 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                 }
             }
         }
-    }
 
+        // --- Tree 5801 ---
+        {
+            s32 treeX = -2566;
+            s32 treeY = 469;
+            s32 treeZ = 2626;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5801)) {
+                    SM64AP_SendItem(5801);
+                }
+            }
+        }
+    }
+}
     sWasClimbingPole = isClimbingPole;
 
     if (sShowPoleDebug) {
