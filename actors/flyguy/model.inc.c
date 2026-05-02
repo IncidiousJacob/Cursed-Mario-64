@@ -1,3 +1,5 @@
+#include "src/sm64ap.h"
+
 // Flyguy
 
 // ???
@@ -25,13 +27,13 @@ UNUSED static const Lights1 flyguy_lights_unused1 = gdSPDefLights1(
 );
 
 // 0x080100A0
-static const Lights1 flyguy_seg8_lights_080100A0 = gdSPDefLights1(
+static Lights1 flyguy_seg8_lights_080100A0 = gdSPDefLights1(
     0x00, 0x1f, 0x33,
     0x02, 0x7f, 0xcc, 0x28, 0x28, 0x28
 );
 
 // 0x080100B8
-static const Lights1 flyguy_seg8_lights_080100B8 = gdSPDefLights1(
+static Lights1 flyguy_seg8_lights_080100B8 = gdSPDefLights1(
     0x3f, 0x32, 0x08,
     0xff, 0xc8, 0x23, 0x28, 0x28, 0x28
 );
@@ -275,7 +277,7 @@ const Gfx flyguy_seg8_dl_08010A90[] = {
 };
 
 // 0x08010AE0
-static const Lights1 flyguy_seg8_lights_08010AE0 = gdSPDefLights1(
+static Lights1 flyguy_seg8_lights_08010AE0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
@@ -319,19 +321,19 @@ const Gfx flyguy_seg8_dl_08010B80[] = {
 };
 
 // 0x08010BF0
-static const Lights1 flyguy_seg8_lights_08010BF0 = gdSPDefLights1(
+static Lights1 flyguy_seg8_lights_08010BF0 = gdSPDefLights1(
     0x7f, 0x7f, 0x7f,
     0xff, 0xff, 0xff, 0x28, 0x28, 0x28
 );
 
 // 0x08010C08
-static const Lights1 flyguy_seg8_lights_08010C08 = gdSPDefLights1(
+static Lights1 flyguy_seg8_lights_08010C08 = gdSPDefLights1(
     0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x28, 0x28, 0x28
 );
 
 // 0x08010C20
-static const Lights1 flyguy_seg8_lights_08010C20 = gdSPDefLights1(
+static Lights1 flyguy_seg8_lights_08010C20 = gdSPDefLights1(
     0x62, 0x00, 0x13,
     0xc4, 0x00, 0x26, 0x28, 0x28, 0x28
 );
@@ -597,3 +599,33 @@ const Gfx flyguy_seg8_dl_08011710[] = {
     gsSPDisplayList(flyguy_seg8_dl_080116D0),
     gsSPEndDisplayList(),
 };
+
+static void sm64ap_set_flyguy_light_group(Lights1 *dst, u8 r, u8 g, u8 b) {
+    dst->a.l.col[0] = r / 2;
+    dst->a.l.col[1] = g / 2;
+    dst->a.l.col[2] = b / 2;
+
+    dst->l[0].l.col[0] = r;
+    dst->l[0].l.col[1] = g;
+    dst->l[0].l.col[2] = b;
+}
+
+void SM64AP_ApplyFlyGuyPalette(void) {
+    sm64ap_set_flyguy_light_group(&flyguy_seg8_lights_080100A0,
+        gFlyGuyPropellerColor.r, gFlyGuyPropellerColor.g, gFlyGuyPropellerColor.b);
+
+    sm64ap_set_flyguy_light_group(&flyguy_seg8_lights_080100B8,
+        gFlyGuyFeetColor.r, gFlyGuyFeetColor.g, gFlyGuyFeetColor.b);
+
+    sm64ap_set_flyguy_light_group(&flyguy_seg8_lights_08010AE0,
+        gFlyGuyPropellerColor.r, gFlyGuyPropellerColor.g, gFlyGuyPropellerColor.b);
+
+    sm64ap_set_flyguy_light_group(&flyguy_seg8_lights_08010BF0,
+        gFlyGuyFaceColor.r, gFlyGuyFaceColor.g, gFlyGuyFaceColor.b);
+
+    sm64ap_set_flyguy_light_group(&flyguy_seg8_lights_08010C08,
+        gFlyGuyShadowColor.r, gFlyGuyShadowColor.g, gFlyGuyShadowColor.b);
+
+    sm64ap_set_flyguy_light_group(&flyguy_seg8_lights_08010C20,
+        gFlyGuyBodyColor.r, gFlyGuyBodyColor.g, gFlyGuyBodyColor.b);
+}

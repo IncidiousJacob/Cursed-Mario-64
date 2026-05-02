@@ -985,6 +985,7 @@ void create_dialog_box(s16 dialog) {
         if (dialog == DIALOG_076) {
             SM64AP_SendItem(2006);
         }
+        
     }
 }
 
