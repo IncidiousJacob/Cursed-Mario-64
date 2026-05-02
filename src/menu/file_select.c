@@ -1368,49 +1368,35 @@ void check_main_menu_clicked_buttons(void) {
 #ifdef VERSION_EU
     if (sMainMenuTimer >= 5) {
 #endif
-
-        // =========================
-        // DeathLink UI + Toggle
-        // =========================
-
-        // Draw status text (simple + readable)
-        if (SM64AP_DeathLinkEnabled()) {
-            print_text(230, 25, "DL ON");
-        } else {
-            print_text(230, 25, "DL OFF");
-        }
-
-        // Click detection for DeathLink (bottom center area)
+        // DeathLink toggle click area ONLY.
+        // Do NOT draw text in this function.
         if (sClickPos[0] >= -200 && sClickPos[0] <= 200
             && sClickPos[1] >= -120 && sClickPos[1] <= -80) {
 
             SM64AP_ToggleDeathLink();
             play_sound(SOUND_MENU_CLICK_FILE_SELECT, gDefaultSoundArgs);
 
-            // prevent double click
             sClickPos[0] = -10000;
             sClickPos[1] = -10000;
             return;
         }
 
-        // =========================
-        // Normal menu handling
-        // =========================
-
-        // Sound mode button
+        // Sound mode menu is handled separately because the button ID for it
+        // is not grouped with the IDs of the other submenus.
         if (check_clicked_button(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosX,
                                 sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosY, 200.0f) == TRUE) {
             sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
             sSelectedButtonID = MENU_BUTTON_SOUND_MODE;
         } else {
-
-            // Main menu buttons loop
+            // Main Menu buttons
             s8 buttonID;
+            // Configure Main Menu button group
             for (buttonID = MENU_BUTTON_MAIN_MIN; buttonID < MENU_BUTTON_MAIN_MAX; buttonID++) {
                 s16 buttonX = sMainMenuButtons[buttonID]->oPosX;
                 s16 buttonY = sMainMenuButtons[buttonID]->oPosY;
 
                 if (check_clicked_button(buttonX, buttonY, 200.0f) == TRUE) {
+                    // If menu button clicked, select it
                     sMainMenuButtons[buttonID]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
                     sSelectedButtonID = buttonID;
                     break;
@@ -1419,6 +1405,7 @@ void check_main_menu_clicked_buttons(void) {
         }
 
 #ifdef VERSION_EU
+        // Open Options Menu if sOpenLangSettings is TRUE (It's TRUE when there's no saves)
         if (sOpenLangSettings == TRUE) {
             sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
             sSelectedButtonID = MENU_BUTTON_SOUND_MODE;
@@ -1426,33 +1413,33 @@ void check_main_menu_clicked_buttons(void) {
         }
 #endif
 
-        // =========================
-        // Button actions
-        // =========================
-
+        // Play sound of the save file clicked
         switch (sSelectedButtonID) {
             case MENU_BUTTON_PLAY_FILE_A:
+                play_sound(SAVE_FILE_SOUND, gDefaultSoundArgs);
+                break;
             case MENU_BUTTON_PLAY_FILE_B:
+                play_sound(SAVE_FILE_SOUND, gDefaultSoundArgs);
+                break;
             case MENU_BUTTON_PLAY_FILE_C:
+                play_sound(SAVE_FILE_SOUND, gDefaultSoundArgs);
+                break;
             case MENU_BUTTON_PLAY_FILE_D:
                 play_sound(SAVE_FILE_SOUND, gDefaultSoundArgs);
                 break;
-
+            // Play sound of the button clicked and render buttons of that menu.
             case MENU_BUTTON_SCORE:
                 play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gDefaultSoundArgs);
                 render_score_menu_buttons(sMainMenuButtons[MENU_BUTTON_SCORE]);
                 break;
-
             case MENU_BUTTON_COPY:
                 play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gDefaultSoundArgs);
                 render_copy_menu_buttons(sMainMenuButtons[MENU_BUTTON_COPY]);
                 break;
-
             case MENU_BUTTON_ERASE:
                 play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gDefaultSoundArgs);
                 render_erase_menu_buttons(sMainMenuButtons[MENU_BUTTON_ERASE]);
                 break;
-
             case MENU_BUTTON_SOUND_MODE:
                 play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gDefaultSoundArgs);
                 render_sound_mode_menu_buttons(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]);
@@ -1822,23 +1809,18 @@ void print_main_menu_strings(void) {
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
 #endif
 
-    // Sound mode text
     print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-    // =========================
-    // DeathLink UI (clean block)
-    // =========================
-
-    // Text (readable, short)
+    // DeathLink text is drawn ONLY here.
     if (SM64AP_DeathLinkEnabled()) {
-        print_text(210, 25, "DL ON");
+        print_text(225, 25, "DL ON");
     } else {
-        print_text(205, 25, "DL OFF");
+        print_text(225, 25, "DL OFF");
     }
 
-    // Colored status box
+    // DeathLink status box
     gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
 
     if (SM64AP_DeathLinkEnabled()) {
@@ -1851,9 +1833,7 @@ void print_main_menu_strings(void) {
             GPACK_RGBA5551(255, 0, 0, 1) << 16 | GPACK_RGBA5551(255, 0, 0, 1));
     }
 
-    // Box position (slightly above bottom UI line)
     gDPFillRectangle(gDisplayListHead++, 285, 195, 300, 210);
-
     gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
 #endif
 
