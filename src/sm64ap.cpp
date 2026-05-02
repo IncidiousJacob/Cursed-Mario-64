@@ -78,6 +78,7 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
+bool gSM64APDeathLinkEnabled = true;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -1220,7 +1221,30 @@ bool SM64AP_MoatDrained() {
     return sm64_moat_state != 0;
 }
 
+bool SM64AP_DeathLinkEnabled() {
+    return gSM64APDeathLinkEnabled;
+}
+
+void SM64AP_SetDeathLinkEnabled(bool enabled) {
+    gSM64APDeathLinkEnabled = enabled;
+
+    if (!gSM64APDeathLinkEnabled && AP_DeathLinkPending()) {
+        AP_DeathLinkClear();
+    }
+}
+
+void SM64AP_ToggleDeathLink() {
+    SM64AP_SetDeathLinkEnabled(!gSM64APDeathLinkEnabled);
+}
+
 bool SM64AP_DeathLinkPending() {
+    if (!gSM64APDeathLinkEnabled) {
+        if (AP_DeathLinkPending()) {
+            AP_DeathLinkClear();
+        }
+        return false;
+    }
+
     return AP_DeathLinkPending();
 }
 
@@ -1229,8 +1253,12 @@ void SM64AP_DeathLinkClear() {
 }
 
 void SM64AP_DeathLinkSend() {
+    if (!gSM64APDeathLinkEnabled) {
+        return;
+    }
+
     if (!SM64AP_DeathLinkPending()) {
-        return AP_DeathLinkSend();
+        AP_DeathLinkSend();
     } else {
         SM64AP_DeathLinkClear();
     }
