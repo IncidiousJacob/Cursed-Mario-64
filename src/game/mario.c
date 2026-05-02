@@ -1755,7 +1755,7 @@ void func_sh_8025574C(void) {
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
 
-    // --- SM64AP DEBUG: Tree/Pole climb coordinate display ---
+    // --- SM64AP DEBUG + TREE CHECK ---
     static u8 sWasClimbingPole = FALSE;
     static s32 sPoleDebugA = 0;
     static s32 sPoleDebugB = 0;
@@ -1769,10 +1769,35 @@ s32 execute_mario_action(UNUSED struct Object *o) {
         gMarioState->action == ACT_HOLDING_POLE;
 
     if (isClimbingPole && !sWasClimbingPole) {
-        sPoleDebugA = (s32) gMarioState->pos[0]; // X → A
-        sPoleDebugB = (s32) gMarioState->pos[1]; // Y → B
-        sPoleDebugC = (s32) gMarioState->pos[2]; // Z → C
+        sPoleDebugA = (s32) gMarioState->pos[0];
+        sPoleDebugB = (s32) gMarioState->pos[1];
+        sPoleDebugC = (s32) gMarioState->pos[2];
         sShowPoleDebug = TRUE;
+
+        // --- SM64AP: Castle Grounds tree coordinate check ---
+        if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+            s32 mx = (s32) gMarioState->pos[0];
+            s32 my = (s32) gMarioState->pos[1];
+            s32 mz = (s32) gMarioState->pos[2];
+
+            // 🔴 REPLACE THESE WITH YOUR A/B/C VALUES
+            s32 treeX = 0; // A
+            s32 treeY = 0; // B
+            s32 treeZ = 0; // C
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5800)) {
+                    SM64AP_SendItem(5800);
+                }
+            }
+        }
     }
 
     sWasClimbingPole = isClimbingPole;
@@ -1789,7 +1814,7 @@ s32 execute_mario_action(UNUSED struct Object *o) {
         snprintf(buf, sizeof(buf), "C %d", sPoleDebugC);
         print_text(20, 80, buf);
     }
-    // --- END SM64AP DEBUG ---
+    // --- END DEBUG + AP ---
 
     /**
     * Cheat stuff
