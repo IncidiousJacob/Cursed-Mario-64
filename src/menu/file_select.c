@@ -1805,14 +1805,23 @@ void print_main_menu_strings(void) {
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
 #endif
 
+    // Sound mode text
     print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-    // DeathLink label below the toggle button
-    print_text(226, 18, "DEATHLINK");
+    // =========================
+    // DeathLink UI (clean block)
+    // =========================
 
-    // DeathLink status box
+    // Text (readable, short)
+    if (SM64AP_DeathLinkEnabled()) {
+        print_text(225, 25, "DL ON");
+    } else {
+        print_text(225, 25, "DL OFF");
+    }
+
+    // Colored status box
     gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
 
     if (SM64AP_DeathLinkEnabled()) {
@@ -1825,7 +1834,9 @@ void print_main_menu_strings(void) {
             GPACK_RGBA5551(255, 0, 0, 1) << 16 | GPACK_RGBA5551(255, 0, 0, 1));
     }
 
-    gDPFillRectangle(gDisplayListHead++, 285, 211, 300, 226);
+    // Box position (slightly above bottom UI line)
+    gDPFillRectangle(gDisplayListHead++, 285, 195, 300, 210);
+
     gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
 #endif
 
