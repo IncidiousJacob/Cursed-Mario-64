@@ -121,6 +121,8 @@ SM64AP_RGB8 gFlyGuyFeetColor;
 SM64AP_RGB8 gFlyGuyBodyColor;
 SM64AP_RGB8 gFlyGuyFaceColor;
 SM64AP_RGB8 gFlyGuyShadowColor;
+SM64AP_RGB8 gSignPostColor;
+SM64AP_RGB8 gSignBoardColor;
 
 
 int sm64_ap_health_items_received = 0;
@@ -271,6 +273,9 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     gFlyGuyFaceColor      = sm64ap_make_color(s, 0xA004u, 90, 255);
     gFlyGuyShadowColor    = sm64ap_make_color(s, 0xA005u, 40, 255);
 
+    gSignPostColor  = sm64ap_make_color(s, 0xB001u, 48, 220);
+    gSignBoardColor = sm64ap_make_color(s, 0xB002u, 64, 255);
+
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
     SM64AP_ApplyToadPalette();
@@ -283,6 +288,7 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyBowserFlamePalette();
     SM64AP_ApplyPeachPalette();
     SM64AP_ApplyFlyGuyPalette();
+    SM64AP_ApplySignPalette();
 }
 
 
