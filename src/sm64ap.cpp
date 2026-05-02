@@ -1234,7 +1234,11 @@ void SM64AP_SetDeathLinkEnabled(bool enabled) {
 }
 
 void SM64AP_ToggleDeathLink() {
-    SM64AP_SetDeathLinkEnabled(!gSM64APDeathLinkEnabled);
+    if (gSM64APDeathLinkEnabled) {
+        SM64AP_SetDeathLinkEnabled(false);
+    } else {
+        SM64AP_SetDeathLinkEnabled(true);
+    }
 }
 
 bool SM64AP_DeathLinkPending() {
