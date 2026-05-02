@@ -1228,6 +1228,8 @@ bool SM64AP_DeathLinkEnabled() {
 void SM64AP_SetDeathLinkEnabled(bool enabled) {
     gSM64APDeathLinkEnabled = enabled;
 
+    AP_SetDeathLinkSupported(enabled);
+
     if (!gSM64APDeathLinkEnabled && AP_DeathLinkPending()) {
         AP_DeathLinkClear();
     }
