@@ -1990,6 +1990,82 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                     }
                 }
             }
+
+            // --- Tree 5811 ---
+            {
+                s32 treeX = -6269;
+                s32 treeY = 502;
+                s32 treeZ = -2145;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5811)) {
+                        SM64AP_SendItem(5811);
+                    }
+                }
+            }
+
+            // --- Tree 5812 ---
+            {
+                s32 treeX = -5600;
+                s32 treeY = 491;
+                s32 treeZ = -2627;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5812)) {
+                        SM64AP_SendItem(5812);
+                    }
+                }
+            }
+
+            // --- Tree 5813 ---
+            {
+                s32 treeX = -5957;
+                s32 treeY = 659;
+                s32 treeZ = -3447;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5813)) {
+                        SM64AP_SendItem(5813);
+                    }
+                }
+            }
+
+            // --- Tree 5814 ---
+            {
+                s32 treeX = 767;
+                s32 treeY = 630;
+                s32 treeZ = 2598;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5814)) {
+                        SM64AP_SendItem(5814);
+                    }
+                }
+            }
         }
     }
 
