@@ -167,6 +167,9 @@ AP_EXTERN_C bool SM64AP_HavePainting(int);
 AP_EXTERN_C bool SM64AP_DeathLinkPending();
 AP_EXTERN_C void SM64AP_DeathLinkClear();
 AP_EXTERN_C void SM64AP_DeathLinkSend();
+AP_EXTERN_C bool SM64AP_DeathLinkEnabled(void);
+AP_EXTERN_C void SM64AP_SetDeathLinkEnabled(bool enabled);
+AP_EXTERN_C void SM64AP_ToggleDeathLink(void);
 
 // Local Moves
 AP_EXTERN_C bool SM64AP_CanDoubleJump();
