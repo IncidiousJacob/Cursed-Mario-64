@@ -1819,6 +1819,177 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                     }
                 }
             }
+
+            // --- Tree 5802 ---
+            {
+                s32 treeX = -2021;
+                s32 treeY = 726;
+                s32 treeZ = 1468;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5802)) {
+                        SM64AP_SendItem(5802);
+                    }
+                }
+            }
+
+            // --- Tree 5803 ---
+            {
+                s32 treeX = -1333;
+                s32 treeY = 841;
+                s32 treeZ = 1881;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5803)) {
+                        SM64AP_SendItem(5803);
+                    }
+                }
+            }
+
+            // --- Tree 5804 ---
+            {
+                s32 treeX = -109;
+                s32 treeY = 807;
+                s32 treeZ = 3008;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5804)) {
+                        SM64AP_SendItem(5804);
+                    }
+                }
+            }
+
+            // --- Tree 5805 ---
+            {
+                s32 treeX = -5069;
+                s32 treeY = 434;
+                s32 treeZ = 3221;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5805)) {
+                        SM64AP_SendItem(5805);
+                    }
+                }
+            }
+
+            // --- Tree 5806 ---
+            {
+                s32 treeX = -6220;
+                s32 treeY = 502;
+                s32 treeZ = 3458;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5806)) {
+                        SM64AP_SendItem(5806);
+                    }
+                }
+            }
+
+            // --- Tree 5807 ---
+            {
+                s32 treeX = -6510;
+                s32 treeY = 393;
+                s32 treeZ = 1411;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5807)) {
+                        SM64AP_SendItem(5807);
+                    }
+                }
+            }
+
+            // --- Tree 5808 ---
+            {
+                s32 treeX = -5204;
+                s32 treeY = 338;
+                s32 treeZ = 811;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5808)) {
+                        SM64AP_SendItem(5808);
+                    }
+                }
+            }
+
+            // --- Tree 5809 ---
+            {
+                s32 treeX = -4711;
+                s32 treeY = 497;
+                s32 treeZ = 433;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5809)) {
+                        SM64AP_SendItem(5809);
+                    }
+                }
+            }
+
+            // --- Tree 5810 ---
+            {
+                s32 treeX = -5506;
+                s32 treeY = 540;
+                s32 treeZ = -661;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5810)) {
+                        SM64AP_SendItem(5810);
+                    }
+                }
+            }
         }
     }
 
