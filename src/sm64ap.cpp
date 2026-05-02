@@ -196,58 +196,80 @@ static u8 sm64ap_palette_byte(uint32_t &x, int minv, int maxv) {
     return (u8)(minv + (sm64ap_splitmix32(x) % (maxv - minv + 1)));
 }
 
-static SM64AP_RGB8 sm64ap_make_color(uint32_t &x, int minv, int maxv) {
+
+// NEW SYSTEM (used instead of rolling x)
+static uint32_t sm64ap_mix_seed(uint32_t x) {
+    x ^= x >> 16;
+    x *= 0x7FEB352Du;
+    x ^= x >> 15;
+    x *= 0x846CA68Bu;
+    x ^= x >> 16;
+    return x;
+}
+
+static u8 sm64ap_color_channel(uint32_t seed, uint32_t salt, int minv, int maxv) {
+    uint32_t x = sm64ap_mix_seed(seed ^ salt);
+    return (u8)(minv + (x % (maxv - minv + 1)));
+}
+
+static SM64AP_RGB8 sm64ap_make_color(uint32_t seed, uint32_t salt, int minv, int maxv) {
     SM64AP_RGB8 c;
-    c.r = sm64ap_palette_byte(x, minv, maxv);
-    c.g = sm64ap_palette_byte(x, minv, maxv);
-    c.b = sm64ap_palette_byte(x, minv, maxv);
+
+    c.r = sm64ap_color_channel(seed, salt ^ 0xA1B2C3D4u, minv, maxv);
+    c.g = sm64ap_color_channel(seed, salt ^ 0xB2C3D4E5u, minv, maxv);
+    c.b = sm64ap_color_channel(seed, salt ^ 0xC3D4E5F6u, minv, maxv);
+
     return c;
 }
 
+
+// UPDATED PALETTE SEED FUNCTION
 void SM64AP_SetMarioPaletteSeed(int seed) {
+    uint32_t s = (uint32_t)(seed ? seed : 1);
 
-    uint32_t x = (uint32_t)(seed ? seed : 1);
+    gMarioHatShirtColor  = sm64ap_make_color(s, 0x1001u, 80, 255);
+    gMarioSkinColor      = sm64ap_make_color(s, 0x1002u, 80, 255);
+    gMarioHairColor      = sm64ap_make_color(s, 0x1003u, 85, 255);
+    gMarioOverallsColor  = sm64ap_make_color(s, 0x1004u, 64, 255);
+    gMarioShoesColor     = sm64ap_make_color(s, 0x1005u, 70, 255);
+    gMarioGlovesColor    = sm64ap_make_color(s, 0x1006u, 75, 255);
+    gStarColor           = sm64ap_make_color(s, 0x1007u, 65, 255);
 
-    gMarioHatShirtColor = sm64ap_make_color(x, 80, 255);
-    gMarioSkinColor     = sm64ap_make_color(x, 80, 255);
-    gMarioHairColor     = sm64ap_make_color(x, 85, 255);
-    gMarioOverallsColor = sm64ap_make_color(x, 64, 255);
-    gMarioShoesColor    = sm64ap_make_color(x, 70, 255);
-    gMarioGlovesColor   = sm64ap_make_color(x, 75, 255);
-    gStarColor          = sm64ap_make_color(x, 65, 255);
+    gToadBodyColor       = sm64ap_make_color(s, 0x2001u, 48, 255);
+    gToadSpotColor       = sm64ap_make_color(s, 0x2002u, 96, 255);
+    gToadSkinColor       = sm64ap_make_color(s, 0x2003u, 80, 240);
+    gToadShoeColor       = sm64ap_make_color(s, 0x2004u, 16, 180);
 
-    gToadBodyColor = sm64ap_make_color(x, 48, 255);
-    gToadSpotColor = sm64ap_make_color(x, 96, 255);
-    gToadSkinColor = sm64ap_make_color(x, 80, 240);
-    gToadShoeColor = sm64ap_make_color(x, 16, 180);
+    gGoombaColor         = sm64ap_make_color(s, 0x3001u, 96, 255);
 
-    gGoombaColor = sm64ap_make_color(x, 96, 255);
+    gPiranhaHeadColor    = sm64ap_make_color(s, 0x4001u, 60, 240);
+    gPiranhaStemColor    = sm64ap_make_color(s, 0x4002u, 75, 245);
+    gPiranhaLeafColor    = sm64ap_make_color(s, 0x4003u, 85, 255);
 
-    gPiranhaHeadColor = sm64ap_make_color(x, 60, 240);
-    gPiranhaStemColor = sm64ap_make_color(x, 75, 245);
-    gPiranhaLeafColor = sm64ap_make_color(x, 85, 255);
+    gBowserBodyColor     = sm64ap_make_color(s, 0x5001u, 64, 220);
+    gBowserFlameColor    = sm64ap_make_color(s, 0x5002u, 75, 255);
 
-    gBowserBodyColor  = sm64ap_make_color(x, 64, 220);
+    gBobombColor         = sm64ap_make_color(s, 0x6001u, 96, 255);
+    gBobombMetalColor    = sm64ap_make_color(s, 0x6002u, 32, 200);
 
-    gBobombColor      = sm64ap_make_color(x, 96, 255);
-    gBobombMetalColor = sm64ap_make_color(x, 32, 200);
-    gPenguinBodyColor = sm64ap_make_color(x, 64, 255);
-    gPenguinBellyColor = sm64ap_make_color(x, 96, 255);
-    gPenguinBeakColor = sm64ap_make_color(x, 80, 255);
-    gBooColor = sm64ap_make_color(x, 75, 255);
-    gBowserFlameColor = sm64ap_make_color(x, 75, 255);
-    gPeachColor050009F8 = sm64ap_make_color(x, 80, 255);
-    gPeachColor05000A10 = sm64ap_make_color(x, 80, 255);
-    gPeachColor05005FA0 = sm64ap_make_color(x, 80, 255);
-    gPeachColor05006138 = sm64ap_make_color(x, 80, 255);
-    gPeachColor05006150 = sm64ap_make_color(x, 80, 255);
-    gPeachColor05006A90 = sm64ap_make_color(x, 80, 255);
-    gFlyGuyPropellerColor = sm64ap_make_color(x, 80, 255);
-    gFlyGuyFeetColor      = sm64ap_make_color(x, 80, 255);
-    gFlyGuyBodyColor      = sm64ap_make_color(x, 80, 255);
-    gFlyGuyFaceColor      = sm64ap_make_color(x, 90, 255);
-    gFlyGuyShadowColor    = sm64ap_make_color(x, 40, 255);
-    
+    gPenguinBodyColor    = sm64ap_make_color(s, 0x7001u, 64, 255);
+    gPenguinBellyColor   = sm64ap_make_color(s, 0x7002u, 96, 255);
+    gPenguinBeakColor    = sm64ap_make_color(s, 0x7003u, 80, 255);
+
+    gBooColor            = sm64ap_make_color(s, 0x8001u, 75, 255);
+
+    gPeachColor050009F8  = sm64ap_make_color(s, 0x9001u, 80, 255);
+    gPeachColor05000A10  = sm64ap_make_color(s, 0x9002u, 80, 255);
+    gPeachColor05005FA0  = sm64ap_make_color(s, 0x9003u, 80, 255);
+    gPeachColor05006138  = sm64ap_make_color(s, 0x9004u, 80, 255);
+    gPeachColor05006150  = sm64ap_make_color(s, 0x9005u, 80, 255);
+    gPeachColor05006A90  = sm64ap_make_color(s, 0x9006u, 80, 255);
+
+    gFlyGuyPropellerColor = sm64ap_make_color(s, 0xA001u, 80, 255);
+    gFlyGuyFeetColor      = sm64ap_make_color(s, 0xA002u, 80, 255);
+    gFlyGuyBodyColor      = sm64ap_make_color(s, 0xA003u, 80, 255);
+    gFlyGuyFaceColor      = sm64ap_make_color(s, 0xA004u, 90, 255);
+    gFlyGuyShadowColor    = sm64ap_make_color(s, 0xA005u, 40, 255);
 
     SM64AP_ApplyMarioPalette();
     SM64AP_ApplyStarPalette();
@@ -262,7 +284,6 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyPeachPalette();
     SM64AP_ApplyFlyGuyPalette();
 }
-
 
 
 void SM64AP_CheckWFPiranhaPlant(struct Object *o) {
