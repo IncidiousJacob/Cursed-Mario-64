@@ -1792,39 +1792,41 @@ void print_main_menu_strings(void) {
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
 
 #ifndef VERSION_EU
-   // Print menu names
+    // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+
     print_generic_string(SCORE_X, 39, textScore);
     print_generic_string(COPY_X, 39, textCopy);
     print_generic_string(ERASE_X, 39, textErase);
+
 #if !defined(VERSION_JP) && !defined(VERSION_SH)
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
 #endif
+
+    // Sound mode text
     print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
+
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+    // 👉 DeathLink text (uses correct renderer)
+    if (SM64AP_DeathLinkEnabled()) {
+        print_text(230, 39, "DL ON");
+    } else {
+        print_text(230, 39, "DL OFF");
+    }
 #endif
 
     // Print file names
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+
     print_menu_generic_string(MARIOTEXT_X1, 65, textMarioA);
     print_menu_generic_string(MARIOTEXT_X2, 65, textMarioB);
     print_menu_generic_string(MARIOTEXT_X1, 105, textMarioC);
     print_menu_generic_string(MARIOTEXT_X2, 105, textMarioD);
+
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
-
-    // 👇 ADD THIS RIGHT HERE
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-
-    if (SM64AP_DeathLinkEnabled()) {
-        print_generic_string(100, 20, "DEATHLINK ON");
-    } else {
-        print_generic_string(100, 20, "DEATHLINK OFF");
-    }
-
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 
 #ifdef VERSION_EU
