@@ -616,6 +616,7 @@ s32 act_reading_sign(struct MarioState *m) {
                     } else if (gCurrLevelNum == LEVEL_WDW && !SM64AP_CheckedLoc(5716)) {
                         SM64AP_SendItem(5716);
                     }
+                }
                 if (dialogID == DIALOG_064 && !SM64AP_CheckedLoc(5605)) {
                     SM64AP_SendItem(5605);
                 }
