@@ -1784,6 +1784,7 @@ void print_main_menu_strings(void) {
 #ifndef VERSION_EU
     print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 35, textSelectFile);
 #endif
+
     // Print file star counts
     print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 78);
     print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X2, 78);
@@ -1804,17 +1805,28 @@ void print_main_menu_strings(void) {
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
 #endif
 
-    // Sound mode text
     print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-    // 👉 DeathLink text (uses correct renderer)
+    // DeathLink label below the toggle button
+    print_text(226, 18, "DEATHLINK");
+
+    // DeathLink status box
+    gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
+
     if (SM64AP_DeathLinkEnabled()) {
-        print_text(230, 39, "DL ON");
+        // Green = ON
+        gDPSetFillColor(gDisplayListHead++,
+            GPACK_RGBA5551(0, 255, 0, 1) << 16 | GPACK_RGBA5551(0, 255, 0, 1));
     } else {
-        print_text(230, 39, "DL OFF");
+        // Red = OFF
+        gDPSetFillColor(gDisplayListHead++,
+            GPACK_RGBA5551(255, 0, 0, 1) << 16 | GPACK_RGBA5551(255, 0, 0, 1));
     }
+
+    gDPFillRectangle(gDisplayListHead++, 285, 211, 300, 226);
+    gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
 #endif
 
     // Print file names
@@ -1828,7 +1840,6 @@ void print_main_menu_strings(void) {
 
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
 }
-
 #ifdef VERSION_EU
 /**
  * Prints the first part main menu strings that shows on the yellow background menu screen.
