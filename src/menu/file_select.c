@@ -1816,9 +1816,9 @@ void print_main_menu_strings(void) {
 
     // Text (readable, short)
     if (SM64AP_DeathLinkEnabled()) {
-        print_text(225, 25, "DL ON");
+        print_text(210, 25, "DL ON");
     } else {
-        print_text(225, 25, "DL OFF");
+        print_text(205, 25, "DL OFF");
     }
 
     // Colored status box
