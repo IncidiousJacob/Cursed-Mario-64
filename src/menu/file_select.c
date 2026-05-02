@@ -1,3 +1,4 @@
+#include "sm64ap.h"
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
@@ -1369,6 +1370,17 @@ void check_main_menu_clicked_buttons(void) {
 #endif
         // Sound mode menu is handled separately because the button ID for it
         // is not grouped with the IDs of the other submenus.
+        if (sClickPos[0] >= -200 && sClickPos[0] <= 200
+            && sClickPos[1] >= -120 && sClickPos[1] <= -80) {
+
+            SM64AP_ToggleDeathLink();
+            play_sound(SOUND_MENU_CLICK_FILE_SELECT, gDefaultSoundArgs);
+
+            // prevent double click
+            sClickPos[0] = -10000;
+            sClickPos[1] = -10000;
+            return;
+        }
         if (check_clicked_button(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosX,
                                 sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosY, 200.0f) == TRUE) {
             sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
@@ -1778,6 +1790,7 @@ void print_main_menu_strings(void) {
     print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 118);
     print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X2, 118);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
+
 #ifndef VERSION_EU
    // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
@@ -1791,6 +1804,7 @@ void print_main_menu_strings(void) {
     print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 #endif
+
     // Print file names
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
@@ -1799,6 +1813,18 @@ void print_main_menu_strings(void) {
     print_menu_generic_string(MARIOTEXT_X1, 105, textMarioC);
     print_menu_generic_string(MARIOTEXT_X2, 105, textMarioD);
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+
+    // 👇 ADD THIS RIGHT HERE
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+
+    if (SM64AP_DeathLinkEnabled()) {
+        print_generic_string(100, 20, "DEATHLINK ON");
+    } else {
+        print_generic_string(100, 20, "DEATHLINK OFF");
+    }
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 
 #ifdef VERSION_EU
