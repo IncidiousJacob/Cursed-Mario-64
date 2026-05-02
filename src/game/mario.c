@@ -1781,9 +1781,9 @@ s32 execute_mario_action(UNUSED struct Object *o) {
             s32 mz = (s32) gMarioState->pos[2];
 
             // 🔴 REPLACE THESE WITH YOUR A/B/C VALUES
-            s32 treeX = 0; // A
-            s32 treeY = 0; // B
-            s32 treeZ = 0; // C
+            s32 treeX = -1900; // A
+            s32 treeY = 518; // B
+            s32 treeZ = 2868; // C
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
