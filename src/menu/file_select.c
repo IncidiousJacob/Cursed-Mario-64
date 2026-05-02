@@ -1833,33 +1833,56 @@ void print_main_menu_strings(void) {
  * Has the strings for the 4 buttons below the save buttons that get changed depending of the language.
  * Calls print_main_menu_strings to print the remaining strings.
  */
-void print_main_lang_strings(void) {
-    s16 centeredX;
-
+void print_main_menu_strings(void) {
+    // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    centeredX = get_str_x_pos_from_center_scale(160, textSelectFile[sLanguageMode], 12.0f);
-    sCenteredX = centeredX;
-    print_hud_lut_string(HUD_LUT_GLOBAL, centeredX, 35, textSelectFile[sLanguageMode]);
+#ifndef VERSION_EU
+    print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 35, textSelectFile);
+#endif
+    // Print file star counts
+    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 78);
+    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X2, 78);
+    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 118);
+    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X2, 118);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
 
+#ifndef VERSION_EU
+    // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    centeredX = get_str_x_pos_from_center(76, textScore[sLanguageMode], 10.0f);
-    sCenteredX = centeredX;
-    print_generic_string(centeredX, 39, textScore[sLanguageMode]);
-    centeredX = get_str_x_pos_from_center(131, textCopy[sLanguageMode], 10.0f);
-    sCenteredX = centeredX;
-    print_generic_string(centeredX, 39, textCopy[sLanguageMode]);
-    centeredX = get_str_x_pos_from_center(189, textErase[sLanguageMode], 10.0f);
-    sCenteredX = centeredX;
-    print_generic_string(centeredX, 39, textErase[sLanguageMode]);
-    centeredX = get_str_x_pos_from_center(245, textOption[sLanguageMode], 10.0f);
-    sCenteredX = centeredX;
-    print_generic_string(centeredX, 39, textOption[sLanguageMode]);
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-    print_main_menu_strings();
+    print_generic_string(SCORE_X, 39, textScore);
+    print_generic_string(COPY_X, 39, textCopy);
+    print_generic_string(ERASE_X, 39, textErase);
+
+#if !defined(VERSION_JP) && !defined(VERSION_SH)
+    sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
+#endif
+
+    // Sound mode text
+    print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
+
+    // 👉 DeathLink text (clean + readable)
+    if (SM64AP_DeathLinkEnabled()) {
+        print_generic_string(245, 39, "DL ON");
+    } else {
+        print_generic_string(245, 39, "DL OFF");
+    }
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+#endif
+
+    // Print file names
+    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+
+    print_menu_generic_string(MARIOTEXT_X1, 65, textMarioA);
+    print_menu_generic_string(MARIOTEXT_X2, 65, textMarioB);
+    print_menu_generic_string(MARIOTEXT_X1, 105, textMarioC);
+    print_menu_generic_string(MARIOTEXT_X2, 105, textMarioD);
+
+    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
 }
 #endif
 
