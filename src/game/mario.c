@@ -3,7 +3,7 @@
 #include <PR/ultratypes.h>
 
 #include "sm64ap.h"
-
+#include <stdio.h>
 #include "sm64.h"
 #include "area.h"
 #include "audio/data.h"
@@ -1754,6 +1754,42 @@ void func_sh_8025574C(void) {
  */
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
+
+    // --- SM64AP DEBUG: Tree/Pole climb coordinate display ---
+    static u8 sWasClimbingPole = FALSE;
+    static s32 sPoleDebugX = 0;
+    static s32 sPoleDebugY = 0;
+    static s32 sPoleDebugZ = 0;
+    static u8 sShowPoleDebug = FALSE;
+
+    u8 isClimbingPole =
+        gMarioState->action == ACT_GRAB_POLE_SLOW ||
+        gMarioState->action == ACT_GRAB_POLE_FAST ||
+        gMarioState->action == ACT_CLIMBING_POLE ||
+        gMarioState->action == ACT_HOLDING_POLE;
+
+    if (isClimbingPole && !sWasClimbingPole) {
+        sPoleDebugX = (s32) gMarioState->pos[0];
+        sPoleDebugY = (s32) gMarioState->pos[1];
+        sPoleDebugZ = (s32) gMarioState->pos[2];
+        sShowPoleDebug = TRUE;
+    }
+
+    sWasClimbingPole = isClimbingPole;
+
+    if (sShowPoleDebug) {
+        char buf[64];
+
+        snprintf(buf, sizeof(buf), "TREE X %d", sPoleDebugX);
+        print_text(20, 40, buf);
+
+        snprintf(buf, sizeof(buf), "TREE Y %d", sPoleDebugY);
+        print_text(20, 60, buf);
+
+        snprintf(buf, sizeof(buf), "TREE Z %d", sPoleDebugZ);
+        print_text(20, 80, buf);
+    }
+    // --- END SM64AP DEBUG ---
 
     /**
     * Cheat stuff
