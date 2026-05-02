@@ -1757,9 +1757,9 @@ s32 execute_mario_action(UNUSED struct Object *o) {
 
     // --- SM64AP DEBUG: Tree/Pole climb coordinate display ---
     static u8 sWasClimbingPole = FALSE;
-    static s32 sPoleDebugX = 0;
-    static s32 sPoleDebugY = 0;
-    static s32 sPoleDebugZ = 0;
+    static s32 sPoleDebugA = 0;
+    static s32 sPoleDebugB = 0;
+    static s32 sPoleDebugC = 0;
     static u8 sShowPoleDebug = FALSE;
 
     u8 isClimbingPole =
@@ -1769,9 +1769,9 @@ s32 execute_mario_action(UNUSED struct Object *o) {
         gMarioState->action == ACT_HOLDING_POLE;
 
     if (isClimbingPole && !sWasClimbingPole) {
-        sPoleDebugX = (s32) gMarioState->pos[0];
-        sPoleDebugY = (s32) gMarioState->pos[1];
-        sPoleDebugZ = (s32) gMarioState->pos[2];
+        sPoleDebugA = (s32) gMarioState->pos[0]; // X → A
+        sPoleDebugB = (s32) gMarioState->pos[1]; // Y → B
+        sPoleDebugC = (s32) gMarioState->pos[2]; // Z → C
         sShowPoleDebug = TRUE;
     }
 
@@ -1780,13 +1780,13 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     if (sShowPoleDebug) {
         char buf[64];
 
-        snprintf(buf, sizeof(buf), "TREE X %d", sPoleDebugX);
+        snprintf(buf, sizeof(buf), "A %d", sPoleDebugA);
         print_text(20, 40, buf);
 
-        snprintf(buf, sizeof(buf), "TREE Y %d", sPoleDebugY);
+        snprintf(buf, sizeof(buf), "B %d", sPoleDebugB);
         print_text(20, 60, buf);
 
-        snprintf(buf, sizeof(buf), "TREE Z %d", sPoleDebugZ);
+        snprintf(buf, sizeof(buf), "C %d", sPoleDebugC);
         print_text(20, 80, buf);
     }
     // --- END SM64AP DEBUG ---
