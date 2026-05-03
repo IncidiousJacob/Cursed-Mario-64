@@ -3200,7 +3200,88 @@ if (isClimbingPole && !sWasClimbingPole) {
                 }
             }
         }
-    }
+     }
+
+    // --- Bob-omb Battlefield TREES ---
+    if (gCurrLevelNum == LEVEL_JRB) {
+
+       // --- Pillar 5876 ---
+        {
+            s32 treeX = 53;
+            s32 treeYMin = 2340;
+            s32 treeYMax = 2700;
+            s32 treeZ = 2724;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5876)) {
+                    SM64AP_SendItem(5876);
+                }
+            }
+        }
+         // --- Pillar 5877 ---
+        {
+            s32 treeX = 659;
+            s32 treeYMin = 2540;
+            s32 treeYMax = 2870;
+            s32 treeZ = 3314;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5877)) {
+                    SM64AP_SendItem(5877);
+                }
+            }
+        }
+         // --- Pillar 5878 ---
+        {
+            s32 treeX = 1087;
+            s32 treeYMin = 2130;
+            s32 treeYMax = 2540;
+            s32 treeZ = 3798;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5878)) {
+                    SM64AP_SendItem(5878);
+                }
+            }
+        }
+         // --- Pillar 5879 ---
+        {
+            s32 treeX = -2535;
+            s32 treeYMin = 1060;
+            s32 treeYMax = 1995;
+            s32 treeZ = 6113;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5879)) {
+                    SM64AP_SendItem(5879);
+                }
+            }
+        }
+    }  
 }
 
 // Detect jump OFF pole
