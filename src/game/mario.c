@@ -2884,6 +2884,15 @@ if (isClimbingPole && !sWasClimbingPole) {
     }
 }
 
+// Detect jump OFF pole
+if (!isClimbingPole && sWasClimbingPole) {
+    sPoleDebugA = (s32) gMarioState->pos[0];
+    sPoleDebugB = (s32) gMarioState->pos[1];
+    sPoleDebugC = (s32) gMarioState->pos[2];
+    sShowPoleDebug = TRUE;
+}
+
+// Update state AFTER checks
 sWasClimbingPole = isClimbingPole;
 
 if (sShowPoleDebug) {
