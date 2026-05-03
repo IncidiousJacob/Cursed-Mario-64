@@ -3444,6 +3444,66 @@ if (isClimbingPole && !sWasClimbingPole) {
             }
         }
     }
+    // --- Bob-omb Battlefield TREES ---
+    if (gCurrLevelNum == LEVEL_SSL) {
+
+       // --- Tree 5888 ---
+        {
+            s32 treeX = -5989;
+            s32 treeY = 46;
+            s32 treeZ = -4850;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5888)) {
+                    SM64AP_SendItem(5888);
+                }
+            }
+        }
+        // --- Pole 5889 ---
+        {
+            s32 treeX = 2867;
+            s32 treeYMin = 630;
+            s32 treeYMax = 1370;
+            s32 treeZ = 2867;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5889)) {
+                    SM64AP_SendItem(5889);
+                }
+            }
+        }
+        // --- Pole 5890 ---
+        {
+            s32 treeX = 0;
+            s32 treeYMin = 3190;
+            s32 treeYMax = 4080;
+            s32 treeZ = 1331;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5889)) {
+                    SM64AP_SendItem(5889);
+                }
+            }
+        }
+    }
 }
 
 // Detect jump OFF pole
