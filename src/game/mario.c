@@ -2392,9 +2392,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5832 ---
         {
-            s32 treeX = 201;
-            s32 treeY = 115;
-            s32 treeZ = -820;
+            s32 treeX = -820;
+            s32 treeY = 154;
+            s32 treeZ = 201;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2410,9 +2410,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5833 ---
         {
-            s32 treeX = 203;
-            s32 treeY = 154;
-            s32 treeZ = 818;
+            s32 treeX = 818;
+            s32 treeY = 150;
+            s32 treeZ = 203;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2428,9 +2428,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5834 ---
         {
-            s32 treeX = -3630;
-            s32 treeY = 154;
-            s32 treeZ = -817;
+            s32 treeX = -817;
+            s32 treeY = 81;
+            s32 treeZ = -3630;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2446,9 +2446,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5835 ---
         {
-            s32 treeX = -3633;
-            s32 treeY = 67;
-            s32 treeZ = 824;
+            s32 treeX = 824;
+            s32 treeY = 144;
+            s32 treeZ = -3633;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2464,9 +2464,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5836 ---
         {
-            s32 treeX = -3032;
-            s32 treeY = -159;
-            s32 treeZ = 2042;
+            s32 treeX = 2042;
+            s32 treeY = -78;
+            s32 treeZ = -3032;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2482,9 +2482,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5837 ---
         {
-            s32 treeX = -2330;
-            s32 treeY = -80;
-            s32 treeZ = 2444;
+            s32 treeX = 2444;
+            s32 treeY = -70;
+            s32 treeZ = -2330;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2500,9 +2500,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5838 ---
         {
-            s32 treeX = -1523;
+            s32 treeX = 2272;
             s32 treeY = -77;
-            s32 treeZ = 2769;
+            s32 treeZ = -1432;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2518,9 +2518,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5839 ---
         {
-            s32 treeX = -1432;
-            s32 treeY = -76;
-            s32 treeZ = 2272;
+            s32 treeX = 276;
+            s32 treeY = -56;
+            s32 treeZ = -1523;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2536,9 +2536,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5840 ---
         {
-            s32 treeX = -843;
-            s32 treeY = -73;
-            s32 treeZ = 2382;
+            s32 treeX = 2382;
+            s32 treeY = -36;
+            s32 treeZ = -843;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2554,9 +2554,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5841 ---
         {
-            s32 treeX = -132;
+            s32 treeX = 1681;
             s32 treeY = -69;
-            s32 treeZ = 1681;
+            s32 treeZ = -132;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
