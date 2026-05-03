@@ -2593,6 +2593,276 @@ if (isClimbingPole && !sWasClimbingPole) {
                 }
             }
         }
+        // --- Tree 5843 ---
+        {
+            s32 treeX = -1509;
+            s32 treeY = 272;
+            s32 treeZ = 5094;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5843)) {
+                    SM64AP_SendItem(5843);
+                }
+            }
+        }
+        // --- Tree 5844 ---
+        {
+            s32 treeX = 2911;
+            s32 treeY = 925;
+            s32 treeZ = 5917;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5844)) {
+                    SM64AP_SendItem(5844);
+                }
+            }
+        }
+        // --- Tree 5845 ---
+        {
+            s32 treeX = 4208;
+            s32 treeY = 1055;
+            s32 treeZ = 3772;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5845)) {
+                    SM64AP_SendItem(5845);
+                }
+            }
+        }
+        // --- Tree 5846 ---
+        {
+            s32 treeX = -4095;
+            s32 treeY = 892;
+            s32 treeZ = 1536;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5846)) {
+                    SM64AP_SendItem(5846);
+                }
+            }
+        }
+        // --- Tree 5847 ---
+        {
+            s32 treeX = -3583;
+            s32 treeY = 898;
+            s32 treeZ = 2560;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5847)) {
+                    SM64AP_SendItem(5847);
+                }
+            }
+        }
+        // --- Tree 5848 ---
+        {
+            s32 treeX = -4095;
+            s32 treeY = 892;
+            s32 treeZ = 3072;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5848)) {
+                    SM64AP_SendItem(5848);
+                }
+            }
+        }
+        // --- Tree 5849 ---
+        {
+            s32 treeX = -5119;
+            s32 treeY = 886;
+            s32 treeZ = 2048;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5849)) {
+                    SM64AP_SendItem(5849);
+                }
+            }
+        }
+        // --- Tree 5850 ---
+        {
+            s32 treeX = -6655;
+            s32 treeY = 913;
+            s32 treeZ = 3584;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5850)) {
+                    SM64AP_SendItem(5850);
+                }
+            }
+        }
+        // --- Tree 5851 ---
+        {
+            s32 treeX = -6172;
+            s32 treeY = 1168;
+            s32 treeZ = -430;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5851)) {
+                    SM64AP_SendItem(5851);
+                }
+            }
+        }
+        // --- Tree 5852 ---
+        {
+            s32 treeX = -5792;
+            s32 treeY = 1181;
+            s32 treeZ = -4654;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5852)) {
+                    SM64AP_SendItem(5852);
+                }
+            }
+        }
+        // --- Tree 5853 ---
+        {
+            s32 treeX = -6804;
+            s32 treeY = 1171;
+            s32 treeZ = -4866;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5853)) {
+                    SM64AP_SendItem(5853);
+                }
+            }
+        }
+        // --- Tree 5854 ---
+        {
+            s32 treeX = -6130;
+            s32 treeY = 955;
+            s32 treeZ = -6507;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5854)) {
+                    SM64AP_SendItem(5854);
+                }
+            }
+        }
+        // --- Tree 5855 ---
+        {
+            s32 treeX = 6799;
+            s32 treeY = 2154;
+            s32 treeZ = -5587;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5855)) {
+                    SM64AP_SendItem(5855);
+                }
+            }
+        }
+        // --- Tree 5855 ---
+        {
+            s32 treeX = 6033;
+            s32 treeY = 2285;
+            s32 treeZ = -7660;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5855)) {
+                    SM64AP_SendItem(5855);
+                }
+            }
+        }
+        // --- Tree 5856 ---
+        {
+            s32 treeX = 4096;
+            s32 treeY = 3253;
+            s32 treeZ = 1638;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5856)) {
+                    SM64AP_SendItem(5856);
+                }
+            }
+        }
     }
 }
 
