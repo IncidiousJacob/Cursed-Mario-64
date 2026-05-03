@@ -3345,10 +3345,10 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Pole 5883 ---
         {
-            s32 treeX = 795;
-            s32 treeYMin = 1110;
-            s32 treeYMax = 2080;
-            s32 treeZ = -39;
+            s32 treeX = 1413;
+            s32 treeYMin = 3210;
+            s32 treeYMax = 4000;
+            s32 treeZ = -2190;
 
             s32 dx = mx - treeX;
             s32 dz = mz - treeZ;
