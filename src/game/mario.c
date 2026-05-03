@@ -2909,7 +2909,7 @@ if (isClimbingPole && !sWasClimbingPole) {
         {
             s32 treeX = 2560;
             s32 treeY = 383;
-            s32 treeZ = 2560;
+            s32 treeZ = 4608;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
