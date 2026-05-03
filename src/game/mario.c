@@ -2739,9 +2739,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5851 ---
         {
-            s32 treeX = -6172;
-            s32 treeY = 1168;
-            s32 treeZ = -430;
+            s32 treeX = -4095;
+            s32 treeY = 947;
+            s32 treeZ = 1536;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2757,9 +2757,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5852 ---
         {
-            s32 treeX = -5792;
-            s32 treeY = 1181;
-            s32 treeZ = -4654;
+            s32 treeX = -6172;
+            s32 treeY = 1168;
+            s32 treeZ = -430;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2775,9 +2775,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5853 ---
         {
-            s32 treeX = -6804;
-            s32 treeY = 1171;
-            s32 treeZ = -4866;
+            s32 treeX = -5792;
+            s32 treeY = 1181;
+            s32 treeZ = -4654;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2793,9 +2793,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5854 ---
         {
-            s32 treeX = -6130;
-            s32 treeY = 955;
-            s32 treeZ = -6507;
+            s32 treeX = -6804;
+            s32 treeY = 1171;
+            s32 treeZ = -4866;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2811,27 +2811,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5855 ---
         {
-            s32 treeX = 6799;
-            s32 treeY = 2154;
-            s32 treeZ = -5587;
-
-            s32 dx = mx - treeX;
-            s32 dy = my - treeY;
-            s32 dz = mz - treeZ;
-
-            if (dx > -250 && dx < 250 &&
-                dy > -300 && dy < 300 &&
-                dz > -250 && dz < 250) {
-                if (!SM64AP_CheckedLoc(5855)) {
-                    SM64AP_SendItem(5855);
-                }
-            }
-        }
-        // --- Tree 5855 ---
-        {
-            s32 treeX = 6033;
-            s32 treeY = 2285;
-            s32 treeZ = -7660;
+            s32 treeX = -6130;
+            s32 treeY = 955;
+            s32 treeZ = -6507;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
@@ -2847,6 +2829,42 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5856 ---
         {
+            s32 treeX = 6799;
+            s32 treeY = 2154;
+            s32 treeZ = -5587;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5856)) {
+                    SM64AP_SendItem(5856);
+                }
+            }
+        }
+        // --- Tree 5857 ---
+        {
+            s32 treeX = 6033;
+            s32 treeY = 2285;
+            s32 treeZ = -7660;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5857)) {
+                    SM64AP_SendItem(5857);
+                }
+            }
+        }
+        // --- Tree 5858 ---
+        {
             s32 treeX = 4096;
             s32 treeY = 3253;
             s32 treeZ = 1638;
@@ -2858,8 +2876,8 @@ if (isClimbingPole && !sWasClimbingPole) {
             if (dx > -250 && dx < 250 &&
                 dy > -300 && dy < 300 &&
                 dz > -250 && dz < 250) {
-                if (!SM64AP_CheckedLoc(5856)) {
-                    SM64AP_SendItem(5856);
+                if (!SM64AP_CheckedLoc(5858)) {
+                    SM64AP_SendItem(5858);
                 }
             }
         }
