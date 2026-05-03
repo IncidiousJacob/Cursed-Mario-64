@@ -2572,7 +2572,7 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
     }
 
-    // --- Bob omb Battlefieldd TREES ---
+    // --- Bob-omb Battlefield TREES ---
     if (gCurrLevelNum == LEVEL_BOB) {
         
         // --- Tree 5842 ---
