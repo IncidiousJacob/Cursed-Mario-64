@@ -2257,27 +2257,50 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                 }
             }
 
-            // --- Tree 5825 ---
-            {
-                s32 treeX = 6408;
-                s32 treeY = 937;
-                s32 treeZ = -5314;
+        // --- Tree 5825 (CASTLE GROUNDS) ---
+        {
+            s32 treeX = 6408;
+            s32 treeY = 937;
+            s32 treeZ = -5314;
 
-                s32 dx = mx - treeX;
-                s32 dy = my - treeY;
-                s32 dz = mz - treeZ;
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
 
-                if (dx > -250 && dx < 250 &&
-                    dy > -300 && dy < 300 &&
-                    dz > -250 && dz < 250) {
-                    if (!SM64AP_CheckedLoc(5825)) {
-                        SM64AP_SendItem(5825);
-                    }
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5825)) {
+                    SM64AP_SendItem(5825);
                 }
             }
         }
-    }
 
+       // --- COURTYARD TREES ---
+if (gCurrLevelNum == LEVEL_CASTLE_COURTYARD) {
+
+    // --- Tree 5826 ---
+    {
+        s32 treeX = -1868;
+        s32 treeY = -120;
+        s32 treeZ = -45;
+
+        s32 dx = mx - treeX;
+        s32 dy = my - treeY;
+        s32 dz = mz - treeZ;
+
+        if (dx > -250 && dx < 250 &&
+            dy > -300 && dy < 300 &&
+            dz > -250 && dz < 250) {
+
+            if (!SM64AP_CheckedLoc(5826)) {
+                SM64AP_SendItem(5826);
+            }
+        }
+    } // closes Tree 5826 block
+
+}
     sWasClimbingPole = isClimbingPole;
 
     if (sShowPoleDebug) {
