@@ -2881,6 +2881,25 @@ if (isClimbingPole && !sWasClimbingPole) {
                 }
             }
         }
+        // --- Pole 5859 ---
+        {
+            s32 treeX = 3304;
+            s32 treeYMin = 4293;
+            s32 treeYMax = 3900;
+            s32 treeZ = -4603;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5859)) {
+                    SM64AP_SendItem(5859);
+                }
+            }
+        }
     }
 }
 
