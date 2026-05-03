@@ -2649,9 +2649,9 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Tree 5846 ---
         {
-            s32 treeX = -4095;
-            s32 treeY = 892;
-            s32 treeZ = 1536;
+            s32 treeX = 5444;
+            s32 treeY = 976;
+            s32 treeZ = 6016;
 
             s32 dx = mx - treeX;
             s32 dy = my - treeY;
