@@ -2884,8 +2884,8 @@ if (isClimbingPole && !sWasClimbingPole) {
         // --- Pole 5859 ---
         {
             s32 treeX = 3304;
-            s32 treeYMin = 4293;
-            s32 treeYMax = 3900;
+            s32 treeYMin = 4283;
+            s32 treeYMax = 4965;
             s32 treeZ = -4603;
 
             s32 dx = mx - treeX;
