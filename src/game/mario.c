@@ -2066,6 +2066,215 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                     }
                 }
             }
+
+            // --- Tree 5815 ---
+            {
+                s32 treeX = 767;
+                s32 treeY = 630;
+                s32 treeZ = 2598;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5815)) {
+                        SM64AP_SendItem(5815);
+                    }
+                }
+            }
+
+            // --- Tree 5816 ---
+            {
+                s32 treeX = 1132;
+                s32 treeY = 502;
+                s32 treeZ = 1132;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5816)) {
+                        SM64AP_SendItem(5816);
+                    }
+                }
+            }
+
+            // --- Tree 5817 ---
+            {
+                s32 treeX = 1919;
+                s32 treeY = 330;
+                s32 treeZ = 1157;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5817)) {
+                        SM64AP_SendItem(5817);
+                    }
+                }
+            }
+
+            // --- Tree 5818 ---
+            {
+                s32 treeX = 3153;
+                s32 treeY = 247;
+                s32 treeZ = 469;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5818)) {
+                        SM64AP_SendItem(5818);
+                    }
+                }
+            }
+
+            // --- Tree 5819 ---
+            {
+                s32 treeX = 6178;
+                s32 treeY = 293;
+                s32 treeZ = 167;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5819)) {
+                        SM64AP_SendItem(5819);
+                    }
+                }
+            }
+
+            // --- Tree 5820 ---
+            {
+                s32 treeX = 5774;
+                s32 treeY = 473;
+                s32 treeZ = -1114;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5820)) {
+                        SM64AP_SendItem(5820);
+                    }
+                }
+            }
+
+            // --- Tree 5821 ---
+            {
+                s32 treeX = 6399;
+                s32 treeY = 547;
+                s32 treeZ = -1680;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5821)) {
+                        SM64AP_SendItem(5821);
+                    }
+                }
+            }
+
+            // --- Tree 5822 ---
+            {
+                s32 treeX = 5954;
+                s32 treeY = 566;
+                s32 treeZ = -2846;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5822)) {
+                        SM64AP_SendItem(5822);
+                    }
+                }
+            }
+
+            // --- Tree 5823 ---
+            {
+                s32 treeX = 5457;
+                s32 treeY = 584;
+                s32 treeZ = -3259;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5823)) {
+                        SM64AP_SendItem(5823);
+                    }
+                }
+            }
+
+            // --- Tree 5824 ---
+            {
+                s32 treeX = 5868;
+                s32 treeY = 725;
+                s32 treeZ = -4453;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5824)) {
+                        SM64AP_SendItem(5824);
+                    }
+                }
+            }
+
+            // --- Tree 5825 ---
+            {
+                s32 treeX = 6408;
+                s32 treeY = 937;
+                s32 treeZ = -5314;
+
+                s32 dx = mx - treeX;
+                s32 dy = my - treeY;
+                s32 dz = mz - treeZ;
+
+                if (dx > -250 && dx < 250 &&
+                    dy > -300 && dy < 300 &&
+                    dz > -250 && dz < 250) {
+                    if (!SM64AP_CheckedLoc(5825)) {
+                        SM64AP_SendItem(5825);
+                    }
+                }
+            }
         }
     }
 
