@@ -2961,6 +2961,7 @@ if (isClimbingPole && !sWasClimbingPole) {
                 }
             }
         }
+    }
 
     // --- Bob-omb Battlefield TREES ---
     if (gCurrLevelNum == LEVEL_CCM) {
