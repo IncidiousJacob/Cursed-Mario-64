@@ -2571,6 +2571,29 @@ if (isClimbingPole && !sWasClimbingPole) {
             }
         }
     }
+
+    // --- Bob omb Battlefieldd TREES ---
+    if (gCurrLevelNum == LEVEL_BOB) {
+        
+        // --- Tree 5842 ---
+        {
+            s32 treeX = -4268;
+            s32 treeY = 195;
+            s32 treeZ = 4768;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5842)) {
+                    SM64AP_SendItem(5842);
+                }
+            }
+        }
+    }
 }
 
 sWasClimbingPole = isClimbingPole;
