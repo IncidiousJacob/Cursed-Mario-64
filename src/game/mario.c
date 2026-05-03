@@ -2961,6 +2961,244 @@ if (isClimbingPole && !sWasClimbingPole) {
                 }
             }
         }
+
+    // --- Bob-omb Battlefield TREES ---
+    if (gCurrLevelNum == LEVEL_CCM) {
+        
+        // --- Tree 5863 ---
+        {
+            s32 treeX = -1768;
+            s32 treeY = 2709;
+            s32 treeZ = -1793;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5863)) {
+                    SM64AP_SendItem(5863);
+                }
+            }
+        }
+        // --- Tree 5864 ---
+        {
+            s32 treeX = -488;
+            s32 treeY = 2647;
+            s32 treeZ = -2305;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5864)) {
+                    SM64AP_SendItem(5864);
+                }
+            }
+        }
+        // --- Tree 5865 ---
+        {
+            s32 treeX = 2237;
+            s32 treeY = 2702;
+            s32 treeZ = -1630;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5865)) {
+                    SM64AP_SendItem(5865);
+                }
+            }
+        }
+        // --- Tree 5866 ---
+        {
+            s32 treeX = 2885;
+            s32 treeY = 2645;
+            s32 treeZ = -1638;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5866)) {
+                    SM64AP_SendItem(5866);
+                }
+            }
+        }
+        // --- Tree 5867 ---
+        {
+            s32 treeX = -3443;
+            s32 treeY = 850;
+            s32 treeZ = -2713;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5867)) {
+                    SM64AP_SendItem(5867);
+                }
+            }
+        }
+        // --- Tree 5868 ---
+        {
+            s32 treeX = -5892;
+            s32 treeY = -1591;
+            s32 treeZ = 811;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5868)) {
+                    SM64AP_SendItem(5868);
+                }
+            }
+        }
+        // --- Tree 5869 ---
+        {
+            s32 treeX = -5201;
+            s32 treeY = -1585;
+            s32 treeZ = 2994;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5869)) {
+                    SM64AP_SendItem(5869);
+                }
+            }
+        }
+        // --- Tree 5870 ---
+        {
+            s32 treeX = -5508;
+            s32 treeY = -1619;
+            s32 treeZ = 4148;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5870)) {
+                    SM64AP_SendItem(5870);
+                }
+            }
+        }
+        // --- Tree 5871 ---
+        {
+            s32 treeX = -4576;
+            s32 treeY = -1501;
+            s32 treeZ = 4814;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5871)) {
+                    SM64AP_SendItem(5871);
+                }
+            }
+        }
+        // --- Tree 5872 ---
+        {
+            s32 treeX = 1248;
+            s32 treeY = -4417;
+            s32 treeZ = 5474;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5872)) {
+                    SM64AP_SendItem(5872);
+                }
+            }
+        }
+        // --- Tree 5873 ---
+        {
+            s32 treeX = 1989;
+            s32 treeY = -4445;
+            s32 treeZ = 4949;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5873)) {
+                    SM64AP_SendItem(5873);
+                }
+            }
+        }
+        // --- Tree 5874 ---
+        {
+            s32 treeX = -1146;
+            s32 treeY = -3439;
+            s32 treeZ = 5919;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5874)) {
+                    SM64AP_SendItem(5874);
+                }
+            }
+        }
+        // --- Tree 5875 ---
+        {
+            s32 treeX = -3748;
+            s32 treeY = -4510;
+            s32 treeZ = 4464;
+
+            s32 dx = mx - treeX;
+            s32 dy = my - treeY;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                dy > -300 && dy < 300 &&
+                dz > -250 && dz < 250) {
+                if (!SM64AP_CheckedLoc(5875)) {
+                    SM64AP_SendItem(5875);
+                }
+            }
+        }
     }
 }
 
