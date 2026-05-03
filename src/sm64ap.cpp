@@ -414,11 +414,18 @@ void SM64AP_Scuttlesanity(struct Object *o) {
         SM64AP_SendItem(loc_id);
     }
 }
-   void SM64AP_RecvItem(int64_t idx, bool notify) {
+  void SM64AP_RecvItem(int64_t idx, bool notify) {
+    if (idx == SM64AP_ID_DEATH_TRAP) {
+        if (gMarioState != NULL) {
+            gMarioState->health = 0;
+        }
+        return;
+    }
+
     if (idx >= SM64AP_ID_1_HEALTH_PIP && idx < SM64AP_ID_RR_TRAP) {
-    sm64_ap_health_items_received++;
-    SM64AP_ApplyProgressiveHealth();
-}
+        sm64_ap_health_items_received++;
+        SM64AP_ApplyProgressiveHealth();
+    }
 
     if (idx == SM64AP_ID_PUNCH) {
         sm64_have_abilities[11] = true;
