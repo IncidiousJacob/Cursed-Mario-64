@@ -2313,8 +2313,8 @@ if (isClimbingPole && !sWasClimbingPole) {
             if (dx > -250 && dx < 250 &&
                 dy > -300 && dy < 300 &&
                 dz > -250 && dz < 250) {
-                if (!SM64AP_CheckedLoc(5826)) {
-                    SM64AP_SendItem(5826);
+                if (!SM64AP_CheckedLoc(5827)) {
+                    SM64AP_SendItem(5827);
                 }
             }
         }
