@@ -1953,6 +1953,12 @@ if (isClimbingPole && !sWasClimbingPole) {
             my > -420 && my < 180 &&
             mz > -295 && mz < 205)
             if (!SM64AP_CheckedLoc(5826)) SM64AP_SendItem(5826);
+
+        // --- Tree 5827 ---
+        if (mx > -2537 && mx < -2037 &&
+            my > -159 && my < 100 &&
+            mz > -759 && mz < -159)
+            if (!SM64AP_CheckedLoc(5827)) SM64AP_SendItem(5827);
     }
 }
 
