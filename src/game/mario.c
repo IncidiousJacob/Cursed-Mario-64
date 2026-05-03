@@ -3364,10 +3364,10 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
         // --- Pole 5884 ---
         {
-            s32 treeX = 662;
-            s32 treeYMin = 2140;
-            s32 treeYMax = 3130;
-            s32 treeZ = 708;
+            s32 treeX = 783;
+            s32 treeYMin = 1110;
+            s32 treeYMax = 2060;
+            s32 treeZ = -47;
 
             s32 dx = mx - treeX;
             s32 dz = mz - treeZ;
@@ -3378,6 +3378,68 @@ if (isClimbingPole && !sWasClimbingPole) {
 
                 if (!SM64AP_CheckedLoc(5884)) {
                     SM64AP_SendItem(5884);
+                }
+            }
+        }
+        // --- Pole 5885 ---
+        {
+            s32 treeX = 662;
+            s32 treeYMin = 2140;
+            s32 treeYMax = 3130;
+            s32 treeZ = -47;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5885)) {
+                    SM64AP_SendItem(5885);
+                }
+            }
+        }
+    }
+
+    // --- Bob-omb Battlefield TREES ---
+    if (gCurrLevelNum == LEVEL_HMC) {
+
+       // --- Pole 5886 ---
+        {
+            s32 treeX = 889;
+            s32 treeYMin = 1015;
+            s32 treeYMax = 2820;
+            s32 treeZ = 3277;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5886)) {
+                    SM64AP_SendItem(5886);
+                }
+            }
+        }
+        // --- Pole 5886 ---
+        {
+            s32 treeX = 799;
+            s32 treeYMin = 1015;
+            s32 treeYMax = 2775;
+            s32 treeZ = 4434;
+
+            s32 dx = mx - treeX;
+            s32 dz = mz - treeZ;
+
+            if (dx > -250 && dx < 250 &&
+                my >= treeYMin && my <= treeYMax &&
+                dz > -250 && dz < 250) {
+
+                if (!SM64AP_CheckedLoc(5887)) {
+                    SM64AP_SendItem(5887);
                 }
             }
         }
