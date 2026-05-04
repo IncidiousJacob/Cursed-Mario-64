@@ -3603,6 +3603,190 @@ if (isClimbingPole && !sWasClimbingPole) {
             }
         }
     }
+    // --- Bob-omb Battlefield TREES ---
+    if (gCurrLevelNum == LEVEL_DDD) {
+
+       // --- Moving Pole 5896 ---
+        {
+            s32 treeXMin = 5595;
+            s32 treeXMax = 5615;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = 1250;
+            s32 treeZMax = 3400;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5896)) {
+                    SM64AP_SendItem(5896);
+                }
+            }
+        }
+        // --- Moving Pole 5897 ---
+        {
+            s32 treeXMin = 2120;
+            s32 treeXMax = 3584;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = 3570;
+            s32 treeZMax = 3590;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5897)) {
+                    SM64AP_SendItem(5897);
+                }
+            }
+        }
+        // --- Moving Pole 5898 ---
+        {
+            s32 treeXMin = 3990;
+            s32 treeXMax = 5110;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = 1265;
+            s32 treeZMax = 1285;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5898)) {
+                    SM64AP_SendItem(5898);
+                }
+            }
+        }
+        // --- Moving Pole 5899 ---
+        {
+            s32 treeXMin = 3000;
+            s32 treeXMax = 4000;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = 1075;
+            s32 treeZMax = 1075;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5899)) {
+                    SM64AP_SendItem(5899);
+                }
+            }
+        }
+        // --- Moving Pole 5900 ---
+        {
+            s32 treeXMin = 1800;
+            s32 treeXMax = 2900;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = 1275;
+            s32 treeZMax = 1275;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5900)) {
+                    SM64AP_SendItem(5900);
+                }
+            }
+        }
+        // --- Moving Pole 5901 ---
+        {
+            s32 treeXMin = 1830;
+            s32 treeXMax = 1830;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = -1550;
+            s32 treeZMax = 520;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5901)) {
+                    SM64AP_SendItem(5901);
+                }
+            }
+        }
+        // --- Moving Pole 5902 ---
+        {
+            s32 treeXMin = 5760;
+            s32 treeXMax = 5760;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = -2000;
+            s32 treeZMax = 260;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5902)) {
+                    SM64AP_SendItem(5902);
+                }
+            }
+        }
+        // --- Moving Pole 5902 ---
+        {
+            s32 treeXMin = 3300;
+            s32 treeXMax = 5610;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = -1945;
+            s32 treeZMax = -1945;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5902)) {
+                    SM64AP_SendItem(5902);
+                }
+            }
+        }
+        // --- Moving Pole 5903 ---
+        {
+            s32 treeXMin = 3500;
+            s32 treeXMax = 4850;
+
+            s32 treeYMin = 890;
+            s32 treeYMax = 1400;
+
+            s32 treeZMin = -2250;
+            s32 treeZMax = -2250;
+
+            if (mx >= treeXMin && mx <= treeXMax &&
+                my >= treeYMin && my <= treeYMax &&
+                mz >= treeZMin && mz <= treeZMax) {
+
+                if (!SM64AP_CheckedLoc(5903)) {
+                    SM64AP_SendItem(5903);
+                }
+            }
+        }
+    }
 }
 
 // Detect jump OFF pole
