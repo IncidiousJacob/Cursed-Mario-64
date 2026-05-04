@@ -742,6 +742,37 @@ void reset_mario_pitch(struct MarioState *m) {
 }
 
 u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
+
+    // --- DEBUG (optional, keep if you're still using it) ---
+    gCoinDebugX = (s32)o->oPosX;
+    gCoinDebugY = (s32)o->oPosY;
+    gCoinDebugZ = (s32)o->oPosZ;
+
+    // --- CASTLE MAIN FLOOR COIN CHECK ---
+    if (gCurrLevelNum == LEVEL_CASTLE) {
+
+        // --- Coin 6000 ---
+        {
+            s32 coinX = -724;   // REPLACE
+            s32 coinY = 388;    // REPLACE
+            s32 coinZ = -324;   // REPLACE
+
+            s32 dx = o->oPosX - coinX;
+            s32 dy = o->oPosY - coinY;
+            s32 dz = o->oPosZ - coinZ;
+
+            if (dx > -50 && dx < 50 &&
+                dy > -150 && dy < 150 &&
+                dz > -50 && dz < 50) {
+
+                if (!SM64AP_CheckedLoc(6000)) {
+                    SM64AP_SendItem(6000);
+                }
+            }
+        }
+    }
+
+    // --- VANILLA COIN LOGIC (DO NOT TOUCH) ---
     m->numCoins += o->oDamageOrCoinValue;
     m->healCounter += 4 * o->oDamageOrCoinValue;
 
@@ -751,7 +782,7 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
         && m->numCoins >= 100) {
         bhv_spawn_star_no_level_exit(6);
     }
-   
+
     if (o->oDamageOrCoinValue >= 2) {
         queue_rumble_data(5, 80);
     }
