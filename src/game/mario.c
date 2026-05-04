@@ -3505,7 +3505,7 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
     }
     // --- Bob-omb Battlefield TREES ---
-    if (gCurrLevelNum == LEVEL_BOWSER_2) {
+    if (gCurrLevelNum == LEVEL_BITFS) {
 
        // --- Pole 5891 ---
         {
