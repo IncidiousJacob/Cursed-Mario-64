@@ -1758,29 +1758,7 @@ void func_sh_8025574C(void) {
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
 
-    // --- SM64AP DEBUG + TREE CHECK ---
-static u8 sWasClimbingPole = FALSE;
-static s32 sPoleDebugA = 0;
-static s32 sPoleDebugB = 0;
-static s32 sPoleDebugC = 0;
-static u8 sShowPoleDebug = FALSE;
-
-u8 isClimbingPole =
-    gMarioState->action == ACT_GRAB_POLE_SLOW ||
-    gMarioState->action == ACT_GRAB_POLE_FAST ||
-    gMarioState->action == ACT_CLIMBING_POLE ||
-    gMarioState->action == ACT_HOLDING_POLE;
-
-if (isClimbingPole && !sWasClimbingPole) {
-    sPoleDebugA = (s32) gMarioState->pos[0];
-    sPoleDebugB = (s32) gMarioState->pos[1];
-    sPoleDebugC = (s32) gMarioState->pos[2];
-    sShowPoleDebug = TRUE;
-
-    s32 mx = (s32) gMarioState->pos[0];
-    s32 my = (s32) gMarioState->pos[1];
-    s32 mz = (s32) gMarioState->pos[2];
-
+   
     // --- CASTLE GROUNDS TREES ---
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
 
@@ -4351,31 +4329,6 @@ if (isClimbingPole && !sWasClimbingPole) {
         }
     }
 }
-
-// Detect jump OFF pole
-if (!isClimbingPole && sWasClimbingPole) {
-    sPoleDebugA = (s32) gMarioState->pos[0];
-    sPoleDebugB = (s32) gMarioState->pos[1];
-    sPoleDebugC = (s32) gMarioState->pos[2];
-    sShowPoleDebug = TRUE;
-}
-
-// Update state AFTER checks
-sWasClimbingPole = isClimbingPole;
-
-if (sShowPoleDebug) {
-    char buf[64];
-
-    snprintf(buf, sizeof(buf), "A %d", sPoleDebugA);
-    print_text(20, 40, buf);
-
-    snprintf(buf, sizeof(buf), "B %d", sPoleDebugB);
-    print_text(20, 60, buf);
-
-    snprintf(buf, sizeof(buf), "C %d", sPoleDebugC);
-    print_text(20, 80, buf);
-}
-// --- END SM64AP DEBUG + TREE CHECK ---
 
     /**
     * Cheat stuff
