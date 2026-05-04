@@ -52,6 +52,15 @@ bool sm64_have_bits_bowser = false;
 bool sm64_have_bitdw_bombs = false;
 bool sm64_have_bitfs_bombs = false;
 bool sm64_have_bits_bombs = false;
+bool gAP_ColorBlue = false;
+bool gAP_ColorYellow = false;
+bool gAP_ColorGreen = false;
+bool gAP_ColorRed = false;
+bool gAP_ColorPurple = false;
+bool gAP_ColorBlack = false;
+bool gAP_ColorWhite = false;
+bool gAP_ColorPink = false;
+bool gAP_ColorOrange = false;
 int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
@@ -76,8 +85,10 @@ f32 gRRReturnPos[3] = { 0, 0, 0 };
 f32 gRRReturnAngle = 0;
 s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
+static int gSM64APPaletteSeed = 1;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
+
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -129,6 +140,68 @@ int sm64_ap_health_items_received = 0;
 
 #define SM64AP_MIN_MAX_HEALTH 0x0300
 #define SM64AP_FULL_MAX_HEALTH 0x0880
+
+static SM64AP_RGB8 sm64ap_make_color(uint32_t seed, uint32_t salt, int minv, int maxv) {
+    SM64AP_RGB8 c;
+
+    c.r = sm64ap_color_channel(seed, salt ^ 0xA1B2C3D4u, minv, maxv);
+    c.g = sm64ap_color_channel(seed, salt ^ 0xB2C3D4E5u, minv, maxv);
+    c.b = sm64ap_color_channel(seed, salt ^ 0xC3D4E5F6u, minv, maxv);
+
+    return c;
+}
+
+static bool SM64AP_ColorUnlocked(u8 r, u8 g, u8 b) {
+    if (r < 60 && g < 60 && b < 60) {
+        return gAP_ColorBlack;
+    }
+
+    if (r > 190 && g > 190 && b > 190) {
+        return gAP_ColorWhite;
+    }
+
+    if (r > 120 && g > 120 && b < 100) {
+        return gAP_ColorYellow;
+    }
+
+    if (r > 100 && b > 100 && g < 120) {
+        return gAP_ColorPurple;
+    }
+
+    if (r > 180 && g > 80 && g < 170 && b < 100) {
+        return gAP_ColorOrange;
+    }
+
+    if (r > 180 && g > 80 && b > 120) {
+        return gAP_ColorPink;
+    }
+
+    if (r > g + 40 && r > b + 40) {
+        return gAP_ColorRed;
+    }
+
+    if (g > r + 40 && g > b + 40) {
+        return gAP_ColorGreen;
+    }
+
+    if (b > r + 40 && b > g + 40) {
+        return gAP_ColorBlue;
+    }
+
+    return gAP_ColorWhite;
+}
+
+void SM64AP_ApplyColorUnlockFilter(u8 *r, u8 *g, u8 *b) {
+    if (SM64AP_ColorUnlocked(*r, *g, *b)) {
+        return;
+    }
+
+    u8 gray = (u8)((*r * 30 + *g * 59 + *b * 11) / 100);
+
+    *r = gray;
+    *g = gray;
+    *b = gray;
+}
 
 static s16 SM64AP_GetMaxHealth(void) {
     s16 maxHealth = SM64AP_MIN_MAX_HEALTH + (sm64_ap_health_items_received * 0x0100);
@@ -227,7 +300,9 @@ static SM64AP_RGB8 sm64ap_make_color(uint32_t seed, uint32_t salt, int minv, int
 
 // UPDATED PALETTE SEED FUNCTION
 void SM64AP_SetMarioPaletteSeed(int seed) {
-    uint32_t s = (uint32_t)(seed ? seed : 1);
+    gSM64APPaletteSeed = seed ? seed : 1;
+
+    uint32_t s = (uint32_t)gSM64APPaletteSeed;
 
     gMarioHatShirtColor  = sm64ap_make_color(s, 0x1001u, 80, 255);
     gMarioSkinColor      = sm64ap_make_color(s, 0x1002u, 80, 255);
@@ -289,6 +364,10 @@ void SM64AP_SetMarioPaletteSeed(int seed) {
     SM64AP_ApplyPeachPalette();
     SM64AP_ApplyFlyGuyPalette();
     SM64AP_ApplySignPalette();
+}
+
+static void SM64AP_RefreshPalettes(void) {
+    SM64AP_SetMarioPaletteSeed(gSM64APPaletteSeed);
 }
 
 
@@ -415,6 +494,60 @@ void SM64AP_Scuttlesanity(struct Object *o) {
     }
 }
   void SM64AP_RecvItem(int64_t idx, bool notify) {
+    if (idx == SM64AP_ID_COLOR_BLUE) {
+        gAP_ColorBlue = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_YELLOW) {
+        gAP_ColorYellow = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_GREEN) {
+        gAP_ColorGreen = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_RED) {
+        gAP_ColorRed = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_PURPLE) {
+        gAP_ColorPurple = true;
+        SM64AP_SetMarioPaletteSeed(1);
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_BLACK) {
+        gAP_ColorBlack = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_WHITE) {
+        gAP_ColorWhite = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_PINK) {
+        gAP_ColorPink = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
+    if (idx == SM64AP_ID_COLOR_ORANGE) {
+        gAP_ColorOrange = true;
+        SM64AP_RefreshPalettes();
+        return;
+    }
+
     if (idx == SM64AP_ID_DEATH_TRAP) {
         if (gMarioState != NULL) {
             gMarioState->health = 0;
