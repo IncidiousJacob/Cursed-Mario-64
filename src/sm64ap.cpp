@@ -286,8 +286,6 @@ static SM64AP_RGB8 sm64ap_make_color(uint32_t seed, uint32_t salt, int minv, int
     c.g = sm64ap_color_channel(seed, salt ^ 0xB2C3D4E5u, minv, maxv);
     c.b = sm64ap_color_channel(seed, salt ^ 0xC3D4E5F6u, minv, maxv);
 
-    SM64AP_ApplyColorUnlockFilter(&c.r, &c.g, &c.b);
-
     return c;
 }
 
