@@ -30,21 +30,18 @@ extern s32 gCoinDebugZ;
 
 
 void render_coin_debug(void) {
-    if (gCoinDebugTimer > 0) {
-        char buf[64];
+    char buf[64];
 
-        snprintf(buf, sizeof(buf), "Coin a: %d", gCoinDebugX);
-        print_text(20, 200, buf);
+    snprintf(buf, sizeof(buf), "a: %d", gCoinDebugX);
+    print_text(20, 40, buf);
 
-        snprintf(buf, sizeof(buf), "b: %d", gCoinDebugY);
-        print_text(20, 180, buf);
+    snprintf(buf, sizeof(buf), "b: %d", gCoinDebugY);
+    print_text(20, 20, buf);
 
-        snprintf(buf, sizeof(buf), "c: %d", gCoinDebugZ);
-        print_text(20, 160, buf);
-
-        gCoinDebugTimer--;
-    }
+    snprintf(buf, sizeof(buf), "c: %d", gCoinDebugZ);
+    print_text(20, 0, buf);
 }
+
 
 struct PowerMeterHUD {
     s8 animation;
