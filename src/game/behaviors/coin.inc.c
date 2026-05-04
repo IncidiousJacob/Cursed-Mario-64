@@ -1,3 +1,5 @@
+#include "sm64ap.h"
+
 // coin.c.inc
 
 struct ObjectHitbox sYellowCoinHitbox = {
@@ -58,6 +60,17 @@ void bhv_coin_init(void) {
 }
 
 void bhv_coin_loop(void) {
+
+    // --- AP LOCKED COIN HOOK ---
+    if (!SM64AP_CanCollectLockedCoin(o)) {
+        cur_obj_hide();
+        cur_obj_become_intangible();
+        return;
+    }
+
+    cur_obj_unhide();
+    cur_obj_become_tangible();
+
     struct Surface *sp1C;
     s16 sp1A;
     cur_obj_update_floor_and_walls();
