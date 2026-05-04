@@ -13,6 +13,7 @@ extern "C" {
 #else
 #define AP_EXTERN_C extern
 #endif
+struct Object;
 
 typedef struct {
     u8 r, g, b;
