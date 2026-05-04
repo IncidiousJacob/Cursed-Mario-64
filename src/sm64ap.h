@@ -202,6 +202,9 @@ AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 AP_EXTERN_C void SM64AP_Boosanity(struct Object *);
 AP_EXTERN_C void SM64AP_Scuttlesanity(struct Object *o);
 AP_EXTERN_C void SM64AP_ApplyProgressiveHealth(void);
+AP_EXTERN_C bool SM64AP_CanCollectLockedCoin(struct Object *o);
+AP_EXTERN_C int SM64AP_GetLockedCoinLoc(struct Object *o);
+AP_EXTERN_C void SM64AP_CheckLockedCoin(struct Object *o);
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
