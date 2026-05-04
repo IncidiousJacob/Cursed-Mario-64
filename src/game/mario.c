@@ -3629,7 +3629,7 @@ if (isClimbingPole && !sWasClimbingPole) {
         // --- Moving Pole 5897 ---
         {
             s32 treeXMin = 2120;
-            s32 treeXMax = 3584;
+            s32 treeXMax = 5120;
 
             s32 treeYMin = 890;
             s32 treeYMax = 1400;
