@@ -4291,42 +4291,42 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     }
     if (gCurrLevelNum == LEVEL_BITS) {
         
-        // --- Pole 5931 ---
-        {
-            s32 treeX = -6460;
-            s32 treeYMin = 2035;
-            s32 treeYMax = 4065;
-            s32 treeZ = -904;
+    // --- Pole 5931 ---
+    {
+        s32 treeX = -6460;
+        s32 treeYMin = 2035;
+        s32 treeYMax = 4065;
+        s32 treeZ = -904;
 
-            s32 dx = mx - treeX;
-            s32 dz = mz - treeZ;
+        s32 dx = mx - treeX;
+        s32 dz = mz - treeZ;
 
-            if (dx > -250 && dx < 250 &&
-                my >= treeYMin && my <= treeYMax &&
-                dz > -250 && dz < 250) {
+        if (dx > -250 && dx < 250 &&
+            my >= treeYMin && my <= treeYMax &&
+            dz > -250 && dz < 250) {
 
-                if (!SM64AP_CheckedLoc(5930)) {
-                    SM64AP_SendItem(5930);
-                }
+            if (!SM64AP_CheckedLoc(5931)) {
+                SM64AP_SendItem(5931);
             }
         }
-        // --- Pole 5932 ---
-        {
-            s32 treeX = -3326;
-            s32 treeYMin = 3220;
-            s32 treeYMax = 3950;
-            s32 treeZ = -905;
+    }
 
-            s32 dx = mx - treeX;
-            s32 dz = mz - treeZ;
+    // --- Pole 5932 ---
+    {
+        s32 treeX = -3326;
+        s32 treeYMin = 3220;
+        s32 treeYMax = 3950;
+        s32 treeZ = -905;
 
-            if (dx > -250 && dx < 250 &&
-                my >= treeYMin && my <= treeYMax &&
-                dz > -250 && dz < 250) {
+        s32 dx = mx - treeX;
+        s32 dz = mz - treeZ;
 
-                if (!SM64AP_CheckedLoc(5930)) {
-                    SM64AP_SendItem(5930);
-                }
+        if (dx > -250 && dx < 250 &&
+            my >= treeYMin && my <= treeYMax &&
+            dz > -250 && dz < 250) {
+
+            if (!SM64AP_CheckedLoc(5932)) {
+                SM64AP_SendItem(5932);
             }
         }
     }
