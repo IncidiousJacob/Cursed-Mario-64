@@ -69,6 +69,15 @@ AP_EXTERN_C void SM64AP_ApplyFlyGuyPalette(void);
 AP_EXTERN_C SM64AP_RGB8 gSignPostColor;
 AP_EXTERN_C SM64AP_RGB8 gSignBoardColor;
 AP_EXTERN_C void SM64AP_ApplySignPalette(void);
+AP_EXTERN_C bool gAP_ColorBlue;
+AP_EXTERN_C bool gAP_ColorYellow;
+AP_EXTERN_C bool gAP_ColorGreen;
+AP_EXTERN_C bool gAP_ColorRed;
+AP_EXTERN_C bool gAP_ColorPurple;
+AP_EXTERN_C bool gAP_ColorBlack;
+AP_EXTERN_C bool gAP_ColorWhite;
+AP_EXTERN_C bool gAP_ColorPink;
+AP_EXTERN_C bool gAP_ColorOrange;
 
 #define SM64AP_ID_OFFSET 3626000
 #define SM64AP_SECOND_CHECK_OFFSET 1000
@@ -202,6 +211,7 @@ AP_EXTERN_C void SM64AP_CheckWFPiranhaPlant(struct Object *);
 AP_EXTERN_C void SM64AP_Boosanity(struct Object *);
 AP_EXTERN_C void SM64AP_Scuttlesanity(struct Object *o);
 AP_EXTERN_C void SM64AP_ApplyProgressiveHealth(void);
+AP_EXTERN_C void SM64AP_ApplyColorUnlockFilter(u8 *r, u8 *g, u8 *b);
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
