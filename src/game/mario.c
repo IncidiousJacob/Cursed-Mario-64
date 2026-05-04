@@ -4303,8 +4303,8 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                 my >= treeYMin && my <= treeYMax &&
                 dz > -250 && dz < 250) {
 
-                if (!SM64AP_CheckedLoc(5930)) {
-                    SM64AP_SendItem(5930);
+                if (!SM64AP_CheckedLoc(5931)) {
+                    SM64AP_SendItem(5931);
                 }
             }
         }
@@ -4322,13 +4322,12 @@ s32 execute_mario_action(UNUSED struct Object *o) {
                 my >= treeYMin && my <= treeYMax &&
                 dz > -250 && dz < 250) {
 
-                if (!SM64AP_CheckedLoc(5930)) {
-                    SM64AP_SendItem(5930);
+                if (!SM64AP_CheckedLoc(5932)) {
+                    SM64AP_SendItem(5932);
                 }
             }
         }
     }
-}
 
     /**
     * Cheat stuff
