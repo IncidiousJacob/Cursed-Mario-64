@@ -1757,6 +1757,9 @@ void func_sh_8025574C(void) {
  */
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
+    s32 mx = (s32) gMarioState->pos[0];
+    s32 my = (s32) gMarioState->pos[1];
+    s32 mz = (s32) gMarioState->pos[2];
 
    
     // --- CASTLE GROUNDS TREES ---
