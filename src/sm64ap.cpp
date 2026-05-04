@@ -141,15 +141,7 @@ int sm64_ap_health_items_received = 0;
 #define SM64AP_MIN_MAX_HEALTH 0x0300
 #define SM64AP_FULL_MAX_HEALTH 0x0880
 
-static SM64AP_RGB8 sm64ap_make_color(uint32_t seed, uint32_t salt, int minv, int maxv) {
-    SM64AP_RGB8 c;
 
-    c.r = sm64ap_color_channel(seed, salt ^ 0xA1B2C3D4u, minv, maxv);
-    c.g = sm64ap_color_channel(seed, salt ^ 0xB2C3D4E5u, minv, maxv);
-    c.b = sm64ap_color_channel(seed, salt ^ 0xC3D4E5F6u, minv, maxv);
-
-    return c;
-}
 
 static bool SM64AP_ColorUnlocked(u8 r, u8 g, u8 b) {
     if (r < 60 && g < 60 && b < 60) {
@@ -520,7 +512,7 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 
     if (idx == SM64AP_ID_COLOR_PURPLE) {
         gAP_ColorPurple = true;
-        SM64AP_SetMarioPaletteSeed(1);
+        SM64AP_RefreshPalettes();
         return;
     }
 
