@@ -1799,16 +1799,15 @@ s32 execute_mario_action(UNUSED struct Object *o) {
 
     u32 marioAction = gMarioState->action;
 
+    SM64AP_UpdateLevelCoinCount();
+
     if (marioAction == ACT_CLIMBING_TREE ||
         marioAction == ACT_GRAB_POLE_SLOW ||
         marioAction == ACT_GRAB_POLE_FAST ||
         marioAction == ACT_HOLDING_POLE) {
 
-    SM64AP_UpdateLevelCoinCount();
-   
-    // --- CASTLE GROUNDS TREES ---
-    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
-
+        // --- CASTLE GROUNDS TREES ---
+        if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
         // --- Tree 5800 ---
         {
             s32 treeX = -1900;
