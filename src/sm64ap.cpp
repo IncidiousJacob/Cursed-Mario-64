@@ -1002,6 +1002,10 @@ void SM64AP_ResetItems() {
     SM64AP_ResetCoinsanityFlags();
     starsCollected = 0;
 
+    for (int i = 0; i <= COURSE_MAX; i++) {
+        sAPLevelCoins[i] = 0;
+    }
+
     AP_SetServerDataRequest moat_request;
     moat_request.key = AP_GetPrivateServerDataPrefix() + "MoatDrained";
     moat_request.type = AP_DataType::Int;
