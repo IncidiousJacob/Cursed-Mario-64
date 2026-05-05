@@ -513,7 +513,7 @@ bool SM64AP_CanCollectLockedCoin(struct Object *o) {
         return true;
     }
 
-    return SM64AP_HaveItemFlagFromTable(sLockedCoins[coinIndex].itemId);
+    return SM64AP_HaveCoinsanityReturnItemFlag(sLockedCoins[coinIndex].itemId);
 }
 
 int SM64AP_GetLockedCoinLoc(struct Object *o) {
@@ -587,9 +587,9 @@ void SM64AP_HandleLevelCoinItem(s32 itemId) {
         SM64AP_ApplyProgressiveHealth();
     }
 
-    if (SM64AP_SetItemFlagFromTable(idx)) {
+    if (SM64AP_SetCoinsanityReturnItemFlag(idx)) {
         return;
-    }
+    }    
 
     if (idx == SM64AP_ID_PUNCH) {
         sm64_have_abilities[11] = true;
