@@ -4376,6 +4376,8 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     }
 }
 
+    }
+
     /**
     * Cheat stuff
     */
