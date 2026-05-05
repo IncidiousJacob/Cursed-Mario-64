@@ -27,6 +27,10 @@ s32 bhv_coin_sparkles_init(void) {
     return 0;
 }
 
+void bhv_yellow_coin_init(void) {
+    obj_set_hitbox(o, &sYellowCoinHitbox);
+}
+
 void bhv_yellow_coin_loop(void) {
     // --- AP LOCKED COIN HOOK ---
     if (!SM64AP_CanCollectLockedCoin(o)) {
