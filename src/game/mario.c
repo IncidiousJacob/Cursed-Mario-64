@@ -1767,6 +1767,7 @@ static void SM64AP_UpdateLevelSpecificCoins(void) {
         return;
     }
 
+    // First-time init
     if (sAPLastCoinCourse == -1) {
         sAPLastCoinCourse = course;
         gMarioState->numCoins = sAPLevelCoins[course];
@@ -1774,18 +1775,20 @@ static void SM64AP_UpdateLevelSpecificCoins(void) {
         return;
     }
 
+    // Course changed
     if (course != sAPLastCoinCourse) {
+        // Save previous course coins
         if (sAPLastCoinCourse >= COURSE_MIN && sAPLastCoinCourse <= COURSE_MAX) {
             sAPLevelCoins[sAPLastCoinCourse] = gMarioState->numCoins;
         }
 
+        // Load new course coins
         sAPLastCoinCourse = course;
         gMarioState->numCoins = sAPLevelCoins[course];
-        gHudDisplay.coins = gMarioState->numCoins;
-    } else {
-        sAPLevelCoins[course] = gMarioState->numCoins;
-        gHudDisplay.coins = gMarioState->numCoins;
     }
+
+    // Always keep HUD synced
+    gHudDisplay.coins = gMarioState->numCoins;
 }
 
 s32 execute_mario_action(UNUSED struct Object *o) {
