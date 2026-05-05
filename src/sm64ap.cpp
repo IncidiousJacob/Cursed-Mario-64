@@ -461,6 +461,8 @@ static SM64APLockedCoin sLockedCoins[] = {
     // level,        x,    y,    z,    range, locId, itemId
     { LEVEL_CASTLE, -724, 388, -324, 50,   6000,  6000 },
     { LEVEL_CASTLE, -618, 388, -324, 50,   6001,  6001 },
+    { LEVEL_CASTLE, -618, 388, -324, 50,   6002,  6002 },
+    { LEVEL_CASTLE, -618, 388, -324, 50,   6003,  6003 },
 
     // Add future locked coins here:
     // { LEVEL_BOB, 1234, 200, -900, 150, 6001, 6001 },
