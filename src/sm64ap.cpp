@@ -559,7 +559,7 @@ void SM64AP_UpdateLevelCoinCount(void) {
         return;
     }
 
-    if (course < COURSE_MIN || course > COURSE_MAX) {
+    if (course < SM64AP_COURSE_MIN || course > SM64AP_COURSE_MAX) {
         gMarioState->numCoins = 0;
         gHudDisplay.coins = 0;
         return;
@@ -1007,7 +1007,7 @@ void SM64AP_ResetItems() {
     SM64AP_ResetCoinsanityFlags();
     starsCollected = 0;
 
-    for (int i = 0; i <= COURSE_MAX; i++) {
+    for (int i = 0; i <= SM64AP_COURSE_MAX; i++) {
         sAPLevelCoins[i] = 0;
     }
 
