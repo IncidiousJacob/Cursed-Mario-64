@@ -79,6 +79,7 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
+static s16 sAPLevelCoins[COURSE_MAX + 1];
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -527,24 +528,40 @@ void SM64AP_HandleLevelCoinItem(s32 itemId) {
     s16 amount = 0;
 
     switch (coinType) {
-        case 0:
-            amount = 1;
-            break;
-        case 1:
-            amount = 2;
-            break;
-        case 2:
-            amount = 5;
-            break;
-        case 3:
-            amount = 10;
-            break;
-        case 4:
-            amount = 20;
-            break;
+        case 0: amount = 1; break;
+        case 1: amount = 2; break;
+        case 2: amount = 5; break;
+        case 3: amount = 10; break;
+        case 4: amount = 20; break;
     }
 
-    SM64AP_AddCoinsToCourse(course, amount);
+    sAPLevelCoins[course] += amount;
+
+    if (sAPLevelCoins[course] > 999) {
+        sAPLevelCoins[course] = 999;
+    }
+
+    if (gCurrCourseNum == course && gMarioState != NULL) {
+        gMarioState->numCoins = sAPLevelCoins[course];
+        gHudDisplay.coins = gMarioState->numCoins;
+    }
+}
+
+void SM64AP_UpdateLevelCoinCount(void) {
+    s16 course = gCurrCourseNum;
+
+    if (gMarioState == NULL) {
+        return;
+    }
+
+    if (course < COURSE_MIN || course > COURSE_MAX) {
+        gMarioState->numCoins = 0;
+        gHudDisplay.coins = 0;
+        return;
+    }
+
+    gMarioState->numCoins = sAPLevelCoins[course];
+    gHudDisplay.coins = gMarioState->numCoins;
 }
 
   void SM64AP_RecvItem(int64_t idx, bool notify) {
