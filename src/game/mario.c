@@ -1755,11 +1755,46 @@ void func_sh_8025574C(void) {
 /**
  * Main function for executing Mario's behavior.
  */
+
+// AP CHANGE: level-specific coin counts
+static s16 sAPLevelCoins[COURSE_MAX + 1];
+static s16 sAPLastCoinCourse = -1;
+
+static void SM64AP_UpdateLevelSpecificCoins(void) {
+    s16 course = gCurrCourseNum;
+
+    if (course < COURSE_MIN || course > COURSE_MAX) {
+        return;
+    }
+
+    if (sAPLastCoinCourse == -1) {
+        sAPLastCoinCourse = course;
+        gMarioState->numCoins = sAPLevelCoins[course];
+        gHudDisplay.coins = gMarioState->numCoins;
+        return;
+    }
+
+    if (course != sAPLastCoinCourse) {
+        if (sAPLastCoinCourse >= COURSE_MIN && sAPLastCoinCourse <= COURSE_MAX) {
+            sAPLevelCoins[sAPLastCoinCourse] = gMarioState->numCoins;
+        }
+
+        sAPLastCoinCourse = course;
+        gMarioState->numCoins = sAPLevelCoins[course];
+        gHudDisplay.coins = gMarioState->numCoins;
+    } else {
+        sAPLevelCoins[course] = gMarioState->numCoins;
+        gHudDisplay.coins = gMarioState->numCoins;
+    }
+}
+
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
     s32 mx = (s32) gMarioState->pos[0];
     s32 my = (s32) gMarioState->pos[1];
     s32 mz = (s32) gMarioState->pos[2];
+
+    SM64AP_UpdateLevelSpecificCoins();
    
     // --- CASTLE GROUNDS TREES ---
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
