@@ -1,5 +1,6 @@
 #include "sm64ap.h"
 #include "Archipelago.h"
+#include "sm64ap_coinsanity.h"
 
 extern "C" {
 #include "game/print.h"
