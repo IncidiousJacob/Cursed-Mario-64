@@ -78,6 +78,7 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
+bool sm64_have_locked_coin_6000 = false;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
@@ -461,12 +462,15 @@ static int SM64AP_MatchesLockedCoin(struct Object *o) {
 
 bool SM64AP_CanCollectLockedCoin(struct Object *o) {
     int coinIndex = SM64AP_MatchesLockedCoin(o);
+    if (coinIndex < 0) return true;
 
-    if (coinIndex < 0) {
-        return true;
+    switch (sLockedCoins[coinIndex].itemId) {
+        case 6000:
+            return sm64_have_locked_coin_6000;
+
+        default:
+            return false;
     }
-
-    return SM64AP_CheckedLoc(sLockedCoins[coinIndex].itemId);
 }
 
 int SM64AP_GetLockedCoinLoc(struct Object *o) {
@@ -498,6 +502,11 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
     if (idx >= SM64AP_ID_1_HEALTH_PIP && idx < SM64AP_ID_RR_TRAP) {
         sm64_ap_health_items_received++;
         SM64AP_ApplyProgressiveHealth();
+    }
+
+    if (idx == 6000) {
+        sm64_have_locked_coin_6000 = true;
+        return;
     }
 
     if (idx == SM64AP_ID_PUNCH) {
@@ -913,6 +922,7 @@ void SM64AP_ResetItems() {
     sm64_have_wingcap = false;
     sm64_have_metalcap = false;
     sm64_have_vanishcap = false;
+    sm64_have_locked_coin_6000 = false;
     starsCollected = 0;
 
     AP_SetServerDataRequest moat_request;
