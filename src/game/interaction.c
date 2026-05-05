@@ -757,15 +757,21 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
     // --- AP LOCKED COIN CHECK ---
     SM64AP_CheckLockedCoin(o);
 
-    m->numCoins += o->oDamageOrCoinValue;
+    // AP CHANGE: Disable coin counter increase
+    // m->numCoins += o->oDamageOrCoinValue;
+
+    // Keep healing effect
     m->healCounter += 4 * o->oDamageOrCoinValue;
 
     o->oInteractStatus = INT_STATUS_INTERACTED;
 
+    // AP CHANGE: Disable 100-coin star since coins no longer count
+    /*
     if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - o->oDamageOrCoinValue < 100
         && m->numCoins >= 100) {
         bhv_spawn_star_no_level_exit(6);
     }
+    */
 
     if (o->oDamageOrCoinValue >= 2) {
         queue_rumble_data(5, 80);
