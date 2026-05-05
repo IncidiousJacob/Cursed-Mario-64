@@ -1,0 +1,12 @@
+#ifndef SM64AP_COINSANITY_H
+#define SM64AP_COINSANITY_H
+
+// Coinsanity locked coin item received flags.
+// Add future locked coin bools here.
+
+bool sm64_have_locked_coin_6000 = false;
+bool sm64_have_locked_coin_6001 = false;
+// bool sm64_have_locked_coin_6002 = false;
+// bool sm64_have_locked_coin_6003 = false;
+
+#endif
