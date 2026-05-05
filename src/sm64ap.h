@@ -207,6 +207,7 @@ AP_EXTERN_C bool SM64AP_CanCollectLockedCoin(struct Object *o);
 AP_EXTERN_C int SM64AP_GetLockedCoinLoc(struct Object *o);
 AP_EXTERN_C void SM64AP_CheckLockedCoin(struct Object *o);
 AP_EXTERN_C void SM64AP_AddCoinsToCourse(s16 course, s16 amount);
+AP_EXTERN_C void SM64AP_HandleLevelCoinItem(s32 itemId);
 
 // Send Item
 AP_EXTERN_C void SM64AP_SendByBoxID(int);
