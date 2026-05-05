@@ -426,6 +426,11 @@ static SM64APItemFlagEntry sItemFlagTable[] = {
     { 6001, &sm64_have_locked_coin_6001 },
     { 6002, &sm64_have_locked_coin_6002 },
     { 6003, &sm64_have_locked_coin_6003 },
+    { 6004, &sm64_have_locked_coin_6004 },
+    { 6005, &sm64_have_locked_coin_6005 },
+    { 6006, &sm64_have_locked_coin_6006 },
+    { 6007, &sm64_have_locked_coin_6007 },
+    { 6008, &sm64_have_locked_coin_6008 },
 };
 
 static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
@@ -465,6 +470,11 @@ static SM64APLockedCoin sLockedCoins[] = {
     { LEVEL_CASTLE, -618, 388, -324, 50,   6001,  6001 },
     { LEVEL_CASTLE, -1430, 388, -324, 50,   6002,  6002 },
     { LEVEL_CASTLE, -1324, 388, -324, 50,   6003,  6003 },
+    { LEVEL_BOB, -449, 0, 5668, 50,   6004,  6004 },
+    { LEVEL_BOB, -289, 0, 5668, 50,   6005,  6005 },
+    { LEVEL_BOB, -129, 0, 5668, 50,   6006,  6006 },
+    { LEVEL_BOB, 31, 0, 5668, 50,   6007,  6007 },
+    { LEVEL_BOB, 191, 0, 5668, 50,   6008,  6008 },
 
     // Add future locked coins here:
     // { LEVEL_BOB, 1234, 200, -900, 150, 6001, 6001 },
