@@ -416,27 +416,6 @@ void SM64AP_Scuttlesanity(struct Object *o) {
     }
 }
 
-static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
-    for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
-        if (idx == sItemFlagTable[i].itemId) {
-            *sItemFlagTable[i].flag = true;
-            return true;
-        }
-    }
-
-    return false;
-}
-
-static bool SM64AP_HaveItemFlagFromTable(int itemId) {
-    for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
-        if (itemId == sItemFlagTable[i].itemId) {
-            return *sItemFlagTable[i].flag;
-        }
-    }
-
-    return false;
-}
-
 typedef struct {
     int level;
     int x;
