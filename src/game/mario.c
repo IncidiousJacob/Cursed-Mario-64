@@ -4526,7 +4526,10 @@ void init_mario_from_save_file(void) {
     gMarioState->controller = &gControllers[0];
     gMarioState->animation = &D_80339D10;
 
-    gMarioState->numCoins = 0;
+    // AP CHANGE:
+    // Do not reset coin counter when loading from save file
+    // gMarioState->numCoins = 0;
+
     gMarioState->numStars =
         save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
     gMarioState->numKeys = 0;
@@ -4537,6 +4540,9 @@ void init_mario_from_save_file(void) {
     gMarioState->prevNumStarsForDialog = gMarioState->numStars;
     gMarioState->unkB0 = 0xBD;
 
-    gHudDisplay.coins = 0;
+    // AP CHANGE:
+    // Sync HUD with persistent coin count
+    gHudDisplay.coins = gMarioState->numCoins;
+
     gHudDisplay.wedges = 8;
 }
