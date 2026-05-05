@@ -952,7 +952,7 @@ void SM64AP_ResetItems() {
     sm64_have_wingcap = false;
     sm64_have_metalcap = false;
     sm64_have_vanishcap = false;
-    sm64_have_locked_coin_6000 = false;
+    SM64AP_ResetCoinsanityFlags();
     starsCollected = 0;
 
     AP_SetServerDataRequest moat_request;
