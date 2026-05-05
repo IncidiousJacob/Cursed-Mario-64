@@ -4330,6 +4330,7 @@ s32 execute_mario_action(UNUSED struct Object *o) {
             }
         }
     }
+}
 
     /**
     * Cheat stuff
@@ -4416,8 +4417,6 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     }
 
     return 0;
-}
-
 }
 
 /**************************************************
