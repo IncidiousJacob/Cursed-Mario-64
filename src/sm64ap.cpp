@@ -534,15 +534,7 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
     }
 }
 
-  void SM64AP_RecvItem(int64_t idx, bool notify) {
-    if (idx == SM64AP_ID_DEATH_TRAP) {
-        if (gMarioState != NULL) {
-            gMarioState->health = 0;
-        }
-        return;
-    }
-
-    void SM64AP_HandleLevelCoinItem(s32 itemId) {
+void SM64AP_HandleLevelCoinItem(s32 itemId) {
     if (itemId < 3627010 || itemId > 3627154) {
         return;
     }
@@ -576,6 +568,14 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
 
     SM64AP_AddCoinsToCourse(course, amount);
 }
+
+  void SM64AP_RecvItem(int64_t idx, bool notify) {
+    if (idx == SM64AP_ID_DEATH_TRAP) {
+        if (gMarioState != NULL) {
+            gMarioState->health = 0;
+        }
+        return;
+    }
 
     if (idx >= 3627010 && idx <= 3627154) {
         SM64AP_HandleLevelCoinItem((s32)idx);
