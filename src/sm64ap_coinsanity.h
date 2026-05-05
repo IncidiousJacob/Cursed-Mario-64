@@ -7,7 +7,7 @@
 bool sm64_have_locked_coin_6000 = false;
 bool sm64_have_locked_coin_6001 = false;
 bool sm64_have_locked_coin_6002 = false;
-// bool sm64_have_locked_coin_6003 = false;
+bool sm64_have_locked_coin_6003 = false;
 
 static void SM64AP_ResetCoinsanityFlags(void) {
     sm64_have_locked_coin_6000 = false;
