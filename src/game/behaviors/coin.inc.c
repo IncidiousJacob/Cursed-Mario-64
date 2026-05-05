@@ -113,6 +113,16 @@ void bhv_coin_loop(void) {
 }
 
 void bhv_coin_formation_spawn_loop(void) {
+    // --- AP LOCKED COIN HIDE HOOK ---
+    if (!SM64AP_CanCollectLockedCoin(o)) {
+        cur_obj_hide();
+        cur_obj_become_intangible();
+        return;
+    }
+
+    cur_obj_unhide();
+    cur_obj_become_tangible();
+
     if (o->oTimer == 0) {
         cur_obj_set_behavior(bhvYellowCoin);
         obj_set_hitbox(o, &sYellowCoinHitbox);
