@@ -460,17 +460,21 @@ static int SM64AP_MatchesLockedCoin(struct Object *o) {
     return -1;
 }
 
+static bool SM64AP_HaveItemFlagFromTable(int itemId) {
+    for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
+        if (itemId == sItemFlagTable[i].itemId) {
+            return *sItemFlagTable[i].flag;
+        }
+    }
+
+    return false;
+}
+
 bool SM64AP_CanCollectLockedCoin(struct Object *o) {
     int coinIndex = SM64AP_MatchesLockedCoin(o);
     if (coinIndex < 0) return true;
 
-    switch (sLockedCoins[coinIndex].itemId) {
-        case 6000:
-            return sm64_have_locked_coin_6000;
-
-        default:
-            return false;
-    }
+    return SM64AP_HaveItemFlagFromTable(sLockedCoins[coinIndex].itemId);
 }
 
 int SM64AP_GetLockedCoinLoc(struct Object *o) {
@@ -491,6 +495,28 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
     }
 }
 
+typedef struct {
+    int itemId;
+    bool *flag;
+} SM64APItemFlagEntry;
+
+bool sm64_have_locked_coin_6000 = false;
+
+static SM64APItemFlagEntry sItemFlagTable[] = {
+    { 6000, &sm64_have_locked_coin_6000 },
+};
+
+static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
+    for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
+        if (idx == sItemFlagTable[i].itemId) {
+            *sItemFlagTable[i].flag = true;
+            return true;
+        }
+    }
+
+    return false;
+}
+
   void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx == SM64AP_ID_DEATH_TRAP) {
         if (gMarioState != NULL) {
@@ -504,8 +530,7 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
         SM64AP_ApplyProgressiveHealth();
     }
 
-    if (idx == 6000) {
-        sm64_have_locked_coin_6000 = true;
+    if (SM64AP_SetItemFlagFromTable(idx)) {
         return;
     }
 
