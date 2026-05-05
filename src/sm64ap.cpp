@@ -414,6 +414,79 @@ void SM64AP_Scuttlesanity(struct Object *o) {
         SM64AP_SendItem(loc_id);
     }
 }
+
+typedef struct {
+    int level;
+    int x;
+    int y;
+    int z;
+    int range;
+    int locId;
+    int itemId;
+} SM64APLockedCoin;
+
+static SM64APLockedCoin sLockedCoins[] = {
+    // level,        x,    y,    z,    range, locId, itemId
+    { LEVEL_CASTLE, -724, 388, -324, 150,   6000,  6000 },
+
+    // Add future locked coins here:
+    // { LEVEL_BOB, 1234, 200, -900, 150, 6001, 6001 },
+};
+
+static int SM64AP_MatchesLockedCoin(struct Object *o) {
+    if (o == NULL) {
+        return -1;
+    }
+
+    for (int i = 0; i < (int)(sizeof(sLockedCoins) / sizeof(sLockedCoins[0])); i++) {
+        SM64APLockedCoin *coin = &sLockedCoins[i];
+
+        if (gCurrLevelNum != coin->level) {
+            continue;
+        }
+
+        int dx = (int)roundf(o->oPosX) - coin->x;
+        int dy = (int)roundf(o->oPosY) - coin->y;
+        int dz = (int)roundf(o->oPosZ) - coin->z;
+
+        if (dx > -coin->range && dx < coin->range &&
+            dy > -coin->range && dy < coin->range &&
+            dz > -coin->range && dz < coin->range) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+bool SM64AP_CanCollectLockedCoin(struct Object *o) {
+    int coinIndex = SM64AP_MatchesLockedCoin(o);
+
+    if (coinIndex < 0) {
+        return true;
+    }
+
+    return SM64AP_CheckedLoc(sLockedCoins[coinIndex].itemId);
+}
+
+int SM64AP_GetLockedCoinLoc(struct Object *o) {
+    int coinIndex = SM64AP_MatchesLockedCoin(o);
+
+    if (coinIndex < 0) {
+        return 0;
+    }
+
+    return sLockedCoins[coinIndex].locId;
+}
+
+void SM64AP_CheckLockedCoin(struct Object *o) {
+    int locId = SM64AP_GetLockedCoinLoc(o);
+
+    if (locId != 0 && !SM64AP_CheckedLoc(locId)) {
+        SM64AP_SendItem(locId);
+    }
+}
+
   void SM64AP_RecvItem(int64_t idx, bool notify) {
     if (idx == SM64AP_ID_DEATH_TRAP) {
         if (gMarioState != NULL) {

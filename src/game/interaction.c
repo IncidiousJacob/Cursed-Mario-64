@@ -1,5 +1,6 @@
 #include <PR/ultratypes.h>
 
+#include <stdio.h> // if not already included
 #include "../sm64ap.h"
 #include "area.h"
 #include "actors/common1.h"
@@ -77,6 +78,10 @@ u32 interact_hoot(struct MarioState *, u32, struct Object *);
 u32 interact_cap(struct MarioState *, u32, struct Object *);
 u32 interact_grabbable(struct MarioState *, u32, struct Object *);
 u32 interact_text(struct MarioState *, u32, struct Object *);
+s16 gCoinDebugTimer = 0;
+s32 gCoinDebugX = 0;
+s32 gCoinDebugY = 0;
+s32 gCoinDebugZ = 0;
 
 u16 delayedArchTimer = 100;
 
@@ -742,16 +747,32 @@ void reset_mario_pitch(struct MarioState *m) {
 }
 
 u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
-    m->numCoins += o->oDamageOrCoinValue;
+
+    // --- DEBUG ---
+    gCoinDebugX = (s32)o->oPosX;
+    gCoinDebugY = (s32)o->oPosY;
+    gCoinDebugZ = (s32)o->oPosZ;
+    gCoinDebugTimer = 180;
+
+    // --- AP LOCKED COIN CHECK ---
+    SM64AP_CheckLockedCoin(o);
+
+    // AP CHANGE: Disable coin counter increase
+    // m->numCoins += o->oDamageOrCoinValue;
+
+    // Keep healing effect
     m->healCounter += 4 * o->oDamageOrCoinValue;
 
     o->oInteractStatus = INT_STATUS_INTERACTED;
 
+    // AP CHANGE: Disable 100-coin star since coins no longer count
+    /*
     if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - o->oDamageOrCoinValue < 100
         && m->numCoins >= 100) {
         bhv_spawn_star_no_level_exit(6);
     }
-   
+    */
+
     if (o->oDamageOrCoinValue >= 2) {
         queue_rumble_data(5, 80);
     }

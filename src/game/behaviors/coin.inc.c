@@ -1,3 +1,5 @@
+#include "sm64ap.h"
+
 // coin.c.inc
 
 struct ObjectHitbox sYellowCoinHitbox = {
@@ -26,17 +28,20 @@ s32 bhv_coin_sparkles_init(void) {
 }
 
 void bhv_yellow_coin_init(void) {
-    cur_obj_set_behavior(bhvYellowCoin);
     obj_set_hitbox(o, &sYellowCoinHitbox);
-    bhv_init_room();
-    cur_obj_update_floor_height();
-    if (500.0f < absf(o->oPosY - o->oFloorHeight))
-        cur_obj_set_model(MODEL_YELLOW_COIN_NO_SHADOW);
-    if (o->oFloorHeight < -10000.0f)
-        obj_mark_for_deletion(o);
 }
 
 void bhv_yellow_coin_loop(void) {
+    // --- AP LOCKED COIN HOOK ---
+    if (!SM64AP_CanCollectLockedCoin(o)) {
+        cur_obj_hide();
+        cur_obj_become_intangible();
+        return;
+    }
+
+    cur_obj_unhide();
+    cur_obj_become_tangible();
+
     bhv_coin_sparkles_init();
     o->oAnimState++;
 }

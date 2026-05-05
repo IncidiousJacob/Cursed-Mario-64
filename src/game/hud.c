@@ -16,12 +16,32 @@
 #include "print.h"
 #include "pc/configfile.h"
 #include "sm64ap.h"
+#include <stdio.h>
 
+extern s16 gCoinDebugTimer;
+extern s32 gCoinDebugX;
+extern s32 gCoinDebugY;
+extern s32 gCoinDebugZ;
 /* @file hud.c
  * This file implements HUD rendering and power meter animations.
  * That includes stars, lives, coins, camera status, power meter, timer
  * cannon reticle, and the unused keys.
  **/
+
+
+void render_coin_debug(void) {
+    char buf[64];
+
+    snprintf(buf, sizeof(buf), "a: %d", gCoinDebugX);
+    print_text(20, 40, buf);
+
+    snprintf(buf, sizeof(buf), "b: %d", gCoinDebugY);
+    print_text(20, 20, buf);
+
+    snprintf(buf, sizeof(buf), "c: %d", gCoinDebugZ);
+    print_text(20, 0, buf);
+}
+
 
 struct PowerMeterHUD {
     s8 animation;
@@ -64,6 +84,7 @@ static struct CameraHUD sCameraHUD = { CAM_STATUS_NONE };
  * Renders a rgba16 16x16 glyph texture from a table list.
  */
 void render_hud_tex_lut(s32 x, s32 y, u8 *texture) {
+    render_coin_debug();
     gDPPipeSync(gDisplayListHead++);
     gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture);
     gSPDisplayList(gDisplayListHead++, &dl_hud_img_load_tex_block);
