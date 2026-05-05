@@ -496,6 +496,22 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
     }
 }
 
+void SM64AP_AddCoinsToCourse(s16 course, s16 amount) {
+    if (gMarioState == NULL) {
+        return;
+    }
+
+    if (gCurrCourseNum != course) {
+        return;
+    }
+
+    gMarioState->numCoins += amount;
+
+    if (gMarioState->numCoins > 999) {
+        gMarioState->numCoins = 999;
+    }
+}
+
 void SM64AP_HandleLevelCoinItem(s32 itemId) {
     if (itemId < 3627010 || itemId > 3627154) {
         return;
