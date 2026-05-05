@@ -1801,7 +1801,7 @@ s32 execute_mario_action(UNUSED struct Object *o) {
 
     SM64AP_UpdateLevelCoinCount();
 
-    if (marioAction == ACT_CLIMBING_TREE ||
+    if (marioAction == ACT_CLIMBING_POLE ||
         marioAction == ACT_GRAB_POLE_SLOW ||
         marioAction == ACT_GRAB_POLE_FAST ||
         marioAction == ACT_HOLDING_POLE) {
