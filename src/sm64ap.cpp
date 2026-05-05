@@ -423,6 +423,7 @@ typedef struct {
 
 static SM64APItemFlagEntry sItemFlagTable[] = {
     { 6000, &sm64_have_locked_coin_6000 },
+    { 6001, &sm64_have_locked_coin_6001 },
 };
 
 static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
@@ -459,6 +460,7 @@ typedef struct {
 static SM64APLockedCoin sLockedCoins[] = {
     // level,        x,    y,    z,    range, locId, itemId
     { LEVEL_CASTLE, -724, 388, -324, 50,   6000,  6000 },
+    { LEVEL_CASTLE, -618, 388, -324, 50,   6001,  6001 },
 
     // Add future locked coins here:
     // { LEVEL_BOB, 1234, 200, -900, 150, 6001, 6001 },
