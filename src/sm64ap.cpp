@@ -79,7 +79,6 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
-bool sm64_have_locked_coin_6000 = false;
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
