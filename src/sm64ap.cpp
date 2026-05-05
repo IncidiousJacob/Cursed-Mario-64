@@ -79,7 +79,12 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
-static s16 sAPLevelCoins[COURSE_MAX + 1];
+
+
+#define SM64AP_COURSE_MIN 1
+#define SM64AP_COURSE_MAX 15
+
+static s16 sAPLevelCoins[SM64AP_COURSE_MAX + 1];
 
 std::map<int, int> map_entrances;
 std::set<int> course_dest_supported;
