@@ -1797,7 +1797,7 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     s32 my = (s32) gMarioState->pos[1];
     s32 mz = (s32) gMarioState->pos[2];
 
-    SM64AP_UpdateLevelSpecificCoins();
+    SM64AP_UpdateLevelCoinCount();
    
     // --- CASTLE GROUNDS TREES ---
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
