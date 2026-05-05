@@ -497,7 +497,7 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
 }
 
 void SM64AP_HandleLevelCoinItem(s32 itemId) {
-    if (idx < 3627010 || idx > 3627154) {
+    if (itemId < 3627010 || itemId > 3627154) {
         return;
     }
 
