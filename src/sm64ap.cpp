@@ -542,6 +542,41 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
         return;
     }
 
+    void SM64AP_HandleLevelCoinItem(s32 itemId) {
+    if (itemId < 3627010 || itemId > 3627154) {
+        return;
+    }
+
+    s16 coinType = itemId % 10;
+
+    if (coinType > 4) {
+        return;
+    }
+
+    s16 course = (itemId - 3627000) / 10;
+    s16 amount = 0;
+
+    switch (coinType) {
+        case 0:
+            amount = 1;
+            break;
+        case 1:
+            amount = 2;
+            break;
+        case 2:
+            amount = 5;
+            break;
+        case 3:
+            amount = 10;
+            break;
+        case 4:
+            amount = 20;
+            break;
+    }
+
+    SM64AP_AddCoinsToCourse(course, amount);
+}
+
     if (idx >= 3627010 && idx <= 3627154) {
         SM64AP_HandleLevelCoinItem((s32)idx);
         return;
