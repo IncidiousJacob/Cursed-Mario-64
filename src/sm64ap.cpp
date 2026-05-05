@@ -424,8 +424,8 @@ typedef struct {
 static SM64APItemFlagEntry sItemFlagTable[] = {
     { 6000, &sm64_have_locked_coin_6000 },
     { 6001, &sm64_have_locked_coin_6001 },
-    { 6002, &sm64_have_locked_coin_6001 },
-    { 6003, &sm64_have_locked_coin_6001 },
+    { 6002, &sm64_have_locked_coin_6002 },
+    { 6003, &sm64_have_locked_coin_6003 },
 };
 
 static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
