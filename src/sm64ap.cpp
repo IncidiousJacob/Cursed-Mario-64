@@ -460,16 +460,6 @@ static int SM64AP_MatchesLockedCoin(struct Object *o) {
     return -1;
 }
 
-static bool SM64AP_HaveItemFlagFromTable(int itemId) {
-    for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
-        if (itemId == sItemFlagTable[i].itemId) {
-            return *sItemFlagTable[i].flag;
-        }
-    }
-
-    return false;
-}
-
 bool SM64AP_CanCollectLockedCoin(struct Object *o) {
     int coinIndex = SM64AP_MatchesLockedCoin(o);
     if (coinIndex < 0) return true;
@@ -494,25 +484,6 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
         SM64AP_SendItem(locId);
     }
 }
-
-typedef struct {
-    int itemId;
-    bool *flag;
-} SM64APItemFlagEntry;
-
-bool sm64_have_locked_coin_6000 = false;
-
-static SM64APItemFlagEntry sItemFlagTable[] = {
-    { 6000, &sm64_have_locked_coin_6000 },
-};
-
-static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
-    for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
-        if (idx == sItemFlagTable[i].itemId) {
-            *sItemFlagTable[i].flag = true;
-            return true;
-        }
-    }
 
     return false;
 }
@@ -947,7 +918,6 @@ void SM64AP_ResetItems() {
     sm64_have_wingcap = false;
     sm64_have_metalcap = false;
     sm64_have_vanishcap = false;
-    sm64_have_locked_coin_6000 = false;
     starsCollected = 0;
 
     AP_SetServerDataRequest moat_request;
