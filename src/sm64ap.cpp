@@ -416,23 +416,6 @@ void SM64AP_Scuttlesanity(struct Object *o) {
     }
 }
 
-typedef struct {
-    int itemId;
-    bool *flag;
-} SM64APItemFlagEntry;
-
-static SM64APItemFlagEntry sItemFlagTable[] = {
-    { 6000, &sm64_have_locked_coin_6000 },
-    { 6001, &sm64_have_locked_coin_6001 },
-    { 6002, &sm64_have_locked_coin_6002 },
-    { 6003, &sm64_have_locked_coin_6003 },
-    { 6004, &sm64_have_locked_coin_6004 },
-    { 6005, &sm64_have_locked_coin_6005 },
-    { 6006, &sm64_have_locked_coin_6006 },
-    { 6007, &sm64_have_locked_coin_6007 },
-    { 6008, &sm64_have_locked_coin_6008 },
-};
-
 static bool SM64AP_SetItemFlagFromTable(int64_t idx) {
     for (int i = 0; i < (int)(sizeof(sItemFlagTable) / sizeof(sItemFlagTable[0])); i++) {
         if (idx == sItemFlagTable[i].itemId) {
