@@ -42,11 +42,6 @@ void bhv_yellow_coin_loop(void) {
     o->oAnimState++;
 }
 
-void bhv_yellow_coin_loop(void) {
-    bhv_coin_sparkles_init();
-    o->oAnimState++;
-}
-
 void bhv_temp_coin_loop(void) {
     o->oAnimState++;
     if (cur_obj_wait_then_blink(200, 20))
@@ -64,17 +59,6 @@ void bhv_coin_init(void) {
 }
 
 void bhv_coin_loop(void) {
-
-    // --- AP LOCKED COIN HOOK ---
-    if (!SM64AP_CanCollectLockedCoin(o)) {
-        cur_obj_hide();
-        cur_obj_become_intangible();
-        return;
-    }
-
-    cur_obj_unhide();
-    cur_obj_become_tangible();
-
     struct Surface *sp1C;
     s16 sp1A;
     cur_obj_update_floor_and_walls();
