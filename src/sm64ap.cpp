@@ -542,6 +542,11 @@ void SM64AP_CheckLockedCoin(struct Object *o) {
         return;
     }
 
+    if (itemId >= 3627010 && itemId <= 3627154) {
+        SM64AP_HandleLevelCoinItem(itemId);
+        return;
+    }
+
     if (idx >= SM64AP_ID_1_HEALTH_PIP && idx < SM64AP_ID_RR_TRAP) {
         sm64_ap_health_items_received++;
         SM64AP_ApplyProgressiveHealth();
