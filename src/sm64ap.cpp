@@ -844,7 +844,17 @@ void SM64AP_UpdateLevelCoinCount(void) {
     }
 }
 void SM64AP_CheckLocation(int64_t loc_id) {
-    sm64_locations[loc_id - SM64AP_ID_OFFSET] = true;
+    if (loc_id < SM64AP_ID_OFFSET) {
+        return;
+    }
+
+    int index = loc_id - SM64AP_ID_OFFSET;
+
+    if (index < 0 || index >= SM64AP_NUM_LOCS) {
+        return;
+    }
+
+    sm64_locations[index] = true;
 }
 
 u32 SM64AP_CourseStarFlags(s32 courseIdx) {
@@ -1412,7 +1422,20 @@ int SM64AP_GetRequiredStars(int idprx) {
 }
 
 bool SM64AP_CheckedLoc(int x) {
-    return sm64_locations[x - SM64AP_ID_OFFSET];
+    // Normal AP locations use full IDs like 3626000+
+    if (x >= SM64AP_ID_OFFSET) {
+        int index = x - SM64AP_ID_OFFSET;
+
+        if (index < 0 || index >= SM64AP_NUM_LOCS) {
+            return false;
+        }
+
+        return sm64_locations[index];
+    }
+
+    // Local low-ID checks like coinsanity 6000, 6001, 6002, etc.
+    // These are not stored in sm64_locations[] because they are below SM64AP_ID_OFFSET.
+    return false;
 }
 
 bool SM64AP_HaveKey1() {
