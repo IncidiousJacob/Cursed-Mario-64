@@ -170,6 +170,14 @@ AP_EXTERN_C bool SM64AP_DeathLinkPending();
 AP_EXTERN_C void SM64AP_DeathLinkClear();
 AP_EXTERN_C void SM64AP_DeathLinkSend();
 
+// DamageLink / SharedDamage
+AP_EXTERN_C void SM64AP_SetDamageLinkEnabled(bool enabled);
+AP_EXTERN_C bool SM64AP_IsDamageLinkEnabled();
+AP_EXTERN_C void SM64AP_SendDamageLink(int damagePoints);
+AP_EXTERN_C void SM64AP_CheckLocalDamageLink();
+AP_EXTERN_C void SM64AP_ProcessDamageLink();
+AP_EXTERN_C void SM64AP_ApplyRemoteDamage();
+
 // Local Moves
 AP_EXTERN_C bool SM64AP_CanDoubleJump();
 AP_EXTERN_C bool SM64AP_CanTripleJump();
