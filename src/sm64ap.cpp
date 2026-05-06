@@ -480,7 +480,7 @@ static SM64APLockedCoin sLockedCoins[] = {
     { LEVEL_WF, 3396, 1205, 3120, 50,   6043,  6043 },
     { LEVEL_WF, 3396, 1261, 2960, 50,   6044,  6044 },
 
-    // Add future locked coins here:
+    // Add future locked coins here:\\
     // { LEVEL_BOB, 1234, 200, -900, 150, 6001, 6001 },
 };
 
