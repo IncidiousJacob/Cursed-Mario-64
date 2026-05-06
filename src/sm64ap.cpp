@@ -563,7 +563,18 @@ bool SM64AP_CanCollectLockedCoin(struct Object *o) {
         return true;
     }
 
-    return SM64AP_HaveCoinsanityReturnItemFlag(sLockedCoins[coinIndex].itemId);
+    int locId = sLockedCoins[coinIndex].locId;
+    int itemId = sLockedCoins[coinIndex].itemId;
+
+    if (SM64AP_CoinsanityCheckedLoc(locId)) {
+        return false;
+    }
+
+    if (!SM64AP_HaveCoinsanityReturnItemFlag(itemId)) {
+        return false;
+    }
+
+    return true;
 }
 
 int SM64AP_GetLockedCoinLoc(struct Object *o) {
@@ -579,8 +590,9 @@ int SM64AP_GetLockedCoinLoc(struct Object *o) {
 void SM64AP_CheckLockedCoin(struct Object *o) {
     int locId = SM64AP_GetLockedCoinLoc(o);
 
-    if (locId != 0 && !SM64AP_CheckedLoc(locId)) {
+    if (locId != 0 && !SM64AP_CoinsanityCheckedLoc(locId)) {
         SM64AP_SendItem(locId);
+        SM64AP_CoinsanitySetCheckedLoc(locId);
     }
 }
 
