@@ -1434,20 +1434,17 @@ int SM64AP_GetRequiredStars(int idprx) {
 }
 
 bool SM64AP_CheckedLoc(int x) {
-    // Normal AP locations use full IDs like 3626000+
-    if (x >= SM64AP_ID_OFFSET) {
-        int index = x - SM64AP_ID_OFFSET;
-
-        if (index < 0 || index >= SM64AP_NUM_LOCS) {
-            return false;
-        }
-
-        return sm64_locations[index];
+    if (x < SM64AP_ID_OFFSET) {
+        return false;
     }
 
-    // Local low-ID checks like coinsanity 6000, 6001, 6002, etc.
-    // These are not stored in sm64_locations[] because they are below SM64AP_ID_OFFSET.
-    return false;
+    int index = x - SM64AP_ID_OFFSET;
+
+    if (index < 0 || index >= SM64AP_NUM_LOCS) {
+        return false;
+    }
+
+    return sm64_locations[index];
 }
 
 bool SM64AP_HaveKey1() {
