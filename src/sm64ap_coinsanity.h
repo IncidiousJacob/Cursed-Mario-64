@@ -101,6 +101,14 @@ bool sm64_have_locked_coin_6095 = false;
 bool sm64_have_locked_coin_6096 = false;
 bool sm64_have_locked_coin_6097 = false;
 bool sm64_have_locked_coin_6098 = false;
+bool sm64_have_locked_coin_6099 = false;
+bool sm64_have_locked_coin_6100 = false;
+bool sm64_have_locked_coin_6101 = false;
+bool sm64_have_locked_coin_6102 = false;
+bool sm64_have_locked_coin_6103 = false;
+bool sm64_have_locked_coin_6104 = false;
+bool sm64_have_locked_coin_6105 = false;
+bool sm64_have_locked_coin_6106 = false;
 
 typedef struct {
     int itemId;
@@ -208,6 +216,14 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6096, &sm64_have_locked_coin_6096 },
     { 6097, &sm64_have_locked_coin_6097 },
     { 6098, &sm64_have_locked_coin_6098 },
+    { 6099, &sm64_have_locked_coin_6099 },
+    { 6100, &sm64_have_locked_coin_6100 },
+    { 6101, &sm64_have_locked_coin_6101 },
+    { 6102, &sm64_have_locked_coin_6102 },
+    { 6103, &sm64_have_locked_coin_6103 },
+    { 6104, &sm64_have_locked_coin_6104 },
+    { 6105, &sm64_have_locked_coin_6105 },
+    { 6106, &sm64_have_locked_coin_6106 },
 };
 
 typedef struct {
@@ -315,6 +331,14 @@ static SM64APCoinsanityCheckedLocEntry sCoinsanityCheckedLocTable[] = {
     { 6096, false },
     { 6097, false },
     { 6098, false },
+    { 6099, false },
+    { 6100, false },
+    { 6101, false },
+    { 6102, false },
+    { 6103, false },
+    { 6104, false },
+    { 6105, false },
+    { 6106, false },
 };
 
 static bool SM64AP_SetCoinsanityReturnItemFlag(int64_t idx) {
