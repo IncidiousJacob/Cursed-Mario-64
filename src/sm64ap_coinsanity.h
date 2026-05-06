@@ -1,11 +1,6 @@
 #ifndef SM64AP_COINSANITY_H
 #define SM64AP_COINSANITY_H
 
-// Coinsanity locked coin item received flags.
-// Add future locked coin bools here.
-//
-// IMPORTANT:
-// This header defines real bool variables, so only include it from sm64ap.cpp.
 
 bool sm64_have_locked_coin_6000 = false;
 bool sm64_have_locked_coin_6001 = false;
@@ -78,16 +73,17 @@ bool sm64_have_locked_coin_6067 = false;
 bool sm64_have_locked_coin_6068 = false;
 bool sm64_have_locked_coin_6069 = false;
 bool sm64_have_locked_coin_6070 = false;
+bool sm64_have_locked_coin_6071 = false;
+bool sm64_have_locked_coin_6072 = false;
+bool sm64_have_locked_coin_6073 = false;
+bool sm64_have_locked_coin_6074 = false;
 
 typedef struct {
     int itemId;
     bool *flag;
 } SM64APCoinsanityReturnItemEntry;
 
-// This is the return/received item table.
-// When AP returns item 6000, it sets sm64_have_locked_coin_6000 = true.
-// When AP returns item 6001, it sets sm64_have_locked_coin_6001 = true.
-// etc.
+
 static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6000, &sm64_have_locked_coin_6000 },
     { 6001, &sm64_have_locked_coin_6001 },
@@ -160,6 +156,10 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6068, &sm64_have_locked_coin_6068 },
     { 6069, &sm64_have_locked_coin_6069 },
     { 6070, &sm64_have_locked_coin_6070 },
+    { 6071, &sm64_have_locked_coin_6071 },
+    { 6072, &sm64_have_locked_coin_6072 },
+    { 6073, &sm64_have_locked_coin_6073 },
+    { 6074, &sm64_have_locked_coin_6074 },
 };
 
 static bool SM64AP_SetCoinsanityReturnItemFlag(int64_t idx) {
