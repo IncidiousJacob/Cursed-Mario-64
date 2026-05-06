@@ -79,6 +79,16 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
+static bool gSM64APDamageLinkEnabled = false;
+static int gSM64APIncomingDamagePoints = 0;
+static s32 gSM64APDamageLinkCooldown = 0;
+static s16 gSM64APLastKnownHealth = 0;
+static bool gSM64APIgnoreNextHealthDrop = false;
+
+#define SM64AP_DAMAGE_LINK_THRESHOLD 80
+#define SM64AP_DAMAGE_LINK_MAX_PACKET 80
+#define SM64AP_DAMAGE_LINK_LOCAL_HIT 80
+#define SM64AP_DAMAGE_LINK_COOLDOWN 30
 
 
 #define SM64AP_COURSE_MIN 1
@@ -136,6 +146,174 @@ int sm64_ap_health_items_received = 0;
 
 #define SM64AP_MIN_MAX_HEALTH 0x0300
 #define SM64AP_FULL_MAX_HEALTH 0x0880
+
+void SM64AP_SetDamageLinkEnabled(bool enabled) {
+    gSM64APDamageLinkEnabled = enabled;
+}
+
+bool SM64AP_IsDamageLinkEnabled(void) {
+    return gSM64APDamageLinkEnabled;
+}
+
+void SM64AP_SendDamageLink(int damagePoints) {
+    if (!gSM64APDamageLinkEnabled) {
+        return;
+    }
+
+    if (AP_GetConnectionStatus() != AP_ConnectionStatus::Authenticated) {
+        return;
+    }
+
+    if (damagePoints <= 0) {
+        return;
+    }
+
+    if (damagePoints > SM64AP_DAMAGE_LINK_MAX_PACKET) {
+        damagePoints = SM64AP_DAMAGE_LINK_MAX_PACKET;
+    }
+
+    Json::Value data;
+    Json::FastWriter writer;
+
+    std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
+
+    data["time"] = (Json::Int64) std::chrono::duration_cast<std::chrono::milliseconds>(
+        timestamp.time_since_epoch()
+    ).count();
+
+    data["uuid"] = (Json::UInt64) AP_GetUUID();
+    data["source"] = "SM64";
+    data["damage_points"] = damagePoints;
+
+    AP_Bounce bounce;
+    std::vector<std::string> tags = { "SharedDamage" };
+
+    bounce.games = nullptr;
+    bounce.slots = nullptr;
+    bounce.tags = &tags;
+    bounce.data = writer.write(data);
+
+    AP_SendBounce(bounce);
+}
+
+static void SM64AP_OnBouncedPacket(AP_Bounce bounce) {
+    if (!gSM64APDamageLinkEnabled) {
+        return;
+    }
+
+    bool hasSharedDamage = false;
+
+    if (bounce.tags != nullptr) {
+        for (std::string tag : *bounce.tags) {
+            if (tag == "SharedDamage") {
+                hasSharedDamage = true;
+                break;
+            }
+        }
+    }
+
+    if (!hasSharedDamage) {
+        return;
+    }
+
+    Json::Value data;
+    Json::Reader reader;
+
+    if (!reader.parse(bounce.data, data)) {
+        return;
+    }
+
+    if (!data.isMember("damage_points")) {
+        return;
+    }
+
+    if (data.isMember("uuid")) {
+        uint64_t packetUUID = data["uuid"].asUInt64();
+        if (packetUUID == AP_GetUUID()) {
+            return;
+        }
+    }
+
+    int damagePoints = data["damage_points"].asInt();
+
+    if (damagePoints <= 0) {
+        return;
+    }
+
+    if (damagePoints > SM64AP_DAMAGE_LINK_MAX_PACKET) {
+        damagePoints = SM64AP_DAMAGE_LINK_MAX_PACKET;
+    }
+
+    gSM64APIncomingDamagePoints += damagePoints;
+}
+
+void SM64AP_ApplyRemoteDamage(void) {
+    if (gMarioState == NULL) {
+        return;
+    }
+
+    if (gMarioState->health <= 0x0100) {
+        return;
+    }
+
+    gSM64APIgnoreNextHealthDrop = true;
+
+    gMarioState->health -= 0x0100;
+
+    if (gMarioState->health < 0x0100) {
+        gMarioState->health = 0x00FF;
+    }
+
+    gSM64APLastKnownHealth = gMarioState->health;
+}
+
+void SM64AP_ProcessDamageLink(void) {
+    if (!gSM64APDamageLinkEnabled) {
+        return;
+    }
+
+    if (gMarioState == NULL) {
+        return;
+    }
+
+    if (gSM64APDamageLinkCooldown > 0) {
+        gSM64APDamageLinkCooldown--;
+        return;
+    }
+
+    if (gSM64APIncomingDamagePoints >= SM64AP_DAMAGE_LINK_THRESHOLD) {
+        gSM64APIncomingDamagePoints -= SM64AP_DAMAGE_LINK_THRESHOLD;
+        SM64AP_ApplyRemoteDamage();
+        gSM64APDamageLinkCooldown = SM64AP_DAMAGE_LINK_COOLDOWN;
+    }
+}
+
+void SM64AP_CheckLocalDamageLink(void) {
+    if (!gSM64APDamageLinkEnabled) {
+        return;
+    }
+
+    if (gMarioState == NULL) {
+        return;
+    }
+
+    if (gSM64APLastKnownHealth == 0) {
+        gSM64APLastKnownHealth = gMarioState->health;
+        return;
+    }
+
+    if (gSM64APIgnoreNextHealthDrop) {
+        gSM64APIgnoreNextHealthDrop = false;
+        gSM64APLastKnownHealth = gMarioState->health;
+        return;
+    }
+
+    if (gMarioState->health < gSM64APLastKnownHealth) {
+        SM64AP_SendDamageLink(SM64AP_DAMAGE_LINK_LOCAL_HIT);
+    }
+
+    gSM64APLastKnownHealth = gMarioState->health;
+}
 
 static s16 SM64AP_GetMaxHealth(void) {
     s16 maxHealth = SM64AP_MIN_MAX_HEALTH + (sm64_ap_health_items_received * 0x0100);
@@ -1176,6 +1354,8 @@ void SM64AP_GenericInit() {
     AP_RegisterSetReplyCallback(&SM64AP_SetReplyHandler);
     AP_SetNotify(AP_GetPrivateServerDataPrefix() + "FinishedBowser", AP_DataType::Int);
     AP_SetNotify(AP_GetPrivateServerDataPrefix() + "MoatDrained", AP_DataType::Int);
+
+    AP_RegisterSetReplyCallback(&SM64AP_SetReplyHandler);
 
     AP_RegisterSlotDataIntCallback("FirstBowserDoorCost", &SM64AP_SetFirstBowserDoorCost);
     AP_RegisterSlotDataIntCallback("BasementDoorCost", &SM64AP_SetBasementDoorCost);
