@@ -178,6 +178,97 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6082, &sm64_have_locked_coin_6082 },
 };
 
+typedef struct {
+    int locId;
+    bool checked;
+} SM64APCoinsanityCheckedLocEntry;
+
+static SM64APCoinsanityCheckedLocEntry sCoinsanityCheckedLocTable[] = {
+    { 6000, false },
+    { 6001, false },
+    { 6002, false },
+    { 6003, false },
+    { 6004, false },
+    { 6005, false },
+    { 6006, false },
+    { 6007, false },
+    { 6008, false },
+    { 6009, false },
+    { 6010, false },
+    { 6011, false },
+    { 6012, false },
+    { 6013, false },
+    { 6014, false },
+    { 6015, false },
+    { 6016, false },
+    { 6017, false },
+    { 6018, false },
+    { 6019, false },
+    { 6020, false },
+    { 6021, false },
+    { 6022, false },
+    { 6023, false },
+    { 6024, false },
+    { 6025, false },
+    { 6026, false },
+    { 6027, false },
+    { 6028, false },
+    { 6029, false },
+    { 6030, false },
+    { 6031, false },
+    { 6032, false },
+    { 6033, false },
+    { 6034, false },
+    { 6035, false },
+    { 6036, false },
+    { 6037, false },
+    { 6038, false },
+    { 6039, false },
+    { 6040, false },
+    { 6041, false },
+    { 6042, false },
+    { 6043, false },
+    { 6044, false },
+    { 6045, false },
+    { 6046, false },
+    { 6047, false },
+    { 6048, false },
+    { 6049, false },
+    { 6050, false },
+    { 6051, false },
+    { 6052, false },
+    { 6053, false },
+    { 6054, false },
+    { 6055, false },
+    { 6056, false },
+    { 6057, false },
+    { 6058, false },
+    { 6059, false },
+    { 6060, false },
+    { 6061, false },
+    { 6062, false },
+    { 6063, false },
+    { 6064, false },
+    { 6065, false },
+    { 6066, false },
+    { 6067, false },
+    { 6068, false },
+    { 6069, false },
+    { 6070, false },
+    { 6071, false },
+    { 6072, false },
+    { 6073, false },
+    { 6074, false },
+    { 6075, false },
+    { 6076, false },
+    { 6077, false },
+    { 6078, false },
+    { 6079, false },
+    { 6080, false },
+    { 6081, false },
+    { 6082, false },
+};
+
 static bool SM64AP_SetCoinsanityReturnItemFlag(int64_t idx) {
     for (int i = 0; i < (int)(sizeof(sCoinsanityReturnItemTable) / sizeof(sCoinsanityReturnItemTable[0])); i++) {
         if (idx == sCoinsanityReturnItemTable[i].itemId) {
@@ -199,9 +290,32 @@ static bool SM64AP_HaveCoinsanityReturnItemFlag(int itemId) {
     return false;
 }
 
+static bool SM64AP_CoinsanityCheckedLoc(int locId) {
+    for (int i = 0; i < (int)(sizeof(sCoinsanityCheckedLocTable) / sizeof(sCoinsanityCheckedLocTable[0])); i++) {
+        if (locId == sCoinsanityCheckedLocTable[i].locId) {
+            return sCoinsanityCheckedLocTable[i].checked;
+        }
+    }
+
+    return false;
+}
+
+static void SM64AP_CoinsanitySetCheckedLoc(int locId) {
+    for (int i = 0; i < (int)(sizeof(sCoinsanityCheckedLocTable) / sizeof(sCoinsanityCheckedLocTable[0])); i++) {
+        if (locId == sCoinsanityCheckedLocTable[i].locId) {
+            sCoinsanityCheckedLocTable[i].checked = true;
+            return;
+        }
+    }
+}
+
 static void SM64AP_ResetCoinsanityFlags(void) {
     for (int i = 0; i < (int)(sizeof(sCoinsanityReturnItemTable) / sizeof(sCoinsanityReturnItemTable[0])); i++) {
         *sCoinsanityReturnItemTable[i].flag = false;
+    }
+
+    for (int i = 0; i < (int)(sizeof(sCoinsanityCheckedLocTable) / sizeof(sCoinsanityCheckedLocTable[0])); i++) {
+        sCoinsanityCheckedLocTable[i].checked = false;
     }
 }
 
