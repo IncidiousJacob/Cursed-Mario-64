@@ -1,6 +1,8 @@
 #include "sm64ap.h"
 #include "Archipelago.h"
 #include "sm64ap_coinsanity.h"
+#include <json/json.h>
+#include <chrono>
 
 extern "C" {
 #include "game/print.h"
