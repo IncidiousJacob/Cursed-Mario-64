@@ -4393,7 +4393,9 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     }
 
     SM64AP_ApplyProgressiveHealth();
-
+    SM64AP_CheckLocalDamageLink();
+    SM64AP_ProcessDamageLink();
+    
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
