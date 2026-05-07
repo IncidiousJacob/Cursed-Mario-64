@@ -588,6 +588,9 @@ static SM64APLockedCoin sLockedCoins[] = {
     { LEVEL_PSS, -2870, 2837, 2300, 50,   6151,  6151 },
     { LEVEL_PSS, -1200, 2771, 2280, 50,   6152,  6152 },
     { LEVEL_PSS, -1040, 2767, 2280, 50,   6153,  6153 },
+    { LEVEL_PSS, -880, 2724, 2280, 50,   6154,  6154 },
+    { LEVEL_PSS, -720, 2639, 2280, 50,   6155,  6155 },
+    { LEVEL_PSS, -560, 2540, 2280, 50,   6156,  6156 },
     
 
     // Add future locked coins here:\\
