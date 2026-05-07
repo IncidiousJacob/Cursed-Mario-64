@@ -200,13 +200,20 @@ static void SM64AP_SpawnBobombTrapInFrontOfMario(void) {
         spawn_object_relative(0, 0, 80, 260, gMarioObject, MODEL_BLACK_BOBOMB, bhvBobomb);
 
     if (bobomb != NULL) {
-        bobomb->oBhvParams2ndByte = 0;
+        bobomb->oBehParams2ndByte = 0;
+
+        // Make it already lit.
         bobomb->oBobombFuseLit = 1;
         bobomb->oBobombFuseTimer = 0;
+
+        // Bob-omb chase action.
         bobomb->oAction = 2;
-        bobomb->oForwardVel = 20.0f;
+
+        // Face/move toward Mario immediately.
         bobomb->oMoveAngleYaw = gMarioObject->oMoveAngleYaw + 0x8000;
         bobomb->oFaceAngleYaw = bobomb->oMoveAngleYaw;
+
+        bobomb->oForwardVel = 20.0f;
         bobomb->oVelY = 0.0f;
     }
 }
