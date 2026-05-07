@@ -190,6 +190,27 @@ static void SM64AP_SpawnKoopaShellInFrontOfMario(void) {
     }
 }
 
+static void SM64AP_SpawnBobombTrapInFrontOfMario(void) {
+
+    if (!SM64AP_CanSpawnFieldItem()) {
+        return;
+    }
+
+    struct Object *bobomb =
+        spawn_object_relative(0, 0, 80, 260, gMarioObject, MODEL_BLACK_BOBOMB, bhvBobomb);
+
+    if (bobomb != NULL) {
+        bobomb->oBhvParams2ndByte = 0;
+        bobomb->oBobombFuseLit = 1;
+        bobomb->oBobombFuseTimer = 0;
+        bobomb->oAction = 2;
+        bobomb->oForwardVel = 20.0f;
+        bobomb->oMoveAngleYaw = gMarioObject->oMoveAngleYaw + 0x8000;
+        bobomb->oFaceAngleYaw = bobomb->oMoveAngleYaw;
+        bobomb->oVelY = 0.0f;
+    }
+}
+
 static uint32_t sm64ap_splitmix32(uint32_t &x) {
     x += 0x9E3779B9u;
     uint32_t z = x;
@@ -858,6 +879,20 @@ void SM64AP_UpdateLevelCoinCount(void) {
         }
         return;
 
+    } else if (idx == SM64AP_ID_BOBOMB_TRAP) {
+
+        if (notify || !SM64AP_CanSpawnFieldItem()) {
+
+            delayed_queue.push(idx);
+
+        } else {
+
+            SM64AP_SpawnBobombTrapInFrontOfMario();
+
+        }
+
+        return;
+
     } else if (idx >= SM64AP_ID_1_HEALTH_PIP && idx <= SM64AP_ID_RR_TRAP) {
         if (notify) {
             if (idx == SM64AP_ID_RR_TRAP) {
@@ -1490,6 +1525,14 @@ void SM64AP_ProcessDelayedItems(void) {
             } else {
                 delayed_queue.push(item);
             }
+        } else if (item == SM64AP_ID_BOBOMB_TRAP) {
+            if (SM64AP_CanSpawnFieldItem()) {
+                SM64AP_SpawnBobombTrapInFrontOfMario();
+            } else {
+                delayed_queue.push(item);
+            }
+        } else {
+            delayed_queue.push(item);
         }
     }
 }
