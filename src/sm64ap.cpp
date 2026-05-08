@@ -720,28 +720,50 @@ int SM64AP_GetLockedCoinLoc(struct Object *o) {
     return sLockedCoins[coinIndex].locId;
 }
 
-void SM64AP_CheckLockedCoin(struct Object *o) {
-    int locId = SM64AP_GetLockedCoinLoc(o);
-
-    if (locId != 0 && !SM64AP_CoinsanityCheckedLoc(locId)) {
-        SM64AP_SendItem(locId);
-        SM64AP_CoinsanitySetCheckedLoc(locId);
+void SM64AP_CheckLockedCoin(struct Object *coin) {
+    if (coin == NULL) {
+        return;
     }
-}
 
-void SM64AP_AddCoinsToCourse(s16 course, s16 amount) {
     if (gMarioState == NULL) {
         return;
     }
 
-    if (gCurrCourseNum != course) {
-        return;
-    }
+    // Do not check coins outside the current level.
+    s16 level = gCurrLevelNum;
 
-    gMarioState->numCoins += amount;
+    s32 coinX = (s32)coin->oPosX;
+    s32 coinY = (s32)coin->oPosY;
+    s32 coinZ = (s32)coin->oPosZ;
 
-    if (gMarioState->numCoins > 999) {
-        gMarioState->numCoins = 999;
+    for (s32 i = 0; i < ARRAY_COUNT(sLockedCoins); i++) {
+        struct SM64APLockedCoin *entry = &sLockedCoins[i];
+
+        // VERY IMPORTANT:
+        // Skip coins from other levels before doing distance math.
+        if (entry->level != level) {
+            continue;
+        }
+
+        // Already checked? Do not process it again.
+        if (SM64AP_CheckedLoc(entry->locId)) {
+            continue;
+        }
+
+        s32 dx = coinX - entry->x;
+        s32 dy = coinY - entry->y;
+        s32 dz = coinZ - entry->z;
+
+        if (dx > -entry->range && dx < entry->range &&
+            dy > -entry->range && dy < entry->range &&
+            dz > -entry->range && dz < entry->range) {
+
+            SM64AP_SendItem(entry->locId);
+
+            // VERY IMPORTANT:
+            // Stop after one match so one coin cannot trigger multiple entries.
+            return;
+        }
     }
 }
 
