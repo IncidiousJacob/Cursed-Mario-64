@@ -760,11 +760,17 @@ void SM64AP_CheckLockedCoin(Object *coin) {
     for (s32 i = 0; i < ARRAY_COUNT(sLockedCoins); i++) {
         SM64APLockedCoin *entry = &sLockedCoins[i];
 
+        // Skip all coins from other levels immediately.
         if (entry->level != level) {
             continue;
         }
 
-        if (SM64AP_CheckedLoc(entry->locId)) {
+        // Skip bad/empty entries.
+        if (entry->locId <= 0) {
+            continue;
+        }
+
+        if (entry->range <= 0) {
             continue;
         }
 
@@ -772,11 +778,15 @@ void SM64AP_CheckLockedCoin(Object *coin) {
         s32 dy = coinY - entry->y;
         s32 dz = coinZ - entry->z;
 
+        // Only after the coordinate match succeeds should we touch AP checked logic.
         if (dx > -entry->range && dx < entry->range &&
             dy > -entry->range && dy < entry->range &&
             dz > -entry->range && dz < entry->range) {
 
-            SM64AP_SendItem(entry->locId);
+            if (!SM64AP_CheckedLoc(entry->locId)) {
+                SM64AP_SendItem(entry->locId);
+            }
+
             return;
         }
     }
