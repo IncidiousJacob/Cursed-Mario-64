@@ -113,6 +113,13 @@ void bhv_coin_loop(void) {
 }
 
 void bhv_coin_formation_spawn_loop(void) {
+    // Always honour the parent formation's despawn signal regardless of AP status.
+    // Previously this check lived at the bottom of the function, so the AP early
+    // return below would skip it — orphaning up to 8 objects per entry/exit cycle
+    // and eventually exhausting the object pool.
+    if (o->parentObj->oAction == 2)
+        obj_mark_for_deletion(o);
+
     // --- AP LOCKED COIN HIDE HOOK ---
     if (!SM64AP_CanCollectLockedCoin(o)) {
         cur_obj_hide();
@@ -144,11 +151,15 @@ void bhv_coin_formation_spawn_loop(void) {
             o->parentObj->oCoinUnkF4 |= bit_shift_left(o->oBehParams2ndByte);
         o->oAnimState++;
     }
-    if (o->parentObj->oAction == 2)
-        obj_mark_for_deletion(o);
 }
 
 void spawn_coin_in_formation(s32 sp50, s32 sp54) {
+    // Guard: if the object pool is already full, skip this spawn rather than
+    // driving allocate_object into pool exhaustion (which previously caused a hang).
+    if (gFreeObjectList.next == NULL) {
+        LOG_ERROR("spawn_coin_in_formation: object pool full, skipping coin %d", sp50);
+        return;
+    }
     struct Object *sp4C;
     Vec3i sp40;
     s32 sp3C = 1;

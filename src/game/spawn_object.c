@@ -12,6 +12,8 @@
 #include "object_list_processor.h"
 #include "spawn_object.h"
 #include "types.h"
+#include "pc/pc_log.h"
+#include "pc/pc_debug.h"
 
 /**
  * An unused linked list struct that seems to have been replaced by ObjectNode.
@@ -217,11 +219,23 @@ struct Object *allocate_object(struct ObjectNode *objList) {
 
         // If no unimportant object exists, then the object pool is exhausted.
         if (unimportantObj == NULL) {
-            // We've met with a terrible fate.
-            while (TRUE) {
-            }
+            // Log the fatal error with the offending behavior pointer, then exit cleanly.
+            // The original SM64 code hung here with `while (TRUE)` — we exit
+            // instead so the watchdog log captures a meaningful final state.
+            LOG_ERROR("FATAL: Object pool exhausted — no free or unimportant slots. "
+                      "Triggered by behavior 0x%p.",
+                      (void *)(gCurrentObject ? gCurrentObject->behavior : NULL));
+            pc_print_backtrace();
+            LOG_ERROR("Terminating due to object pool exhaustion.");
+            exit(1);
         } else {
             // If an unimportant object does exist, unload it and take its slot.
+            // Log a warning: pool had to evict — include the offending behavior pointer
+            // so it can be cross-referenced against behavior_data.h.
+            s32 freeCount = pc_count_free_objects();
+            LOG_ERROR("allocate_object: pool pressure — evicting unimportant object. "
+                      "Triggered by behavior 0x%p. ~%d slots remaining.",
+                      (void *)(gCurrentObject ? gCurrentObject->behavior : NULL), freeCount);
             unload_object(unimportantObj);
             obj = try_allocate_object(objList, &gFreeObjectList);
             if (gCurrentObject == obj) {
@@ -357,4 +371,18 @@ struct Object *create_object(const BehaviorScript *bhvScript) {
 void mark_obj_for_deletion(struct Object *obj) {
     //! Same issue as obj_mark_for_deletion
     obj->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+}
+
+/**
+ * Count the number of free slots remaining in the object pool.
+ * Walks the singly-linked free list — O(n) but only called for diagnostics.
+ */
+s32 pc_count_free_objects(void) {
+    s32 count = 0;
+    struct ObjectNode *node = gFreeObjectList.next;
+    while (node != NULL) {
+        count++;
+        node = node->next;
+    }
+    return count;
 }

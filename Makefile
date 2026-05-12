@@ -509,10 +509,10 @@ ifeq ($(WINDOW_API),DXGI)
     BACKEND_CFLAGS += -Iinclude/dxsdk
   endif
   BACKEND_LDFLAGS += -ld3dcompiler -ldxgi -ldxguid
-  BACKEND_LDFLAGS += -lsetupapi -ldinput8 -luser32 -lgdi32 -limm32 -lole32 -loleaut32 -lshell32 -lwinmm -lversion -luuid -static
+  BACKEND_LDFLAGS += -lsetupapi -ldinput8 -luser32 -lgdi32 -limm32 -lole32 -loleaut32 -lshell32 -lwinmm -lversion -luuid -ldbghelp -static
 else ifeq ($(findstring SDL,$(WINDOW_API)),SDL)
   ifeq ($(WINDOWS_BUILD),1)
-    BACKEND_LDFLAGS += -lglew32 -lglu32 -lopengl32
+    BACKEND_LDFLAGS += -lglew32 -lglu32 -lopengl32 -ldbghelp
   else ifeq ($(TARGET_RPI),1)
     BACKEND_LDFLAGS += -lGLESv2
   else ifeq ($(OSX_BUILD),1)
@@ -651,6 +651,7 @@ else ifeq ($(WINDOWS_BUILD),1)
   ifeq ($(WINDOWS_CONSOLE),1)
     LDFLAGS += -mconsole
   endif
+  LDFLAGS += -Wl,--export-all-symbols
 
 else ifeq ($(TARGET_RPI),1)
   LDFLAGS := $(OPT_FLAGS) -lm $(BACKEND_LDFLAGS) -no-pie
