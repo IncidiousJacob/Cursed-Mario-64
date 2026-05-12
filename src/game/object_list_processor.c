@@ -19,6 +19,7 @@
 #include "platform_displacement.h"
 #include "profiler.h"
 #include "spawn_object.h"
+#include "pc/pc_log.h"
 
 
 /**
@@ -664,6 +665,22 @@ void update_objects(UNUSED s32 unused) {
     // Unload any objects that have been deactivated
     cycleCounts[5] = get_clock_difference(cycleCounts[0]);
     unload_deactivated_objects();
+
+    // Pool occupancy diagnostic: warn once per 60 frames when free slots drop
+    // below 25% of capacity. This creates a trail in the log so the leaking
+    // behavior can be correlated with game time before the fatal is reached.
+    {
+        static s32 sPoolWarnCounter = 0;
+        if (++sPoolWarnCounter >= 60) {
+            sPoolWarnCounter = 0;
+            s32 freeSlots = pc_count_free_objects();
+            s32 usedSlots = OBJECT_POOL_CAPACITY - freeSlots;
+            if (freeSlots < OBJECT_POOL_CAPACITY / 4) {
+                LOG_ERROR("[Pool] HIGH USAGE: %d/%d slots used (%d free)",
+                          usedSlots, OBJECT_POOL_CAPACITY, freeSlots);
+            }
+        }
+    }
 
     // Check if Mario is on a platform object and save this object
     cycleCounts[6] = get_clock_difference(cycleCounts[0]);

@@ -228,6 +228,9 @@ struct Object *allocate_object(struct ObjectNode *objList) {
             exit(1);
         } else {
             // If an unimportant object does exist, unload it and take its slot.
+            // Log a warning here: we had to evict to make room — pool is under pressure.
+            s32 freeCount = pc_count_free_objects();
+            LOG_ERROR("allocate_object: pool pressure — evicting unimportant object. ~%d slots remaining.", freeCount);
             unload_object(unimportantObj);
             obj = try_allocate_object(objList, &gFreeObjectList);
             if (gCurrentObject == obj) {
@@ -363,4 +366,18 @@ struct Object *create_object(const BehaviorScript *bhvScript) {
 void mark_obj_for_deletion(struct Object *obj) {
     //! Same issue as obj_mark_for_deletion
     obj->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+}
+
+/**
+ * Count the number of free slots remaining in the object pool.
+ * Walks the singly-linked free list — O(n) but only called for diagnostics.
+ */
+s32 pc_count_free_objects(void) {
+    s32 count = 0;
+    struct ObjectNode *node = gFreeObjectList.next;
+    while (node != NULL) {
+        count++;
+        node = node->next;
+    }
+    return count;
 }
