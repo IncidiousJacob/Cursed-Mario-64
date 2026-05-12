@@ -651,6 +651,7 @@ else ifeq ($(WINDOWS_BUILD),1)
   ifeq ($(WINDOWS_CONSOLE),1)
     LDFLAGS += -mconsole
   endif
+  LDFLAGS += -Wl,--export-all-symbols
 
 else ifeq ($(TARGET_RPI),1)
   LDFLAGS := $(OPT_FLAGS) -lm $(BACKEND_LDFLAGS) -no-pie

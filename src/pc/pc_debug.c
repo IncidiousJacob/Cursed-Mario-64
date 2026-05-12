@@ -19,8 +19,14 @@ void pc_print_backtrace(void) {
 #ifdef _WIN32
     void *stack[32];
     HANDLE process = GetCurrentProcess();
-    SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES);
-    SymInitialize(process, NULL, TRUE);
+    SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES | SYMOPT_ALLOW_ABSOLUTE_SYMBOLS);
+    
+    char exe_path[MAX_PATH];
+    GetModuleFileNameA(NULL, exe_path, MAX_PATH);
+    char *last_slash = strrchr(exe_path, '\\');
+    if (last_slash) *last_slash = 0;
+
+    SymInitialize(process, exe_path, TRUE);
 
     unsigned short frames = CaptureStackBackTrace(0, 32, stack, NULL);
     SYMBOL_INFO *symbol = (SYMBOL_INFO *)calloc(1, sizeof(SYMBOL_INFO) + 256 * sizeof(char));
@@ -104,8 +110,14 @@ void pc_print_main_thread_backtrace(void) {
             return;
 #endif
 
-            SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES);
-            SymInitialize(process, NULL, TRUE);
+            SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES | SYMOPT_ALLOW_ABSOLUTE_SYMBOLS);
+            
+            char exe_path[MAX_PATH];
+            GetModuleFileNameA(NULL, exe_path, MAX_PATH);
+            char *last_slash = strrchr(exe_path, '\\');
+            if (last_slash) *last_slash = 0;
+            
+            SymInitialize(process, exe_path, TRUE);
             
             LOG_ERROR("Main Thread Backtrace:");
             for (int i = 0; i < 32; i++) {
