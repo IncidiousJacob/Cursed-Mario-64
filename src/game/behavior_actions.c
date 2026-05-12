@@ -44,6 +44,7 @@
 #include "spawn_sound.h"
 #include "thread6.h"
 #include "sm64ap.h"
+#include "pc/pc_log.h"
 
 #define o gCurrentObject
 

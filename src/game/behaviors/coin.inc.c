@@ -149,6 +149,12 @@ void bhv_coin_formation_spawn_loop(void) {
 }
 
 void spawn_coin_in_formation(s32 sp50, s32 sp54) {
+    // Guard: if the object pool is already full, skip this spawn rather than
+    // driving allocate_object into pool exhaustion (which previously caused a hang).
+    if (gFreeObjectList.next == NULL) {
+        LOG_ERROR("spawn_coin_in_formation: object pool full, skipping coin %d", sp50);
+        return;
+    }
     struct Object *sp4C;
     Vec3i sp40;
     s32 sp3C = 1;

@@ -12,6 +12,8 @@
 #include "object_list_processor.h"
 #include "spawn_object.h"
 #include "types.h"
+#include "pc/pc_log.h"
+#include "pc/pc_debug.h"
 
 /**
  * An unused linked list struct that seems to have been replaced by ObjectNode.
@@ -217,9 +219,13 @@ struct Object *allocate_object(struct ObjectNode *objList) {
 
         // If no unimportant object exists, then the object pool is exhausted.
         if (unimportantObj == NULL) {
-            // We've met with a terrible fate.
-            while (TRUE) {
-            }
+            // Log the fatal error and print a backtrace before dying cleanly.
+            // The original SM64 code hung here with `while (TRUE)` — we exit
+            // instead so the watchdog log captures a meaningful final state.
+            LOG_ERROR("FATAL: Object pool exhausted — no free or unimportant slots.");
+            pc_print_backtrace();
+            LOG_ERROR("Terminating due to object pool exhaustion.");
+            exit(1);
         } else {
             // If an unimportant object does exist, unload it and take its slot.
             unload_object(unimportantObj);
