@@ -10,6 +10,7 @@
 #include "fs/fs.h"
 #include "configfile.h"
 #include "platform.h"
+#include "pc_log.h"
 
 /* NULL terminated list of platform specific read-only data paths */
 /* priority is top first */
@@ -84,6 +85,7 @@ void sys_fatal(const char *fmt, ...) {
     vsnprintf(msg, sizeof(msg), fmt, args);
     va_end(args);
     fflush(stdout); // push all crap out
+    LOG_FATAL("%s", msg);
     sys_fatal_impl(msg);
 }
 

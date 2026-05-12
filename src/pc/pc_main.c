@@ -34,6 +34,9 @@
 #include "game/game_init.h"
 #include "game/main.h"
 #include "game/thread6.h"
+#include "pc_log.h"
+#include "pc_debug.h"
+#include "pc_watchdog.h"
 
 #ifdef DISCORDRPC
 #include "pc/discord/discordrpc.h"
@@ -93,6 +96,7 @@ void produce_one_frame(void) {
 
     game_loop_one_iteration();
     thread6_rumble_loop(NULL);
+    pc_watchdog_heartbeat();
 
     int samples_left = audio_api->buffered();
     u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? SAMPLES_HIGH : SAMPLES_LOW;
@@ -175,6 +179,10 @@ void main_func(void) {
     const char *gamedir = gCLIOpts.GameDir[0] ? gCLIOpts.GameDir : FS_BASEDIR;
     const char *userpath = gCLIOpts.SavePath[0] ? gCLIOpts.SavePath : sys_user_path();
     fs_init(sys_ropaths, gamedir, userpath);
+
+    pc_log_init();
+    pc_debug_init();
+    pc_watchdog_init();
 
     configfile_load(configfile_name());
 

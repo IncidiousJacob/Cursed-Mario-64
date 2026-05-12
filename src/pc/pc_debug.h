@@ -1,0 +1,7 @@
+#ifndef PC_DEBUG_H
+#define PC_DEBUG_H
+
+void pc_debug_init(void);
+void pc_print_backtrace(void);
+
+#endif // PC_DEBUG_H
