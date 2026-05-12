@@ -3,21 +3,14 @@
 #include <unistd.h>
 #include <signal.h>
 
-#ifndef _WIN32
-#include <pthread.h>
-#endif
-
 #include "pc_watchdog.h"
 #include "pc_log.h"
+#include "pc_debug.h"
 
 #define HANG_THRESHOLD_SECONDS 5
 
 static volatile uint32_t s_heartbeat = 0;
 static bool s_running = true;
-
-#ifndef _WIN32
-static pthread_t s_main_thread;
-#endif
 
 static int watchdog_thread_func(void *data) {
     uint32_t last_heartbeat = 0;
@@ -33,10 +26,7 @@ static int watchdog_thread_func(void *data) {
             if (seconds_since_last_change >= HANG_THRESHOLD_SECONDS) {
                 LOG_ERROR("HANG DETECTED! No heartbeat for %d seconds.", seconds_since_last_change);
                 
-#ifndef _WIN32
-                // Send signal to main thread to trigger backtrace
-                pthread_kill(s_main_thread, SIGUSR1);
-#endif
+                pc_print_main_thread_backtrace();
                 
                 // If signal didn't terminate, we should probably exit anyway after some time
                 SDL_Delay(2000);
@@ -53,9 +43,6 @@ static int watchdog_thread_func(void *data) {
 }
 
 void pc_watchdog_init(void) {
-#ifndef _WIN32
-    s_main_thread = pthread_self();
-#endif
     s_heartbeat = 0;
     SDL_CreateThread(watchdog_thread_func, "SM64Watchdog", NULL);
 }
