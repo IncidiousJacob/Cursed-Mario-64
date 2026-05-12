@@ -19,6 +19,7 @@ void pc_print_backtrace(void) {
 #ifdef _WIN32
     void *stack[32];
     HANDLE process = GetCurrentProcess();
+    SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES);
     SymInitialize(process, NULL, TRUE);
 
     unsigned short frames = CaptureStackBackTrace(0, 32, stack, NULL);
@@ -28,8 +29,21 @@ void pc_print_backtrace(void) {
 
     LOG_ERROR("Backtrace (%d frames):", frames);
     for (unsigned short i = 0; i < frames; i++) {
-        SymFromAddr(process, (DWORD64)(stack[i]), 0, symbol);
-        LOG_ERROR("  %d: %s - 0x%0llX", i, symbol->Name, (unsigned long long)symbol->Address);
+        DWORD64 displacement = 0;
+        IMAGEHLP_MODULE64 module;
+        memset(&module, 0, sizeof(IMAGEHLP_MODULE64));
+        module.SizeOfStruct = sizeof(IMAGEHLP_MODULE64);
+        
+        const char *module_name = "???";
+        if (SymGetModuleInfo64(process, (DWORD64)stack[i], &module)) {
+            module_name = module.ModuleName;
+        }
+
+        if (SymFromAddr(process, (DWORD64)(stack[i]), &displacement, symbol)) {
+            LOG_ERROR("  %d: %s!%s - 0x%0llX", i, module_name, symbol->Name, (unsigned long long)symbol->Address);
+        } else {
+            LOG_ERROR("  %d: %s + 0x%0llX", i, module_name, (unsigned long long)((DWORD64)stack[i] - module.BaseOfImage));
+        }
     }
 
     free(symbol);
@@ -90,6 +104,7 @@ void pc_print_main_thread_backtrace(void) {
             return;
 #endif
 
+            SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES);
             SymInitialize(process, NULL, TRUE);
             
             LOG_ERROR("Main Thread Backtrace:");
@@ -103,10 +118,19 @@ void pc_print_main_thread_backtrace(void) {
                 symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
                 symbol->MaxNameLen = MAX_SYM_NAME;
                 
+                IMAGEHLP_MODULE64 module;
+                memset(&module, 0, sizeof(IMAGEHLP_MODULE64));
+                module.SizeOfStruct = sizeof(IMAGEHLP_MODULE64);
+                
+                const char *module_name = "???";
+                if (SymGetModuleInfo64(process, stackframe.AddrPC.Offset, &module)) {
+                    module_name = module.ModuleName;
+                }
+
                 if (SymFromAddr(process, stackframe.AddrPC.Offset, &displacement, symbol)) {
-                    LOG_ERROR("  %d: %s - 0x%0llX", i, symbol->Name, (unsigned long long)symbol->Address);
+                    LOG_ERROR("  %d: %s!%s - 0x%0llX", i, module_name, symbol->Name, (unsigned long long)symbol->Address);
                 } else {
-                    LOG_ERROR("  %d: ??? - 0x%0llX", i, (unsigned long long)stackframe.AddrPC.Offset);
+                    LOG_ERROR("  %d: %s + 0x%0llX", i, module_name, (unsigned long long)(stackframe.AddrPC.Offset - module.BaseOfImage));
                 }
             }
         }
