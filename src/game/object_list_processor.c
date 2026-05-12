@@ -667,17 +667,38 @@ void update_objects(UNUSED s32 unused) {
     unload_deactivated_objects();
 
     // Pool occupancy diagnostic: warn once per 60 frames when free slots drop
-    // below 25% of capacity. This creates a trail in the log so the leaking
-    // behavior can be correlated with game time before the fatal is reached.
+    // below 10% of capacity. Per-list breakdown identifies which list is bloated.
     {
         static s32 sPoolWarnCounter = 0;
         if (++sPoolWarnCounter >= 60) {
             sPoolWarnCounter = 0;
             s32 freeSlots = pc_count_free_objects();
             s32 usedSlots = OBJECT_POOL_CAPACITY - freeSlots;
-            if (freeSlots < OBJECT_POOL_CAPACITY / 4) {
-                LOG_ERROR("[Pool] HIGH USAGE: %d/%d slots used (%d free)",
-                          usedSlots, OBJECT_POOL_CAPACITY, freeSlots);
+            if (freeSlots < OBJECT_POOL_CAPACITY / 10) {
+                // Count objects per list for breakdown diagnostics
+                s32 listCounts[NUM_OBJ_LISTS];
+                s32 i;
+                for (i = 0; i < NUM_OBJ_LISTS; i++) {
+                    s32 cnt = 0;
+                    struct ObjectNode *list = &gObjectListArray[i];
+                    struct ObjectNode *node = list->next;
+                    while (node != list) { cnt++; node = node->next; }
+                    listCounts[i] = cnt;
+                }
+                LOG_ERROR("[Pool] HIGH USAGE: %d/%d slots used (%d free) | "
+                          "PLAYER:%d DEST:%d GENACTOR:%d PUSH:%d LEVEL:%d "
+                          "DEFAULT:%d SURFACE:%d POLE:%d SPAWN:%d UNIMP:%d",
+                          usedSlots, OBJECT_POOL_CAPACITY, freeSlots,
+                          listCounts[OBJ_LIST_PLAYER],
+                          listCounts[OBJ_LIST_DESTRUCTIVE],
+                          listCounts[OBJ_LIST_GENACTOR],
+                          listCounts[OBJ_LIST_PUSHABLE],
+                          listCounts[OBJ_LIST_LEVEL],
+                          listCounts[OBJ_LIST_DEFAULT],
+                          listCounts[OBJ_LIST_SURFACE],
+                          listCounts[OBJ_LIST_POLELIKE],
+                          listCounts[OBJ_LIST_SPAWNER],
+                          listCounts[OBJ_LIST_UNIMPORTANT]);
             }
         }
     }

@@ -219,18 +219,23 @@ struct Object *allocate_object(struct ObjectNode *objList) {
 
         // If no unimportant object exists, then the object pool is exhausted.
         if (unimportantObj == NULL) {
-            // Log the fatal error and print a backtrace before dying cleanly.
+            // Log the fatal error with the offending behavior pointer, then exit cleanly.
             // The original SM64 code hung here with `while (TRUE)` — we exit
             // instead so the watchdog log captures a meaningful final state.
-            LOG_ERROR("FATAL: Object pool exhausted — no free or unimportant slots.");
+            LOG_ERROR("FATAL: Object pool exhausted — no free or unimportant slots. "
+                      "Triggered by behavior 0x%p.",
+                      (void *)(gCurrentObject ? gCurrentObject->behavior : NULL));
             pc_print_backtrace();
             LOG_ERROR("Terminating due to object pool exhaustion.");
             exit(1);
         } else {
             // If an unimportant object does exist, unload it and take its slot.
-            // Log a warning here: we had to evict to make room — pool is under pressure.
+            // Log a warning: pool had to evict — include the offending behavior pointer
+            // so it can be cross-referenced against behavior_data.h.
             s32 freeCount = pc_count_free_objects();
-            LOG_ERROR("allocate_object: pool pressure — evicting unimportant object. ~%d slots remaining.", freeCount);
+            LOG_ERROR("allocate_object: pool pressure — evicting unimportant object. "
+                      "Triggered by behavior 0x%p. ~%d slots remaining.",
+                      (void *)(gCurrentObject ? gCurrentObject->behavior : NULL), freeCount);
             unload_object(unimportantObj);
             obj = try_allocate_object(objList, &gFreeObjectList);
             if (gCurrentObject == obj) {
