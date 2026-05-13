@@ -248,6 +248,18 @@ bool sm64_have_locked_coin_6242 = false;
 bool sm64_have_locked_coin_6243 = false;
 bool sm64_have_locked_coin_6244 = false;
 bool sm64_have_locked_coin_6245 = false;
+bool sm64_have_locked_coin_6246 = false;
+bool sm64_have_locked_coin_6247 = false;
+bool sm64_have_locked_coin_6248 = false;
+bool sm64_have_locked_coin_6249 = false;
+bool sm64_have_locked_coin_6250 = false;
+bool sm64_have_locked_coin_6251 = false;
+bool sm64_have_locked_coin_6252 = false;
+bool sm64_have_locked_coin_6253 = false;
+bool sm64_have_locked_coin_6254 = false;
+bool sm64_have_locked_coin_6255 = false;
+bool sm64_have_locked_coin_6256 = false;
+
 
 
 
@@ -504,6 +516,17 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6243, &sm64_have_locked_coin_6243 },
     { 6244, &sm64_have_locked_coin_6244 },
     { 6245, &sm64_have_locked_coin_6245 },
+    { 6246, &sm64_have_locked_coin_6246 },
+    { 6247, &sm64_have_locked_coin_6247 },
+    { 6248, &sm64_have_locked_coin_6248 },
+    { 6249, &sm64_have_locked_coin_6249 },
+    { 6250, &sm64_have_locked_coin_6250 },
+    { 6251, &sm64_have_locked_coin_6251 },
+    { 6252, &sm64_have_locked_coin_6252 },
+    { 6253, &sm64_have_locked_coin_6253 },
+    { 6254, &sm64_have_locked_coin_6254 },
+    { 6255, &sm64_have_locked_coin_6255 },
+    { 6256, &sm64_have_locked_coin_6256 },
 };
 
 typedef struct {
@@ -758,6 +781,17 @@ static SM64APCoinsanityCheckedLocEntry sCoinsanityCheckedLocTable[] = {
     { 6243, false },
     { 6244, false },
     { 6245, false },
+    { 6246, false },
+    { 6247, false },
+    { 6248, false },
+    { 6249, false },
+    { 6250, false },
+    { 6251, false },
+    { 6252, false },
+    { 6253, false },
+    { 6254, false },
+    { 6255, false },
+    { 6256, false },
 };
 
 static bool SM64AP_SetCoinsanityReturnItemFlag(int64_t idx) {
