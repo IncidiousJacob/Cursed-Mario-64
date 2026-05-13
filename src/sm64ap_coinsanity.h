@@ -241,6 +241,7 @@ bool sm64_have_locked_coin_6235 = false;
 bool sm64_have_locked_coin_6236 = false;
 bool sm64_have_locked_coin_6237 = false;
 bool sm64_have_locked_coin_6238 = false;
+bool sm64_have_locked_coin_6239 = false;
 bool sm64_have_locked_coin_6240 = false;
 bool sm64_have_locked_coin_6241 = false;
 bool sm64_have_locked_coin_6242 = false;
