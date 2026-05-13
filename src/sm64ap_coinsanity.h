@@ -1,6 +1,6 @@
 #ifndef SM64AP_COINSANITY_H
 #define SM64AP_COINSANITY_H
-
+//
 
 bool sm64_have_locked_coin_6000 = false;
 bool sm64_have_locked_coin_6001 = false;
