@@ -325,6 +325,14 @@ bool sm64_have_locked_coin_6319 = false;
 bool sm64_have_locked_coin_6320 = false;
 bool sm64_have_locked_coin_6321 = false;
 bool sm64_have_locked_coin_6322 = false;
+bool sm64_have_locked_coin_6323 = false;
+bool sm64_have_locked_coin_6324 = false;
+bool sm64_have_locked_coin_6325 = false;
+bool sm64_have_locked_coin_6326 = false;
+bool sm64_have_locked_coin_6327 = false;
+bool sm64_have_locked_coin_6328 = false;
+bool sm64_have_locked_coin_6329 = false;
+bool sm64_have_locked_coin_6330 = false;
 
 
 
@@ -652,14 +660,22 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6312, &sm64_have_locked_coin_6312 },
     { 6313, &sm64_have_locked_coin_6313 },
     { 6314, &sm64_have_locked_coin_6314 },
-    { 6315, &sm64_have_locked_coin_6307 },
-    { 6316, &sm64_have_locked_coin_6308 },
-    { 6317, &sm64_have_locked_coin_6309 },
-    { 6318, &sm64_have_locked_coin_6310 },
-    { 6319, &sm64_have_locked_coin_6311 },
-    { 6320, &sm64_have_locked_coin_6312 },
-    { 6321, &sm64_have_locked_coin_6313 },
-    { 6314, &sm64_have_locked_coin_6314 },
+    { 6315, &sm64_have_locked_coin_6315 },
+    { 6316, &sm64_have_locked_coin_6316 },
+    { 6317, &sm64_have_locked_coin_6317 },
+    { 6318, &sm64_have_locked_coin_6318 },
+    { 6319, &sm64_have_locked_coin_6319 },
+    { 6320, &sm64_have_locked_coin_6320 },
+    { 6321, &sm64_have_locked_coin_6321 },
+    { 6322, &sm64_have_locked_coin_6322 },
+    { 6323, &sm64_have_locked_coin_6323 },
+    { 6324, &sm64_have_locked_coin_6324 },
+    { 6325, &sm64_have_locked_coin_6325 },
+    { 6326, &sm64_have_locked_coin_6326 },
+    { 6327, &sm64_have_locked_coin_6327 },
+    { 6328, &sm64_have_locked_coin_6328 },
+    { 6329, &sm64_have_locked_coin_6329 },
+    { 6330, &sm64_have_locked_coin_6330 },
 };
 
 typedef struct {
@@ -983,6 +999,22 @@ static SM64APCoinsanityCheckedLocEntry sCoinsanityCheckedLocTable[] = {
     { 6312, false },
     { 6313, false },
     { 6314, false },
+    { 6315, false },
+    { 6316, false },
+    { 6317, false },
+    { 6318, false },
+    { 6319, false },
+    { 6320, false },
+    { 6321, false },
+    { 6322, false },
+    { 6323, false },
+    { 6324, false },
+    { 6325, false },
+    { 6326, false },
+    { 6327, false },
+    { 6328, false },
+    { 6329, false },
+    { 6330, false },
 };
 
 static bool SM64AP_SetCoinsanityReturnItemFlag(int64_t idx) {
