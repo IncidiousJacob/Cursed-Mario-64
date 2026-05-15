@@ -317,6 +317,14 @@ bool sm64_have_locked_coin_6311 = false;
 bool sm64_have_locked_coin_6312 = false;
 bool sm64_have_locked_coin_6313 = false;
 bool sm64_have_locked_coin_6314 = false;
+bool sm64_have_locked_coin_6315 = false;
+bool sm64_have_locked_coin_6316 = false;
+bool sm64_have_locked_coin_6317 = false;
+bool sm64_have_locked_coin_6318 = false;
+bool sm64_have_locked_coin_6319 = false;
+bool sm64_have_locked_coin_6320 = false;
+bool sm64_have_locked_coin_6321 = false;
+bool sm64_have_locked_coin_6322 = false;
 
 
 
@@ -643,6 +651,14 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6311, &sm64_have_locked_coin_6311 },
     { 6312, &sm64_have_locked_coin_6312 },
     { 6313, &sm64_have_locked_coin_6313 },
+    { 6314, &sm64_have_locked_coin_6314 },
+    { 6315, &sm64_have_locked_coin_6307 },
+    { 6316, &sm64_have_locked_coin_6308 },
+    { 6317, &sm64_have_locked_coin_6309 },
+    { 6318, &sm64_have_locked_coin_6310 },
+    { 6319, &sm64_have_locked_coin_6311 },
+    { 6320, &sm64_have_locked_coin_6312 },
+    { 6321, &sm64_have_locked_coin_6313 },
     { 6314, &sm64_have_locked_coin_6314 },
 };
 
