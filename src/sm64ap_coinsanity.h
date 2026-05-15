@@ -304,6 +304,11 @@ bool sm64_have_locked_coin_6298 = false;
 bool sm64_have_locked_coin_6299 = false;
 bool sm64_have_locked_coin_6300 = false;
 bool sm64_have_locked_coin_6301 = false;
+bool sm64_have_locked_coin_6302 = false;
+bool sm64_have_locked_coin_6303 = false;
+bool sm64_have_locked_coin_6304 = false;
+bool sm64_have_locked_coin_6305 = false;
+bool sm64_have_locked_coin_6306 = false;
 
 
 
@@ -618,6 +623,11 @@ static SM64APCoinsanityReturnItemEntry sCoinsanityReturnItemTable[] = {
     { 6299, &sm64_have_locked_coin_6299 },
     { 6300, &sm64_have_locked_coin_6300 },
     { 6301, &sm64_have_locked_coin_6301 },
+    { 6302, &sm64_have_locked_coin_6302 },
+    { 6303, &sm64_have_locked_coin_6303 },
+    { 6304, &sm64_have_locked_coin_6304 },
+    { 6305, &sm64_have_locked_coin_6305 },
+    { 6306, &sm64_have_locked_coin_6306 },
 };
 
 typedef struct {
@@ -928,6 +938,11 @@ static SM64APCoinsanityCheckedLocEntry sCoinsanityCheckedLocTable[] = {
     { 6299, false },
     { 6300, false },
     { 6301, false },
+    { 6302, false },
+    { 6303, false },
+    { 6304, false },
+    { 6305, false },
+    { 6306, false },
 };
 
 static bool SM64AP_SetCoinsanityReturnItemFlag(int64_t idx) {
