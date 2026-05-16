@@ -445,9 +445,9 @@ void SM64AP_Scuttlesanity(struct Object *o) {
             break;
     }
 
-    if (loc_id != 0 && !SM64AP_CheckedLoc(loc_id)) {
-        SM64AP_SendItem(loc_id);
-    }
+	if (loc_id != 0) {
+		SM64AP_SendItem(loc_id);
+	}
 }
 
 typedef struct {
