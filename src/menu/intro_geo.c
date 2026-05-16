@@ -24,14 +24,12 @@
 static Gfx *sIntroScalePos;
 static Vec3f sIntroScale;
 
+extern void interpolate_vectors(Vec3f res, Vec3f a, Vec3f b);
+
 void patch_title_screen_scales(void) {
     if (sIntroScalePos != NULL) {
         Mtx *scaleMat = alloc_display_list(sizeof(*scaleMat));
-        vec3f_set(scale, scaleX, scaleY, scaleZ);
-        interpolate_vectors(scaleInterpolated, sIntroScale, scale);
-        vec3f_set(sIntroScale, scaleX, scaleY, scaleZ);
-        guScale(scaleMat, scaleInterpolated[0], scaleInterpolated[1], scaleInterpolated[2]);
-        sIntroScalePos = displayListIter;
+        guScale(scaleMat, sIntroScale[0], sIntroScale[1], sIntroScale[2]);
         gSPMatrix(sIntroScalePos, scaleMat, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
         sIntroScalePos = NULL;
     }
@@ -42,8 +40,6 @@ struct GraphNodeMore {
     /*0x14*/ void *todo;
     /*0x18*/ u32 unk18;
 };
-
-extern void interpolate_vectors(Vec3f res, Vec3f a, Vec3f b);
 
 // intro geo bss
 s32 gGameOverFrameCounter;
