@@ -10,6 +10,7 @@
 #include "prevent_bss_reordering.h"
 
 #include "gfx_dimensions.h"
+#include "engine/math_util.h"
 
 // frame counts for the zoom in, hold, and zoom out of title model
 #define INTRO_STEPS_ZOOM_IN 20
@@ -19,6 +20,20 @@
 // background types
 #define INTRO_BACKGROUND_SUPER_MARIO 0
 #define INTRO_BACKGROUND_GAME_OVER 1
+
+static Gfx *sIntroScalePos;
+static Vec3f sIntroScale;
+
+extern void interpolate_vectors(Vec3f res, Vec3f a, Vec3f b);
+
+void patch_title_screen_scales(void) {
+    if (sIntroScalePos != NULL) {
+        Mtx *scaleMat = alloc_display_list(sizeof(*scaleMat));
+        guScale(scaleMat, sIntroScale[0], sIntroScale[1], sIntroScale[2]);
+        gSPMatrix(sIntroScalePos, scaleMat, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+        sIntroScalePos = NULL;
+    }
+}
 
 struct GraphNodeMore {
     /*0x00*/ struct GraphNode node;
@@ -80,18 +95,26 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
     f32 scaleX;                  // sp34
     f32 scaleY;                  // sp30
     f32 scaleZ;                  // sp2c
+    Vec3f scale;
+    Vec3f scaleInterpolated;
+
     graphNode = sp54;
     displayList = NULL;
     displayListIter = NULL;
+
     scaleTable1 = segmented_to_virtual(intro_seg7_table_0700C790);
     scaleTable2 = segmented_to_virtual(intro_seg7_table_0700C880);
+
     if (sp50 != 1) {
         gTitleZoomCounter = 0;
+        vec3f_set(sIntroScale, 1.0f, 1.0f, 1.0f);
     } else if (sp50 == 1) {
         graphNode->flags = (graphNode->flags & 0xFF) | 0x100;
+
         scaleMat = alloc_display_list(sizeof(*scaleMat));
         displayList = alloc_display_list(4 * sizeof(*displayList));
         displayListIter = displayList;
+
         if (gTitleZoomCounter >= 0 && gTitleZoomCounter < INTRO_STEPS_ZOOM_IN) {
             scaleX = scaleTable1[gTitleZoomCounter * 3];
             scaleY = scaleTable1[gTitleZoomCounter * 3 + 1];
@@ -101,7 +124,7 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
             scaleY = 1.0f;
             scaleZ = 1.0f;
         } else if (gTitleZoomCounter >= INTRO_STEPS_HOLD_1
-                   && gTitleZoomCounter < INTRO_STEPS_ZOOM_OUT) {
+                && gTitleZoomCounter < INTRO_STEPS_ZOOM_OUT) {
             scaleX = scaleTable2[(gTitleZoomCounter - INTRO_STEPS_HOLD_1) * 3];
             scaleY = scaleTable2[(gTitleZoomCounter - INTRO_STEPS_HOLD_1) * 3 + 1];
             scaleZ = scaleTable2[(gTitleZoomCounter - INTRO_STEPS_HOLD_1) * 3 + 2];
@@ -110,13 +133,22 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
             scaleY = 0.0f;
             scaleZ = 0.0f;
         }
-        guScale(scaleMat, scaleX, scaleY, scaleZ);
+
+        vec3f_set(scale, scaleX, scaleY, scaleZ);
+        interpolate_vectors(scaleInterpolated, sIntroScale, scale);
+        vec3f_copy(sIntroScale, scale);
+
+        guScale(scaleMat, scaleInterpolated[0], scaleInterpolated[1], scaleInterpolated[2]);
+        sIntroScalePos = displayListIter;
         gSPMatrix(displayListIter++, scaleMat, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+
         gSPDisplayList(displayListIter++, &intro_seg7_dl_0700B3A0);
         gSPPopMatrix(displayListIter++, G_MTX_MODELVIEW);
         gSPEndDisplayList(displayListIter);
+
         gTitleZoomCounter++;
     }
+
     return displayList;
 }
 

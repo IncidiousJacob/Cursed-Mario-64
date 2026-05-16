@@ -124,6 +124,42 @@ static struct CachedChar {
 } charCache[256];
 #endif // VERSION
 
+static Gfx *sInterpolatedDialogOffsetPos;
+static f32 sInterpolatedDialogOffset;
+static Gfx *sInterpolatedDialogRotationPos;
+static f32 sInterpolatedDialogScale;
+static f32 sInterpolatedDialogRotation;
+static Gfx *sInterpolatedDialogZoomPos;
+
+void patch_interpolated_dialog(void) {
+    Mtx *matrix;
+
+    if (sInterpolatedDialogOffsetPos != NULL) {
+        matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
+        guTranslate(matrix, 0, sInterpolatedDialogOffset, 0);
+        gSPMatrix(sInterpolatedDialogOffsetPos, VIRTUAL_TO_PHYSICAL(matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+        sInterpolatedDialogOffsetPos = NULL;
+    }
+    if (sInterpolatedDialogRotationPos != NULL) {
+        matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
+        guScale(matrix, 1.0 / sInterpolatedDialogScale, 1.0 / sInterpolatedDialogScale, 1.0f);
+        gSPMatrix(sInterpolatedDialogRotationPos++, VIRTUAL_TO_PHYSICAL(matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+        matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
+        guRotate(matrix, sInterpolatedDialogRotation * 4.0f, 0, 0, 1.0f);
+        gSPMatrix(sInterpolatedDialogRotationPos, VIRTUAL_TO_PHYSICAL(matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+        sInterpolatedDialogRotationPos = NULL;
+    }
+    if (sInterpolatedDialogZoomPos != NULL) {
+        matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
+        guTranslate(matrix, 65.0 - (65.0 / sInterpolatedDialogScale), (40.0 / sInterpolatedDialogScale) - 40, 0);
+        gSPMatrix(sInterpolatedDialogZoomPos++, VIRTUAL_TO_PHYSICAL(matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+        matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
+        guScale(matrix, 1.0 / sInterpolatedDialogScale, 1.0 / sInterpolatedDialogScale, 1.0f);
+        gSPMatrix(sInterpolatedDialogZoomPos, VIRTUAL_TO_PHYSICAL(matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+        sInterpolatedDialogZoomPos = NULL;
+    }
+}
+
 void create_dl_identity_matrix(void) {
     Mtx *matrix = (Mtx *) alloc_display_list(sizeof(Mtx));
 
@@ -1042,6 +1078,15 @@ void reset_dialog_render_state(void) {
 void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
     UNUSED s32 unused;
 
+    sInterpolatedDialogRotationPos = gDisplayListHead;
+                if (gDialogBoxState == DIALOG_STATE_OPENING) {
+                    sInterpolatedDialogScale = gDialogBoxScale - 2 / 2;
+                    sInterpolatedDialogRotation = gDialogBoxOpenTimer - 7.5f / 2;
+                } else {
+                    sInterpolatedDialogScale = gDialogBoxScale + 2 / 2;
+                    sInterpolatedDialogRotation = gDialogBoxOpenTimer + 7.5f / 2;
+                }
+
     create_dl_translation_matrix(MENU_MTX_NOPUSH, dialog->leftOffset, dialog->width, 0);
 
     switch (gDialogBoxType) {
@@ -1056,6 +1101,12 @@ void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
             break;
         case DIALOG_TYPE_ZOOM: // Renders a dialog white box with zoom
             if (gDialogBoxState == DIALOG_STATE_OPENING || gDialogBoxState == DIALOG_STATE_CLOSING) {
+                sInterpolatedDialogZoomPos = gDisplayListHead;
+                if (gDialogBoxState == DIALOG_STATE_OPENING) {
+                    sInterpolatedDialogScale = gDialogBoxScale - 2 / 2;
+                } else {
+                    sInterpolatedDialogScale = gDialogBoxScale + 2 / 2;
+                }
                 create_dl_translation_matrix(MENU_MTX_NOPUSH, 65.0 - (65.0 / gDialogBoxScale),
                                              (40.0 / gDialogBoxScale) - 40, 0);
                 create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0 / gDialogBoxScale, 1.0 / gDialogBoxScale,
@@ -1351,7 +1402,9 @@ void handle_dialog_text_and_pages(s8 colorMode, struct DialogEntry *dialog, s8 l
     }
 
 #ifndef VERSION_EU
-    create_dl_translation_matrix(MENU_MTX_PUSH, X_VAL3, 2 - lineNum * Y_VAL3, 0);
+        sInterpolatedDialogOffset = gDialogScrollOffsetY + dialog->linesPerBox;
+        sInterpolatedDialogOffsetPos = gDisplayListHead;
+        create_dl_translation_matrix(MENU_MTX_NOPUSH, 0, (f32) gDialogScrollOffsetY, 0);
 #endif
 
     while (pageState == DIALOG_PAGE_STATE_NONE) {
