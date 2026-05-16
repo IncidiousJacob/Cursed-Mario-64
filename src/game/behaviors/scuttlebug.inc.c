@@ -36,14 +36,12 @@ void bhv_scuttlebug_loop(void) {
 	float hx = o->oHomeX;
 	float hz = o->oHomeZ;
 
+	if (o->oInteractStatus & INT_STATUS_WAS_ATTACKED) {
+		SM64AP_Scuttlesanity(o);
+	}
+
 	if (cur_obj_set_hitbox_and_die_if_attacked(&sScuttlebugHitbox,
 		SOUND_OBJ_DYING_ENEMY1, o->oScuttlebugUnkF4)) {
-
-		o->oBehParams2ndByte = bp2;
-		o->oHomeX = hx;
-		o->oHomeZ = hz;
-
-		SM64AP_Scuttlesanity(o);
 		o->oSubAction = 3;
 	}
 
