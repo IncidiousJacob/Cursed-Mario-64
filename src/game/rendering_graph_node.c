@@ -45,6 +45,35 @@ Mtx *gMatStackFixed[32];
  * the animation state so a 'context switch' can be made when rendering the
  * held object.
  */
+
+static Gfx *sInterpolatedMatrixPos[0x1000];
+static Mtx *sInterpolatedMatrix[0x1000];
+static s32 sInterpolatedMatrixCount = 0;
+
+void interpolate_vectors(Vec3f res, Vec3f a, Vec3f b) {
+    res[0] = (a[0] + b[0]) / 2.0f;
+    res[1] = (a[1] + b[1]) / 2.0f;
+    res[2] = (a[2] + b[2]) / 2.0f;
+}
+
+void interpolate_vectors_s16(Vec3s res, Vec3s a, Vec3s b) {
+    res[0] = (a[0] + b[0]) / 2;
+    res[1] = (a[1] + b[1]) / 2;
+    res[2] = (a[2] + b[2]) / 2;
+}
+
+void mtx_patch_interpolated(void) {
+    s32 i;
+
+    for (i = 0; i < sInterpolatedMatrixCount; i++) {
+        gSPMatrix(sInterpolatedMatrixPos[i],
+                  VIRTUAL_TO_PHYSICAL(sInterpolatedMatrix[i]),
+                  G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+    }
+
+    sInterpolatedMatrixCount = 0;
+}
+
 struct GeoAnimState {
     /*0x00*/ u8 type;
     /*0x01*/ u8 enabled;
