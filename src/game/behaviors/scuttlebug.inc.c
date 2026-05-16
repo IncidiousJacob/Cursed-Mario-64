@@ -34,7 +34,13 @@ void bhv_scuttlebug_loop(void) {
 
 if (cur_obj_set_hitbox_and_die_if_attacked(&sScuttlebugHitbox,
 	SOUND_OBJ_DYING_ENEMY1, o->oScuttlebugUnkF4)) {
-	SM64AP_Scuttlesanity(o);
+
+	SM64AP_SendScuttlebug(
+		o->oBehParams2ndByte,
+		o->oHomeX,
+		o->oHomeZ
+	);
+
 	o->oSubAction = 3;
 }
 
