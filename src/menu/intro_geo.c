@@ -95,20 +95,26 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
     f32 scaleX;                  // sp34
     f32 scaleY;                  // sp30
     f32 scaleZ;                  // sp2c
-	Vec3f scale;
+    Vec3f scale;
     Vec3f scaleInterpolated;
+
     graphNode = sp54;
     displayList = NULL;
     displayListIter = NULL;
+
     scaleTable1 = segmented_to_virtual(intro_seg7_table_0700C790);
     scaleTable2 = segmented_to_virtual(intro_seg7_table_0700C880);
+
     if (sp50 != 1) {
         gTitleZoomCounter = 0;
+        vec3f_set(sIntroScale, 1.0f, 1.0f, 1.0f);
     } else if (sp50 == 1) {
         graphNode->flags = (graphNode->flags & 0xFF) | 0x100;
+
         scaleMat = alloc_display_list(sizeof(*scaleMat));
         displayList = alloc_display_list(4 * sizeof(*displayList));
         displayListIter = displayList;
+
         if (gTitleZoomCounter >= 0 && gTitleZoomCounter < INTRO_STEPS_ZOOM_IN) {
             scaleX = scaleTable1[gTitleZoomCounter * 3];
             scaleY = scaleTable1[gTitleZoomCounter * 3 + 1];
@@ -118,11 +124,11 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
             scaleY = 1.0f;
             scaleZ = 1.0f;
         } else if (gTitleZoomCounter >= INTRO_STEPS_HOLD_1
-                   && gTitleZoomCounter < INTRO_STEPS_ZOOM_OUT) {
+                && gTitleZoomCounter < INTRO_STEPS_ZOOM_OUT) {
             scaleX = scaleTable2[(gTitleZoomCounter - INTRO_STEPS_HOLD_1) * 3];
             scaleY = scaleTable2[(gTitleZoomCounter - INTRO_STEPS_HOLD_1) * 3 + 1];
             scaleZ = scaleTable2[(gTitleZoomCounter - INTRO_STEPS_HOLD_1) * 3 + 2];
-       } else {
+        } else {
             scaleX = 0.0f;
             scaleY = 0.0f;
             scaleZ = 0.0f;
@@ -139,8 +145,10 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
         gSPDisplayList(displayListIter++, &intro_seg7_dl_0700B3A0);
         gSPPopMatrix(displayListIter++, G_MTX_MODELVIEW);
         gSPEndDisplayList(displayListIter);
+
         gTitleZoomCounter++;
     }
+
     return displayList;
 }
 
