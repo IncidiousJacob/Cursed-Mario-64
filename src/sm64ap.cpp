@@ -167,6 +167,7 @@ bool SM64AP_NonstopModeEnabled(void) {
 
 void SM64AP_SetNonstopMode(bool enabled) {
     sm64_nonstop_mode = enabled;
+    printf("SM64AP NonstopMode=%d\n", (int)sm64_nonstop_mode);
 }
 
 
