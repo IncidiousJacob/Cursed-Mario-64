@@ -455,7 +455,7 @@ void SM64AP_Scuttlesanity(struct Object *o) {
 		SM64AP_SendItem(loc_id);
 	}
 }
-}
+
 
 typedef struct {
     int level;
