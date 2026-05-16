@@ -10,6 +10,7 @@
 #include "prevent_bss_reordering.h"
 
 #include "gfx_dimensions.h"
+#include "engine/math_util.h"
 
 // frame counts for the zoom in, hold, and zoom out of title model
 #define INTRO_STEPS_ZOOM_IN 20
@@ -20,11 +21,29 @@
 #define INTRO_BACKGROUND_SUPER_MARIO 0
 #define INTRO_BACKGROUND_GAME_OVER 1
 
+static Gfx *sIntroScalePos;
+static Vec3f sIntroScale;
+
+void patch_title_screen_scales(void) {
+    if (sIntroScalePos != NULL) {
+        Mtx *scaleMat = alloc_display_list(sizeof(*scaleMat));
+        vec3f_set(scale, scaleX, scaleY, scaleZ);
+        interpolate_vectors(scaleInterpolated, sIntroScale, scale);
+        vec3f_set(sIntroScale, scaleX, scaleY, scaleZ);
+        guScale(scaleMat, scaleInterpolated[0], scaleInterpolated[1], scaleInterpolated[2]);
+        sIntroScalePos = displayListIter;
+        gSPMatrix(sIntroScalePos, scaleMat, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+        sIntroScalePos = NULL;
+    }
+}
+
 struct GraphNodeMore {
     /*0x00*/ struct GraphNode node;
     /*0x14*/ void *todo;
     /*0x18*/ u32 unk18;
 };
+
+extern void interpolate_vectors(Vec3f res, Vec3f a, Vec3f b);
 
 // intro geo bss
 s32 gGameOverFrameCounter;
@@ -80,6 +99,8 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
     f32 scaleX;                  // sp34
     f32 scaleY;                  // sp30
     f32 scaleZ;                  // sp2c
+	Vec3f scale;
+    Vec3f scaleInterpolated;
     graphNode = sp54;
     displayList = NULL;
     displayListIter = NULL;
