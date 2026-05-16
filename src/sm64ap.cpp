@@ -57,6 +57,7 @@ int sm64_moat_state = 0;
 bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
 int sm64_completion_type = 0;
+bool sm64_nonstop_mode = false;
 std::bitset<SM64AP_NUM_ABILITIES> sm64_have_abilities;
 int *sm64_clockaction = nullptr;
 int sm64_cost_firstbowserdoor = 8;
@@ -134,6 +135,7 @@ SM64AP_RGB8 gSignBoardColor;
 
 int sm64_ap_health_items_received = 0;
 
+
 #define SM64AP_MIN_MAX_HEALTH 0x0300
 #define SM64AP_FULL_MAX_HEALTH 0x0880
 
@@ -157,6 +159,14 @@ void SM64AP_ApplyProgressiveHealth(void) {
     if (gMarioState->health > maxHealth || gMarioState->health == 0x0880) {
         gMarioState->health = maxHealth;
     }
+}
+
+bool SM64AP_NonstopModeEnabled(void) {
+    return sm64_nonstop_mode;
+}
+
+void SM64AP_SetNonstopMode(bool enabled) {
+    sm64_nonstop_mode = enabled;
 }
 
 
@@ -1414,6 +1424,9 @@ void SM64AP_ResetItems() {
     for (int i = 0; i < NUM_PAINTING_LOCKS; i++) {
         sm64_have_painting[i] = false;
     }
+
+    sm64_nonstop_mode = false;
+
     sm64_have_abilities.reset();
     sm64_received_move_rando_high = false;
     sm64_have_key1 = false;
