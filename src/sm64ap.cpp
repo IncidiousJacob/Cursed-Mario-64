@@ -1376,6 +1376,10 @@ void SM64AP_SetCompletionType(int type) {
     sm64_completion_type = type;
 }
 
+void SM64AP_SetNonstopModeSlot(int enabled) {
+    SM64AP_SetNonstopMode(enabled != 0);
+}
+
 void SM64AP_SetCourseMap(std::map<int, int> map) {
     map_entrances = map;
 }
@@ -1484,6 +1488,7 @@ void SM64AP_GenericInit() {
     AP_RegisterSlotDataIntCallback("MIPS2Cost", &SM64AP_SetMIPS2Cost);
     AP_RegisterSlotDataIntCallback("StarsToFinish", &SM64AP_SetStarsToFinish);
     AP_RegisterSlotDataIntCallback("CompletionType", &SM64AP_SetCompletionType);
+    AP_RegisterSlotDataIntCallback("NonstopMode", &SM64AP_SetNonstopModeSlot);
     AP_RegisterSlotDataIntCallback("MoveRandoVec", &SM64AP_SetMoveRandoVec);
     AP_RegisterSlotDataIntCallback("MoveRandoVecHigh", &SM64AP_SetMoveRandoVecHigh);
     AP_RegisterSlotDataIntCallback("PaintingRando", &SM64AP_SetPaintingRando);
