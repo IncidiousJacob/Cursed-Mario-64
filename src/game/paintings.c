@@ -989,6 +989,7 @@ Gfx *painting_ripple_image(struct Painting *painting) {
 
     gSPDisplayList(gfx++, painting_model_view_transform(painting));
     gSPDisplayList(gfx++, dl_paintings_rippling_begin);
+    sLastVerticesTimestamp = gGlobalTimer;
     gSPDisplayList(gfx++, painting->rippleDisplayList);
 
     // Map each image to the mesh's vertices
@@ -1028,6 +1029,7 @@ Gfx *painting_ripple_env_mapped(struct Painting *painting) {
 
     gSPDisplayList(gfx++, painting_model_view_transform(painting));
     gSPDisplayList(gfx++, dl_paintings_env_mapped_begin);
+    sLastVerticesTimestamp = gGlobalTimer;
     gSPDisplayList(gfx++, painting->rippleDisplayList);
 
     // Map the image to the mesh's vertices
