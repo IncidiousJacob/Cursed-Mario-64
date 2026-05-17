@@ -495,7 +495,6 @@ void render_hud(void) {
         sPowerMeterHUD.animation = POWER_METER_HIDDEN;
         sPowerMeterStoredHealth = 8;
         sPowerMeterVisibleTimer = 0;
-        SM64AP_DrawNonstopDebugText();
     } else {
 #ifdef VERSION_EU
         // basically create_dl_ortho_matrix but guOrtho screen width is different
@@ -545,5 +544,7 @@ void render_hud(void) {
         if (gRRTrapped && configHUD) {
             render_rr_trap_timer();
         }
+
+        SM64AP_DrawNonstopDebugText();
     }
 }
