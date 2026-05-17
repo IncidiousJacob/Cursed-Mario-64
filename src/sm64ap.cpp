@@ -58,6 +58,8 @@ bool sm64_have_cannon[15];
 bool sm64_have_painting[NUM_PAINTING_LOCKS];
 int sm64_completion_type = 0;
 bool sm64_nonstop_mode = false;
+char gNonstopDebugText[64];
+s32 gNonstopDebugTimer = 0;
 std::bitset<SM64AP_NUM_ABILITIES> sm64_have_abilities;
 int *sm64_clockaction = nullptr;
 int sm64_cost_firstbowserdoor = 8;
@@ -167,7 +169,20 @@ bool SM64AP_NonstopModeEnabled(void) {
 
 void SM64AP_SetNonstopMode(bool enabled) {
     sm64_nonstop_mode = enabled;
+
+    snprintf(gNonstopDebugText, sizeof(gNonstopDebugText),
+        "NONSTOP MODE %s", sm64_nonstop_mode ? "ON" : "OFF");
+
+    gNonstopDebugTimer = 300;
+
     printf("SM64AP NonstopMode=%d\n", (int)sm64_nonstop_mode);
+}
+
+void SM64AP_DrawNonstopDebugText(void) {
+    if (gNonstopDebugTimer > 0) {
+        print_text(20, 80, gNonstopDebugText);
+        gNonstopDebugTimer--;
+    }
 }
 
 
