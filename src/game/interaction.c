@@ -792,59 +792,49 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
     u32 noExit = (o->oInteractionSubtype & INT_SUBTYPE_NO_EXIT) != 0;
     u32 grandStar = (o->oInteractionSubtype & INT_SUBTYPE_GRAND_STAR) != 0;
 
+    // Nonstop Mode:
+    // If enabled, normal course stars keep Mario in the level.
+    // Hold L while collecting the star to force the normal exit.
+    // Grand stars still exit normally.
+    u32 nonstopStay =
+        SM64AP_NonstopModeEnabled()
+        && !(m->controller->buttonDown & L_TRIG)
+        && !grandStar
+        && gCurrLevelNum != LEVEL_BOWSER_1
+        && gCurrLevelNum != LEVEL_BOWSER_2
+        && gCurrLevelNum != LEVEL_BOWSER_3;
+
     if (m->health >= 0x100) {
-        mario_stop_riding_and_holding(m);
+        if (nonstopStay) {
+            noExit = TRUE;
+        } else {
+            mario_stop_riding_and_holding(m);
+        }
+
         queue_rumble_data(5, 80);
 
         if (!noExit) {
-            m->hurtCounter = 0;
-            m->healCounter = 0;
-            if (m->capTimer > 1) {
-                m->capTimer = 1;
-            }
+            enable_time_stop();
+            create_sound_spawner(SOUND_GENERAL2_STAR_APPEARS);
+        }
+
+        starIndex = get_star_id(o->oBehParams);
+        save_file_collect_star_or_key(m->numCoins, starIndex);
+        m->numStars =
+            save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
+
+        if (grandStar) {
+            play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(0, SEQ_EVENT_CUTSCENE_COLLECT_STAR), 0);
+            return set_mario_action(m, ACT_STAR_DANCE_WATER, 1);
         }
 
         if (noExit) {
             starGrabAction = ACT_STAR_DANCE_NO_EXIT;
         }
 
-        if (m->action & ACT_FLAG_SWIMMING) {
-            starGrabAction = ACT_STAR_DANCE_WATER;
-        }
-
-        if (m->action & ACT_FLAG_METAL_WATER) {
-            starGrabAction = ACT_STAR_DANCE_WATER;
-        }
-
-        if (m->action & ACT_FLAG_AIR) {
-            starGrabAction = ACT_FALL_AFTER_STAR_GRAB;
-        }
-
-        spawn_object(o, MODEL_NONE, bhvStarKeyCollectionPuffSpawner);
-
-        o->oInteractStatus = INT_STATUS_INTERACTED;
-        m->interactObj = o;
-        m->usedObj = o;
-
-        starIndex = (o->oBehParams >> 24) & 0x1F;
-        save_file_collect_star_or_key(m->numCoins, starIndex);
-
-        m->numStars =
-            save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
-
-        if (!noExit) {
-            drop_queued_background_music();
-            fadeout_level_music(126);
-        }
-
-        play_sound(SOUND_MENU_STAR_SOUND, m->marioObj->header.gfx.cameraToObject);
-#ifndef VERSION_JP
-        update_mario_sound_and_camera(m);
-        // func_802521A0
-#endif
-
-        if (grandStar) {
-            return set_mario_action(m, ACT_JUMBO_STAR_CUTSCENE, 0);
+        if (nonstopStay) {
+            save_file_do_save(gCurrSaveFileNum - 1);
+            return set_mario_action(m, ACT_STAR_DANCE_NO_EXIT, 0);
         }
 
         return set_mario_action(m, starGrabAction, noExit + 2 * grandStar);
