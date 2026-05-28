@@ -79,7 +79,7 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
-#define SM64AP_DEATHLINK_SEND_THRESHOLD 10
+#define SM64AP_DEATHLINK_SEND_THRESHOLD 1
 
 static int gSM64APDeathLinkSendCounter = 0;
 
