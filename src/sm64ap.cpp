@@ -79,7 +79,9 @@ s32 gRRTrapTimer = 0;
 static bool sm64_received_move_rando_high = false;
 char gPlantDebugText[64];
 s32 gPlantDebugTimer = 0;
+#define SM64AP_DEATHLINK_SEND_THRESHOLD 10
 
+static int gSM64APDeathLinkSendCounter = 0;
 
 #define SM64AP_COURSE_MIN 1
 #define SM64AP_COURSE_MAX 15
@@ -1406,6 +1408,8 @@ void SM64AP_SetPaintingRando(int enabled) {
 }
 
 void SM64AP_ResetItems() {
+	gSM64APDeathLinkSendCounter = 0;
+	
     for (int i = 0; i < SM64AP_NUM_LOCS; i++) {
         sm64_locations[i] = false;
     }
@@ -1841,13 +1845,24 @@ void SM64AP_DeathLinkClear() {
 }
 
 void SM64AP_DeathLinkSend() {
-    if (!SM64AP_DeathLinkPending()) {
-        return AP_DeathLinkSend();
-    } else {
+    // Preserve the old behavior:
+    // if we are currently processing an incoming DeathLink,
+    // clear it instead of echoing it back to the multiworld.
+    if (SM64AP_DeathLinkPending()) {
         SM64AP_DeathLinkClear();
+        return;
     }
-}
 
+    gSM64APDeathLinkSendCounter++;
+
+    // Require 10 local DeathLink sends before actually sending 1 to AP.
+    if (gSM64APDeathLinkSendCounter < SM64AP_DEATHLINK_SEND_THRESHOLD) {
+        return;
+    }
+
+    gSM64APDeathLinkSendCounter = 0;
+    AP_DeathLinkSend();
+}
 bool SM64AP_CanDoubleJump() {
     return sm64_have_abilities[SM64AP_ID_DOUBLEJUMP - SM64AP_ABILITY_OFFSET]
            || sm64_have_abilities[SM64AP_ID_TRIPLEJUMP - SM64AP_ABILITY_OFFSET];
